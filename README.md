@@ -1,12 +1,9 @@
-# template-definitions
+# cove.js
 
-Template repository for entity definition libraries in Javascript
+## TODO
 
-See [here](https://docs.github.com/en/github-ae@latest/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template)
-for details on how to use this repository.
-
-Included is a simple `template.py` analog to `cookiecutter` which will prompt
-the user for some information and then write out templated values in select files.
-After usage, the `template.py` file can be removed and the `README.md` and associated
+Use `template.py` (analog to `cookiecutter`) to go through user prompts
+for some information and then write out templated values in select files.
+After usage, remove the `template.py` file and the `README.md` and associated
 `files` can be committed.
 
