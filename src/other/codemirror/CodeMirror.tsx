@@ -1,3 +1,9 @@
+import "codemirror/lib/codemirror.css";
+import "codemirror/mode/jinja2/jinja2";
+import "codemirror/mode/fortran/fortran";
+import "codemirror/mode/shell/shell";
+import "codemirror/mode/python/python";
+import "codemirror/mode/javascript/javascript";
 import { javascript } from "@codemirror/lang-javascript";
 import { json, jsonParseLinter } from "@codemirror/lang-json";
 import { python } from "@codemirror/lang-python";
@@ -6,7 +12,8 @@ import { fortran } from "@codemirror/legacy-modes/mode/fortran";
 import { jinja2 } from "@codemirror/legacy-modes/mode/jinja2";
 import { shell } from "@codemirror/legacy-modes/mode/shell";
 import { linter, lintGutter } from "@codemirror/lint";
-import CodeMirrorBase, { BasicSetupOptions, ReactCodeMirrorProps } from "@uiw/react-codemirror";
+import { CompletionContext, CompletionResult, autocompletion } from "@codemirror/autocomplete";
+import CodeMirrorBase, { BasicSetupOptions } from "@uiw/react-codemirror";
 import React from "react";
 
 const LANGUAGES_MAP: Record<string, any> = {
@@ -24,7 +31,7 @@ export interface CodeMirrorProps {
     content?: string;
     options: boolean | BasicSetupOptions;
     language: string;
-    extensions: ReactCodeMirrorProps["extensions"][];
+    completions: (context: CompletionContext) => CompletionResult;
 }
 
 export interface CodeMirrorState {
@@ -64,7 +71,9 @@ class CodeMirror extends React.Component<CodeMirrorProps, CodeMirrorState> {
     }
 
     render() {
-        const { content = "", options = {}, language, extensions = [] } = this.props;
+        const { content = "", options = {}, language, completions } = this.props;
+        const completionExtension = autocompletion({ override: [completions] });
+
         return (
             <CodeMirrorBase
                 value={content || ""}
@@ -76,7 +85,7 @@ class CodeMirror extends React.Component<CodeMirrorProps, CodeMirrorState> {
                 onBlur={() => this.setState({ isEditing: false })}
                 basicSetup={options}
                 theme="light"
-                extensions={[...extensions, ...this.getLanguageExtensions(language)]}
+                extensions={[completionExtension, ...this.getLanguageExtensions(language)]}
             />
         );
     }
