@@ -5,7 +5,7 @@ export interface PlainTextViewerProps {
     src: string;
 }
 
-export class PlainTextViewer extends React.Component<PlainTextViewerProps> {
+class PlainTextViewer extends React.Component<PlainTextViewerProps> {
     render() {
         // eslint-disable-next-line react/prop-types
         const { src } = this.props;

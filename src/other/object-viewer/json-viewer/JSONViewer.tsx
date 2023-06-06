@@ -10,7 +10,7 @@ export interface JSONViewerProps {
     onUpdate: () => void;
 }
 
-export class JSONViewer extends React.Component<JSONViewerProps> {
+export default class JSONViewer extends React.Component<JSONViewerProps> {
     render() {
         const { src, onUpdate } = this.props;
         return (
