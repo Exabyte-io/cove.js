@@ -1,4 +1,4 @@
-import { Theme } from "@mui/material";
+import { Theme } from "@mui/material/styles";
 
 const Typography = (theme: Theme) => {
     return {
