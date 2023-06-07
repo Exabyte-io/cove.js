@@ -151,7 +151,7 @@ function DatePicker({
                             color:
                                 selectedOption === DateRangeOption.custom
                                     ? "primary.light"
-                                    : "primary.dark",
+                                    : "primary.contrastText",
                         }}
                     />
                     <span>Custom</span>
