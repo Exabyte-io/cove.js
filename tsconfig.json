@@ -14,9 +14,7 @@
     "skipLibCheck": true,
     "types": [],
     "rootDir": "./src",
-    "baseUrl": "./src",
-    "paths": {"*": ["*"]
-  }
+    "baseUrl": "./src"
   },
   "include": [
     "./src"

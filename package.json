@@ -54,13 +54,15 @@
         "katex": "^0.16.7",
         "prismjs": "^1.29.0",
         "react-beautiful-dnd": "^13.1.1",
-        "react-json-view": "^1.16.0",
-        "typescript": "^5.0.2",
+        "react-json-view": "^1.16.0"
+    },
+    "devDependencies": {
         "@exabyte-io/eslint-config": "^2022.11.17-0",
         "@mui/icons-material": "^5.11.9",
         "@mui/lab": "^5.0.0-alpha.120",
         "@mui/material": "^5.11.9",
         "@mui/styles": "^5.11.9",
+        "@mui/x-date-pickers": "^6.0.0",
         "@types/katex": "^0.16.0",
         "@types/prismjs": "^1.26.0",
         "@types/react": "^18.2.8",
@@ -90,9 +92,10 @@
         "prop-types": "^15.8.1",
         "react": "^17.0.0",
         "react-dom": "^17.0.0",
-        "underscore": "^1.8.3"
+        "react-json-view": "^1.16.0",
+        "underscore": "^1.8.3",
+        "typescript": "^5.0.2"
     },
-    "devDependencies": {},
     "engines": {
         "node": ">=12.0.0"
     },
