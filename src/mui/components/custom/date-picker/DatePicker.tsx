@@ -10,9 +10,9 @@ import classNames from "classnames";
 import moment, { Moment } from "moment";
 import React, { SyntheticEvent, useCallback, useState } from "react";
 
+import IconByName from "../../icon/IconByName";
 import {
     DatePickerButtonsContainer,
-    StyledCalendarTodayIcon,
     StyledDatePicker,
     StyledDatePickerContainer,
     StyledPopover,
@@ -145,7 +145,15 @@ function DatePicker({
                     })}
                     onClick={handleOpenDatePicker}
                 >
-                    <StyledCalendarTodayIcon active={selectedOption === DateRangeOption.custom} />
+                    <IconByName
+                        name="calendar"
+                        sx={{
+                            color:
+                                selectedOption === DateRangeOption.custom
+                                    ? "primary.light"
+                                    : "primary.dark",
+                        }}
+                    />
                     <span>Custom</span>
                     <ArrowDropDownIcon fontSize="large" />
                 </div>

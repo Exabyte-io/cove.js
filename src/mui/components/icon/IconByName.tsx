@@ -1,131 +1,129 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import {
-    AccountBalance,
-    AccountBalanceWalletOutlined,
-    AccountCircle,
-    Add,
-    AddCircle,
-    AddCircleOutline,
-    Adjust,
-    Assignment,
-    AttachMoney,
-    AutoGraph,
-    Autorenew,
-    BatteryChargingFullOutlined,
-    CalculateOutlined,
-    CallMerge,
-    CallSplit,
-    Check,
-    CheckCircle,
-    CheckOutlined,
-    ChevronRight,
-    Circle,
-    Close,
-    CloudUpload,
-    Code,
-    ContentCopy,
-    CopyAllOutlined,
-    CreditCard,
-    Dashboard,
-    Delete,
-    Description,
-    DesktopWindowsOutlined,
-    DirectionsWalk,
-    DoubleArrow,
-    Download,
-    Edit,
-    Email,
-    ExpandLess,
-    ExpandMore,
-    Face,
-    FilterDrama,
-    FindInPage,
-    FlashOnOutlined,
-    Flip,
-    Folder,
-    FolderOpen,
-    FolderOutlined,
-    FormatLineSpacing,
-    FormatListBulleted,
-    Forward,
-    GridOn,
-    GroupAdd,
-    GroupsRounded,
-    Help,
-    Info,
-    InfoOutlined,
-    Input,
-    InsertChart,
-    InsertDriveFile,
-    Keyboard,
-    Label,
-    Language,
-    Layers,
-    LibraryAdd,
-    Link,
-    LiveHelp,
-    LocationOn,
-    Lock,
-    LooksOne,
-    Memory,
-    Message,
-    ModeComment,
-    MonetizationOnOutlined,
-    MonetizationOnRounded,
-    MoreHoriz,
-    MoreVert,
-    NorthEastOutlined,
-    NoteAdd,
-    OpenInBrowser,
-    OpenInNew,
-    OpenWith,
-    PauseCircleOutlined,
-    People,
-    Person,
-    PlayArrow,
-    PlayCircleOutlined,
-    PowerSettingsNew,
-    Print,
-    Public,
-    Publish,
-    RadioButtonChecked,
-    RadioButtonUnchecked,
-    Receipt,
-    ReceiptRounded,
-    ReduceCapacityRounded,
-    Replay,
-    SavedSearch,
-    School,
-    Search,
-    Settings,
-    SettingsApplications,
-    SettingsSystemDaydream,
-    Share,
-    SignalCellularNoSim,
-    Star,
-    StarOutline,
-    Stop,
-    SupportAgent,
-    SvgIconComponent,
-    SwapCalls,
-    SwapVert,
-    Sync,
-    SystemUpdateAlt,
-    Terminal,
-    Toc,
-    UnfoldLess,
-    UnfoldMore,
-    ViewColumn,
-    Visibility,
-    VisibilityOff,
-    Widgets,
-    WifiTethering,
-    WorkspacesOutlined,
-    WrapText,
-    YoutubeSearchedFor,
-} from "@mui/icons-material";
-import { SvgIconProps } from "@mui/material";
+import AccountBalance from "@mui/icons-material/AccountBalance";
+import AccountBalanceWalletOutlined from "@mui/icons-material/AccountBalanceWalletOutlined";
+import AccountCircle from "@mui/icons-material/AccountCircle";
+import Add from "@mui/icons-material/Add";
+import AddCircle from "@mui/icons-material/AddCircle";
+import AddCircleOutline from "@mui/icons-material/AddCircleOutline";
+import Adjust from "@mui/icons-material/Adjust";
+import Assignment from "@mui/icons-material/Assignment";
+import AttachMoney from "@mui/icons-material/AttachMoney";
+import AutoGraph from "@mui/icons-material/AutoGraph";
+import Autorenew from "@mui/icons-material/Autorenew";
+import BatteryChargingFullOutlined from "@mui/icons-material/BatteryChargingFullOutlined";
+import CalculateOutlined from "@mui/icons-material/CalculateOutlined";
+import CalendarToday from "@mui/icons-material/CalendarToday";
+import CallMerge from "@mui/icons-material/CallMerge";
+import CallSplit from "@mui/icons-material/CallSplit";
+import Check from "@mui/icons-material/Check";
+import CheckCircle from "@mui/icons-material/CheckCircle";
+import CheckOutlined from "@mui/icons-material/CheckOutlined";
+import ChevronRight from "@mui/icons-material/ChevronRight";
+import Circle from "@mui/icons-material/Circle";
+import Close from "@mui/icons-material/Close";
+import CloudUpload from "@mui/icons-material/CloudUpload";
+import Code from "@mui/icons-material/Code";
+import ContentCopy from "@mui/icons-material/ContentCopy";
+import CopyAllOutlined from "@mui/icons-material/CopyAllOutlined";
+import CreditCard from "@mui/icons-material/CreditCard";
+import Dashboard from "@mui/icons-material/Dashboard";
+import Delete from "@mui/icons-material/Delete";
+import Description from "@mui/icons-material/Description";
+import DesktopWindowsOutlined from "@mui/icons-material/DesktopWindowsOutlined";
+import DirectionsWalk from "@mui/icons-material/DirectionsWalk";
+import DoubleArrow from "@mui/icons-material/DoubleArrow";
+import Download from "@mui/icons-material/Download";
+import Edit from "@mui/icons-material/Edit";
+import Email from "@mui/icons-material/Email";
+import ExpandLess from "@mui/icons-material/ExpandLess";
+import ExpandMore from "@mui/icons-material/ExpandMore";
+import Face from "@mui/icons-material/Face";
+import FilterDrama from "@mui/icons-material/FilterDrama";
+import FindInPage from "@mui/icons-material/FindInPage";
+import FlashOnOutlined from "@mui/icons-material/FlashOnOutlined";
+import Flip from "@mui/icons-material/Flip";
+import Folder from "@mui/icons-material/Folder";
+import FolderOpen from "@mui/icons-material/FolderOpen";
+import FolderOutlined from "@mui/icons-material/FolderOutlined";
+import FormatLineSpacing from "@mui/icons-material/FormatLineSpacing";
+import FormatListBulleted from "@mui/icons-material/FormatListBulleted";
+import Forward from "@mui/icons-material/Forward";
+import GridOn from "@mui/icons-material/GridOn";
+import GroupAdd from "@mui/icons-material/GroupAdd";
+import GroupsRounded from "@mui/icons-material/GroupsRounded";
+import Help from "@mui/icons-material/Help";
+import Info from "@mui/icons-material/Info";
+import InfoOutlined from "@mui/icons-material/InfoOutlined";
+import Input from "@mui/icons-material/Input";
+import InsertChart from "@mui/icons-material/InsertChart";
+import InsertDriveFile from "@mui/icons-material/InsertDriveFile";
+import Keyboard from "@mui/icons-material/Keyboard";
+import Label from "@mui/icons-material/Label";
+import Language from "@mui/icons-material/Language";
+import Layers from "@mui/icons-material/Layers";
+import LibraryAdd from "@mui/icons-material/LibraryAdd";
+import Link from "@mui/icons-material/Link";
+import LiveHelp from "@mui/icons-material/LiveHelp";
+import LocationOn from "@mui/icons-material/LocationOn";
+import Lock from "@mui/icons-material/Lock";
+import LooksOne from "@mui/icons-material/LooksOne";
+import Memory from "@mui/icons-material/Memory";
+import Message from "@mui/icons-material/Message";
+import ModeComment from "@mui/icons-material/ModeComment";
+import MonetizationOnOutlined from "@mui/icons-material/MonetizationOnOutlined";
+import MonetizationOnRounded from "@mui/icons-material/MonetizationOnRounded";
+import MoreHoriz from "@mui/icons-material/MoreHoriz";
+import MoreVert from "@mui/icons-material/MoreVert";
+import NorthEastOutlined from "@mui/icons-material/NorthEastOutlined";
+import NoteAdd from "@mui/icons-material/NoteAdd";
+import OpenInBrowser from "@mui/icons-material/OpenInBrowser";
+import OpenInNew from "@mui/icons-material/OpenInNew";
+import OpenWith from "@mui/icons-material/OpenWith";
+import PauseCircleOutlined from "@mui/icons-material/PauseCircleOutlined";
+import People from "@mui/icons-material/People";
+import Person from "@mui/icons-material/Person";
+import PlayArrow from "@mui/icons-material/PlayArrow";
+import PlayCircleOutlined from "@mui/icons-material/PlayCircleOutlined";
+import PowerSettingsNew from "@mui/icons-material/PowerSettingsNew";
+import Print from "@mui/icons-material/Print";
+import Public from "@mui/icons-material/Public";
+import Publish from "@mui/icons-material/Publish";
+import RadioButtonChecked from "@mui/icons-material/RadioButtonChecked";
+import RadioButtonUnchecked from "@mui/icons-material/RadioButtonUnchecked";
+import Receipt from "@mui/icons-material/Receipt";
+import ReceiptRounded from "@mui/icons-material/ReceiptRounded";
+import ReduceCapacityRounded from "@mui/icons-material/ReduceCapacityRounded";
+import Replay from "@mui/icons-material/Replay";
+import SavedSearch from "@mui/icons-material/SavedSearch";
+import School from "@mui/icons-material/School";
+import Search from "@mui/icons-material/Search";
+import Settings from "@mui/icons-material/Settings";
+import SettingsApplications from "@mui/icons-material/SettingsApplications";
+import SettingsSystemDaydream from "@mui/icons-material/SettingsSystemDaydream";
+import Share from "@mui/icons-material/Share";
+import SignalCellularNoSim from "@mui/icons-material/SignalCellularNoSim";
+import Star from "@mui/icons-material/Star";
+import StarOutline from "@mui/icons-material/StarOutline";
+import Stop from "@mui/icons-material/Stop";
+import SupportAgent from "@mui/icons-material/SupportAgent";
+import SwapCalls from "@mui/icons-material/SwapCalls";
+import SwapVert from "@mui/icons-material/SwapVert";
+import Sync from "@mui/icons-material/Sync";
+import SystemUpdateAlt from "@mui/icons-material/SystemUpdateAlt";
+import Terminal from "@mui/icons-material/Terminal";
+import Toc from "@mui/icons-material/Toc";
+import UnfoldLess from "@mui/icons-material/UnfoldLess";
+import UnfoldMore from "@mui/icons-material/UnfoldMore";
+import ViewColumn from "@mui/icons-material/ViewColumn";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import Widgets from "@mui/icons-material/Widgets";
+import WifiTethering from "@mui/icons-material/WifiTethering";
+import WorkspacesOutlined from "@mui/icons-material/WorkspacesOutlined";
+import WrapText from "@mui/icons-material/WrapText";
+import YoutubeSearchedFor from "@mui/icons-material/YoutubeSearchedFor";
 import { useTheme } from "@mui/material/styles";
+import SvgIcon, { SvgIconProps } from "@mui/material/SvgIcon";
 import React from "react";
 
 export type IconByNameProps = SvgIconProps & {
@@ -133,7 +131,7 @@ export type IconByNameProps = SvgIconProps & {
     rotateDegrees?: number;
 };
 
-function rotateIcon(IconComponent: SvgIconComponent, degrees: number) {
+function rotateIcon(IconComponent: typeof SvgIcon, degrees: number) {
     function RotatedIcon(props: IconByNameProps) {
         const { sx } = props;
 
@@ -143,7 +141,7 @@ function rotateIcon(IconComponent: SvgIconComponent, degrees: number) {
     return RotatedIcon;
 }
 
-const iconComponentMap: Record<string, SvgIconComponent | ReturnType<typeof rotateIcon>> = {
+const iconComponentMap: Record<string, typeof SvgIcon | ReturnType<typeof rotateIcon>> = {
     accounts: People,
     add: Add,
     addCircle: AddCircle,
@@ -161,6 +159,7 @@ const iconComponentMap: Record<string, SvgIconComponent | ReturnType<typeof rota
     batteryFlash: BatteryChargingFullOutlined,
     calculateOutlined: CalculateOutlined,
     card: CreditCard,
+    calendar: CalendarToday,
     changeType: Edit,
     charge: Receipt,
     chart: InsertChart,

@@ -65,14 +65,6 @@ export const StyledDatePicker = styled(MuiDatePicker)(() => ({
     },
 }));
 
-export const StyledCalendarTodayIcon = styled(CalendarTodayIcon)(
-    ({ theme, active }: { theme: Theme; active?: boolean }) => ({
-        ".MuiSvgIcon-root": {
-            color: active ? theme.palette.primary.light : theme.palette.primary.dark,
-        },
-    }),
-);
-
 export const StyledDatePickerContainer = styled("div")(({ theme }) => ({
     ".date-picker-buttons": {
         display: "flex",
