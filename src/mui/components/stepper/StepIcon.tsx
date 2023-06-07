@@ -1,8 +1,9 @@
-import { styled } from "@mui/material/styles";
+import { Theme } from "@mui/material/styles";
+import { styled } from "@mui/styles";
 import classNames from "classnames";
 import React from "react";
 
-const StyledStepIcon = styled("div")(({ theme }) => ({
+const StyledStepIcon = styled("div")(({ theme }: { theme: Theme }) => ({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",

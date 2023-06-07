@@ -1,8 +1,9 @@
 import StepConnector, { stepConnectorClasses } from "@mui/material/StepConnector";
-import { styled } from "@mui/material/styles";
+import { Theme } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
+import { styled } from "@mui/styles";
 
-export const StyledConnector = styled(StepConnector)(({ theme }) => ({
+export const StyledConnector = styled(StepConnector)(({ theme }: { theme: Theme }) => ({
     [`&.${stepConnectorClasses.alternativeLabel}`]: {
         top: 24,
         left: "calc(-50% + 25px)",

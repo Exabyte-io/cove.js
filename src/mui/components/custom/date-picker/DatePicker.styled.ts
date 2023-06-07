@@ -1,9 +1,10 @@
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import Popover from "@mui/material/Popover";
-import { styled } from "@mui/material/styles";
+import { Theme } from "@mui/material/styles";
+import { styled } from "@mui/styles";
 import { DatePicker as MuiDatePicker } from "@mui/x-date-pickers/DatePicker";
 
-export const DatePickerButtonsContainer = styled("div")(({ theme }) => ({
+export const DatePickerButtonsContainer = styled("div")(({ theme }: { theme: Theme }) => ({
     display: "flex",
     flexDirection: "row",
     border: `1px solid ${theme.palette.primary.main}`,
@@ -65,13 +66,15 @@ export const StyledDatePicker = styled(MuiDatePicker)(() => ({
     },
 }));
 
-export const StyledCalendarTodayIcon = styled(CalendarTodayIcon)(({ theme, active }) => ({
-    ".MuiSvgIcon-root": {
-        color: active ? theme.palette.light : theme.palette.primary.dark,
-    },
-}));
+export const StyledCalendarTodayIcon = styled(CalendarTodayIcon)(
+    ({ theme, active }: { theme: Theme; active: boolean }) => ({
+        ".MuiSvgIcon-root": {
+            color: active ? theme.palette.primary.light : theme.palette.primary.dark,
+        },
+    }),
+);
 
-export const StyledDatePickerContainer = styled("div")(({ theme }) => ({
+export const StyledDatePickerContainer = styled("div")(({ theme }: { theme: Theme }) => ({
     ".date-picker-buttons": {
         display: "flex",
         flexDirection: "row",

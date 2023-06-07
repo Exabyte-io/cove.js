@@ -3,9 +3,9 @@ import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import Popover from "@mui/material/Popover";
-import { styled, SxProps, Theme } from "@mui/material/styles";
+import { SxProps, Theme } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
-import { makeStyles } from "@mui/styles";
+import { makeStyles, styled } from "@mui/styles";
 import React, { useRef, useState } from "react";
 
 export const InfoIconButton = styled(IconButton)({
@@ -61,7 +61,7 @@ export interface InfoPopoverProps {
     onButtonClick?: () => void;
     children: React.ReactNode;
     outlined?: boolean;
-    iconSize?: string;
+    iconSize?: "small" | "medium" | "large";
     sx?: SxProps;
 }
 

@@ -45,7 +45,7 @@ export default function TotalWidget({
                 color={boxColor}
                 onMouseEnter={handlePopoverOpen}
                 onMouseLeave={handlePopoverClose}
-                isPointer={popoverContent}
+                isPointer={Boolean(popoverContent)}
             >
                 <IconByName name={iconName} sx={{ color: boxColor }} />
             </ColorBox>

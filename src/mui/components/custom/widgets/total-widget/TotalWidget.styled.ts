@@ -1,4 +1,5 @@
-import { alpha, styled, Theme } from "@mui/material/styles";
+import { alpha, Theme } from "@mui/material/styles";
+import { styled } from "@mui/styles";
 
 export const TotalContainer = styled("div")(
     ({ theme, isBorder }: { theme: Theme; isBorder: boolean }) => ({
