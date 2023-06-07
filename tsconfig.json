@@ -13,7 +13,12 @@
     "strict": true,
     "skipLibCheck": true,
     "types": [],
-    "rootDir": "./src"
+    "rootDir": "./src",
+    "baseUrl": "./src",
+    "paths": {"*": [
+      "*"
+    ]
+  }
   },
   "include": [
     "./src"
