@@ -2,7 +2,9 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import Button from "@mui/material/Button";
+import { DateValidationError } from "@mui/x-date-pickers";
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
+import { PickerChangeHandlerContext } from "@mui/x-date-pickers/internals/hooks/usePicker/usePickerValue.types";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import classNames from "classnames";
 import moment, { Moment } from "moment";
@@ -203,18 +205,20 @@ function DatePicker({
                     <StyledDatePicker
                         className="date-from"
                         label="From"
-                        onChange={(value: Moment, context: { validationError: string }) =>
-                            handleSelectDate("startDate", value, context)
-                        }
+                        onChange={(
+                            value: Moment,
+                            context: PickerChangeHandlerContext<DateValidationError>,
+                        ) => handleSelectDate("startDate", value, context)}
                         value={selectedDateRage.startDate}
                         views={["year", "month", "day"]}
                     />
                     <StyledDatePicker
                         className="date-to"
                         label="To"
-                        onChange={(value: Moment, context: { validationError: string }) =>
-                            handleSelectDate("endDate", value, context)
-                        }
+                        onChange={(
+                            value: Moment,
+                            context: PickerChangeHandlerContext<DateValidationError>,
+                        ) => handleSelectDate("endDate", value, context)}
                         value={selectedDateRage.endDate}
                         views={["year", "month", "day"]}
                     />
