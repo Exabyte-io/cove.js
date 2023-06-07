@@ -4,6 +4,8 @@ import "codemirror/mode/fortran/fortran";
 import "codemirror/mode/shell/shell";
 import "codemirror/mode/python/python";
 import "codemirror/mode/javascript/javascript";
+
+import { autocompletion, CompletionContext, CompletionResult } from "@codemirror/autocomplete";
 import { javascript } from "@codemirror/lang-javascript";
 import { json, jsonParseLinter } from "@codemirror/lang-json";
 import { python } from "@codemirror/lang-python";
@@ -12,7 +14,6 @@ import { fortran } from "@codemirror/legacy-modes/mode/fortran";
 import { jinja2 } from "@codemirror/legacy-modes/mode/jinja2";
 import { shell } from "@codemirror/legacy-modes/mode/shell";
 import { linter, lintGutter } from "@codemirror/lint";
-import { CompletionContext, CompletionResult, autocompletion } from "@codemirror/autocomplete";
 import CodeMirrorBase, { BasicSetupOptions } from "@uiw/react-codemirror";
 import React from "react";
 
@@ -85,6 +86,7 @@ class CodeMirror extends React.Component<CodeMirrorProps, CodeMirrorState> {
                 onBlur={() => this.setState({ isEditing: false })}
                 basicSetup={options}
                 theme="light"
+                // @ts-ignore
                 extensions={[completionExtension, ...this.getLanguageExtensions(language)]}
             />
         );
