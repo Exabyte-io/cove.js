@@ -1,6 +1,7 @@
-import { styled } from "@mui/material/styles";
+import { Theme } from "@mui/material/styles";
+import { styled } from "@mui/styles";
 
-export const InfoWidgetContainer = styled("div")(({ theme }) => ({
+export const InfoWidgetContainer = styled("div")(({ theme }: { theme: Theme }) => ({
     border: `1px solid ${theme.palette.border.dark}`,
     borderRadius: "4px",
     width: "100%",
@@ -10,7 +11,7 @@ export const InfoWidgetContainer = styled("div")(({ theme }) => ({
     },
 }));
 
-export const Header = styled("div")(({ theme }) => ({
+export const Header = styled("div")(({ theme }: { theme: Theme }) => ({
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
@@ -26,6 +27,6 @@ export const Header = styled("div")(({ theme }) => ({
     },
 }));
 
-export const Content = styled("div")(({ theme }) => ({
+export const Content = styled("div")(({ theme }: { theme: Theme }) => ({
     padding: theme.spacing(2),
 }));
