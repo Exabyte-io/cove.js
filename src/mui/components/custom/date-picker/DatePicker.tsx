@@ -205,6 +205,7 @@ function DatePicker({
                     <StyledDatePicker
                         className="date-from"
                         label="From"
+                        // @ts-ignore
                         onChange={(
                             value: Moment,
                             context: PickerChangeHandlerContext<DateValidationError>,
@@ -215,6 +216,7 @@ function DatePicker({
                     <StyledDatePicker
                         className="date-to"
                         label="To"
+                        // @ts-ignore
                         onChange={(
                             value: Moment,
                             context: PickerChangeHandlerContext<DateValidationError>,
