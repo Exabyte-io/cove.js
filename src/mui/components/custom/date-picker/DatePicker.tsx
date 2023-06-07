@@ -3,6 +3,7 @@
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import Button from "@mui/material/Button";
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
+import { FieldChangeHandlerContext } from "@mui/x-date-pickers/internals";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import classNames from "classnames";
 import moment, { Moment } from "moment";
@@ -84,8 +85,7 @@ function DatePicker({
     }, [selectedDateRage]);
 
     const handleSelectDate = useCallback(
-        // @ts-ignore
-        (option, value, context) => {
+        (option: string, value: Moment, context: FieldChangeHandlerContext<boolean>) => {
             if (!context.validationError) {
                 setSelectedDateRange({
                     ...selectedDateRage,
@@ -203,14 +203,18 @@ function DatePicker({
                     <StyledDatePicker
                         className="date-from"
                         label="From"
-                        onChange={(value, context) => handleSelectDate("startDate", value, context)}
+                        onChange={(value: Moment, context: FieldChangeHandlerContext<boolean>) =>
+                            handleSelectDate("startDate", value, context)
+                        }
                         value={selectedDateRage.startDate}
                         views={["year", "month", "day"]}
                     />
                     <StyledDatePicker
                         className="date-to"
                         label="To"
-                        onChange={(value, context) => handleSelectDate("endDate", value, context)}
+                        onChange={(value: Moment, context: FieldChangeHandlerContext<boolean>) =>
+                            handleSelectDate("endDate", value, context)
+                        }
                         value={selectedDateRage.endDate}
                         views={["year", "month", "day"]}
                     />
