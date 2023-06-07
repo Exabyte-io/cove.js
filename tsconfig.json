@@ -13,7 +13,13 @@
     "strict": true,
     "skipLibCheck": true,
     "types": [],
-    "rootDir": "./src"
+    "rootDir": "./src",
+    "baseUrl": ".",
+    "paths": {
+      "*": [
+        "node_modules/*"
+      ]
+    }
   },
   "include": [
     "./src"
