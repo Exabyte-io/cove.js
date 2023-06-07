@@ -203,14 +203,18 @@ function DatePicker({
                     <StyledDatePicker
                         className="date-from"
                         label="From"
-                        onChange={(value, context) => handleSelectDate("startDate", value, context)}
+                        onChange={(value: Moment, context: { validationError: string }) =>
+                            handleSelectDate("startDate", value, context)
+                        }
                         value={selectedDateRage.startDate}
                         views={["year", "month", "day"]}
                     />
                     <StyledDatePicker
                         className="date-to"
                         label="To"
-                        onChange={(value, context) => handleSelectDate("endDate", value, context)}
+                        onChange={(value: Moment, context: { validationError: string }) =>
+                            handleSelectDate("endDate", value, context)
+                        }
                         value={selectedDateRage.endDate}
                         views={["year", "month", "day"]}
                     />
