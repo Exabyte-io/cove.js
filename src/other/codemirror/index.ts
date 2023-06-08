@@ -1,3 +1,3 @@
 export { default } from "./CodeMirror";
 export * from "./CodeMirror";
-export * from "./autocomplete_utils";
+export * from "./utils/autocomplete_utils";
