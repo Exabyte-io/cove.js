@@ -11,3 +11,15 @@ declare module "@mui/material/styles" {
         neutral: PaletteColor;
     }
 }
+
+declare module "@mui/material/Button" {
+    interface ButtonPropsColorOverrides {
+        neutral: true;
+    }
+}
+
+declare module "@mui/material/IconButton" {
+    interface IconButtonPropsColorOverrides {
+        neutral: true;
+    }
+}
