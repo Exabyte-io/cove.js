@@ -20,6 +20,12 @@ For development:
 git clone https://github.com/Exabyte-io/cove.js.git
 ```
 
+### Typescript
+
+Typescript and all necessary type dependencies must be present in dependency section of package.json in order
+to transpile files and generate type definitions during package installation on postinstall command.
+It is necessary for testing arbitrary branches for example as dependency
+git+https://github.com/Exabyte-io/cove.js.git#b7604da7717232ac38a6372fea603f0b04645ade in web-app.
 
 ### Contribution
 
