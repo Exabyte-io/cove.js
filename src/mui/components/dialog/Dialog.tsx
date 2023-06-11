@@ -10,7 +10,7 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import React, { useCallback } from "react";
 
-interface DialogModalProps extends DialogProps {
+export interface DialogModalProps extends DialogProps {
     id?: string;
     titleComponent?: string | React.ReactNode;
     open: boolean;
@@ -29,6 +29,7 @@ interface DialogModalProps extends DialogProps {
     renderFooterCustom?: () => React.ReactNode;
     submitButtonText?: string;
     cancelButtonText?: string;
+    draggableId?: string;
 }
 
 function DialogModal({
@@ -52,6 +53,8 @@ function DialogModal({
     renderFooterCustom,
     submitButtonText = "Submit",
     cancelButtonText = "Cancel",
+    PaperComponent,
+    draggableId,
 }: DialogModalProps) {
     const handleSubmit = () => {
         if (onSubmit) onSubmit();
@@ -70,7 +73,7 @@ function DialogModal({
 
     const renderHeaderDefault = useCallback(() => {
         return (
-            <DialogTitle>
+            <DialogTitle id={draggableId} sx={{ cursor: draggableId ? "move" : "initial" }}>
                 <Grid container justifyContent="space-between">
                     <Typography id={`${id}-modal-title`} noWrap variant="h6">
                         {title || titleComponent}
@@ -126,6 +129,7 @@ function DialogModal({
             scroll={scroll}
             fullWidth={fullWidth}
             onKeyUp={handleSubmitOnEnter}
+            PaperComponent={PaperComponent}
         >
             {renderHeaderCustom ? renderHeaderCustom() : renderHeaderDefault()}
             {renderBodyCustom ? renderBodyCustom() : renderBodyDefault()}

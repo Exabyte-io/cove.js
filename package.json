@@ -59,6 +59,7 @@
         "katex": "^0.16.7",
         "prismjs": "^1.29.0",
         "react-beautiful-dnd": "^13.1.1",
+        "react-draggable": "^4.4.5",
         "react-json-view": "^1.16.0",
         "typescript": "^4.9.5"
     },
