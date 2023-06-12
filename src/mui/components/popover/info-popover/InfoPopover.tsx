@@ -106,8 +106,7 @@ export default function InfoPopover(props: InfoPopoverProps) {
                 onClick={handleIconClick}
                 ref={iconRef}
                 sx={sx}
-                size={iconSize}
-            >
+                size={iconSize}>
                 {outlined ? <InfoOutlinedIcon /> : <InfoIcon />}
             </InfoIconButton>
             <Popover
@@ -123,8 +122,7 @@ export default function InfoPopover(props: InfoPopoverProps) {
                     horizontal: "right",
                 }}
                 disableScrollLock
-                classes={{ paper: classes.paper }}
-            >
+                classes={{ paper: classes.paper }}>
                 {title ? <PopoverTitle>{title}</PopoverTitle> : null}
                 <PopoverText>{children}</PopoverText>
                 {onButtonClick ? (
@@ -133,8 +131,7 @@ export default function InfoPopover(props: InfoPopoverProps) {
                         onClick={handleButtonClick}
                         color="primary"
                         disableRipple
-                        disableElevation
-                    >
+                        disableElevation>
                         Learn more
                     </PopoverButton>
                 ) : null}

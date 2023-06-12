@@ -30,8 +30,7 @@ export function DropdownItem({
             <ListItemIcon>{icon || <BlurCircularOutlinedIcon />}</ListItemIcon>
             <ListItemText
                 primaryTypographyProps={{ variant: "caption", color: "text.primary" }}
-                className="DropdownItemText"
-            >
+                className="DropdownItemText">
                 {content}
             </ListItemText>
             {showCheckIcon ? <CheckIcon htmlColor={green[500]} fontSize="large" /> : null}

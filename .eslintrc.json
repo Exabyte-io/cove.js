@@ -59,6 +59,7 @@
     "overrides": [
         {
             "files": [
+                "*.js",
                 "*.ts",
                 "*.tsx"
             ],
@@ -79,6 +80,7 @@
                 "react/jsx-filename-extension": "off",
                 "react/require-default-props": "off",
                 "no-use-before-define": "off",
+                "no-restricted-exports": "off",
                 "no-shadow": "off",
                 "@typescript-eslint/no-use-before-define": [
                     "error"

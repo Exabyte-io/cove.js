@@ -1,4 +1,3 @@
-import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import Popover from "@mui/material/Popover";
 import { styled, Theme } from "@mui/material/styles";
 import { DatePicker as MuiDatePicker } from "@mui/x-date-pickers/DatePicker";
