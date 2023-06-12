@@ -1,11 +1,11 @@
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable react/prop-types */
 import AccordionExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import Divider from "@mui/material/Divider";
-import Typography from "@mui/material/Typography";
 import MuiAccordion from "@mui/material/Accordion";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import MuiAccordionSummary from "@mui/material/AccordionSummary";
+import Divider from "@mui/material/Divider";
+import Typography from "@mui/material/Typography";
 import { withStyles } from "@mui/styles";
 import React, { SyntheticEvent, useEffect, useState } from "react";
 

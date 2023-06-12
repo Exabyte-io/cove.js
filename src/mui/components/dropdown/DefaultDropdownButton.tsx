@@ -46,8 +46,7 @@ export function DefaultDropdownButton({
             variant="outlined"
             size="small"
             endIcon={<ArrowDropDownOutlinedIcon color="action" />}
-            onClick={onClick}
-        >
+            onClick={onClick}>
             {children}
         </Button>
     );

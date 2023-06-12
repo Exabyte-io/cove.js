@@ -58,8 +58,7 @@ function AlertProvider({ children }: AlertProvider) {
                     onClose={closeAlert}
                     variant={variant}
                     severity={severity}
-                    {...restAlertProps}
-                >
+                    {...restAlertProps}>
                     <AlertTitle>{severity}</AlertTitle>
                     {content}
                 </Alert>

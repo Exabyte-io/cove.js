@@ -45,8 +45,7 @@ export default function TotalWidget({
                 color={boxColor}
                 onMouseEnter={handlePopoverOpen}
                 onMouseLeave={handlePopoverClose}
-                isPointer={Boolean(popoverContent)}
-            >
+                isPointer={Boolean(popoverContent)}>
                 <IconByName name={iconName} sx={{ color: boxColor }} />
             </ColorBox>
             <Box className="info" sx={{ pl: 1, pr: 1 }}>
@@ -72,8 +71,7 @@ export default function TotalWidget({
                     horizontal: "center",
                 }}
                 onClose={handlePopoverClose}
-                disableRestoreFocus
-            >
+                disableRestoreFocus>
                 {popoverContent}
             </Popover>
         </TotalContainer>

@@ -74,8 +74,7 @@ export default function SelectComponent({
                     ...sx,
                 }}
                 renderValue={renderValue}
-                onChange={onChange}
-            >
+                onChange={onChange}>
                 {items.map((item) => (
                     <MenuItem id={item.id} key={item.value} value={item.value} sx={{ fontSize }}>
                         {item.name}

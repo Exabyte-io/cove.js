@@ -143,15 +143,14 @@ function DatePicker({
                     className={classNames("custom-date-picker", {
                         active: selectedOption === DateRangeOption.custom,
                     })}
-                    onClick={handleOpenDatePicker}
-                >
+                    onClick={handleOpenDatePicker}>
                     <IconByName
                         name="calendar"
                         sx={{
                             color:
                                 selectedOption === DateRangeOption.custom
-                                    ? "primary.light"
-                                    : "primary.contrastText",
+                                    ? "primary.contrastText"
+                                    : "primary.light",
                         }}
                     />
                     <span>Custom</span>
@@ -161,32 +160,28 @@ function DatePicker({
                     className={classNames("range-1m", {
                         active: selectedOption === DateRangeOption.month,
                     })}
-                    onClick={() => handleSelectOption(DateRangeOption.month)}
-                >
+                    onClick={() => handleSelectOption(DateRangeOption.month)}>
                     1M
                 </div>
                 <div
                     className={classNames("range-3m", {
                         active: selectedOption === DateRangeOption.threeMonths,
                     })}
-                    onClick={() => handleSelectOption(DateRangeOption.threeMonths)}
-                >
+                    onClick={() => handleSelectOption(DateRangeOption.threeMonths)}>
                     3M
                 </div>
                 <div
                     className={classNames("range-6m", {
                         active: selectedOption === DateRangeOption.sixMonths,
                     })}
-                    onClick={() => handleSelectOption(DateRangeOption.sixMonths)}
-                >
+                    onClick={() => handleSelectOption(DateRangeOption.sixMonths)}>
                     6M
                 </div>
                 <div
                     className={classNames("range-12m", {
                         active: selectedOption === DateRangeOption.year,
                     })}
-                    onClick={() => handleSelectOption(DateRangeOption.year)}
-                >
+                    onClick={() => handleSelectOption(DateRangeOption.year)}>
                     12M
                 </div>
                 {isMaxOption ? (
@@ -194,8 +189,7 @@ function DatePicker({
                         className={classNames("range-max", {
                             active: selectedOption === DateRangeOption.max,
                         })}
-                        onClick={() => handleSelectOption(DateRangeOption.max)}
-                    >
+                        onClick={() => handleSelectOption(DateRangeOption.max)}>
                         Max
                     </div>
                 ) : null}
@@ -207,8 +201,7 @@ function DatePicker({
                 anchorOrigin={{
                     vertical: "bottom",
                     horizontal: "left",
-                }}
-            >
+                }}>
                 <LocalizationProvider dateAdapter={AdapterMoment}>
                     <StyledDatePicker
                         className="date-from"

@@ -17,6 +17,7 @@ import { linter, lintGutter } from "@codemirror/lint";
 import CodeMirrorBase, { BasicSetupOptions } from "@uiw/react-codemirror";
 import React from "react";
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const LANGUAGES_MAP: Record<string, any> = {
     python: [python()],
     shell: [StreamLanguage.define(shell)],

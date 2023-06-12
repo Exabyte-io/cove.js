@@ -113,8 +113,7 @@ export default function Dropdown({
                 transition
                 placement={paperPlacement}
                 popperOptions={{ placement: "bottom-start" }} // TODO: check placement
-                {...popperProps}
-            >
+                {...popperProps}>
                 {({ TransitionProps }) => (
                     <Grow {...TransitionProps} style={{ transformOrigin: "center top" }}>
                         <Paper sx={{ minWidth: () => containerRef?.current?.offsetWidth }}>
@@ -122,8 +121,7 @@ export default function Dropdown({
                                 <MenuList
                                     autoFocusItem={opened}
                                     id="dropdown-menu"
-                                    onKeyDown={onListKeyDown}
-                                >
+                                    onKeyDown={onListKeyDown}>
                                     {actions
                                         .filter(({ isShown }) => isShown !== false)
                                         .map((action) => {

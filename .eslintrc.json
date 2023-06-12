@@ -59,6 +59,7 @@
     "overrides": [
         {
             "files": [
+                "*.js",
                 "*.ts",
                 "*.tsx"
             ],
