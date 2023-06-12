@@ -1,2 +1,2 @@
-export { default as Stepper } from "./Stepper";
+export { default } from "./Stepper";
 export * from "./Stepper";

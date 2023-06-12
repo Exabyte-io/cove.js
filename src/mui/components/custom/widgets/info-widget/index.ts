@@ -1,2 +1,2 @@
-export { default as InfoWidget } from "./InfoWidget";
+export { default } from "./InfoWidget";
 export * from "./InfoWidget";

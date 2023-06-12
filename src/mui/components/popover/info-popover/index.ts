@@ -1,2 +1,2 @@
-export { default as InfoPopover } from "./InfoPopover";
+export { default } from "./InfoPopover";
 export * from "./InfoPopover";

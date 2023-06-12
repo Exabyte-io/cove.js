@@ -1,2 +1,2 @@
-export { default as JSONViewer } from "./JSONViewer";
+export { default } from "./JSONViewer";
 export * from "./JSONViewer";

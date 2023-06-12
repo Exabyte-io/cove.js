@@ -1,2 +1,2 @@
-export { default as TotalWidget } from "./TotalWidget";
+export { default } from "./TotalWidget";
 export * from "./TotalWidget";
