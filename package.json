@@ -1,46 +1,83 @@
 {
-    "name": "@exabyte-io/PROJECT_NAME",
+    "name": "@exabyte-io/cove.js",
     "version": "0.0.0",
-    "description": "PROJECT_DESCRIPTION",
+    "description": "Cove.js - reusable components",
     "scripts": {
-        "test": "nyc --reporter=text mocha --recursive --bail --require @babel/register/lib --require tests/setup.js tests",
         "lint": "eslint src tests && prettier --write src tests",
         "lint:fix": "eslint --fix --cache src tests && prettier --write src tests",
-        "transpile": "babel --out-dir dist src",
+        "transpile": "tsc",
         "postinstall": "npm run transpile",
         "prettier": "prettier --check src tests",
         "prepare": "husky install"
     },
     "repository": {
         "type": "git",
-        "url": "https://github.com/Exabyte-io/PROJECT_NAME.git"
+        "url": "https://github.com/Exabyte-io/cove.js.git"
     },
     "main": "dist/index.js",
     "files": [
         "/dist",
         "/src",
-        ".babelrc"
+        "tsconfig.json"
     ],
     "author": "Exabyte Inc.",
     "bugs": {
-        "url": "https://github.com/Exabyte-io/PROJECT_NAME/issues"
+        "url": "https://github.com/Exabyte-io/cove.js/issues"
     },
     "license": "Apache-2.0",
-    "homepage": "https://github.com/Exabyte-io/PROJECT_NAME",
+    "homepage": "https://github.com/Exabyte-io/cove.js",
+    "peerDependencies": {
+        "@mui/icons-material": "^5.11.9",
+        "@mui/lab": "^5.0.0-alpha.120",
+        "@mui/material": "^5.11.9",
+        "@mui/styles": "^5.11.9",
+        "react": "^17.0.0",
+        "react-dom": "^17.0.0",
+        "moment": "^2.29.4",
+        "classnames": "^2.3.2",
+        "prop-types": "^15.8.1",
+        "underscore": "^1.8.3"
+    },
     "dependencies": {
-        "@babel/cli": "7.16.0",
-        "@babel/core": "7.16.0",
-        "@babel/eslint-parser": "7.16.3",
-        "@babel/plugin-proposal-class-properties": "7.16.0",
-        "@babel/preset-env": "7.16.4",
-        "@babel/preset-react": "7.16.7",
-        "@babel/register": "^7.16.0",
-        "@babel/runtime-corejs3": "7.16.8"
+        "@babel/eslint-parser": "^7.16.3",
+        "@codemirror/autocomplete": "^6.4.2",
+        "@codemirror/lang-javascript": "^6.1.4",
+        "@codemirror/lang-json": "^6.0.1",
+        "@codemirror/lang-python": "^6.1.2",
+        "@codemirror/language": "^6.6.0",
+        "@codemirror/legacy-modes": "^6.3.1",
+        "@codemirror/lint": "^6.2.0",
+        "@mui/x-date-pickers": "^6.0.0",
+        "@toast-ui/editor": "^3.2.2",
+        "@toast-ui/editor-plugin-code-syntax-highlight": "^3.1.0",
+        "@toast-ui/react-editor": "^3.2.3",
+        "@types/classnames": "^2.3.1",
+        "@types/katex": "^0.16.0",
+        "@types/prismjs": "^1.26.0",
+        "@types/react-beautiful-dnd": "^13.1.4",
+        "@uiw/react-codemirror": "^4.19.9",
+        "codemirror": "^5.47.0",
+        "katex": "^0.16.7",
+        "prismjs": "^1.29.0",
+        "react-beautiful-dnd": "^13.1.1",
+        "react-json-view": "^1.16.0",
+        "typescript": "^4.9.5"
     },
     "devDependencies": {
+        "@exabyte-io/eslint-config": "^2022.11.17-0",
+        "@mui/icons-material": "^5.11.9",
+        "@mui/lab": "^5.0.0-alpha.120",
+        "@mui/material": "^5.11.9",
+        "@mui/styles": "^5.11.9",
+        "@types/react": "^18.2.8",
+        "@types/react-dom": "^18.2.4",
+        "@types/underscore": "^1.11.5",
+        "@typescript-eslint/eslint-plugin": "^5.56.0",
+        "@typescript-eslint/parser": "^5.56.0",
         "chai": "^4.3.4",
+        "classnames": "^2.3.2",
         "eslint": "7.32.0",
-        "eslint-config-airbnb": "19.0.2",
+        "eslint-config-airbnb": "^19.0.2",
         "eslint-config-prettier": "8.3.0",
         "eslint-import-resolver-exports": "^1.0.0-beta.2",
         "eslint-plugin-import": "2.25.3",
@@ -52,15 +89,20 @@
         "husky": "^7.0.4",
         "lint-staged": "^12.1.2",
         "mocha": "^9.1.3",
+        "moment": "^2.29.4",
         "nyc": "^15.1.0",
-        "prettier": "^2.7.1"
+        "prettier": "^2.7.1",
+        "prop-types": "^15.8.1",
+        "react": "^17.0.0",
+        "react-dom": "^17.0.0",
+        "react-json-view": "^1.16.0",
+        "underscore": "^1.8.3"
     },
     "engines": {
         "node": ">=12.0.0"
     },
     "lint-staged": {
-        "*.js": "eslint --cache --fix",
-        "*.{js,css}": "prettier --write"
+        "*.{js,ts,tsx}": "eslint --cache --fix",
+        "*.{js,ts,tsx,css}": "prettier --write"
     }
 }
-
