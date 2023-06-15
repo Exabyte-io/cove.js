@@ -32,8 +32,7 @@ export default function DraggableDialog(props: DraggableDialogProps) {
             PaperComponent={draggablePaperComponent(draggableId)}
             draggableId={draggableId}
             renderFooterCustom={() => null}
-            maxWidth="sm"
-        >
+            maxWidth="sm">
             {children}
         </Dialog>
     );

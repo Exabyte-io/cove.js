@@ -73,11 +73,16 @@ function DialogModal({
 
     const renderHeaderDefault = useCallback(() => {
         return (
-            <DialogTitle id={draggableId} sx={{ cursor: draggableId ? "move" : "initial" }}>
+            <DialogTitle
+                id={draggableId}
+                component="div"
+                sx={{ cursor: draggableId ? "move" : "initial" }}>
                 <Grid container justifyContent="space-between">
-                    <Typography id={`${id}-modal-title`} noWrap variant="h6">
-                        {title || titleComponent}
-                    </Typography>
+                    {titleComponent || (
+                        <Typography id={`${id}-modal-title`} noWrap variant="h6">
+                            {title}
+                        </Typography>
+                    )}
                     {onClose && (
                         <IconButton id={`${id}-close-button`} color="neutral" onClick={onClose}>
                             <CloseIcon sx={{ fontSize: 20 }} />
@@ -101,8 +106,7 @@ function DialogModal({
                     color="neutral"
                     data-dismiss="modal"
                     aria-label={cancelButtonText}
-                    onClick={handleCancel}
-                >
+                    onClick={handleCancel}>
                     {cancelButtonText}
                 </Button>
                 <LoadingButton
@@ -111,8 +115,7 @@ function DialogModal({
                     variant="text"
                     aria-label={submitButtonText}
                     disabled={isSubmitButtonDisabled || isSubmitButtonProcessing}
-                    onClick={handleSubmit}
-                >
+                    onClick={handleSubmit}>
                     {submitButtonText}
                 </LoadingButton>
             </DialogActions>
@@ -129,8 +132,7 @@ function DialogModal({
             scroll={scroll}
             fullWidth={fullWidth}
             onKeyUp={handleSubmitOnEnter}
-            PaperComponent={PaperComponent}
-        >
+            PaperComponent={PaperComponent}>
             {renderHeaderCustom ? renderHeaderCustom() : renderHeaderDefault()}
             {renderBodyCustom ? renderBodyCustom() : renderBodyDefault()}
             {renderFooterCustom ? renderFooterCustom() : renderFooterDefault()}
