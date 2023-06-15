@@ -15,7 +15,7 @@ export interface CheckboxComponentProps {
     required: boolean;
     disabled: boolean;
     label: string;
-    onChange: CheckboxProps["onChange"];
+    onChange: (checked: boolean) => void;
     className: string;
     slotProps: { typography: TypographyProps };
     labelPlacement: FormControlLabelProps["labelPlacement"];
@@ -48,7 +48,7 @@ function CheckboxComponent({
                     className={className}
                     value={value}
                     checked={checked}
-                    onChange={onChange}
+                    onChange={(event) => onChange(event.target.checked)}
                     sx={checkboxSx}
                 />
             }
