@@ -76,6 +76,7 @@
         "@mui/material": "^5.11.9",
         "@mui/styles": "^5.11.9",
         "@types/jquery": "^3.5.16",
+        "@types/jszip": "^3.4.1",
         "@types/react": "^18.2.8",
         "@types/react-dom": "^18.2.4",
         "@types/underscore": "^1.11.5",
