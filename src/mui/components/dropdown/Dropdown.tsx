@@ -50,11 +50,11 @@ export interface DropdownProps {
  * to dropdown menu items.
  */
 export default function Dropdown({
-    id = "dropdown", // TODO: remove optional id, id must be unique
+    id,
     actions,
     buttonContent,
     popperProps = {
-        id: "popper", // TODO: remove optional id, id must be unique
+        id: "popper",
     },
     children = null,
     disabled = false,
@@ -112,7 +112,7 @@ export default function Dropdown({
                 anchorEl={containerRef?.current}
                 transition
                 placement={paperPlacement}
-                popperOptions={{ placement: "bottom-start" }} // TODO: check placement
+                popperOptions={{ placement: "bottom-start" }}
                 {...popperProps}>
                 {({ TransitionProps }) => (
                     <Grow {...TransitionProps} style={{ transformOrigin: "center top" }}>

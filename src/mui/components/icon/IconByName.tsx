@@ -58,6 +58,8 @@ import Input from "@mui/icons-material/Input";
 import InsertChart from "@mui/icons-material/InsertChart";
 import InsertDriveFile from "@mui/icons-material/InsertDriveFile";
 import Keyboard from "@mui/icons-material/Keyboard";
+import KeyboardArrowDown from "@mui/icons-material/KeyboardArrowDown";
+import KeyboardArrowUp from "@mui/icons-material/KeyboardArrowUp";
 import Label from "@mui/icons-material/Label";
 import Language from "@mui/icons-material/Language";
 import Layers from "@mui/icons-material/Layers";
@@ -220,6 +222,8 @@ const iconComponentMap: Record<string, typeof SvgIcon | ReturnType<typeof rotate
     invite: Add,
     join: GroupAdd,
     keyboard: Keyboard,
+    keyboardArrowUp: KeyboardArrowUp,
+    keyboardArrowDown: KeyboardArrowDown,
     layers: Layers,
     leave: DirectionsWalk,
     link: Link,
