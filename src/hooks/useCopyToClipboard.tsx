@@ -6,10 +6,10 @@ import { copyToClipboard } from "../utils/clipboard";
 export const useCopyToClipboard = (alertProps = {}) => {
     const alert = useAlert();
 
-    return useCallback((text: string) => {
-        copyToClipboard(text, () => {
+    return useCallback((textToCopy: string, content: string) => {
+        copyToClipboard(textToCopy, () => {
             alert?.show({
-                content: `Unit flowchart id ${text} was successfully copied`,
+                content,
                 ...alertProps,
             });
         });
