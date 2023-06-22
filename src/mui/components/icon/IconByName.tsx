@@ -1,5 +1,4 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import { CloudUploadOutlined } from "@mui/icons-material";
 import AccountBalance from "@mui/icons-material/AccountBalance";
 import AccountBalanceOutlined from "@mui/icons-material/AccountBalanceOutlined";
 import AccountBalanceWalletOutlined from "@mui/icons-material/AccountBalanceWalletOutlined";
@@ -26,6 +25,7 @@ import ChevronRight from "@mui/icons-material/ChevronRight";
 import Circle from "@mui/icons-material/Circle";
 import Close from "@mui/icons-material/Close";
 import CloudUpload from "@mui/icons-material/CloudUpload";
+import CloudUploadOutlined from "@mui/icons-material/CloudUploadOutlined";
 import Code from "@mui/icons-material/Code";
 import ContentCopy from "@mui/icons-material/ContentCopy";
 import CopyAllOutlined from "@mui/icons-material/CopyAllOutlined";
@@ -53,11 +53,13 @@ import FolderOutlined from "@mui/icons-material/FolderOutlined";
 import FormatLineSpacing from "@mui/icons-material/FormatLineSpacing";
 import FormatListBulleted from "@mui/icons-material/FormatListBulleted";
 import Forward from "@mui/icons-material/Forward";
+import Grain from "@mui/icons-material/Grain";
 import GridOn from "@mui/icons-material/GridOn";
 import GroupAdd from "@mui/icons-material/GroupAdd";
 import GroupsRounded from "@mui/icons-material/GroupsRounded";
 import Help from "@mui/icons-material/Help";
 import HelpOutlined from "@mui/icons-material/HelpOutlined";
+import Home from "@mui/icons-material/Home";
 import Info from "@mui/icons-material/Info";
 import InfoOutlined from "@mui/icons-material/InfoOutlined";
 import Input from "@mui/icons-material/Input";
@@ -243,9 +245,11 @@ const iconComponentMap: Record<string, typeof SvgIcon | ReturnType<typeof rotate
     globeAlt: Language,
     globeAltOutlined: LanguageOutlined,
     graduationCap: School,
+    grain: Grain,
     go: ChevronRight,
     help: Help,
     helpOutlined: HelpOutlined,
+    home: Home,
     import: CloudUpload,
     importOutlined: CloudUploadOutlined,
     importFromBank: AccountBalance,
