@@ -240,7 +240,7 @@ const iconComponentMap: Record<string, typeof SvgIcon | ReturnType<typeof rotate
     forum: LiveHelp,
     globe: Public,
     globeAlt: Language,
-    globeAlt: LanguageOutlined,
+    globeAltOutlined: LanguageOutlined,
     graduationCap: School,
     go: ChevronRight,
     help: Help,
