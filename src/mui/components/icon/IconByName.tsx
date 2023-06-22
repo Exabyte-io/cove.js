@@ -1,13 +1,16 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import AccountBalance from "@mui/icons-material/AccountBalance";
+import AccountBalanceOutlined from "@mui/icons-material/AccountBalanceOutlined";
 import AccountBalanceWalletOutlined from "@mui/icons-material/AccountBalanceWalletOutlined";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import Add from "@mui/icons-material/Add";
 import AddCircle from "@mui/icons-material/AddCircle";
 import AddCircleOutline from "@mui/icons-material/AddCircleOutline";
 import Adjust from "@mui/icons-material/Adjust";
+import ArrowDropDown from "@mui/icons-material/ArrowDropDown";
 import Assignment from "@mui/icons-material/Assignment";
 import AttachMoney from "@mui/icons-material/AttachMoney";
+import AttachMoneyOutlined from "@mui/icons-material/AttachMoneyOutlined";
 import AutoGraph from "@mui/icons-material/AutoGraph";
 import Autorenew from "@mui/icons-material/Autorenew";
 import BatteryChargingFullOutlined from "@mui/icons-material/BatteryChargingFullOutlined";
@@ -27,6 +30,7 @@ import ContentCopy from "@mui/icons-material/ContentCopy";
 import CopyAllOutlined from "@mui/icons-material/CopyAllOutlined";
 import CreditCard from "@mui/icons-material/CreditCard";
 import Dashboard from "@mui/icons-material/Dashboard";
+import DashboardOutlined from "@mui/icons-material/DashboardOutlined";
 import Delete from "@mui/icons-material/Delete";
 import Description from "@mui/icons-material/Description";
 import DesktopWindowsOutlined from "@mui/icons-material/DesktopWindowsOutlined";
@@ -52,24 +56,31 @@ import GridOn from "@mui/icons-material/GridOn";
 import GroupAdd from "@mui/icons-material/GroupAdd";
 import GroupsRounded from "@mui/icons-material/GroupsRounded";
 import Help from "@mui/icons-material/Help";
+import HelpOutlined from "@mui/icons-material/HelpOutlined";
 import Info from "@mui/icons-material/Info";
 import InfoOutlined from "@mui/icons-material/InfoOutlined";
 import Input from "@mui/icons-material/Input";
 import InsertChart from "@mui/icons-material/InsertChart";
 import InsertDriveFile from "@mui/icons-material/InsertDriveFile";
+import InsertDriveFileOutlined from "@mui/icons-material/InsertDriveFileOutlined";
 import Keyboard from "@mui/icons-material/Keyboard";
 import KeyboardArrowDown from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUp from "@mui/icons-material/KeyboardArrowUp";
+import KeyboardOutlined from "@mui/icons-material/KeyboardOutlined";
 import Label from "@mui/icons-material/Label";
 import Language from "@mui/icons-material/Language";
+import LanguageOutlined from "@mui/icons-material/LanguageOutlined";
 import Layers from "@mui/icons-material/Layers";
 import LibraryAdd from "@mui/icons-material/LibraryAdd";
 import Link from "@mui/icons-material/Link";
 import LiveHelp from "@mui/icons-material/LiveHelp";
 import LocationOn from "@mui/icons-material/LocationOn";
 import Lock from "@mui/icons-material/Lock";
+import LoginOutlined from "@mui/icons-material/LoginOutlined";
+import LogoutOutlined from "@mui/icons-material/LogoutOutlined";
 import LooksOne from "@mui/icons-material/LooksOne";
 import Memory from "@mui/icons-material/Memory";
+import Menu from "@mui/icons-material/Menu";
 import Message from "@mui/icons-material/Message";
 import ModeComment from "@mui/icons-material/ModeComment";
 import MonetizationOnOutlined from "@mui/icons-material/MonetizationOnOutlined";
@@ -78,12 +89,15 @@ import MoreHoriz from "@mui/icons-material/MoreHoriz";
 import MoreVert from "@mui/icons-material/MoreVert";
 import NorthEastOutlined from "@mui/icons-material/NorthEastOutlined";
 import NoteAdd from "@mui/icons-material/NoteAdd";
+import NoteAddOutlined from "@mui/icons-material/NoteAddOutlined";
 import OpenInBrowser from "@mui/icons-material/OpenInBrowser";
 import OpenInNew from "@mui/icons-material/OpenInNew";
 import OpenWith from "@mui/icons-material/OpenWith";
 import PauseCircleOutlined from "@mui/icons-material/PauseCircleOutlined";
 import People from "@mui/icons-material/People";
+import PeopleOutlined from "@mui/icons-material/PeopleOutlined";
 import Person from "@mui/icons-material/Person";
+import PersonAddOutlined from "@mui/icons-material/PersonAddOutlined";
 import PlayArrow from "@mui/icons-material/PlayArrow";
 import PlayCircleOutlined from "@mui/icons-material/PlayCircleOutlined";
 import PowerSettingsNew from "@mui/icons-material/PowerSettingsNew";
@@ -91,6 +105,7 @@ import Print from "@mui/icons-material/Print";
 import Public from "@mui/icons-material/Public";
 import Publish from "@mui/icons-material/Publish";
 import RadioButtonChecked from "@mui/icons-material/RadioButtonChecked";
+import RadioButtonCheckedOutlined from "@mui/icons-material/RadioButtonCheckedOutlined";
 import RadioButtonUnchecked from "@mui/icons-material/RadioButtonUnchecked";
 import Receipt from "@mui/icons-material/Receipt";
 import ReceiptRounded from "@mui/icons-material/ReceiptRounded";
@@ -101,13 +116,17 @@ import School from "@mui/icons-material/School";
 import Search from "@mui/icons-material/Search";
 import Settings from "@mui/icons-material/Settings";
 import SettingsApplications from "@mui/icons-material/SettingsApplications";
+import SettingsOutlined from "@mui/icons-material/SettingsOutlined";
 import SettingsSystemDaydream from "@mui/icons-material/SettingsSystemDaydream";
 import Share from "@mui/icons-material/Share";
+import ShareOutlined from "@mui/icons-material/ShareOutlined";
 import SignalCellularNoSim from "@mui/icons-material/SignalCellularNoSim";
 import Star from "@mui/icons-material/Star";
 import StarOutline from "@mui/icons-material/StarOutline";
 import Stop from "@mui/icons-material/Stop";
 import SupportAgent from "@mui/icons-material/SupportAgent";
+import SupportAgentOutlined from "@mui/icons-material/SupportAgentOutlined";
+import SupportOutlined from "@mui/icons-material/SupportOutlined";
 import SwapCalls from "@mui/icons-material/SwapCalls";
 import SwapVert from "@mui/icons-material/SwapVert";
 import Sync from "@mui/icons-material/Sync";
@@ -120,6 +139,7 @@ import ViewColumn from "@mui/icons-material/ViewColumn";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import Widgets from "@mui/icons-material/Widgets";
+import WidgetsOutlined from "@mui/icons-material/WidgetsOutlined";
 import WifiTethering from "@mui/icons-material/WifiTethering";
 import WorkspacesOutlined from "@mui/icons-material/WorkspacesOutlined";
 import WrapText from "@mui/icons-material/WrapText";
@@ -145,6 +165,7 @@ function rotateIcon(IconComponent: typeof SvgIcon, degrees: number) {
 
 const iconComponentMap: Record<string, typeof SvgIcon | ReturnType<typeof rotateIcon>> = {
     accounts: People,
+    accountsOutlined: PeopleOutlined,
     add: Add,
     addCircle: AddCircle,
     addCircleOutline: AddCircleOutline,
@@ -153,11 +174,14 @@ const iconComponentMap: Record<string, typeof SvgIcon | ReturnType<typeof rotate
     advancedSearch: YoutubeSearchedFor,
     accountBalanceWalletOutlined: AccountBalanceWalletOutlined,
     accountCircle: AccountCircle,
+    arrowDown: KeyboardArrowDown,
     arrowRightTop: NorthEastOutlined,
+    arrowUp: KeyboardArrowUp,
     arrows: OpenWith,
     autoGraph: AutoGraph,
     assignment: Assignment,
     balance: AccountBalance,
+    balanceOutlined: AccountBalanceOutlined,
     batteryFlash: BatteryChargingFullOutlined,
     calculateOutlined: CalculateOutlined,
     card: CreditCard,
@@ -184,11 +208,14 @@ const iconComponentMap: Record<string, typeof SvgIcon | ReturnType<typeof rotate
     createJob: OpenInNew,
     createSet: FolderOpen,
     dashboard: Dashboard,
+    dashboardOutlined: DashboardOutlined,
     default: Star,
     delete: Delete,
     desktopWindows: DesktopWindowsOutlined,
+    documentation: SupportOutlined,
     download: Download,
     dropbox: SettingsSystemDaydream,
+    dropdownArrow: ArrowDropDown,
     doubleArrow: DoubleArrow,
     edit: Edit,
     email: Email,
@@ -201,6 +228,7 @@ const iconComponentMap: Record<string, typeof SvgIcon | ReturnType<typeof rotate
     file: InsertDriveFile,
     fileText: Description,
     filePlus: NoteAdd,
+    filePlusOutlined: NoteAddOutlined,
     flash: FlashOnOutlined,
     flatten: GridOn,
     flip: Flip,
@@ -212,33 +240,39 @@ const iconComponentMap: Record<string, typeof SvgIcon | ReturnType<typeof rotate
     forum: LiveHelp,
     globe: Public,
     globeAlt: Language,
+    globeAlt: LanguageOutlined,
     graduationCap: School,
     go: ChevronRight,
     help: Help,
+    helpOutlined: HelpOutlined,
     import: CloudUpload,
     importFromBank: AccountBalance,
     info: Info,
     infoOutlined: InfoOutlined,
     invite: Add,
+    inviteOutlined: PersonAddOutlined,
     join: GroupAdd,
     keyboard: Keyboard,
-    keyboardArrowUp: KeyboardArrowUp,
-    keyboardArrowDown: KeyboardArrowDown,
+    keyboardOutlined: KeyboardOutlined,
     layers: Layers,
     leave: DirectionsWalk,
     link: Link,
     location: LocationOn,
     lock: Lock,
+    loginOutlined: LoginOutlined,
+    logoutOutlined: LogoutOutlined,
     makeAdmin: ExpandLess,
     makePrivate: VisibilityOff,
     moreVert: MoreVert,
     moreHoriz: MoreHoriz,
     makePublic: Visibility,
     memory: Memory,
+    menu: Menu,
     merge: CallMerge,
     mergeRotated: rotateIcon(CallMerge, 180),
     message: Message,
     money: AttachMoney,
+    moneyOutlined: AttachMoneyOutlined,
     moveToProject: Forward,
     moveToSet: Input,
     monetization: MonetizationOnRounded,
@@ -272,15 +306,19 @@ const iconComponentMap: Record<string, typeof SvgIcon | ReturnType<typeof rotate
     setDefault: StarOutline,
     setIndex: FormatLineSpacing,
     settings: Settings,
+    settingsOutlined: SettingsOutlined,
     settingsSquare: SettingsApplications,
     share: GroupAdd,
     shareWithMe: Share,
+    shareWithMeOutlined: ShareOutlined,
     show: ExpandLess,
     source: InsertDriveFile,
+    sourceOutlined: InsertDriveFileOutlined,
     squareDown: SystemUpdateAlt,
     stop: Stop,
     subworkflow: Adjust,
     supportAgent: SupportAgent,
+    supportAgentOutlined: SupportAgentOutlined,
     sync: Sync,
     swapAlt: SwapCalls,
     swapVertical: SwapVert,
@@ -293,9 +331,11 @@ const iconComponentMap: Record<string, typeof SvgIcon | ReturnType<typeof rotate
     unfoldMore: UnfoldMore,
     visualize: OpenInBrowser,
     widgets: Widgets,
+    widgetsOutlined: WidgetsOutlined,
     workspaces: WorkspacesOutlined,
     wifiTethering: WifiTethering,
     workflow: RadioButtonChecked,
+    workflowOutlined: RadioButtonCheckedOutlined,
     wrapText: WrapText,
 };
 
