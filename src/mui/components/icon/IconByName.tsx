@@ -1,4 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
+import { CloudUploadOutlined } from "@mui/icons-material";
 import AccountBalance from "@mui/icons-material/AccountBalance";
 import AccountBalanceOutlined from "@mui/icons-material/AccountBalanceOutlined";
 import AccountBalanceWalletOutlined from "@mui/icons-material/AccountBalanceWalletOutlined";
@@ -246,6 +247,7 @@ const iconComponentMap: Record<string, typeof SvgIcon | ReturnType<typeof rotate
     help: Help,
     helpOutlined: HelpOutlined,
     import: CloudUpload,
+    importOutlined: CloudUploadOutlined,
     importFromBank: AccountBalance,
     info: Info,
     infoOutlined: InfoOutlined,
