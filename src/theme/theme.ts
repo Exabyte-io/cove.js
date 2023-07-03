@@ -43,6 +43,11 @@ const LightMaterialUITheme = createTheme(theme, {
                 height: sizesConfig.buttonPrimary.height,
             },
         },
+        header: {
+            subHeader: {
+                height: "30px",
+            },
+        },
     },
     breakpoints: {
         values: {
