@@ -17,6 +17,8 @@ export interface ExtendedLinearProgressProps extends LinearProgressProps {
     percent: number;
 }
 
-export default function LinearProgress({ percent, variant }: ExtendedLinearProgressProps) {
-    return <LinearProgressMui variant={variant} value={percent} color={getColor(percent)} />;
+export default function LinearProgress({ percent, variant, color }: ExtendedLinearProgressProps) {
+    return (
+        <LinearProgressMui variant={variant} value={percent} color={color || getColor(percent)} />
+    );
 }
