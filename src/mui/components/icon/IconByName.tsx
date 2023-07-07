@@ -36,6 +36,7 @@ import Delete from "@mui/icons-material/Delete";
 import Description from "@mui/icons-material/Description";
 import DesktopWindowsOutlined from "@mui/icons-material/DesktopWindowsOutlined";
 import DirectionsWalk from "@mui/icons-material/DirectionsWalk";
+import DnsOutlined from "@mui/icons-material/DnsOutlined";
 import DoubleArrow from "@mui/icons-material/DoubleArrow";
 import Download from "@mui/icons-material/Download";
 import Edit from "@mui/icons-material/Edit";
@@ -205,6 +206,7 @@ const iconComponentMap: Record<string, typeof SvgIcon | ReturnType<typeof rotate
     collapse: ExpandLess,
     columns: ViewColumn,
     comment: ModeComment,
+    computeLoad: DnsOutlined,
     copy: ContentCopy,
     copyPath: ContentCopy,
     create: Add,
