@@ -5,19 +5,35 @@ import Box from "@mui/material/Box";
 import ClickAwayListener from "@mui/material/ClickAwayListener";
 import Divider from "@mui/material/Divider";
 import Grow from "@mui/material/Grow";
+import ListItem from "@mui/material/ListItem";
 import MenuList from "@mui/material/MenuList";
 import Paper from "@mui/material/Paper";
 import Popper, { PopperPlacementType, PopperProps } from "@mui/material/Popper";
 import { useTheme } from "@mui/material/styles";
+import Typography from "@mui/material/Typography";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import React, { useCallback, useRef, useState } from "react";
 
-import { DefaultDropdownButton } from "./DefaultDropdownButton";
-import { DropdownAction, DropdownItem } from "./DropdownItem";
+import defaultDropdownItem, { DefaultDropdownItem } from "./DefaultDropdownItem";
+import { NestedDropdownItem } from "./NestedDropdownItem";
 
+export interface NestedDropdownAction {
+    id: string;
+    disabled: boolean;
+    content: string;
+    icon: JSX.Element;
+    shouldMenuStayOpened?: boolean;
+    key?: string;
+    isActive?: boolean;
+    isShown?: boolean;
+    isSelected?: boolean;
+    isDivider?: boolean;
+    onClick: (action: NestedDropdownAction) => void;
+    isNested?: boolean;
+    actions?: NestedDropdownAction[];
+}
 
-
-export interface DropdownProps {
+export interface NestedDropdownProps {
     id?: string;
     popperProps?: {
         id: string;
@@ -25,11 +41,12 @@ export interface DropdownProps {
         "data-popper-id"?: string;
     };
     buttonContent?: string;
-    actions: DropdownAction[];
+    actions: NestedDropdownAction[];
     children?: React.ReactNode | React.ReactNode[];
     paperPlacement?: PopperPlacementType;
     className?: string;
     disabled?: boolean;
+    title?: string;
 }
 
 /**
@@ -37,7 +54,7 @@ export interface DropdownProps {
  * custom button which takes from children, actions array -> array which will be converted
  * to dropdown menu items.
  */
-export default function Dropdown({
+export default function NestedDropdown({
     id,
     actions,
     buttonContent,
@@ -48,7 +65,8 @@ export default function Dropdown({
     disabled = false,
     paperPlacement = "bottom-start",
     className = "",
-}: DropdownProps) {
+    title = "Default Header",
+}: NestedDropdownProps) {
     const containerRef = useRef<HTMLDivElement>(null);
     const [opened, setOpened] = useState(false);
     const theme = useTheme();
@@ -82,17 +100,11 @@ export default function Dropdown({
             setOpened(false);
         }
     }, []);
-    console.log("Test changes");
 
     return (
         <Box className={className} id={id} sx={{ width: isMobile ? "100%" : undefined }}>
             <div ref={containerRef} onClick={onClick}>
-                {children || (
-                    <DefaultDropdownButton fullWidth={isMobile} disabled={disabled}>
-                        {buttonContent ||
-                            (actions.find(({ isSelected }) => isSelected) || actions[0])?.content}
-                    </DefaultDropdownButton>
-                )}
+                <ListItem>{children}</ListItem>
             </div>
             <Popper
                 // @ts-ignore
@@ -101,11 +113,14 @@ export default function Dropdown({
                 anchorEl={containerRef?.current}
                 transition
                 placement={paperPlacement}
-                popperOptions={{ placement: "bottom-start" }}
+                popperOptions={{ placement: "right-start" }}
                 {...popperProps}>
                 {({ TransitionProps }) => (
                     <Grow {...TransitionProps} style={{ transformOrigin: "center top" }}>
                         <Paper sx={{ minWidth: () => containerRef?.current?.offsetWidth }}>
+                            <ListItem>
+                                <Typography>{title}</Typography>
+                            </ListItem>
                             <ClickAwayListener onClickAway={onClickAway}>
                                 <MenuList
                                     autoFocusItem={opened}
@@ -117,13 +132,16 @@ export default function Dropdown({
                                             if (action.isDivider) {
                                                 return <Divider key={action.key || action.id} />;
                                             }
+                                            if (action.isNested && action.actions) {
+                                                return <NestedDropdown actions={action.actions} />;
+                                            }
                                             return (
-                                                <DropdownItem
+                                                <NestedDropdownItem
                                                     disabled={action.disabled}
                                                     icon={action.icon}
                                                     id={action.id}
-                                                    onClick={() => onMenuItemClick(action.id)}
-                                                    showCheckIcon={action.showCheckIcon}
+                                                    onClick={onMenuItemClick}
+                                                    isActive={action.isActive}
                                                     content={action.content}
                                                     key={action.key || action.id}
                                                 />
