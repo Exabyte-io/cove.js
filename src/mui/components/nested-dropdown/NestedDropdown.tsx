@@ -52,8 +52,14 @@ export interface NestedDropdownProps {
     contentObject?: React.ReactNode;
 }
 
+// TODO: discuss turning this into fully reusable component, renaming to Dropdown? and changing existing implementations to use that.
 /**
- *  Nested dropdown component
+ * @summary Nested dropdown component can be used as a default dropdown component,
+ *  with options to make it nested and display menu in a flexible way:
+ *  header - optional header text for the dropdown
+ *  [actions: leftIcon, content, rightIcon] - optional actions array which will be converted to dropdown menu items.
+ *  contentObject - optional object to display custom content layout
+ *  divider - optional divider to separate dropdown menu items
  */
 export default function NestedDropdown({
     id,
@@ -147,8 +153,8 @@ export default function NestedDropdown({
                                                         header={action.header}>
                                                         <NestedDropdownItem
                                                             disabled={action.disabled}
-                                                            leftIcon={action.leftIcon}
                                                             id={action.id}
+                                                            leftIcon={action.leftIcon}
                                                             content={action.content}
                                                             rightIcon={action.rightIcon}
                                                         />

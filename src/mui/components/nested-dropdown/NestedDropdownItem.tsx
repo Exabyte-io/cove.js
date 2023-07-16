@@ -13,6 +13,11 @@ export interface DropdownItemProps {
     rightIcon?: React.ReactElement;
 }
 
+/**
+ * @summary Nested dropdown item component. The main idea of the component is to provide
+ * flexible way to display leftIcon | content | rightIcon
+ * where each of them can be optional.
+ */
 export function NestedDropdownItem({
     disabled = false,
     id,
