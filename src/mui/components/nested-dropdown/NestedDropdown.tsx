@@ -14,23 +14,25 @@ import Typography from "@mui/material/Typography";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import React, { useCallback, useRef, useState } from "react";
 
-import defaultDropdownItem, { DefaultDropdownItem } from "./DefaultDropdownItem";
+import { DefaultDropdownButton } from "../dropdown/DefaultDropdownButton";
 import { NestedDropdownItem } from "./NestedDropdownItem";
 
 export interface NestedDropdownAction {
     id: string;
     disabled: boolean;
-    content: string;
-    icon: JSX.Element;
     shouldMenuStayOpened?: boolean;
     key?: string;
     isActive?: boolean;
     isShown?: boolean;
     isSelected?: boolean;
     isDivider?: boolean;
-    onClick: (action: NestedDropdownAction) => void;
-    isNested?: boolean;
+    onClick?: (action: NestedDropdownAction) => void;
     actions?: NestedDropdownAction[];
+    leftIcon?: React.ReactElement;
+    content?: string;
+    rightIcon?: React.ReactElement;
+    header?: string;
+    contentObject?: React.ReactNode;
 }
 
 export interface NestedDropdownProps {
@@ -46,13 +48,12 @@ export interface NestedDropdownProps {
     paperPlacement?: PopperPlacementType;
     className?: string;
     disabled?: boolean;
-    title?: string;
+    header?: string;
+    contentObject?: React.ReactNode;
 }
 
 /**
- *  MUI dropdown component have a default button with dropdown also could be used with
- * custom button which takes from children, actions array -> array which will be converted
- * to dropdown menu items.
+ *  Nested dropdown component
  */
 export default function NestedDropdown({
     id,
@@ -63,9 +64,9 @@ export default function NestedDropdown({
     },
     children = null,
     disabled = false,
-    paperPlacement = "bottom-start",
+    paperPlacement = "right-start",
     className = "",
-    title = "Default Header",
+    header,
 }: NestedDropdownProps) {
     const containerRef = useRef<HTMLDivElement>(null);
     const [opened, setOpened] = useState(false);
@@ -89,7 +90,7 @@ export default function NestedDropdown({
                 setOpened(false);
             }
 
-            targetAction.onClick(targetAction);
+            if (targetAction.onClick) targetAction.onClick(targetAction);
         },
         [actions],
     );
@@ -104,7 +105,12 @@ export default function NestedDropdown({
     return (
         <Box className={className} id={id} sx={{ width: isMobile ? "100%" : undefined }}>
             <div ref={containerRef} onClick={onClick}>
-                <ListItem>{children}</ListItem>
+                {children || (
+                    <DefaultDropdownButton fullWidth={isMobile} disabled={disabled}>
+                        {buttonContent ||
+                            (actions.find(({ isSelected }) => isSelected) || actions[0])?.content}
+                    </DefaultDropdownButton>
+                )}
             </div>
             <Popper
                 // @ts-ignore
@@ -113,14 +119,16 @@ export default function NestedDropdown({
                 anchorEl={containerRef?.current}
                 transition
                 placement={paperPlacement}
-                popperOptions={{ placement: "right-start" }}
+                // popperOptions={{ placement: "right-start" }}
                 {...popperProps}>
                 {({ TransitionProps }) => (
                     <Grow {...TransitionProps} style={{ transformOrigin: "center top" }}>
                         <Paper sx={{ minWidth: () => containerRef?.current?.offsetWidth }}>
-                            <ListItem>
-                                <Typography>{title}</Typography>
-                            </ListItem>
+                            {Boolean(header) && (
+                                <ListItem>
+                                    <Typography>{header}</Typography>
+                                </ListItem>
+                            )}
                             <ClickAwayListener onClickAway={onClickAway}>
                                 <MenuList
                                     autoFocusItem={opened}
@@ -132,13 +140,28 @@ export default function NestedDropdown({
                                             if (action.isDivider) {
                                                 return <Divider key={action.key || action.id} />;
                                             }
-                                            if (action.isNested && action.actions) {
-                                                return <NestedDropdown actions={action.actions} />;
+                                            if (action.actions) {
+                                                return (
+                                                    <NestedDropdown
+                                                        actions={action.actions}
+                                                        header={action.header}>
+                                                        <NestedDropdownItem
+                                                            disabled={action.disabled}
+                                                            leftIcon={action.leftIcon}
+                                                            id={action.id}
+                                                            content={action.content}
+                                                            rightIcon={action.rightIcon}
+                                                        />
+                                                    </NestedDropdown>
+                                                );
+                                            }
+                                            if (action.contentObject) {
+                                                return action.contentObject;
                                             }
                                             return (
                                                 <NestedDropdownItem
                                                     disabled={action.disabled}
-                                                    icon={action.icon}
+                                                    leftIcon={action.leftIcon}
                                                     id={action.id}
                                                     onClick={onMenuItemClick}
                                                     isActive={action.isActive}
