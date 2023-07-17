@@ -167,11 +167,12 @@ export default function NestedDropdown({
                                             return (
                                                 <NestedDropdownItem
                                                     disabled={action.disabled}
-                                                    leftIcon={action.leftIcon}
                                                     id={action.id}
                                                     onClick={onMenuItemClick}
                                                     isActive={action.isActive}
+                                                    leftIcon={action.leftIcon}
                                                     content={action.content}
+                                                    rightIcon={action.rightIcon}
                                                     key={action.key || action.id}
                                                 />
                                             );

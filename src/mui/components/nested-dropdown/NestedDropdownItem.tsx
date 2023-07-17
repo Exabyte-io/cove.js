@@ -1,6 +1,8 @@
-import { Container, Typography } from "@mui/material";
+import Box from "@mui/material/Box";
+import Container from "@mui/material/Container";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import MenuItem from "@mui/material/MenuItem";
+import Typography from "@mui/material/Typography";
 import React, { useCallback } from "react";
 
 export interface DropdownItemProps {
