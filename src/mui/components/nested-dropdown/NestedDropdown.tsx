@@ -1,6 +1,8 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable react/jsx-props-no-spreading */
+import { ChevronLeft } from "@mui/icons-material";
+import ChevronRight from "@mui/icons-material/ChevronRight";
 import Box from "@mui/material/Box";
 import ClickAwayListener from "@mui/material/ClickAwayListener";
 import Divider from "@mui/material/Divider";
@@ -70,7 +72,7 @@ export default function NestedDropdown({
     },
     children = null,
     disabled = false,
-    paperPlacement = "right-start",
+    paperPlacement = "auto-start",
     className = "",
     header,
 }: NestedDropdownProps) {
@@ -154,9 +156,15 @@ export default function NestedDropdown({
                                                         <NestedDropdownItem
                                                             disabled={action.disabled}
                                                             id={action.id}
-                                                            leftIcon={action.leftIcon}
+                                                            key={action.key || action.id}
+                                                            // TODO: detect whether the popper opens to the left or to the right and render only appropriate default icon
+                                                            leftIcon={
+                                                                action.leftIcon || <ChevronLeft />
+                                                            }
                                                             content={action.content}
-                                                            rightIcon={action.rightIcon}
+                                                            rightIcon={
+                                                                action.rightIcon || <ChevronRight />
+                                                            }
                                                         />
                                                     </NestedDropdown>
                                                 );
