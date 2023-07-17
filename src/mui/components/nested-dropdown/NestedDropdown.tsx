@@ -5,6 +5,7 @@ import ChevronLeft from "@mui/icons-material/ChevronLeft";
 import ChevronRight from "@mui/icons-material/ChevronRight";
 import Box from "@mui/material/Box";
 import ClickAwayListener from "@mui/material/ClickAwayListener";
+import Container from "@mui/material/Container";
 import Divider from "@mui/material/Divider";
 import Grow from "@mui/material/Grow";
 import ListItem from "@mui/material/ListItem";
@@ -147,60 +148,64 @@ export default function NestedDropdown({
                                 </ListItem>
                             )}
                             <ClickAwayListener onClickAway={onClickAway}>
-                                <MenuList
-                                    autoFocusItem={opened}
-                                    id="dropdown-menu"
-                                    onKeyDown={onListKeyDown}>
-                                    {Boolean(actions) &&
-                                        actions
-                                            .filter(({ isShown }) => isShown !== false)
-                                            .map((action) => {
-                                                if (action.isDivider) {
-                                                    return (
-                                                        <Divider key={action.key || action.id} />
-                                                    );
-                                                }
-                                                if (action.actions) {
-                                                    return (
-                                                        <NestedDropdown
-                                                            actions={action.actions}
-                                                            header={action.header}>
-                                                            <NestedDropdownItem
-                                                                disabled={action.disabled}
-                                                                id={action.id}
+                                <Container>
+                                    <MenuList
+                                        autoFocusItem={opened}
+                                        id="dropdown-menu"
+                                        onKeyDown={onListKeyDown}>
+                                        {Boolean(actions) &&
+                                            actions
+                                                .filter(({ isShown }) => isShown !== false)
+                                                .map((action) => {
+                                                    if (action.isDivider) {
+                                                        return (
+                                                            <Divider
                                                                 key={action.key || action.id}
-                                                                // TODO: detect whether the popper opens to the left or to the right and render only appropriate default icon
-                                                                leftIcon={
-                                                                    action.leftIcon || (
-                                                                        <ChevronLeft />
-                                                                    )
-                                                                }
-                                                                content={action.content}
-                                                                rightIcon={
-                                                                    action.rightIcon || (
-                                                                        <ChevronRight />
-                                                                    )
-                                                                }
                                                             />
-                                                        </NestedDropdown>
+                                                        );
+                                                    }
+                                                    if (action.actions) {
+                                                        return (
+                                                            <NestedDropdown
+                                                                actions={action.actions}
+                                                                header={action.header}>
+                                                                <NestedDropdownItem
+                                                                    disabled={action.disabled}
+                                                                    id={action.id}
+                                                                    key={action.key || action.id}
+                                                                    // TODO: detect whether the popper opens to the left or to the right and render only appropriate default icon
+                                                                    leftIcon={
+                                                                        action.leftIcon || (
+                                                                            <ChevronLeft />
+                                                                        )
+                                                                    }
+                                                                    content={action.content}
+                                                                    rightIcon={
+                                                                        action.rightIcon || (
+                                                                            <ChevronRight />
+                                                                        )
+                                                                    }
+                                                                />
+                                                            </NestedDropdown>
+                                                        );
+                                                    }
+                                                    return (
+                                                        <NestedDropdownItem
+                                                            disabled={action.disabled}
+                                                            id={action.id}
+                                                            onClick={onMenuItemClick}
+                                                            isActive={action.isActive}
+                                                            leftIcon={action.leftIcon}
+                                                            content={action.content}
+                                                            rightIcon={action.rightIcon}
+                                                            key={action.key || action.id}
+                                                        />
                                                     );
-                                                }
-                                                return (
-                                                    <NestedDropdownItem
-                                                        disabled={action.disabled}
-                                                        id={action.id}
-                                                        onClick={onMenuItemClick}
-                                                        isActive={action.isActive}
-                                                        leftIcon={action.leftIcon}
-                                                        content={action.content}
-                                                        rightIcon={action.rightIcon}
-                                                        key={action.key || action.id}
-                                                    />
-                                                );
-                                            })}
-                                </MenuList>
+                                                })}
+                                    </MenuList>
+                                    {Boolean(contentObject) && contentObject}
+                                </Container>
                             </ClickAwayListener>
-                            {Boolean(contentObject) && contentObject}
                         </Paper>
                     </Grow>
                 )}
