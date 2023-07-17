@@ -4,87 +4,36 @@ import { green } from "@mui/material/colors";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import MenuItem from "@mui/material/MenuItem";
-import React, { useCallback, useState } from "react";
-import Menu from "@mui/material/Menu";
-
-export interface DropdownAction {
-    id: string;
-    disabled: boolean;
-    content: string | React.ReactElement;
-    icon: React.ReactElement;
-    shouldMenuStayOpened?: boolean;
-    key?: string;
-    showCheckIcon?: boolean;
-    isShown?: boolean;
-    isSelected?: boolean;
-    isDivider?: boolean;
-    subActions?: DropdownAction[];
-    onClick: (action: DropdownAction) => void;
-}
+import React, { useCallback } from "react";
 
 export interface DropdownItemProps {
     disabled: boolean;
-    icon: React.ReactElement;
+    icon: React.ReactElement | null;
     id: string;
-    onClick: (action: DropdownAction) => void;
+    onClick: (id: string) => void;
     showCheckIcon?: boolean;
     content: string | React.ReactElement;
 }
 
 export function DropdownItem({
     disabled = false,
-    icon,
+    icon = null,
     id,
     onClick,
     showCheckIcon = false,
     content,
-    subActions,
-}: DropdownItemProps & { subActions?: DropdownAction[] }) {
-    const [submenuOpen, setSubmenuOpen] = useState(false);
-    const handleMouseOver = useCallback(() => setSubmenuOpen(true), []);
-    const handleMouseOut = useCallback(() => setSubmenuOpen(false), []);
-    const handleClose = useCallback(() => setSubmenuOpen(false), []);
+}: DropdownItemProps) {
+    const onItemClick = useCallback(() => onClick(id), [id]);
 
-    const action: DropdownAction = {
-        id,
-        disabled,
-        icon,
-        content,
-        onClick,
-    };
-
-    const onItemClick = useCallback(() => {
-        onClick(action);
-        setSubmenuOpen(false);
-    }, [onClick, action]);
     return (
-        <MenuItem 
-            id={id} 
-            disabled={disabled} 
-            onClick={onItemClick}
-            onMouseOver={handleMouseOver}
-            onMouseOut={handleMouseOut}
-        >
+        <MenuItem id={id} disabled={disabled} onClick={onItemClick}>
             <ListItemIcon>{icon || <BlurCircularOutlinedIcon />}</ListItemIcon>
             <ListItemText
                 primaryTypographyProps={{ variant: "caption", color: "text.primary" }}
-                className="DropdownItemText"
-            >
+                className="DropdownItemText">
                 {content}
             </ListItemText>
             {showCheckIcon ? <CheckIcon htmlColor={green[500]} fontSize="large" /> : null}
-            {subActions && (
-                <Menu
-                    id="simple-menu"
-                    keepMounted
-                    open={Boolean(submenuOpen)}
-                    onClose={handleClose}
-                >
-                    {subActions.map((subAction) => (
-                        <DropdownItem {...subAction} key={subAction.id} onClick={() => onClick(subAction)} />
-                    ))}
-                </Menu>
-            )}
         </MenuItem>
     );
 }

@@ -13,9 +13,21 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import React, { useCallback, useRef, useState } from "react";
 
 import { DefaultDropdownButton } from "./DefaultDropdownButton";
-import { DropdownAction, DropdownItem } from "./DropdownItem";
+import { DropdownItem } from "./DropdownItem";
 
-
+export interface DropdownAction {
+    id: string;
+    disabled: boolean;
+    content: string;
+    icon: JSX.Element;
+    shouldMenuStayOpened?: boolean;
+    key?: string;
+    showCheckIcon?: boolean;
+    isShown?: boolean;
+    isSelected?: boolean;
+    isDivider?: boolean;
+    onClick: (action: DropdownAction) => void;
+}
 
 export interface DropdownProps {
     id?: string;
@@ -82,7 +94,6 @@ export default function Dropdown({
             setOpened(false);
         }
     }, []);
-    console.log("Test changes");
 
     return (
         <Box className={className} id={id} sx={{ width: isMobile ? "100%" : undefined }}>
@@ -122,7 +133,7 @@ export default function Dropdown({
                                                     disabled={action.disabled}
                                                     icon={action.icon}
                                                     id={action.id}
-                                                    onClick={() => onMenuItemClick(action.id)}
+                                                    onClick={onMenuItemClick}
                                                     showCheckIcon={action.showCheckIcon}
                                                     content={action.content}
                                                     key={action.key || action.id}
