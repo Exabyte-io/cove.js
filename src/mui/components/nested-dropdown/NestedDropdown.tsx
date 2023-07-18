@@ -10,7 +10,7 @@ import Divider from "@mui/material/Divider";
 import Grow from "@mui/material/Grow";
 import ListItem from "@mui/material/ListItem";
 import MenuList from "@mui/material/MenuList";
-import Paper from "@mui/material/Paper";
+import Paper, { PaperProps } from "@mui/material/Paper";
 import Popper, { PopperPlacementType, PopperProps } from "@mui/material/Popper";
 import { useTheme } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
@@ -45,6 +45,7 @@ export interface NestedDropdownProps {
         "data-popper-id"?: string;
     };
     buttonProps?: { content: string; fullWidth?: boolean };
+    paperProps?: PaperProps;
     actions: NestedDropdownAction[];
     children?: React.ReactNode | React.ReactNode[];
     paperPlacement?: PopperPlacementType;
@@ -67,7 +68,6 @@ export interface NestedDropdownProps {
 export default function NestedDropdown({
     id,
     actions,
-    shouldMenuStayOpened = false,
     contentObject,
     buttonProps = {
         content: "",
@@ -76,6 +76,7 @@ export default function NestedDropdown({
     popperProps = {
         id: "popper",
     },
+    paperProps = {},
     children = null,
     disabled = false,
     paperPlacement = "auto-start",
@@ -141,7 +142,11 @@ export default function NestedDropdown({
                 {...popperProps}>
                 {({ TransitionProps }) => (
                     <Grow {...TransitionProps} style={{ transformOrigin: "center top" }}>
-                        <Paper sx={{ minWidth: () => containerRef?.current?.offsetWidth }}>
+                        <Paper
+                            sx={{
+                                minWidth: () => containerRef?.current?.offsetWidth,
+                                ...paperProps,
+                            }}>
                             {Boolean(header) && (
                                 <ListItem>
                                     <Typography>{header}</Typography>
