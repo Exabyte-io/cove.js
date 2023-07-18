@@ -39,7 +39,7 @@ export function NestedDropdownItem({
             {Boolean(leftIcon) && <ListItemIcon>{leftIcon}</ListItemIcon>}
             {Boolean(content) && (
                 <Container>
-                    <Typography variant="caption" color="text.primary" className="DropdownItemText">
+                    <Typography variant="body1" color="text.primary" className="DropdownItemText">
                         {content}
                     </Typography>
                 </Container>

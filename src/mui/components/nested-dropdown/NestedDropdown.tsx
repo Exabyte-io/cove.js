@@ -5,7 +5,6 @@ import ChevronLeft from "@mui/icons-material/ChevronLeft";
 import ChevronRight from "@mui/icons-material/ChevronRight";
 import Box from "@mui/material/Box";
 import ClickAwayListener from "@mui/material/ClickAwayListener";
-import Container from "@mui/material/Container";
 import Divider from "@mui/material/Divider";
 import Grow from "@mui/material/Grow";
 import ListItem from "@mui/material/ListItem";
@@ -58,12 +57,17 @@ export interface NestedDropdownProps {
 
 // TODO: discuss turning this into fully reusable component, renaming to Dropdown? and changing existing implementations to use that.
 /**
- * @summary Nested dropdown component can be used as a default dropdown component,
+ * @summary Nested dropdown component, can be used as a default dropdown component
+ *  Nested dropdown component can be used as a default dropdown component,
  *  with options to make it nested and display menu in a flexible way:
  *  header - optional header text for the dropdown
  *  [actions: leftIcon, content, rightIcon] - optional actions array which will be converted to dropdown menu items.
  *  contentObject - optional object to display custom content layout
  *  divider - optional divider to separate dropdown menu items
+ *  @param {Object} props
+ *  @param {React.ReactNode[]} [props.contentObject] - any arbitrary content to display in dropdown in place of menu items
+ *  @param {Object} [props.buttonProps] - props for default button component
+ *  @param {Object} [props.popperProps] - props for popper component
  */
 export default function NestedDropdown({
     id,
@@ -149,11 +153,14 @@ export default function NestedDropdown({
                             }}>
                             {Boolean(header) && (
                                 <ListItem>
-                                    <Typography>{header}</Typography>
+                                    <Typography variant="h6" color="text.primary">
+                                        {header}
+                                    </Typography>
                                 </ListItem>
                             )}
                             <ClickAwayListener onClickAway={onClickAway}>
-                                <Container>
+                                <Box>
+                                    {Boolean(contentObject) && contentObject}
                                     <MenuList
                                         autoFocusItem={opened}
                                         id="dropdown-menu"
@@ -178,17 +185,23 @@ export default function NestedDropdown({
                                                                     disabled={action.disabled}
                                                                     id={action.id}
                                                                     key={action.key || action.id}
-                                                                    // TODO: detect whether the popper opens to the left or to the right and render only appropriate default icon
+                                                                    // TODO: detect whether the popper opens to the left or to the right and render only corresponding default icon, currently works only with explicit left/right placement
                                                                     leftIcon={
-                                                                        action.leftIcon || (
+                                                                        action.leftIcon ||
+                                                                        (paperPlacement.startsWith(
+                                                                            "left",
+                                                                        ) ? (
                                                                             <ChevronLeft />
-                                                                        )
+                                                                        ) : undefined)
                                                                     }
                                                                     content={action.content}
                                                                     rightIcon={
-                                                                        action.rightIcon || (
+                                                                        action.rightIcon ||
+                                                                        (paperPlacement.startsWith(
+                                                                            "right",
+                                                                        ) ? (
                                                                             <ChevronRight />
-                                                                        )
+                                                                        ) : undefined)
                                                                     }
                                                                 />
                                                             </NestedDropdown>
@@ -208,8 +221,7 @@ export default function NestedDropdown({
                                                     );
                                                 })}
                                     </MenuList>
-                                    {Boolean(contentObject) && contentObject}
-                                </Container>
+                                </Box>
                             </ClickAwayListener>
                         </Paper>
                     </Grow>
