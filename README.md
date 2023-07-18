@@ -18,7 +18,18 @@ For development:
 
 ```bash
 git clone https://github.com/Exabyte-io/cove.js.git
+cd cove.js
+npm install
+npm run transpile
+rm -rf {PATH}/exabyte-stack/web-app/src/application/node_modules/@exabyte-io/cove.js/dist
+ln -s "$(pwd)/dist/" /{ABSOLUTE_PATH}/exabyte-stack/web-app/src/application/node_modules/@exabyte-io/cove.js
+restart host app (web-app, wave etc.)
 ```
+
+DO NOT use `npm link` as it leads to having multiple react libs in app.
+See links:
+https://github.com/facebook/react/issues/13991
+https://legacy.reactjs.org/warnings/invalid-hook-call-warning.html#duplicate-react
 
 ### Typescript
 
