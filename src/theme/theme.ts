@@ -41,12 +41,6 @@ const commonSettings = {
                 height: sizesConfig.buttonPrimary.height,
             },
         },
-        toolbar: {
-            xl: {
-                width: "64px",
-                height: "64px",
-            },
-        },
         header: {
             subHeader: {
                 height: "30px",
@@ -99,6 +93,7 @@ const buildTheme = (theme: Theme) => {
         shadows: shadows(theme),
         components: {
             ...buttons(theme),
+            // TODO: REMOVE! this styles after moving explorer to the MUI Data Grid
             ...MUITablePaginationSettings,
         },
     });
