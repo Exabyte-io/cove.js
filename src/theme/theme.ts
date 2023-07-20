@@ -92,7 +92,7 @@ const MUITablePaginationSettings = {
 export const theme = createTheme({ palette: lightPalette });
 // default MUI dark theme:
 export const darkTheme = createTheme({ palette: { mode: "dark" } });
-const themeGenerator = (theme: Theme) => {
+const buildTheme = (theme: Theme) => {
     return createTheme(theme, {
         ...commonSettings,
         typography: typography(theme),
@@ -104,7 +104,7 @@ const themeGenerator = (theme: Theme) => {
     });
 };
 
-const LightMaterialUITheme = themeGenerator(theme);
-export const DarkMaterialUITheme = themeGenerator(darkTheme);
+const LightMaterialUITheme = buildTheme(theme);
+export const DarkMaterialUITheme = buildTheme(darkTheme);
 
 export default LightMaterialUITheme;
