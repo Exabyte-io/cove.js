@@ -1,7 +1,7 @@
 import Container from "@mui/material/Container";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import MenuItem from "@mui/material/MenuItem";
-import Typography from "@mui/material/Typography";
+import Typography, { TypographyProps } from "@mui/material/Typography";
 import React, { useCallback } from "react";
 
 export interface DropdownItemProps {
@@ -12,6 +12,7 @@ export interface DropdownItemProps {
     leftIcon?: React.ReactElement;
     content?: string;
     rightIcon?: React.ReactElement;
+    typographyProps?: TypographyProps;
 }
 
 /**
@@ -27,6 +28,7 @@ export function NestedDropdownItem({
     leftIcon,
     content,
     rightIcon,
+    typographyProps = { variant: "body1", color: "text.primary" },
 }: DropdownItemProps) {
     const onItemClick = useCallback(() => {
         if (typeof onClick === "function") {
@@ -39,7 +41,8 @@ export function NestedDropdownItem({
             {Boolean(leftIcon) && <ListItemIcon>{leftIcon}</ListItemIcon>}
             {Boolean(content) && (
                 <Container>
-                    <Typography variant="body1" color="text.primary" className="DropdownItemText">
+                    {/* eslint-disable-next-line react/jsx-props-no-spreading */}
+                    <Typography {...typographyProps} className="DropdownItemText">
                         {content}
                     </Typography>
                 </Container>
