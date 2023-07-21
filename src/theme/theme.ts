@@ -1,7 +1,7 @@
-import { createTheme } from "@mui/material/styles";
+import { createTheme, Theme } from "@mui/material/styles";
 
 import buttons from "./components/buttons";
-import palette from "./palette";
+import lightPalette from "./palette";
 import shadows from "./shadows";
 import typography from "./typography";
 
@@ -11,9 +11,7 @@ export const sizesConfig = {
     },
 };
 
-export const theme = createTheme({ palette });
-
-const LightMaterialUITheme = createTheme(theme, {
+const commonSettings = {
     dropdownPopperZindex: 2147483647,
     iconDefaultFontSize: 20,
     fonts: {
@@ -58,33 +56,50 @@ const LightMaterialUITheme = createTheme(theme, {
             xl: 1536,
         },
     },
-    typography: typography(theme),
-    shadows: shadows(theme),
-    components: {
-        ...buttons(theme),
-        /**
-         * Styles below adjust MUI TablePagination component to the current wep-app style
-         * Should be removed after moving explorer to the MUI Data Grid
-         */
-        MuiTablePagination: {
-            styleOverrides: {
-                toolbar: {
-                    "@media (min-width: 0px)": {
-                        minHeight: "30px",
-                        paddingLeft: 0,
-                    },
-                    fontSize: "12px",
+};
+
+/**
+ * Styles below adjust MUI TablePagination component to the current wep-app style
+ * Should be removed after moving explorer to the MUI Data Grid
+ */
+const MUITablePaginationSettings = {
+    MuiTablePagination: {
+        styleOverrides: {
+            toolbar: {
+                "@media (min-width: 0px)": {
+                    minHeight: "30px",
+                    paddingLeft: 0,
                 },
-                displayedRows: {
-                    margin: 0,
-                    fontSize: "12px",
-                },
-                actions: {
-                    marginLeft: 0,
-                },
+                fontSize: "12px",
+            },
+            displayedRows: {
+                margin: 0,
+                fontSize: "12px",
+            },
+            actions: {
+                marginLeft: 0,
             },
         },
     },
-});
+};
+
+export const theme = createTheme({ palette: lightPalette });
+// default MUI dark theme:
+export const darkTheme = createTheme({ palette: { mode: "dark" } });
+const buildTheme = (theme: Theme) => {
+    return createTheme(theme, {
+        ...commonSettings,
+        typography: typography(theme),
+        shadows: shadows(theme),
+        components: {
+            ...buttons(theme),
+            // TODO: REMOVE! this styles after moving explorer to the MUI Data Grid
+            ...MUITablePaginationSettings,
+        },
+    });
+};
+
+const LightMaterialUITheme = buildTheme(theme);
+export const DarkMaterialUITheme = buildTheme(darkTheme);
 
 export default LightMaterialUITheme;
