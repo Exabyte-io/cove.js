@@ -7,6 +7,7 @@ import React, { useCallback } from "react";
 export interface DropdownItemProps {
     disabled: boolean;
     id: string;
+    key?: string;
     onClick?: (id: string) => void;
     isActive?: boolean;
     leftIcon?: React.ReactElement;
@@ -23,6 +24,7 @@ export interface DropdownItemProps {
 export function NestedDropdownItem({
     disabled = false,
     id,
+    key,
     onClick,
     isActive = false,
     leftIcon,
@@ -37,7 +39,7 @@ export function NestedDropdownItem({
     }, [id, onClick]);
 
     return (
-        <MenuItem id={id} disabled={disabled} onClick={onItemClick}>
+        <MenuItem key={key} id={id} disabled={disabled} onClick={onItemClick}>
             {Boolean(leftIcon) && <ListItemIcon>{leftIcon}</ListItemIcon>}
             {Boolean(content) && (
                 <Container>
