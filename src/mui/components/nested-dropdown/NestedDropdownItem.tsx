@@ -1,17 +1,19 @@
 import Container from "@mui/material/Container";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import MenuItem from "@mui/material/MenuItem";
-import Typography from "@mui/material/Typography";
+import Typography, { TypographyProps } from "@mui/material/Typography";
 import React, { useCallback } from "react";
 
 export interface DropdownItemProps {
     disabled: boolean;
     id: string;
+    key?: string;
     onClick?: (id: string) => void;
     isActive?: boolean;
     leftIcon?: React.ReactElement;
     content?: string;
     rightIcon?: React.ReactElement;
+    typographyProps?: TypographyProps;
 }
 
 /**
@@ -22,11 +24,13 @@ export interface DropdownItemProps {
 export function NestedDropdownItem({
     disabled = false,
     id,
+    key,
     onClick,
     isActive = false,
     leftIcon,
     content,
     rightIcon,
+    typographyProps = { variant: "body1", color: "text.primary" },
 }: DropdownItemProps) {
     const onItemClick = useCallback(() => {
         if (typeof onClick === "function") {
@@ -35,11 +39,12 @@ export function NestedDropdownItem({
     }, [id, onClick]);
 
     return (
-        <MenuItem id={id} disabled={disabled} onClick={onItemClick}>
+        <MenuItem key={key} id={id} disabled={disabled} onClick={onItemClick}>
             {Boolean(leftIcon) && <ListItemIcon>{leftIcon}</ListItemIcon>}
             {Boolean(content) && (
                 <Container>
-                    <Typography variant="body1" color="text.primary" className="DropdownItemText">
+                    {/* eslint-disable-next-line react/jsx-props-no-spreading */}
+                    <Typography {...typographyProps} className="DropdownItemText">
                         {content}
                     </Typography>
                 </Container>
