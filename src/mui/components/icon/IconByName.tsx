@@ -5,18 +5,25 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 import Add from "@mui/icons-material/Add";
 import AddCircleOutline from "@mui/icons-material/AddCircleOutline";
 import Adjust from "@mui/icons-material/Adjust";
+import ArrowDownward from "@mui/icons-material/ArrowDownward";
 import ArrowDropDown from "@mui/icons-material/ArrowDropDown";
+import ArrowForward from "@mui/icons-material/ArrowForward";
+import ArrowUpward from "@mui/icons-material/ArrowUpward";
 import Assignment from "@mui/icons-material/Assignment";
 import AttachMoney from "@mui/icons-material/AttachMoney";
 import AutoGraph from "@mui/icons-material/AutoGraph";
 import Autorenew from "@mui/icons-material/Autorenew";
 import BatteryChargingFullOutlined from "@mui/icons-material/BatteryChargingFullOutlined";
+import Cached from "@mui/icons-material/Cached";
 import CalculateOutlined from "@mui/icons-material/CalculateOutlined";
 import CalendarToday from "@mui/icons-material/CalendarToday";
 import CallMerge from "@mui/icons-material/CallMerge";
 import CallSplit from "@mui/icons-material/CallSplit";
 import Check from "@mui/icons-material/Check";
+import ChevronLeft from "@mui/icons-material/ChevronLeft";
+import ChevronRight from "@mui/icons-material/ChevronRight";
 import Circle from "@mui/icons-material/Circle";
+import Clear from "@mui/icons-material/Clear";
 import Close from "@mui/icons-material/Close";
 import CloudUpload from "@mui/icons-material/CloudUpload";
 import CloudUploadOutlined from "@mui/icons-material/CloudUploadOutlined";
@@ -53,6 +60,7 @@ import Groups from "@mui/icons-material/Groups";
 import GroupsRounded from "@mui/icons-material/GroupsRounded";
 import HelpOutlined from "@mui/icons-material/HelpOutlined";
 import Home from "@mui/icons-material/Home";
+import Hub from "@mui/icons-material/Hub";
 import Info from "@mui/icons-material/Info";
 import Input from "@mui/icons-material/Input";
 import InsertDriveFile from "@mui/icons-material/InsertDriveFile";
@@ -93,11 +101,13 @@ import PowerSettingsNew from "@mui/icons-material/PowerSettingsNew";
 import Public from "@mui/icons-material/Public";
 import PublicOutlined from "@mui/icons-material/PublicOutlined";
 import Publish from "@mui/icons-material/Publish";
+import QueryBuilder from "@mui/icons-material/QueryBuilder";
 import RadioButtonChecked from "@mui/icons-material/RadioButtonChecked";
 import RadioButtonUnchecked from "@mui/icons-material/RadioButtonUnchecked";
 import Receipt from "@mui/icons-material/Receipt";
 import RemoveCircleOutline from "@mui/icons-material/RemoveCircleOutline";
 import Replay from "@mui/icons-material/Replay";
+import Save from "@mui/icons-material/Save";
 import SavedSearch from "@mui/icons-material/SavedSearch";
 import School from "@mui/icons-material/School";
 import Search from "@mui/icons-material/Search";
@@ -160,6 +170,7 @@ const iconComponentMap: Record<string, typeof SvgIcon | ReturnType<typeof rotate
     "entities.team": Groups,
     "entities.unit": RadioButtonUnchecked,
     "entities.workflow": Lan,
+    "entities.material.nonPeriodic": Hub,
 
     "unitType.assignment": SquareOutlined,
     "unitType.condition": Code,
@@ -227,6 +238,8 @@ const iconComponentMap: Record<string, typeof SvgIcon | ReturnType<typeof rotate
     "pages.serviceLevels": Layers,
     "pages.support": SupportAgent,
     "pages.terminal": Terminal,
+    "pages.jupyterNotebook": NorthEast,
+    "pages.context": Input,
 
     "info.default": Star,
     "info.description": Message,
@@ -260,6 +273,7 @@ const iconComponentMap: Record<string, typeof SvgIcon | ReturnType<typeof rotate
     "actions.import": CloudUpload,
     "actions.add": Add,
     "actions.advancedSearch": YoutubeSearchedFor,
+    "actions.clear": Clear,
     "actions.clone": CopyAllOutlined,
     "actions.close": Close,
     "actions.collapse": KeyboardArrowUp,
@@ -287,13 +301,16 @@ const iconComponentMap: Record<string, typeof SvgIcon | ReturnType<typeof rotate
     "actions.preview": Visibility,
     "actions.proSearch": SavedSearch,
     "actions.purge": SignalCellularNoSim,
+    "actions.searchOptions": QueryBuilder,
     "actions.quickSearch": Search,
     "actions.read": Toc,
     "actions.remove": Delete,
+    "actions.reset": Cached,
     "actions.resubmit": Replay,
     "actions.revokeAccess": VisibilityOff,
     "actions.revokeAdmin": ExpandLess,
     "actions.run": PlayArrow,
+    "actions.save": Save,
     "actions.search": Search,
     "actions.selectFiles": LibraryAdd,
     "actions.selectItems": LibraryAdd,
@@ -315,67 +332,22 @@ const iconComponentMap: Record<string, typeof SvgIcon | ReturnType<typeof rotate
     "arrows.swap": SwapVert,
     "arrows.unfold": UnfoldMore,
     "arrows.up": KeyboardArrowUp,
+    "arrows.forward": ArrowForward,
+    "arrows.upAlt": ArrowUpward,
+    "arrows.downAlt": ArrowDownward,
+    "arrows.right": ChevronRight,
+    "arrows.left": ChevronLeft,
 
     "dots.horizontal": MoreHoriz,
     "dots.vertical": MoreVert,
 
     addCircle: AddCircleOutline,
+    removeCircle: RemoveCircleOutline,
     calendar: CalendarToday,
     check: Check,
     circle: Circle,
     info: Info,
     menu: Menu,
-
-    add: Add, // to be removed and use actions.add
-    advancedSearch: YoutubeSearchedFor, // to be removed and use actions.advancedSearch
-    clone: CopyAllOutlined, // to be removed and use actions.clone
-    collapse: ExpandLess, // to be removed and use actions.collapse
-    copy: ContentCopy, // to be removed and use actions.copy
-    copyPath: ContentCopy, // to be removed and use actions.copy
-    create: Add, // to be removed and use actions.create
-    createJob: OpenInNew, // to be removed and use actions.createJob
-    createSet: FolderOpen, // to be removed and use actions.createSet
-    default: Star, // to be removed and use info.default
-    delete: Delete, // to be removed and use actions.delete
-    download: Download, // to be removed and use actions.download
-    edit: Edit, // to be removed and use actions.edit
-    execute: PlayArrow, // to be removed and use actions.execute
-    expand: ExpandMore, // to be removed and use actions.expand
-    favorite: Star, // to be removed and use actions.setFavorite
-    flatten: GridOn, // to be removed and use actions.flatten
-    flip: Flip, // unknown use, potentially to be removed
-    globalSearch: Search, // to be removed and use actions.globalSearch
-    import: CloudUpload, // to be removed and use actions.import
-    importFromBank: AccountBalance, // to be removed and use actions.importFromBank
-    leave: DirectionsWalk, // to be removed and use actions.leave
-    makeAdmin: ExpandLess, // to be removed and use actions.makeAdmin
-    moveToProject: Forward, // to be removed and use actions.moveToProject
-    moveToSet: Input, // to be removed and use actions.moveToSet
-    open: Visibility, // to be removed and use actions.open
-    openExternalProject: Folder, // to be removed and use actions.openExternalProject
-    power: PowerSettingsNew, // to be refactored by @VsevolodX
-    preview: Visibility, // to be removed and use actions.preview
-    proSearch: SavedSearch, // to be removed and use actions.proSearch
-    purge: SignalCellularNoSim, // to be removed and use actions.purge
-    quickSearch: Search, // to be removed and use actions.quickSearch
-    read: Toc, // to be removed and use actions.read
-    remove: Delete, // to be removed and use actions.remove
-    removeCircle: RemoveCircleOutline,
-    resubmit: Replay, // to be removed and use actions.resubmit
-    revokeAccess: VisibilityOff, // to be removed and use actions.revokeAccess
-    revokeAdmin: ExpandLess, // to be removed and use actions.revokeAdmin
-    run: PlayArrow, // to be removed and use actions.run
-    search: Search, // to be removed and use actions.search
-    selectFiles: LibraryAdd, // to be removed and use actions.selectFiles
-    selectItems: LibraryAdd, // to be removed and use actions.selectItems
-    setDefault: StarOutline, // to removed and use actions.setDefault
-    setIndex: FormatLineSpacing, // to be removed and use actions.setIndex
-    share: GroupAdd, // to be removed and use actions.share
-    tag: Label, // to be removed and use actions.tag
-    terminate: Stop, // to be removed and use actions.terminate
-    update: Autorenew, // to be removed and use actions.update
-    upload: Publish, // to be removed and use actions.upload
-    visualize: OpenInBrowser, // to be removed and use actions.visualize
 };
 
 export default function IconByName({
