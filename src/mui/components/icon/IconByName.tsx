@@ -46,6 +46,7 @@ import FolderOutlined from "@mui/icons-material/FolderOutlined";
 import FormatLineSpacing from "@mui/icons-material/FormatLineSpacing";
 import FormatListBulleted from "@mui/icons-material/FormatListBulleted";
 import Forward from "@mui/icons-material/Forward";
+import Grain from "@mui/icons-material/Grain";
 import GridOn from "@mui/icons-material/GridOn";
 import GroupAdd from "@mui/icons-material/GroupAdd";
 import Groups from "@mui/icons-material/Groups";
@@ -58,6 +59,7 @@ import InsertDriveFile from "@mui/icons-material/InsertDriveFile";
 import KeyboardArrowUp from "@mui/icons-material/KeyboardArrowUp";
 import KeyboardOutlined from "@mui/icons-material/KeyboardOutlined";
 import Label from "@mui/icons-material/Label";
+import Lan from "@mui/icons-material/Lan";
 import Language from "@mui/icons-material/Language";
 import LanguageOutlined from "@mui/icons-material/LanguageOutlined";
 import Layers from "@mui/icons-material/Layers";
@@ -75,7 +77,6 @@ import Message from "@mui/icons-material/Message";
 import MoreHoriz from "@mui/icons-material/MoreHoriz";
 import MoreVert from "@mui/icons-material/MoreVert";
 import NorthEast from "@mui/icons-material/NorthEast";
-import NoteAddOutlined from "@mui/icons-material/NoteAddOutlined";
 import OpenInBrowser from "@mui/icons-material/OpenInBrowser";
 import OpenInNew from "@mui/icons-material/OpenInNew";
 import OpenWith from "@mui/icons-material/OpenWith";
@@ -86,6 +87,8 @@ import Person from "@mui/icons-material/Person";
 import PersonAddOutlined from "@mui/icons-material/PersonAddOutlined";
 import PlayArrow from "@mui/icons-material/PlayArrow";
 import PlayCircleOutlined from "@mui/icons-material/PlayCircleOutlined";
+import PlaylistAdd from "@mui/icons-material/PlaylistAdd";
+import PlaylistPlay from "@mui/icons-material/PlaylistPlay";
 import PowerSettingsNew from "@mui/icons-material/PowerSettingsNew";
 import Public from "@mui/icons-material/Public";
 import PublicOutlined from "@mui/icons-material/PublicOutlined";
@@ -121,7 +124,6 @@ import UnfoldLess from "@mui/icons-material/UnfoldLess";
 import UnfoldMore from "@mui/icons-material/UnfoldMore";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import Widgets from "@mui/icons-material/Widgets";
 import WifiTethering from "@mui/icons-material/WifiTethering";
 import WorkspacesOutlined from "@mui/icons-material/WorkspacesOutlined";
 import WrapText from "@mui/icons-material/WrapText";
@@ -148,8 +150,8 @@ function rotateIcon(IconComponent: typeof SvgIcon, degrees: number) {
 const iconComponentMap: Record<string, typeof SvgIcon | ReturnType<typeof rotateIcon>> = {
     "entities.account": Person,
     "entities.accounts": PublicOutlined,
-    "entities.job": InsertDriveFile,
-    "entities.material": Widgets,
+    "entities.job": PlaylistPlay,
+    "entities.material": Grain,
     "entities.people": People,
     "entities.project": Folder,
     "entities.property": LooksOne,
@@ -157,7 +159,7 @@ const iconComponentMap: Record<string, typeof SvgIcon | ReturnType<typeof rotate
     "entities.task": Assignment,
     "entities.team": Groups,
     "entities.unit": RadioButtonUnchecked,
-    "entities.workflow": RadioButtonChecked,
+    "entities.workflow": Lan,
 
     "unitType.assignment": SquareOutlined,
     "unitType.condition": Code,
@@ -206,11 +208,12 @@ const iconComponentMap: Record<string, typeof SvgIcon | ReturnType<typeof rotate
     "files.fileText": Description,
     "files.folder": FolderOutlined,
 
+    "pages.accounts": Groups,
     "pages.billing": AttachMoney,
     "pages.bio": Visibility,
     "pages.compute": Settings,
     "pages.computeLoad": DnsOutlined,
-    "pages.createJob": NoteAddOutlined,
+    "pages.createJob": PlaylistAdd,
     "pages.dashboard": Dashboard,
     "pages.documentation": SupportOutlined,
     "pages.help": HelpOutlined,
@@ -253,8 +256,8 @@ const iconComponentMap: Record<string, typeof SvgIcon | ReturnType<typeof rotate
     "gateway.trainNewModel": Memory,
     "gateway.upload": Publish,
 
-    "actinos.share": GroupAdd,
-    "action.import": CloudUpload,
+    "actions.share": GroupAdd,
+    "actions.import": CloudUpload,
     "actions.add": Add,
     "actions.advancedSearch": YoutubeSearchedFor,
     "actions.clone": CopyAllOutlined,
