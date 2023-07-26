@@ -21,9 +21,19 @@ git clone https://github.com/Exabyte-io/cove.js.git
 cd cove.js
 npm install
 npm run transpile
+```
+
+How to link cove.js to host app:
+```bash
 rm -rf {PATH}/exabyte-stack/web-app/src/application/node_modules/@exabyte-io/cove.js/dist
 ln -s "$(pwd)/dist/" /{ABSOLUTE_PATH}/exabyte-stack/web-app/src/application/node_modules/@exabyte-io/cove.js
 restart host app (web-app, wave etc.)
+```
+
+another approach is to access cove from repo
+
+```bash
+"@exabyte-io/cove.js": "https://github.com/Exabyte-io/cove.js#cc48da9652840eb0f7d8854e02cb690484e6fab1",
 ```
 
 DO NOT use `npm link` as it leads to having multiple react libs in app.
