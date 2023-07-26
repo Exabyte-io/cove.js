@@ -1,5 +1,4 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import { Send } from "@mui/icons-material";
 import AccountBalance from "@mui/icons-material/AccountBalance";
 import AccountBalanceWalletOutlined from "@mui/icons-material/AccountBalanceWalletOutlined";
 import AccountCircle from "@mui/icons-material/AccountCircle";
@@ -112,6 +111,7 @@ import Save from "@mui/icons-material/Save";
 import SavedSearch from "@mui/icons-material/SavedSearch";
 import School from "@mui/icons-material/School";
 import Search from "@mui/icons-material/Search";
+import Send from "@mui/icons-material/Send";
 import Settings from "@mui/icons-material/Settings";
 import SettingsApplications from "@mui/icons-material/SettingsApplications";
 import SettingsOutlined from "@mui/icons-material/SettingsOutlined";
@@ -133,6 +133,7 @@ import Terminal from "@mui/icons-material/Terminal";
 import Toc from "@mui/icons-material/Toc";
 import UnfoldLess from "@mui/icons-material/UnfoldLess";
 import UnfoldMore from "@mui/icons-material/UnfoldMore";
+import Upgrade from "@mui/icons-material/Upgrade";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import WifiTethering from "@mui/icons-material/WifiTethering";
@@ -324,6 +325,7 @@ const iconComponentMap: Record<string, typeof SvgIcon | ReturnType<typeof rotate
     "actions.terminate": Stop,
     "actions.toggleRelaxation": WorkspacesOutlined,
     "actions.update": Autorenew,
+    "actions.upgrade": Upgrade,
     "actions.upload": Publish,
     "actions.visualize": OpenInBrowser,
 
