@@ -33,8 +33,11 @@ restart host app (web-app, wave etc.)
 another approach is to access cove from repo
 
 ```bash
+push your branch
+replace in package.json
 "@exabyte-io/cove.js": "https://github.com/Exabyte-io/cove.js#cc48da9652840eb0f7d8854e02cb690484e6fab1",
 ```
+make sure to install appropriate versions of peerDependencies from cove.js to host app
 
 DO NOT use `npm link` as it leads to having multiple react libs in app.
 See links:
