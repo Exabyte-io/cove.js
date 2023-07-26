@@ -42,7 +42,6 @@ import Download from "@mui/icons-material/Download";
 import Edit from "@mui/icons-material/Edit";
 import Email from "@mui/icons-material/Email";
 import ExpandLess from "@mui/icons-material/ExpandLess";
-import ExpandMore from "@mui/icons-material/ExpandMore";
 import Face from "@mui/icons-material/Face";
 import FilterDrama from "@mui/icons-material/FilterDrama";
 import FlashOn from "@mui/icons-material/FlashOn";
@@ -64,6 +63,7 @@ import Hub from "@mui/icons-material/Hub";
 import Info from "@mui/icons-material/Info";
 import Input from "@mui/icons-material/Input";
 import InsertDriveFile from "@mui/icons-material/InsertDriveFile";
+import KeyboardArrowDown from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUp from "@mui/icons-material/KeyboardArrowUp";
 import KeyboardOutlined from "@mui/icons-material/KeyboardOutlined";
 import Label from "@mui/icons-material/Label";
@@ -97,7 +97,6 @@ import PlayArrow from "@mui/icons-material/PlayArrow";
 import PlayCircleOutlined from "@mui/icons-material/PlayCircleOutlined";
 import PlaylistAdd from "@mui/icons-material/PlaylistAdd";
 import PlaylistPlay from "@mui/icons-material/PlaylistPlay";
-import PowerSettingsNew from "@mui/icons-material/PowerSettingsNew";
 import Public from "@mui/icons-material/Public";
 import PublicOutlined from "@mui/icons-material/PublicOutlined";
 import Publish from "@mui/icons-material/Publish";
@@ -285,7 +284,7 @@ const iconComponentMap: Record<string, typeof SvgIcon | ReturnType<typeof rotate
     "actions.download": Download,
     "actions.edit": Edit,
     "actions.execute": PlayArrow,
-    "actions.expand": rotateIcon(KeyboardArrowUp, 180),
+    "actions.expand": KeyboardArrowDown,
     "actions.flatten": GridOn,
     "actions.globalSearch": Search,
     "actions.import": CloudUpload,
