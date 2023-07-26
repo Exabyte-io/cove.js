@@ -1,4 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
+import { Send } from "@mui/icons-material";
 import AccountBalance from "@mui/icons-material/AccountBalance";
 import AccountBalanceWalletOutlined from "@mui/icons-material/AccountBalanceWalletOutlined";
 import AccountCircle from "@mui/icons-material/AccountCircle";
@@ -238,7 +239,7 @@ const iconComponentMap: Record<string, typeof SvgIcon | ReturnType<typeof rotate
     "pages.serviceLevels": Layers,
     "pages.support": SupportAgent,
     "pages.terminal": Terminal,
-    "pages.jupyterNotebook": NorthEast,
+    "pages.externalLink": NorthEast,
     "pages.context": Input,
 
     "info.default": Star,
@@ -269,8 +270,6 @@ const iconComponentMap: Record<string, typeof SvgIcon | ReturnType<typeof rotate
     "gateway.trainNewModel": Memory,
     "gateway.upload": Publish,
 
-    "actions.share": GroupAdd,
-    "actions.import": CloudUpload,
     "actions.add": Add,
     "actions.advancedSearch": YoutubeSearchedFor,
     "actions.clear": Clear,
@@ -288,6 +287,7 @@ const iconComponentMap: Record<string, typeof SvgIcon | ReturnType<typeof rotate
     "actions.expand": rotateIcon(KeyboardArrowUp, 180),
     "actions.flatten": GridOn,
     "actions.globalSearch": Search,
+    "actions.import": CloudUpload,
     "actions.importFromBank": AccountBalance,
     "actions.leave": DirectionsWalk,
     "actions.lock": Lock,
@@ -301,7 +301,6 @@ const iconComponentMap: Record<string, typeof SvgIcon | ReturnType<typeof rotate
     "actions.preview": Visibility,
     "actions.proSearch": SavedSearch,
     "actions.purge": SignalCellularNoSim,
-    "actions.searchOptions": QueryBuilder,
     "actions.quickSearch": Search,
     "actions.read": Toc,
     "actions.remove": Delete,
@@ -312,11 +311,14 @@ const iconComponentMap: Record<string, typeof SvgIcon | ReturnType<typeof rotate
     "actions.run": PlayArrow,
     "actions.save": Save,
     "actions.search": Search,
+    "actions.searchOptions": QueryBuilder,
     "actions.selectFiles": LibraryAdd,
     "actions.selectItems": LibraryAdd,
+    "actions.send": Send,
     "actions.setDefault": StarOutline,
     "actions.setFavorite": Star,
     "actions.setIndex": FormatLineSpacing,
+    "actions.share": GroupAdd,
     "actions.sync": Sync,
     "actions.tag": Label,
     "actions.terminate": Stop,
