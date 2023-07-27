@@ -1,4 +1,5 @@
-import Container from "@mui/material/Container";
+import Box from "@mui/material/Box";
+import ListItem from "@mui/material/ListItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import MenuItem from "@mui/material/MenuItem";
 import Typography, { TypographyProps } from "@mui/material/Typography";
@@ -37,19 +38,30 @@ export function NestedDropdownItem({
             onClick(id);
         }
     }, [id, onClick]);
-
+    console.log("padding: 0");
     return (
-        <MenuItem key={key} id={id} disabled={disabled} onClick={onItemClick}>
-            {Boolean(leftIcon) && <ListItemIcon>{leftIcon}</ListItemIcon>}
-            {Boolean(content) && (
-                <Container>
-                    {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-                    <Typography {...typographyProps} className="DropdownItemText">
+        <MenuItem
+            key={key}
+            id={id}
+            disabled={disabled}
+            onClick={onItemClick}
+            sx={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+            <Box display="flex" alignItems="center">
+                {Boolean(leftIcon) && <ListItemIcon>{leftIcon}</ListItemIcon>}
+                {Boolean(content) && (
+                    <Typography
+                        /* eslint-disable-next-line react/jsx-props-no-spreading */
+                        {...typographyProps}
+                        className="DropdownItemText">
                         {content}
                     </Typography>
-                </Container>
+                )}
+            </Box>
+            {Boolean(rightIcon) && (
+                <ListItem disableGutters sx={{ paddingRight: 0 }}>
+                    {rightIcon}
+                </ListItem>
             )}
-            {Boolean(rightIcon) && <ListItemIcon>{rightIcon}</ListItemIcon>}
         </MenuItem>
     );
 }

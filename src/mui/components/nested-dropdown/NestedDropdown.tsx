@@ -3,13 +3,14 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import ChevronLeft from "@mui/icons-material/ChevronLeft";
 import ChevronRight from "@mui/icons-material/ChevronRight";
+import { SxProps } from "@mui/material";
 import Box from "@mui/material/Box";
 import ClickAwayListener from "@mui/material/ClickAwayListener";
 import Divider from "@mui/material/Divider";
 import Grow from "@mui/material/Grow";
 import ListItem from "@mui/material/ListItem";
 import MenuList from "@mui/material/MenuList";
-import Paper, { PaperProps } from "@mui/material/Paper";
+import Paper from "@mui/material/Paper";
 import Popper, { PopperPlacementType, PopperProps } from "@mui/material/Popper";
 import { useTheme } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
@@ -44,7 +45,7 @@ export interface NestedDropdownProps {
         "data-popper-id"?: string;
     };
     buttonProps?: { content: string };
-    paperSx?: PaperProps["sx"];
+    paperSx?: SxProps;
     actions?: NestedDropdownAction[];
     children?: React.ReactNode | React.ReactNode[];
     paperPlacement?: PopperPlacementType;
@@ -148,11 +149,14 @@ export default function NestedDropdown({
                                 ...paperSx,
                             }}>
                             {Boolean(header) && (
-                                <ListItem>
-                                    <Typography variant="h6" color="text.primary">
-                                        {header}
-                                    </Typography>
-                                </ListItem>
+                                <>
+                                    <ListItem>
+                                        <Typography variant="h6" color="text.primary">
+                                            {header}
+                                        </Typography>
+                                    </ListItem>
+                                    <Divider />
+                                </>
                             )}
                             <ClickAwayListener onClickAway={onClickAway}>
                                 <Box>
