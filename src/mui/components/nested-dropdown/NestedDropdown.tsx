@@ -83,7 +83,7 @@ export default function NestedDropdown({
     paperSx = {},
     children = null,
     disabled = false,
-    paperPlacement = "auto-start",
+    paperPlacement = "auto-end",
     className = "",
     header,
     isMobile = false,
