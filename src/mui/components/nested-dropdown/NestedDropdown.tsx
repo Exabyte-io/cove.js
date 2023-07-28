@@ -3,7 +3,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import ChevronLeft from "@mui/icons-material/ChevronLeft";
 import ChevronRight from "@mui/icons-material/ChevronRight";
-import { SxProps } from "@mui/material";
 import Box from "@mui/material/Box";
 import ClickAwayListener from "@mui/material/ClickAwayListener";
 import Divider from "@mui/material/Divider";
@@ -12,7 +11,7 @@ import ListItem from "@mui/material/ListItem";
 import MenuList from "@mui/material/MenuList";
 import Paper from "@mui/material/Paper";
 import Popper, { PopperPlacementType, PopperProps } from "@mui/material/Popper";
-import { useTheme } from "@mui/material/styles";
+import { SxProps, useTheme } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
 import React, { useCallback, useRef, useState } from "react";
 
