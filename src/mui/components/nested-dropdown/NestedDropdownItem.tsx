@@ -1,8 +1,14 @@
 import Box from "@mui/material/Box";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import MenuItem from "@mui/material/MenuItem";
+import { styled } from "@mui/material/styles";
 import Typography, { TypographyProps } from "@mui/material/Typography";
 import React, { useCallback } from "react";
+
+const StyledListItemIcon = styled(ListItemIcon)({
+    marginLeft: "10px", // this is ridiculus, but the only way to align icons
+    marginRight: "-15px", // the only solution for now
+});
 
 export interface DropdownItemProps {
     disabled: boolean;
@@ -39,21 +45,26 @@ export function NestedDropdownItem({
     }, [id, onClick]);
 
     return (
-        <MenuItem key={key} id={id} disabled={disabled} onClick={onItemClick}>
-            <Box display="flex" alignItems="center" justifyContent="space-between" width="100%">
-                <Box display="flex" alignItems="center">
-                    {Boolean(leftIcon) && <ListItemIcon>{leftIcon}</ListItemIcon>}
-                    {Boolean(content) && (
-                        <Typography
-                            /* eslint-disable-next-line react/jsx-props-no-spreading */
-                            {...typographyProps}
-                            className="DropdownItemText">
-                            {content}
-                        </Typography>
-                    )}
-                </Box>
-                {Boolean(rightIcon) && <ListItemIcon>{rightIcon}</ListItemIcon>}
+        <MenuItem
+            key={key}
+            id={id}
+            disabled={disabled}
+            onClick={onItemClick}
+            sx={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+            <Box display="flex" alignItems="center">
+                {Boolean(leftIcon) && <ListItemIcon>{leftIcon}</ListItemIcon>}
+                {Boolean(content) && (
+                    <Typography
+                        /* eslint-disable-next-line react/jsx-props-no-spreading */
+                        {...typographyProps}
+                        className="DropdownItemText">
+                        {content}
+                    </Typography>
+                )}
             </Box>
+            {Boolean(rightIcon) && <StyledListItemIcon>{rightIcon}</StyledListItemIcon>}
         </MenuItem>
     );
 }
+
+console.log("new change, padding 0, sstyled ");
