@@ -177,7 +177,11 @@ export default function NestedDropdown({
                                                     return (
                                                         <NestedDropdown
                                                             actions={action.actions}
-                                                            header={action.header}>
+                                                            header={action.header}
+                                                            paperPlacement={
+                                                                action.paperPlacement ||
+                                                                paperPlacement
+                                                            }>
                                                             <NestedDropdownItem
                                                                 disabled={action.disabled}
                                                                 id={action.id}

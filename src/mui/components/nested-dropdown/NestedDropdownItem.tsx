@@ -66,5 +66,3 @@ export function NestedDropdownItem({
         </MenuItem>
     );
 }
-
-console.log("new change, padding 0, sstyled ");
