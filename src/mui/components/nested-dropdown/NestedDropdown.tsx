@@ -34,6 +34,7 @@ export interface NestedDropdownAction {
     rightIcon?: React.ReactElement;
     header?: string;
     contentObject?: React.ReactNode[];
+    paperPlacement?: PopperPlacementType;
 }
 
 export interface NestedDropdownProps {
