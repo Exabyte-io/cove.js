@@ -145,7 +145,7 @@ function DatePicker({
                     })}
                     onClick={handleOpenDatePicker}>
                     <IconByName
-                        name="calendar"
+                        name="shapes.calendar"
                         sx={{
                             color:
                                 selectedOption === DateRangeOption.custom
