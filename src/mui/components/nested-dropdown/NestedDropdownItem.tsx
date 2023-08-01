@@ -1,14 +1,21 @@
 import Box from "@mui/material/Box";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import MenuItem from "@mui/material/MenuItem";
-import { styled } from "@mui/material/styles";
+import { styled, Theme } from "@mui/material/styles";
 import Typography, { TypographyProps } from "@mui/material/Typography";
 import React, { useCallback } from "react";
 
 const StyledListItemIcon = styled(ListItemIcon)({
-    marginLeft: "10px", // this is ridiculus, but the only way to align icons
-    marginRight: "-15px", // the only solution for now
+    position: "absolute",
+    right: 0,
 });
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const StyledBox = styled(Box)(({ theme }: { theme: Theme }) => ({
+    display: "flex",
+    alignItems: "center",
+    marginRight: theme.spacing(1),
+}));
 
 export interface DropdownItemProps {
     disabled: boolean;
@@ -51,7 +58,7 @@ export function NestedDropdownItem({
             disabled={disabled}
             onClick={onItemClick}
             sx={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-            <Box display="flex" alignItems="center">
+            <StyledBox>
                 {Boolean(leftIcon) && <ListItemIcon>{leftIcon}</ListItemIcon>}
                 {Boolean(content) && (
                     <Typography
@@ -61,8 +68,8 @@ export function NestedDropdownItem({
                         {content}
                     </Typography>
                 )}
-            </Box>
-            {Boolean(rightIcon) && <StyledListItemIcon>{rightIcon}</StyledListItemIcon>}
+                {Boolean(rightIcon) && <StyledListItemIcon>{rightIcon}</StyledListItemIcon>}
+            </StyledBox>
         </MenuItem>
     );
 }
