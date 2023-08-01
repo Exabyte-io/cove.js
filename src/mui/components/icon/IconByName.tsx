@@ -238,9 +238,8 @@ const iconComponentMap: Record<string, typeof SvgIcon | ReturnType<typeof rotate
     "pages.terminal": Terminal,
     "pages.externalLink": NorthEast,
     "pages.context": Input,
-
-    "privacy.public": Public,
-    "privacy.withMe": Share,
+    "pages.sharedPublicly": Public,
+    "pages.sharedWithMe": Share,
 
     "gateway.advancedSearch": YoutubeSearchedFor,
     "gateway.analyzeViaRestAPI": Code,
@@ -340,10 +339,9 @@ const iconComponentMap: Record<string, typeof SvgIcon | ReturnType<typeof rotate
     "shapes.removeCircle": RemoveCircleOutline,
     "shapes.check": Check,
     "shapes.circle": Circle,
-
-    info: Info,
-    menu: Menu,
-    calendar: CalendarToday,
+    "shapes.info": Info,
+    "shapes.menu": Menu,
+    "shapes.calendar": CalendarToday,
 };
 
 export default function IconByName({
