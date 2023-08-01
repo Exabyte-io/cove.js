@@ -15,6 +15,7 @@ const StyledBox = styled(Box)(({ theme }: { theme: Theme }) => ({
     display: "flex",
     alignItems: "center",
     marginRight: theme.spacing(1),
+    paddingRight: theme.spacing(2),
 }));
 
 export interface DropdownItemProps {
@@ -68,8 +69,8 @@ export function NestedDropdownItem({
                         {content}
                     </Typography>
                 )}
-                {Boolean(rightIcon) && <StyledListItemIcon>{rightIcon}</StyledListItemIcon>}
             </StyledBox>
+            {Boolean(rightIcon) && <StyledListItemIcon>{rightIcon}</StyledListItemIcon>}
         </MenuItem>
     );
 }
