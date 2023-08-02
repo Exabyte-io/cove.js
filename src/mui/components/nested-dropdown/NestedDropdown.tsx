@@ -9,9 +9,9 @@ import Divider from "@mui/material/Divider";
 import Grow from "@mui/material/Grow";
 import ListItem from "@mui/material/ListItem";
 import MenuList from "@mui/material/MenuList";
-import Paper, { PaperProps } from "@mui/material/Paper";
+import Paper from "@mui/material/Paper";
 import Popper, { PopperPlacementType, PopperProps } from "@mui/material/Popper";
-import { useTheme } from "@mui/material/styles";
+import { SxProps, useTheme } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
 import React, { useCallback, useRef, useState } from "react";
 
@@ -34,6 +34,7 @@ export interface NestedDropdownAction {
     rightIcon?: React.ReactElement;
     header?: string;
     contentObject?: React.ReactNode[];
+    paperPlacement?: PopperPlacementType;
 }
 
 export interface NestedDropdownProps {
@@ -44,7 +45,7 @@ export interface NestedDropdownProps {
         "data-popper-id"?: string;
     };
     buttonProps?: { content: string };
-    paperSx?: PaperProps["sx"];
+    paperSx?: SxProps;
     actions?: NestedDropdownAction[];
     children?: React.ReactNode | React.ReactNode[];
     paperPlacement?: PopperPlacementType;
@@ -83,7 +84,7 @@ export default function NestedDropdown({
     paperSx = {},
     children = null,
     disabled = false,
-    paperPlacement = "auto-start",
+    paperPlacement = "auto-end",
     className = "",
     header,
     isMobile = false,
@@ -148,11 +149,14 @@ export default function NestedDropdown({
                                 ...paperSx,
                             }}>
                             {Boolean(header) && (
-                                <ListItem>
-                                    <Typography variant="h6" color="text.primary">
-                                        {header}
-                                    </Typography>
-                                </ListItem>
+                                <>
+                                    <ListItem>
+                                        <Typography variant="h6" color="text.primary">
+                                            {header}
+                                        </Typography>
+                                    </ListItem>
+                                    <Divider />
+                                </>
                             )}
                             <ClickAwayListener onClickAway={onClickAway}>
                                 <Box>
@@ -173,7 +177,11 @@ export default function NestedDropdown({
                                                     return (
                                                         <NestedDropdown
                                                             actions={action.actions}
-                                                            header={action.header}>
+                                                            header={action.header}
+                                                            paperPlacement={
+                                                                action.paperPlacement ||
+                                                                paperPlacement
+                                                            }>
                                                             <NestedDropdownItem
                                                                 disabled={action.disabled}
                                                                 id={action.id}

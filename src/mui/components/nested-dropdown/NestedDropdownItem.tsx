@@ -1,8 +1,22 @@
-import Container from "@mui/material/Container";
+import Box from "@mui/material/Box";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import MenuItem from "@mui/material/MenuItem";
+import { styled, Theme } from "@mui/material/styles";
 import Typography, { TypographyProps } from "@mui/material/Typography";
 import React, { useCallback } from "react";
+
+const StyledListItemIcon = styled(ListItemIcon)({
+    position: "absolute",
+    right: 0,
+});
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const StyledBox = styled(Box)(({ theme }: { theme: Theme }) => ({
+    display: "flex",
+    alignItems: "center",
+    marginRight: theme.spacing(1),
+    paddingRight: theme.spacing(2),
+}));
 
 export interface DropdownItemProps {
     disabled: boolean;
@@ -39,17 +53,24 @@ export function NestedDropdownItem({
     }, [id, onClick]);
 
     return (
-        <MenuItem key={key} id={id} disabled={disabled} onClick={onItemClick}>
-            {Boolean(leftIcon) && <ListItemIcon>{leftIcon}</ListItemIcon>}
-            {Boolean(content) && (
-                <Container>
-                    {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-                    <Typography {...typographyProps} className="DropdownItemText">
+        <MenuItem
+            key={key}
+            id={id}
+            disabled={disabled}
+            onClick={onItemClick}
+            sx={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+            <StyledBox>
+                {Boolean(leftIcon) && <ListItemIcon>{leftIcon}</ListItemIcon>}
+                {Boolean(content) && (
+                    <Typography
+                        /* eslint-disable-next-line react/jsx-props-no-spreading */
+                        {...typographyProps}
+                        className="DropdownItemText">
                         {content}
                     </Typography>
-                </Container>
-            )}
-            {Boolean(rightIcon) && <ListItemIcon>{rightIcon}</ListItemIcon>}
+                )}
+            </StyledBox>
+            {Boolean(rightIcon) && <StyledListItemIcon>{rightIcon}</StyledListItemIcon>}
         </MenuItem>
     );
 }
