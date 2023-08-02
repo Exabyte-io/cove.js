@@ -1,4 +1,3 @@
-import CloseIcon from "@mui/icons-material/Close";
 import LoadingButton from "@mui/lab/LoadingButton";
 import Button from "@mui/material/Button";
 import Dialog, { DialogProps } from "@mui/material/Dialog";
@@ -9,6 +8,8 @@ import Grid from "@mui/material/Grid";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import React, { useCallback } from "react";
+
+import IconByName from "../icon/IconByName";
 
 export interface DialogModalProps extends DialogProps {
     id?: string;
@@ -85,7 +86,7 @@ function DialogModal({
                     )}
                     {onClose && (
                         <IconButton id={`${id}-close-button`} color="neutral" onClick={onClose}>
-                            <CloseIcon sx={{ fontSize: 20 }} />
+                            <IconByName name="actions.close" sx={{ fontSize: 20 }} />
                         </IconButton>
                     )}
                 </Grid>
