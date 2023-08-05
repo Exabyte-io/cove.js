@@ -13,7 +13,6 @@ import Assignment from "@mui/icons-material/Assignment";
 import AttachMoney from "@mui/icons-material/AttachMoney";
 import AutoGraph from "@mui/icons-material/AutoGraph";
 import Autorenew from "@mui/icons-material/Autorenew";
-import BarChart from "@mui/icons-material/BarChart";
 import BatteryChargingFullOutlined from "@mui/icons-material/BatteryChargingFullOutlined";
 import Cached from "@mui/icons-material/Cached";
 import CalculateOutlined from "@mui/icons-material/CalculateOutlined";
@@ -60,6 +59,7 @@ import GroupAdd from "@mui/icons-material/GroupAdd";
 import Groups from "@mui/icons-material/Groups";
 import GroupsRounded from "@mui/icons-material/GroupsRounded";
 import HelpOutlined from "@mui/icons-material/HelpOutlined";
+import Hexagon from "@mui/icons-material/Hexagon";
 import Home from "@mui/icons-material/Home";
 import Hub from "@mui/icons-material/Hub";
 import Info from "@mui/icons-material/Info";
@@ -191,7 +191,7 @@ const iconComponentMap: Record<string, typeof SvgIcon | ReturnType<typeof rotate
     "entities.property.force": OpenWith,
     "entities.property.pressure": SystemUpdateAlt,
     "entities.property.bandsGap": VerticalAlignCenter,
-    "entities.property.bandStructure": BarChart,
+    "entities.property.bandStructure": Hexagon,
     "entities.property.default": CropSquare,
     "entities.subworkflow": Adjust,
     "entities.task": Assignment,
