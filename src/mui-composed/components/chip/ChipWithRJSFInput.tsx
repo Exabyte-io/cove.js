@@ -1,7 +1,7 @@
 import { ClickAwayListener, Paper, Popper, SxProps } from "@mui/material";
 import { IChangeEvent } from "@rjsf/core";
 import { Form } from "@rjsf/mui";
-import { ValidatorType } from "@rjsf/utils";
+import { ErrorTransformer, RJSFSchema, ValidatorType } from "@rjsf/utils";
 import React, { useRef, useState } from "react";
 
 import ChipWithAction from "./ChipWithAction";
@@ -11,10 +11,10 @@ type Item = {
 };
 
 interface FormPropsType {
-    jsonSchema: any;
+    jsonSchema: RJSFSchema;
     uiSchema?: any;
     validator: ValidatorType;
-    transformErrors?: (errors: any) => any;
+    transformErrors?: ErrorTransformer;
 }
 
 interface Props {
