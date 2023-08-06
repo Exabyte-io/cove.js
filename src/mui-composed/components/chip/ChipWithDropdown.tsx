@@ -24,7 +24,7 @@ interface Props {
 
 function ChipWithDropdown({ label, options, onSelect, sx }: Props) {
     const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
-    const popperRef = useRef<HTMLDivElement | null>(null);
+    const popperRef = useRef<any>(null);
     const open = Boolean(anchorEl);
 
     const handleClick = (event: React.MouseEvent<HTMLElement>) => {
