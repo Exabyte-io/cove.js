@@ -1,29 +1,25 @@
-import {
-    ClickAwayListener,
-    List,
-    ListItem,
-    ListItemText,
-    Paper,
-    Popper,
-    SxProps,
-} from "@mui/material";
+import { SxProps } from "@mui/material";
+import ClickAwayListener from "@mui/material/ClickAwayListener";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemText from "@mui/material/ListItemText";
+import Paper from "@mui/material/Paper";
+import Popper from "@mui/material/Popper";
 import React, { useRef, useState } from "react";
 
 import ChipWithAction from "./ChipWithAction";
 
-type Item = {
-    name?: string;
-};
-
 interface Props {
     label?: string;
-    options: Item[];
-    onSelect: (item: Item) => void;
-    sx: SxProps;
+    options: object[];
+    optionsLabels: string[];
+    onSelect: (item: object) => void;
+    sx?: SxProps;
 }
 
-function ChipWithDropdown({ label, options, onSelect, sx }: Props) {
+function ChipWithDropdown({ label, options, optionsLabels, onSelect, sx }: Props) {
     const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
+    // TODO: find Instance type needed by MUI and use it as type here
     const popperRef = useRef<any>(null);
     const open = Boolean(anchorEl);
 
@@ -39,7 +35,7 @@ function ChipWithDropdown({ label, options, onSelect, sx }: Props) {
         setAnchorEl(null);
     };
 
-    const handleSelect = (item: Item) => {
+    const handleSelect = (item: object) => {
         onSelect(item);
         handleClose();
     };
@@ -55,20 +51,14 @@ function ChipWithDropdown({ label, options, onSelect, sx }: Props) {
                 sx={sx}
             />
             <ClickAwayListener onClickAway={() => handleClose()}>
-                <Popper
-                    open={open}
-                    anchorEl={anchorEl}
-                    placement="bottom-start"
-                    popperRef={popperRef}>
+                <Popper open={open} anchorEl={anchorEl} placement="bottom-start" ref={popperRef}>
                     <Paper>
                         <List dense>
-                            {options.map((item) => {
+                            {optionsLabels.map((label, index) => {
+                                const item = options[index];
                                 return (
-                                    <ListItem
-                                        button
-                                        key={item?.name}
-                                        onClick={() => handleSelect(item)}>
-                                        <ListItemText primary={item?.name} />
+                                    <ListItem button key={label} onClick={() => handleSelect(item)}>
+                                        <ListItemText primary={label} />
                                     </ListItem>
                                 );
                             })}

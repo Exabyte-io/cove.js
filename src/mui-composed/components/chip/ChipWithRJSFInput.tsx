@@ -1,14 +1,13 @@
-import { ClickAwayListener, Paper, Popper, SxProps } from "@mui/material";
+import { SxProps } from "@mui/material";
+import ClickAwayListener from "@mui/material/ClickAwayListener";
+import Paper from "@mui/material/Paper";
+import Popper from "@mui/material/Popper";
 import { IChangeEvent } from "@rjsf/core";
 import { Form } from "@rjsf/mui";
 import { ErrorTransformer, RJSFSchema, ValidatorType } from "@rjsf/utils";
 import React, { useRef, useState } from "react";
 
 import ChipWithAction from "./ChipWithAction";
-
-type Item = {
-    name?: string;
-};
 
 interface FormPropsType {
     jsonSchema: RJSFSchema;
@@ -19,13 +18,23 @@ interface FormPropsType {
 
 interface Props {
     label?: string;
+    item?: object;
     FormProps: FormPropsType;
-    onSubmit: (formData: Item) => void;
+    iconName: string;
+    onSubmit: (formData: object) => void;
     disabled?: boolean;
     sx?: SxProps;
 }
 
-function ChipWithRJSFInput({ label, FormProps, onSubmit, disabled = false, sx }: Props) {
+function ChipWithRJSFInput({
+    label,
+    item,
+    FormProps,
+    iconName,
+    onSubmit,
+    disabled = false,
+    sx,
+}: Props) {
     const { jsonSchema, uiSchema, validator, transformErrors } = FormProps;
 
     const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
@@ -44,10 +53,9 @@ function ChipWithRJSFInput({ label, FormProps, onSubmit, disabled = false, sx }:
         setAnchorEl(null);
     };
 
-    const handleSubmit = (event: IChangeEvent<Item>) => {
-        const { formData } = event;
+    const handleSubmit = (event: IChangeEvent<object>) => {
         handleClose();
-        if (formData) onSubmit(formData);
+        if (event?.formData) onSubmit(event.formData);
     };
 
     return (
@@ -55,7 +63,7 @@ function ChipWithRJSFInput({ label, FormProps, onSubmit, disabled = false, sx }:
             <ChipWithAction
                 label={label || "Add..."}
                 disabled={disabled}
-                iconName="shapes.addCircle"
+                iconName={iconName || "shapes.addCircle"}
                 onClick={handleClick}
                 onAction={handleClick}
                 sx={sx}
@@ -65,6 +73,7 @@ function ChipWithRJSFInput({ label, FormProps, onSubmit, disabled = false, sx }:
                     <Paper>
                         {jsonSchema ? (
                             <Form
+                                formData={item || undefined}
                                 disabled={disabled}
                                 schema={jsonSchema}
                                 uiSchema={uiSchema}
