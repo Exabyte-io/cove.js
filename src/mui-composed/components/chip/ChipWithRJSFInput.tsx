@@ -50,9 +50,10 @@ function ChipWithRJSFInput({
     const handleClose = (event?: React.MouseEvent<Document, MouseEvent>) => {
         console.log("closing");
         console.log("anchorEl: ", anchorEl);
+        console.log(!anchorEl?.contains);
         console.log(
             "anchorEl inside: ",
-            event && anchorEl && anchorEl.contains(event.target as Node),
+            event && anchorEl && (anchorEl.contains(event.target as Node) || !anchorEl.contains),
         );
         if (event && anchorEl && (anchorEl.contains(event.target as Node) || !anchorEl.contains)) {
             return;
