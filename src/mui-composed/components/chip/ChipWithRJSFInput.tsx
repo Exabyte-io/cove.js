@@ -61,7 +61,7 @@ function ChipWithRJSFInput({
 
     return (
         <ClickAwayListener onClickAway={() => handleClose()}>
-            <>
+            <div>
                 <ChipWithAction
                     label={label || JSON.stringify(formData, null, 4)}
                     disabled={disabled}
@@ -74,8 +74,7 @@ function ChipWithRJSFInput({
                     open={open}
                     anchorEl={anchorEl}
                     placement="bottom-start"
-                    popperRef={popperRef}
-                    disablePortal>
+                    popperRef={popperRef}>
                     <Paper>
                         <Form
                             formData={formData}
@@ -88,7 +87,7 @@ function ChipWithRJSFInput({
                         />
                     </Paper>
                 </Popper>
-            </>
+            </div>
         </ClickAwayListener>
     );
 }
