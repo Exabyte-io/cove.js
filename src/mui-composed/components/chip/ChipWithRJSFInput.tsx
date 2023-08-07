@@ -47,16 +47,9 @@ function ChipWithRJSFInput({
         setAnchorEl(anchorEl ? null : event.currentTarget);
     };
 
+    // TODO: fix on click in select inside form triggers close
     const handleClose = (event?: React.MouseEvent<Document, MouseEvent>) => {
-        console.log("closing");
-        console.log("anchorEl: ", anchorEl);
-        console.log(!anchorEl?.contains);
-        console.log(
-            "anchorEl inside: ",
-            event && anchorEl && (anchorEl.contains(event.target as Node) || !anchorEl.contains),
-        );
-        event?.stopPropagation();
-        if (event && anchorEl && (anchorEl.contains(event.target as Node) || !anchorEl.contains)) {
+        if (event && anchorEl && anchorEl.contains(event.target as Node)) {
             return;
         }
         setAnchorEl(null);
@@ -69,7 +62,7 @@ function ChipWithRJSFInput({
 
     return (
         <ClickAwayListener onClickAway={() => handleClose()}>
-            <div>
+            <>
                 <ChipWithAction
                     label={label || JSON.stringify(formData, null, 4)}
                     disabled={disabled}
@@ -95,7 +88,7 @@ function ChipWithRJSFInput({
                         />
                     </Paper>
                 </Popper>
-            </div>
+            </>
         </ClickAwayListener>
     );
 }
