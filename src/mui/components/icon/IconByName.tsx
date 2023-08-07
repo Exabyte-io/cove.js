@@ -31,6 +31,7 @@ import Code from "@mui/icons-material/Code";
 import ContentCopy from "@mui/icons-material/ContentCopy";
 import CopyAllOutlined from "@mui/icons-material/CopyAllOutlined";
 import CreditCard from "@mui/icons-material/CreditCard";
+import CropSquare from "@mui/icons-material/CropSquare";
 import Dashboard from "@mui/icons-material/Dashboard";
 import Delete from "@mui/icons-material/Delete";
 import Description from "@mui/icons-material/Description";
@@ -58,6 +59,7 @@ import GroupAdd from "@mui/icons-material/GroupAdd";
 import Groups from "@mui/icons-material/Groups";
 import GroupsRounded from "@mui/icons-material/GroupsRounded";
 import HelpOutlined from "@mui/icons-material/HelpOutlined";
+import Hexagon from "@mui/icons-material/Hexagon";
 import Home from "@mui/icons-material/Home";
 import Hub from "@mui/icons-material/Hub";
 import Info from "@mui/icons-material/Info";
@@ -133,6 +135,7 @@ import Toc from "@mui/icons-material/Toc";
 import UnfoldLess from "@mui/icons-material/UnfoldLess";
 import UnfoldMore from "@mui/icons-material/UnfoldMore";
 import Upgrade from "@mui/icons-material/Upgrade";
+import VerticalAlignCenter from "@mui/icons-material/VerticalAlignCenter";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import WifiTethering from "@mui/icons-material/WifiTethering";
@@ -187,6 +190,9 @@ const iconComponentMap: Record<string, typeof SvgIcon | ReturnType<typeof rotate
     "entities.property.fermiEnergy": FlashOn,
     "entities.property.force": OpenWith,
     "entities.property.pressure": SystemUpdateAlt,
+    "entities.property.bandsGap": VerticalAlignCenter,
+    "entities.property.bandStructure": Hexagon,
+    "entities.property.default": CropSquare,
     "entities.subworkflow": Adjust,
     "entities.task": Assignment,
     "entities.team": Groups,
