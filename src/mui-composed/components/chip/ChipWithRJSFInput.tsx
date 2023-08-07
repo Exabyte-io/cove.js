@@ -1,4 +1,4 @@
-import { SxProps } from "@mui/material";
+import { SxProps } from "@mui/material"; // Cannot be directly imported
 import ClickAwayListener from "@mui/material/ClickAwayListener";
 import Paper from "@mui/material/Paper";
 import Popper from "@mui/material/Popper";
@@ -60,37 +60,36 @@ function ChipWithRJSFInput({
     };
 
     return (
-        <>
-            <ChipWithAction
-                label={label || JSON.stringify(formData, null, 4)}
-                disabled={disabled}
-                iconName={iconName || undefined}
-                onClick={handleClick}
-                onAction={onAction || handleClick}
-                sx={sx}
-            />
-            <ClickAwayListener onClickAway={() => handleClose()}>
+        <ClickAwayListener onClickAway={() => handleClose()}>
+            <>
+                <ChipWithAction
+                    label={label || JSON.stringify(formData, null, 4)}
+                    disabled={disabled}
+                    iconName={iconName || undefined}
+                    onClick={handleClick}
+                    onAction={onAction || handleClick}
+                    sx={sx}
+                />
                 <Popper
                     open={open}
                     anchorEl={anchorEl}
                     placement="bottom-start"
-                    popperRef={popperRef}>
+                    popperRef={popperRef}
+                    disablePortal>
                     <Paper>
-                        {jsonSchema ? (
-                            <Form
-                                formData={formData || undefined}
-                                disabled={disabled}
-                                schema={jsonSchema}
-                                uiSchema={uiSchema}
-                                validator={validator}
-                                transformErrors={transformErrors}
-                                onSubmit={handleSubmit}
-                            />
-                        ) : null}
+                        <Form
+                            formData={formData}
+                            disabled={disabled}
+                            schema={jsonSchema}
+                            uiSchema={uiSchema}
+                            validator={validator}
+                            transformErrors={transformErrors}
+                            onSubmit={handleSubmit}
+                        />
                     </Paper>
                 </Popper>
-            </ClickAwayListener>
-        </>
+            </>
+        </ClickAwayListener>
     );
 }
 
