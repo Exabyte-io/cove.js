@@ -4,22 +4,18 @@ import Paper from "@mui/material/Paper";
 import Popper from "@mui/material/Popper";
 import { IChangeEvent } from "@rjsf/core";
 import { Form } from "@rjsf/mui";
-import { ErrorTransformer, RJSFSchema, ValidatorType } from "@rjsf/utils";
+import { ErrorTransformer, RJSFSchema, UiSchema, ValidatorType } from "@rjsf/utils";
 import React, { useRef, useState } from "react";
 
 import ChipWithAction from "./ChipWithAction";
 
-export interface FormPropsType {
-    jsonSchema: RJSFSchema;
-    uiSchema?: any;
-    validator: ValidatorType;
-    transformErrors?: ErrorTransformer;
-}
-
 interface Props {
     label?: string;
     formData?: object;
-    formProps: FormPropsType;
+    jsonSchema: RJSFSchema;
+    uiSchema?: UiSchema;
+    validator: ValidatorType;
+    transformErrors?: ErrorTransformer;
     iconName?: string;
     onSubmit: (formData: object) => void;
     onAction?: () => void;
@@ -30,15 +26,16 @@ interface Props {
 function ChipWithRJSFInput({
     label,
     formData,
-    formProps,
+    jsonSchema,
+    uiSchema,
+    validator,
+    transformErrors,
     iconName,
     onSubmit,
     onAction,
     disabled = false,
     sx,
 }: Props) {
-    const { jsonSchema, uiSchema, validator, transformErrors } = formProps;
-
     const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
     const popperRef = useRef<HTMLDivElement | null>(null);
 
