@@ -9,7 +9,7 @@ import React, { useRef, useState } from "react";
 
 import ChipWithAction from "./ChipWithAction";
 
-interface FormPropsType {
+export interface FormPropsType {
     jsonSchema: RJSFSchema;
     uiSchema?: any;
     validator: ValidatorType;
@@ -20,7 +20,7 @@ interface Props {
     label?: string;
     item?: object;
     FormProps: FormPropsType;
-    iconName: string;
+    iconName?: string;
     onSubmit: (formData: object) => void;
     disabled?: boolean;
     sx?: SxProps;
