@@ -1,7 +1,8 @@
 import { SxProps } from "@mui/material";
 import Chip from "@mui/material/Chip";
-import IconByName from "mui/components/icon/IconByName";
 import React from "react";
+
+import IconByName from "../../../mui/components/icon/IconByName";
 
 interface Props {
     label: string;
