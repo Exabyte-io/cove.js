@@ -17,7 +17,7 @@ interface Props {
     sx?: SxProps;
 }
 
-function ChipWithDropdown({ label, options, optionsLabels, onSelect, sx }: Props) {
+function ChipWithSelectInput({ label, options, optionsLabels, onSelect, sx }: Props) {
     const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
     // TODO: find Instance type needed by MUI and use it as type here
     const popperRef = useRef<any>(null);
@@ -70,4 +70,4 @@ function ChipWithDropdown({ label, options, optionsLabels, onSelect, sx }: Props
     );
 }
 
-export default ChipWithDropdown;
+export default ChipWithSelectInput;

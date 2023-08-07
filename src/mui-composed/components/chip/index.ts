@@ -1,6 +1,6 @@
 import ChipList from "./ChipList";
 import ChipWithAction from "./ChipWithAction";
-import ChipWithDropdown from "./ChipWithDropdown";
 import ChipWithRJSFInput from "./ChipWithRJSFInput";
+import ChipWithSelectInput from "./ChipWithSelectInput";
 
-export { ChipList, ChipWithAction, ChipWithDropdown, ChipWithRJSFInput };
+export { ChipList, ChipWithAction, ChipWithSelectInput, ChipWithRJSFInput };
