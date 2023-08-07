@@ -22,6 +22,7 @@ interface Props {
     onAction?: () => void;
     disabled?: boolean;
     sx?: SxProps;
+    popperSx?: SxProps;
 }
 
 function ChipWithRJSFInput({
@@ -36,6 +37,7 @@ function ChipWithRJSFInput({
     onAction,
     disabled = false,
     sx,
+    popperSx,
 }: Props) {
     const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
     const popperRef = useRef<Instance | null>(null);
@@ -76,7 +78,7 @@ function ChipWithRJSFInput({
                     anchorEl={anchorEl}
                     placement="bottom-start"
                     popperRef={popperRef}>
-                    <Paper>
+                    <Paper sx={popperSx}>
                         <Form
                             formData={formData}
                             disabled={disabled}
