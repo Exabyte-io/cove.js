@@ -22,6 +22,7 @@ interface Props {
     formProps: FormPropsType;
     iconName?: string;
     onSubmit: (formData: object) => void;
+    onAction?: () => void;
     disabled?: boolean;
     sx?: SxProps;
 }
@@ -32,6 +33,7 @@ function ChipWithRJSFInput({
     formProps,
     iconName,
     onSubmit,
+    onAction,
     disabled = false,
     sx,
 }: Props) {
@@ -65,7 +67,7 @@ function ChipWithRJSFInput({
                 disabled={disabled}
                 iconName={iconName || undefined}
                 onClick={handleClick}
-                onAction={handleClick}
+                onAction={onAction || handleClick}
                 sx={sx}
             />
             <ClickAwayListener onClickAway={() => handleClose()}>
