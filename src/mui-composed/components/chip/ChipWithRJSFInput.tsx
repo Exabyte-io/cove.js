@@ -18,8 +18,8 @@ export interface FormPropsType {
 
 interface Props {
     label?: string;
-    item?: object;
-    FormProps: FormPropsType;
+    formData?: object;
+    formProps: FormPropsType;
     iconName?: string;
     onSubmit: (formData: object) => void;
     disabled?: boolean;
@@ -28,14 +28,14 @@ interface Props {
 
 function ChipWithRJSFInput({
     label,
-    item,
-    FormProps,
+    formData,
+    formProps,
     iconName,
     onSubmit,
     disabled = false,
     sx,
 }: Props) {
-    const { jsonSchema, uiSchema, validator, transformErrors } = FormProps;
+    const { jsonSchema, uiSchema, validator, transformErrors } = formProps;
 
     const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
     const popperRef = useRef<HTMLDivElement | null>(null);
@@ -61,9 +61,9 @@ function ChipWithRJSFInput({
     return (
         <>
             <ChipWithAction
-                label={label || "Add..."}
+                label={label || JSON.stringify(formData, null, 4)}
                 disabled={disabled}
-                iconName={iconName || "shapes.addCircle"}
+                iconName={iconName || undefined}
                 onClick={handleClick}
                 onAction={handleClick}
                 sx={sx}
@@ -73,7 +73,7 @@ function ChipWithRJSFInput({
                     <Paper>
                         {jsonSchema ? (
                             <Form
-                                formData={item || undefined}
+                                formData={formData || undefined}
                                 disabled={disabled}
                                 schema={jsonSchema}
                                 uiSchema={uiSchema}
