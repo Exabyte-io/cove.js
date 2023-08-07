@@ -43,6 +43,7 @@ function ChipWithRJSFInput({
     const open = Boolean(anchorEl);
 
     const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+        event.stopPropagation();
         setAnchorEl(anchorEl ? null : event.currentTarget);
     };
 
