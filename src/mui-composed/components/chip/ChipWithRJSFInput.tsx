@@ -54,7 +54,7 @@ function ChipWithRJSFInput({
             "anchorEl inside: ",
             event && anchorEl && anchorEl.contains(event.target as Node),
         );
-        if (event && anchorEl && anchorEl.contains(event.target as Node)) {
+        if (event && anchorEl && (anchorEl.contains(event.target as Node) || !anchorEl.contains)) {
             return;
         }
         setAnchorEl(null);
