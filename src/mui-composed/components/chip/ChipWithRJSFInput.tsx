@@ -2,6 +2,7 @@ import { SxProps } from "@mui/material";
 import ClickAwayListener from "@mui/material/ClickAwayListener";
 import Paper from "@mui/material/Paper";
 import Popper from "@mui/material/Popper";
+import { Instance } from "@popperjs/core";
 import { IChangeEvent } from "@rjsf/core";
 import { Form } from "@rjsf/mui";
 import { ErrorTransformer, RJSFSchema, UiSchema, ValidatorType } from "@rjsf/utils";
@@ -37,7 +38,7 @@ function ChipWithRJSFInput({
     sx,
 }: Props) {
     const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
-    const popperRef = useRef<HTMLDivElement | null>(null);
+    const popperRef = useRef<Instance | null>(null);
 
     const open = Boolean(anchorEl);
 
@@ -68,7 +69,11 @@ function ChipWithRJSFInput({
                 sx={sx}
             />
             <ClickAwayListener onClickAway={() => handleClose()}>
-                <Popper open={open} anchorEl={anchorEl} placement="bottom-start" ref={popperRef}>
+                <Popper
+                    open={open}
+                    anchorEl={anchorEl}
+                    placement="bottom-start"
+                    popperRef={popperRef}>
                     <Paper>
                         {jsonSchema ? (
                             <Form

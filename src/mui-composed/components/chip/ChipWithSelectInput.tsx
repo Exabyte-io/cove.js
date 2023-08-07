@@ -5,6 +5,7 @@ import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import Paper from "@mui/material/Paper";
 import Popper from "@mui/material/Popper";
+import { Instance } from "@popperjs/core";
 import React, { useRef, useState } from "react";
 
 import ChipWithAction from "./ChipWithAction";
@@ -19,8 +20,7 @@ interface Props {
 
 function ChipWithSelectInput({ label, options, optionsLabels, onSelect, sx }: Props) {
     const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
-    // TODO: find Instance type needed by MUI and use it as type here
-    const popperRef = useRef<any>(null);
+    const popperRef = useRef<Instance | null>(null);
     const open = Boolean(anchorEl);
 
     const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -51,7 +51,11 @@ function ChipWithSelectInput({ label, options, optionsLabels, onSelect, sx }: Pr
                 sx={sx}
             />
             <ClickAwayListener onClickAway={() => handleClose()}>
-                <Popper open={open} anchorEl={anchorEl} placement="bottom-start" ref={popperRef}>
+                <Popper
+                    open={open}
+                    anchorEl={anchorEl}
+                    placement="bottom-start"
+                    popperRef={popperRef}>
                     <Paper>
                         <List dense>
                             {optionsLabels.map((label, index) => {
