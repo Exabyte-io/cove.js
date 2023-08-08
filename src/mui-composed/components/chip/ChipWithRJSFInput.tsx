@@ -68,16 +68,16 @@ function ChipWithRJSFInput({
     };
 
     return (
-        <ClickAwayListener onClickAway={() => handleClose()}>
-            <div>
-                <ChipWithAction
-                    label={label || JSON.stringify(formData, null, 4)}
-                    disabled={disabled}
-                    iconName={iconName || undefined}
-                    onClick={handleClick}
-                    onAction={onAction || handleClick}
-                    sx={sx}
-                />
+        <>
+            <ChipWithAction
+                label={label || JSON.stringify(formData, null, 4)}
+                disabled={disabled}
+                iconName={iconName || undefined}
+                onClick={handleClick}
+                onAction={onAction || handleClick}
+                sx={sx}
+            />
+            <ClickAwayListener onClickAway={() => handleClose()}>
                 <Popper
                     open={open}
                     anchorEl={anchorEl}
@@ -96,8 +96,8 @@ function ChipWithRJSFInput({
                         />
                     </Paper>
                 </Popper>
-            </div>
-        </ClickAwayListener>
+            </ClickAwayListener>
+        </>
     );
 }
 
