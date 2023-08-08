@@ -53,7 +53,7 @@ function ChipWithRJSFInput({
         setAnchorEl(anchorEl ? null : event.currentTarget);
     };
 
-    // TODO: fix on click in select inside form triggers close
+    // TODO: fix clicking on select/dropdown inside RJSForm triggers close
     const handleClose = (event?: React.MouseEvent<Document, MouseEvent>) => {
         console.log("closing");
         if (event && anchorEl && anchorEl.contains(event.target as Node)) {
@@ -83,8 +83,9 @@ function ChipWithRJSFInput({
                     anchorEl={anchorEl}
                     placement="bottom-start"
                     popperRef={popperRef}
-                    disablePortal={disablePortal}>
-                    <Paper sx={popperSx}>
+                    disablePortal={disablePortal}
+                    sx={popperSx}>
+                    <Paper>
                         <Form
                             formData={formData}
                             disabled={disabled}
