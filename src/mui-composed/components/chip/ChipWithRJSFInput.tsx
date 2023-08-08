@@ -32,6 +32,12 @@ function CustomSelectWidget(props: WidgetProps) {
     return <SelectWidget {...props} size="small" />;
 }
 
+function CustomTextareaWidget(props: WidgetProps) {
+    const { TextareaWidget } = Widgets;
+    // eslint-disable-next-line react/jsx-props-no-spreading
+    return <TextareaWidget {...props} size="small" />;
+}
+
 function ChipWithRJSFInput({
     label,
     formData,
@@ -101,7 +107,10 @@ function ChipWithRJSFInput({
                             uiSchema={uiSchema}
                             validator={validator}
                             transformErrors={transformErrors}
-                            widgets={{ SelectWidget: CustomSelectWidget }}
+                            widgets={{
+                                SelectWidget: CustomSelectWidget,
+                                TextareaWidget: CustomTextareaWidget,
+                            }}
                             onSubmit={handleSubmit}
                         />
                     </Paper>
