@@ -5,6 +5,7 @@ import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import Paper from "@mui/material/Paper";
 import Popper from "@mui/material/Popper";
+import { useTheme } from "@mui/material/styles";
 import { Instance } from "@popperjs/core";
 import React, { useRef, useState } from "react";
 
@@ -31,6 +32,7 @@ function ChipWithSelectInput({
 }: Props) {
     const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
     const popperRef = useRef<Instance | null>(null);
+    const theme = useTheme();
     const open = Boolean(anchorEl);
 
     const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -68,7 +70,7 @@ function ChipWithSelectInput({
                     popperRef={popperRef}
                     disablePortal={disablePortal}
                     sx={popperSx}>
-                    <Paper>
+                    <Paper sx={{ backgroundColor: theme.palette.background.paper }}>
                         <List dense>
                             {optionsLabels.map((label, index) => {
                                 const item = options[index];

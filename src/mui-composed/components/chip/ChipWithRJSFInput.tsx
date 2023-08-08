@@ -2,6 +2,7 @@ import { SxProps } from "@mui/material"; // Cannot be directly imported
 import ClickAwayListener from "@mui/material/ClickAwayListener";
 import Paper from "@mui/material/Paper";
 import Popper from "@mui/material/Popper";
+import { useTheme } from "@mui/material/styles";
 import { Instance } from "@popperjs/core";
 import { IChangeEvent } from "@rjsf/core";
 import { Form } from "@rjsf/mui";
@@ -43,6 +44,7 @@ function ChipWithRJSFInput({
 }: Props) {
     const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
     const popperRef = useRef<Instance | null>(null);
+    const theme = useTheme();
 
     const open = Boolean(anchorEl);
 
@@ -85,7 +87,8 @@ function ChipWithRJSFInput({
                     popperRef={popperRef}
                     disablePortal={disablePortal}
                     sx={popperSx}>
-                    <Paper>
+                    <Paper
+                        sx={{ backgroundColor: theme.palette.background.paper, px: 1.5, pb: 1.5 }}>
                         <Form
                             formData={formData}
                             disabled={disabled}
