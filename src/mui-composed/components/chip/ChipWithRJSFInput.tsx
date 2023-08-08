@@ -48,11 +48,14 @@ function ChipWithRJSFInput({
 
     const handleClick = (event: React.MouseEvent<HTMLElement>) => {
         event.stopPropagation();
+        console.log("opening");
+        console.log(event.currentTarget);
         setAnchorEl(anchorEl ? null : event.currentTarget);
     };
 
     // TODO: fix on click in select inside form triggers close
     const handleClose = (event?: React.MouseEvent<Document, MouseEvent>) => {
+        console.log("closing");
         if (event && anchorEl && anchorEl.contains(event.target as Node)) {
             return;
         }
