@@ -23,6 +23,7 @@ interface Props {
     disabled?: boolean;
     sx?: SxProps;
     popperSx?: SxProps;
+    disablePortal?: boolean;
 }
 
 function ChipWithRJSFInput({
@@ -38,6 +39,7 @@ function ChipWithRJSFInput({
     disabled = false,
     sx,
     popperSx,
+    disablePortal = false,
 }: Props) {
     const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
     const popperRef = useRef<Instance | null>(null);
@@ -77,7 +79,8 @@ function ChipWithRJSFInput({
                     open={open}
                     anchorEl={anchorEl}
                     placement="bottom-start"
-                    popperRef={popperRef}>
+                    popperRef={popperRef}
+                    disablePortal={disablePortal}>
                     <Paper sx={popperSx}>
                         <Form
                             formData={formData}
