@@ -86,7 +86,7 @@ function ChipWithRJSFInput({
                     placement="bottom-start"
                     popperRef={popperRef}
                     disablePortal={disablePortal}
-                    sx={{ zIndex: 2000, ...popperSx }}>
+                    sx={{ zIndex: 1300, ...popperSx }}>
                     <Paper
                         sx={{ backgroundColor: theme.palette.background.paper, px: 1.5, pb: 1.5 }}>
                         <Form
