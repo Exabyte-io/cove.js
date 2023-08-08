@@ -5,8 +5,8 @@ import Popper from "@mui/material/Popper";
 import { useTheme } from "@mui/material/styles";
 import { Instance } from "@popperjs/core";
 import { IChangeEvent } from "@rjsf/core";
-import Form, { Widgets } from "@rjsf/mui";
-import { ErrorTransformer, RJSFSchema, UiSchema, ValidatorType, WidgetProps } from "@rjsf/utils";
+import Form from "@rjsf/mui";
+import { ErrorTransformer, RJSFSchema, UiSchema, ValidatorType } from "@rjsf/utils";
 import React, { useRef, useState } from "react";
 
 import ChipWithAction from "./ChipWithAction";
@@ -25,17 +25,6 @@ interface Props {
     sx?: SxProps;
     popperSx?: SxProps;
     disablePortal?: boolean;
-}
-function CustomSelectWidget(props: WidgetProps) {
-    const { SelectWidget } = Widgets;
-    // eslint-disable-next-line react/jsx-props-no-spreading
-    return <SelectWidget {...props} size="small" />;
-}
-
-function CustomTextareaWidget(props: WidgetProps) {
-    const { TextareaWidget } = Widgets;
-    // eslint-disable-next-line react/jsx-props-no-spreading
-    return <TextareaWidget {...props} size="small" />;
 }
 
 function ChipWithRJSFInput({
@@ -97,7 +86,7 @@ function ChipWithRJSFInput({
                     placement="bottom-start"
                     popperRef={popperRef}
                     disablePortal={disablePortal}
-                    sx={popperSx}>
+                    sx={{ zIndex: 2000, ...popperSx }}>
                     <Paper
                         sx={{ backgroundColor: theme.palette.background.paper, px: 1.5, pb: 1.5 }}>
                         <Form
@@ -107,10 +96,6 @@ function ChipWithRJSFInput({
                             uiSchema={uiSchema}
                             validator={validator}
                             transformErrors={transformErrors}
-                            widgets={{
-                                SelectWidget: CustomSelectWidget,
-                                TextareaWidget: CustomTextareaWidget,
-                            }}
                             onSubmit={handleSubmit}
                         />
                     </Paper>
