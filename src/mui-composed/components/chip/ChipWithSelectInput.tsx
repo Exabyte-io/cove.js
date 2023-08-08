@@ -16,9 +16,17 @@ interface Props {
     optionsLabels: string[];
     onSelect: (item: object) => void;
     sx?: SxProps;
+    disablePortal?: boolean;
 }
 
-function ChipWithSelectInput({ label, options, optionsLabels, onSelect, sx }: Props) {
+function ChipWithSelectInput({
+    label,
+    options,
+    optionsLabels,
+    onSelect,
+    sx,
+    disablePortal,
+}: Props) {
     const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
     const popperRef = useRef<Instance | null>(null);
     const open = Boolean(anchorEl);
@@ -55,7 +63,8 @@ function ChipWithSelectInput({ label, options, optionsLabels, onSelect, sx }: Pr
                     open={open}
                     anchorEl={anchorEl}
                     placement="bottom-start"
-                    popperRef={popperRef}>
+                    popperRef={popperRef}
+                    disablePortal={disablePortal}>
                     <Paper>
                         <List dense>
                             {optionsLabels.map((label, index) => {
