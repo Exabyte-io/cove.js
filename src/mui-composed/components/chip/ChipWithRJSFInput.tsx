@@ -5,8 +5,8 @@ import Popper from "@mui/material/Popper";
 import { useTheme } from "@mui/material/styles";
 import { Instance } from "@popperjs/core";
 import { IChangeEvent } from "@rjsf/core";
-import { Form } from "@rjsf/mui";
-import { ErrorTransformer, RJSFSchema, UiSchema, ValidatorType } from "@rjsf/utils";
+import Form, { Widgets } from "@rjsf/mui";
+import { ErrorTransformer, RJSFSchema, UiSchema, ValidatorType, WidgetProps } from "@rjsf/utils";
 import React, { useRef, useState } from "react";
 
 import ChipWithAction from "./ChipWithAction";
@@ -25,6 +25,11 @@ interface Props {
     sx?: SxProps;
     popperSx?: SxProps;
     disablePortal?: boolean;
+}
+function CustomSelectWidget(props: WidgetProps) {
+    const { SelectWidget } = Widgets;
+    // eslint-disable-next-line react/jsx-props-no-spreading
+    return <SelectWidget {...props} size="small" />;
 }
 
 function ChipWithRJSFInput({
@@ -96,6 +101,7 @@ function ChipWithRJSFInput({
                             uiSchema={uiSchema}
                             validator={validator}
                             transformErrors={transformErrors}
+                            widgets={{ SelectWidget: CustomSelectWidget }}
                             onSubmit={handleSubmit}
                         />
                     </Paper>
