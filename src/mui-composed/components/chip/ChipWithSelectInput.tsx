@@ -67,7 +67,7 @@ function ChipWithSelectInput({
                     placement="bottom-start"
                     popperRef={popperRef}
                     disablePortal={disablePortal}
-                    popperSx={popperSx}>
+                    sx={popperSx}>
                     <Paper>
                         <List dense>
                             {optionsLabels.map((label, index) => {
