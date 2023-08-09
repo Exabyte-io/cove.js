@@ -1,9 +1,9 @@
-import "codemirror/lib/codemirror.css";
-import "codemirror/mode/jinja2/jinja2";
-import "codemirror/mode/fortran/fortran";
-import "codemirror/mode/shell/shell";
-import "codemirror/mode/python/python";
-import "codemirror/mode/javascript/javascript";
+// import "codemirror/lib/codemirror.css";
+// import "codemirror/mode/jinja2/jinja2";
+// import "codemirror/mode/fortran/fortran";
+// import "codemirror/mode/shell/shell";
+// import "codemirror/mode/python/python";
+// import "codemirror/mode/javascript/javascript";
 
 import { autocompletion, CompletionContext, CompletionResult } from "@codemirror/autocomplete";
 import { javascript } from "@codemirror/lang-javascript";
