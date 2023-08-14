@@ -86,7 +86,7 @@ function DialogModal({
                     )}
                     {onClose && (
                         <IconButton id={`${id}-close-button`} color="neutral" onClick={onClose}>
-                            <IconByName name="actions.close" sx={{ fontSize: 20 }} />
+                            <IconByName name="actions.close" fontSize="small" />
                         </IconButton>
                     )}
                 </Grid>

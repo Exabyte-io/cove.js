@@ -1,6 +1,5 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import Button from "@mui/material/Button";
 import { DateValidationError } from "@mui/x-date-pickers";
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
@@ -154,7 +153,7 @@ function DatePicker({
                         }}
                     />
                     <span>Custom</span>
-                    <ArrowDropDownIcon fontSize="large" />
+                    <IconByName name="shapes.arrow.dropdown" fontSize="small" />
                 </div>
                 <div
                     className={classNames("range-1m", {

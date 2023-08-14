@@ -1,4 +1,3 @@
-import CancelIcon from "@mui/icons-material/Cancel";
 import Box from "@mui/material/Box";
 import Chip from "@mui/material/Chip";
 import FormControl from "@mui/material/FormControl";
@@ -6,6 +5,8 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import React from "react";
+
+import IconByName from "../icon/IconByName";
 
 export interface SelectProps {
     id: string;
@@ -46,7 +47,10 @@ export default function SelectComponent({
                               if (onDelete) onDelete(chipValue);
                           }}
                           deleteIcon={
-                              <CancelIcon onMouseDown={(event) => event.stopPropagation()} />
+                              <IconByName
+                                  name="actions.cancel"
+                                  onMouseDown={(event) => event.stopPropagation()}
+                              />
                           }
                       />
                   ))}
