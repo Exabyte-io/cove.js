@@ -79,12 +79,6 @@ const MuiSvgIconSizesOverrides = {
                     fontSize: "35px",
                 },
             },
-            {
-                props: { fontSize: "extra-large" },
-                style: {
-                    fontSize: "48px",
-                },
-            },
         ],
     },
 };
