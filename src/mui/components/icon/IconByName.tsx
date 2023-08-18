@@ -332,7 +332,7 @@ const iconComponentMap: Record<string, typeof SvgIcon | ReturnType<typeof rotate
     "actions.visualize": OpenInBrowser,
 
     "shapes.arrow.doubleUp": DoubleArrow,
-    "shapes.arrow.down": rotateIcon(KeyboardArrowUp, 180),
+    "shapes.arrow.down": KeyboardArrowDown,
     "shapes.arrow.dropdown": ArrowDropDown,
     "shapes.arrow.fold": UnfoldLess,
     "shapes.arrow.swap": SwapVert,
