@@ -287,6 +287,7 @@ const iconComponentMap: Record<string, typeof SvgIcon | ReturnType<typeof rotate
     "actions.globalSearch": Search,
     "actions.import": CloudUpload,
     "actions.importFromBank": AccountBalance,
+    "actions.importFrom3rdParty": Language,
     "actions.leave": DirectionsWalk,
     "actions.lock": Lock,
     "actions.makeAdmin": ExpandLess,
@@ -323,7 +324,7 @@ const iconComponentMap: Record<string, typeof SvgIcon | ReturnType<typeof rotate
     "actions.toggleRelaxation": WorkspacesOutlined,
     "actions.update": Autorenew,
     "actions.upgrade": Upgrade,
-    "actions.upload": Publish,
+    "actions.uploadFile": Publish,
     "actions.visualize": OpenInBrowser,
 
     "shapes.arrow.doubleUp": DoubleArrow,
