@@ -1,6 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable react/prop-types */
-import AccordionExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import MuiAccordion from "@mui/material/Accordion";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import MuiAccordionSummary from "@mui/material/AccordionSummary";
@@ -8,6 +7,8 @@ import Divider from "@mui/material/Divider";
 import Typography from "@mui/material/Typography";
 import { withStyles } from "@mui/styles";
 import React, { SyntheticEvent, useEffect, useState } from "react";
+
+import IconByName from "../icon/IconByName";
 
 // deletes header animation in accordion
 const StyledAccordion = withStyles({
@@ -72,7 +73,7 @@ export default function Accordion({
             <AccordionSummary
                 onClick={handleToggleExpanded}
                 aria-controls="panel2a-content"
-                expandIcon={!hideExpandIcon && <AccordionExpandMoreIcon fontSize="large" />}>
+                expandIcon={!hideExpandIcon && <IconByName name="actions.expand" />}>
                 <Typography variant="overline">{header}</Typography>
                 {alternativeComponent}
             </AccordionSummary>

@@ -58,28 +58,28 @@ const commonSettings = {
     },
 };
 
-/**
- * Styles below adjust MUI TablePagination component to the current wep-app style
- * Should be removed after moving explorer to the MUI Data Grid
- */
-const MUITablePaginationSettings = {
-    MuiTablePagination: {
-        styleOverrides: {
-            toolbar: {
-                "@media (min-width: 0px)": {
-                    minHeight: "30px",
-                    paddingLeft: 0,
+const MuiSvgIconSizesOverrides = {
+    MuiSvgIcon: {
+        variants: [
+            {
+                props: { fontSize: "small" },
+                style: {
+                    fontSize: "18px",
                 },
-                fontSize: "12px",
             },
-            displayedRows: {
-                margin: 0,
-                fontSize: "12px",
+            {
+                props: { fontSize: "medium" },
+                style: {
+                    fontSize: "20px",
+                },
             },
-            actions: {
-                marginLeft: 0,
+            {
+                props: { fontSize: "large" },
+                style: {
+                    fontSize: "35px",
+                },
             },
-        },
+        ],
     },
 };
 
@@ -93,8 +93,7 @@ const buildTheme = (theme: Theme) => {
         shadows: shadows(theme),
         components: {
             ...buttons(theme),
-            // TODO: REMOVE! this styles after moving explorer to the MUI Data Grid
-            ...MUITablePaginationSettings,
+            ...MuiSvgIconSizesOverrides,
         },
     });
 };

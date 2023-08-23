@@ -1,8 +1,9 @@
-import ArrowDropDownOutlinedIcon from "@mui/icons-material/ArrowDropDownOutlined";
 import Button from "@mui/material/Button";
 import { Theme } from "@mui/material/styles";
 import { makeStyles } from "@mui/styles";
 import React from "react";
+
+import IconByName from "../icon/IconByName";
 
 const useStyles = ({ fullWidth }: { fullWidth: boolean }) =>
     makeStyles((theme: Theme) => {
@@ -45,7 +46,7 @@ export function DefaultDropdownButton({
             aria-haspopup="true"
             variant="outlined"
             size="small"
-            endIcon={<ArrowDropDownOutlinedIcon color="action" />}
+            endIcon={<IconByName name="shapes.arrow.dropdown" color="action" />}
             onClick={onClick}>
             {children}
         </Button>
