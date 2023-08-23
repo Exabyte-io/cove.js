@@ -1,8 +1,9 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import UploadFileIcon from "@mui/icons-material/UploadFile";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import React from "react";
+
+import IconByName from "../icon/IconByName";
 
 export default function UploadButton({
     id,
@@ -25,7 +26,7 @@ export default function UploadButton({
                 id={`${id}-button`}
                 component="label"
                 variant="outlined"
-                startIcon={<UploadFileIcon />}
+                startIcon={<IconByName name="actions.uploadFile" />}
                 {...buttonProps}>
                 {label}
                 <input

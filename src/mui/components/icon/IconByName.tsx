@@ -14,11 +14,13 @@ import AttachMoney from "@mui/icons-material/AttachMoney";
 import AutoGraph from "@mui/icons-material/AutoGraph";
 import Autorenew from "@mui/icons-material/Autorenew";
 import BatteryChargingFullOutlined from "@mui/icons-material/BatteryChargingFullOutlined";
+import BlurCircularOutlined from "@mui/icons-material/BlurCircularOutlined";
 import Cached from "@mui/icons-material/Cached";
 import CalculateOutlined from "@mui/icons-material/CalculateOutlined";
 import CalendarToday from "@mui/icons-material/CalendarToday";
 import CallMerge from "@mui/icons-material/CallMerge";
 import CallSplit from "@mui/icons-material/CallSplit";
+import Cancel from "@mui/icons-material/Cancel";
 import Check from "@mui/icons-material/Check";
 import ChevronLeft from "@mui/icons-material/ChevronLeft";
 import ChevronRight from "@mui/icons-material/ChevronRight";
@@ -40,6 +42,7 @@ import DirectionsWalk from "@mui/icons-material/DirectionsWalk";
 import DnsOutlined from "@mui/icons-material/DnsOutlined";
 import DoubleArrow from "@mui/icons-material/DoubleArrow";
 import Download from "@mui/icons-material/Download";
+import DragIndicator from "@mui/icons-material/DragIndicator";
 import Edit from "@mui/icons-material/Edit";
 import Email from "@mui/icons-material/Email";
 import ExpandLess from "@mui/icons-material/ExpandLess";
@@ -135,6 +138,7 @@ import Toc from "@mui/icons-material/Toc";
 import UnfoldLess from "@mui/icons-material/UnfoldLess";
 import UnfoldMore from "@mui/icons-material/UnfoldMore";
 import Upgrade from "@mui/icons-material/Upgrade";
+import UploadFile from "@mui/icons-material/UploadFile";
 import VerticalAlignCenter from "@mui/icons-material/VerticalAlignCenter";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
@@ -142,7 +146,6 @@ import WifiTethering from "@mui/icons-material/WifiTethering";
 import WorkspacesOutlined from "@mui/icons-material/WorkspacesOutlined";
 import WrapText from "@mui/icons-material/WrapText";
 import YoutubeSearchedFor from "@mui/icons-material/YoutubeSearchedFor";
-import { useTheme } from "@mui/material/styles";
 import SvgIcon, { SvgIconProps } from "@mui/material/SvgIcon";
 import React from "react";
 
@@ -275,6 +278,7 @@ const iconComponentMap: Record<string, typeof SvgIcon | ReturnType<typeof rotate
     "actions.close": Close,
     "actions.collapse": KeyboardArrowUp,
     "actions.copy": ContentCopy,
+    "actions.cancel": Cancel,
     "actions.create": Add,
     "actions.createJob": OpenInNew,
     "actions.createSet": FolderOpen,
@@ -324,6 +328,7 @@ const iconComponentMap: Record<string, typeof SvgIcon | ReturnType<typeof rotate
     "actions.update": Autorenew,
     "actions.upgrade": Upgrade,
     "actions.upload": Publish,
+    "actions.uploadFile": UploadFile,
     "actions.visualize": OpenInBrowser,
 
     "shapes.arrow.doubleUp": DoubleArrow,
@@ -347,20 +352,28 @@ const iconComponentMap: Record<string, typeof SvgIcon | ReturnType<typeof rotate
     "shapes.info": Info,
     "shapes.menu": Menu,
     "shapes.calendar": CalendarToday,
+    "shapes.lock": Lock,
+    "shapes.drag": DragIndicator,
+    "shapes.blurCircular": BlurCircularOutlined,
 };
 
 export default function IconByName({
-    name = "circle",
+    name = "shapes.circle",
     rotateDegrees = 0,
+    fontSize = "medium",
     sx = {},
     ...iconProps
 }: IconByNameProps) {
-    const theme = useTheme();
     const IconComponent = iconComponentMap[name];
-    const iconStyle = { fontSize: theme.iconDefaultFontSize, transform: "", ...sx };
+    const iconStyle = {
+        transform: "",
+        color: "icon.main",
+        ...sx,
+    };
 
     if (rotateDegrees) iconStyle.transform = `rotate(${rotateDegrees}deg)`;
-    if (IconComponent) return <IconComponent {...iconProps} sx={iconStyle} name={name} />;
+    if (IconComponent)
+        return <IconComponent {...iconProps} sx={iconStyle} name={name} fontSize={fontSize} />;
 
-    return <Circle {...iconProps} />;
+    return <Circle {...iconProps} fontSize={fontSize} />;
 }

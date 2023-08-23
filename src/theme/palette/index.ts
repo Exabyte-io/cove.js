@@ -66,8 +66,8 @@ const palette = {
         dark: "#e0e0e0",
     },
     icon: {
-        main: "#ADADAD",
-        dark: "#555555",
+        main: "#555555",
+        light: "#ADADAD",
     },
 };
 

@@ -1,10 +1,10 @@
-import BlurCircularOutlinedIcon from "@mui/icons-material/BlurCircularOutlined";
-import CheckIcon from "@mui/icons-material/Check";
 import { green } from "@mui/material/colors";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import MenuItem from "@mui/material/MenuItem";
 import React, { useCallback } from "react";
+
+import IconByName from "../icon/IconByName";
 
 export interface DropdownItemProps {
     disabled: boolean;
@@ -27,13 +27,15 @@ export function DropdownItem({
 
     return (
         <MenuItem id={id} disabled={disabled} onClick={onItemClick}>
-            <ListItemIcon>{icon || <BlurCircularOutlinedIcon />}</ListItemIcon>
+            <ListItemIcon>{icon || <IconByName name="shapes.blurCircular" />}</ListItemIcon>
             <ListItemText
                 primaryTypographyProps={{ variant: "caption", color: "text.primary" }}
                 className="DropdownItemText">
                 {content}
             </ListItemText>
-            {showCheckIcon ? <CheckIcon htmlColor={green[500]} fontSize="large" /> : null}
+            {showCheckIcon ? (
+                <IconByName name="shapes.check" htmlColor={green[500]} fontSize="large" />
+            ) : null}
         </MenuItem>
     );
 }

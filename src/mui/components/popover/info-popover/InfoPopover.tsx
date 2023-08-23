@@ -1,5 +1,3 @@
-import InfoIcon from "@mui/icons-material/Info";
-import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import Popover from "@mui/material/Popover";
@@ -7,6 +5,8 @@ import { SxProps, Theme } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
 import { makeStyles, styled } from "@mui/styles";
 import React, { useRef, useState } from "react";
+
+import IconByName from "../../icon/IconByName";
 
 export const InfoIconButton = styled(IconButton)({
     "& svg": {
@@ -60,21 +60,12 @@ export interface InfoPopoverProps {
     title?: string;
     onButtonClick?: () => void;
     children: React.ReactNode;
-    outlined?: boolean;
     iconSize?: "small" | "medium" | "large";
     sx?: SxProps;
 }
 
 export default function InfoPopover(props: InfoPopoverProps) {
-    const {
-        id = "",
-        title = "",
-        onButtonClick,
-        children,
-        outlined = false,
-        iconSize = "medium",
-        sx,
-    } = props;
+    const { id = "", title = "", onButtonClick, children, iconSize = "medium", sx } = props;
 
     const [anchorEl, setAnchorEl] = useState(null);
     const iconRef = useRef(null);
@@ -107,7 +98,7 @@ export default function InfoPopover(props: InfoPopoverProps) {
                 ref={iconRef}
                 sx={sx}
                 size={iconSize}>
-                {outlined ? <InfoOutlinedIcon /> : <InfoIcon />}
+                <IconByName name="shapes.info" />
             </InfoIconButton>
             <Popover
                 open={isOpen}

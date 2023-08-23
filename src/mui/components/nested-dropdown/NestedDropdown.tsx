@@ -1,8 +1,6 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable react/jsx-props-no-spreading */
-import ChevronLeft from "@mui/icons-material/ChevronLeft";
-import ChevronRight from "@mui/icons-material/ChevronRight";
 import Box from "@mui/material/Box";
 import ClickAwayListener from "@mui/material/ClickAwayListener";
 import Divider from "@mui/material/Divider";
@@ -16,6 +14,7 @@ import Typography from "@mui/material/Typography";
 import React, { useCallback, useRef, useState } from "react";
 
 import { DefaultDropdownButton } from "../dropdown/DefaultDropdownButton";
+import IconByName from "../icon/IconByName";
 import { NestedDropdownItem } from "./NestedDropdownItem";
 
 export interface NestedDropdownAction {
@@ -192,7 +191,7 @@ export default function NestedDropdown({
                                                                     (paperPlacement.startsWith(
                                                                         "left",
                                                                     ) ? (
-                                                                        <ChevronLeft />
+                                                                        <IconByName name="shapes.arrow.left" />
                                                                     ) : undefined)
                                                                 }
                                                                 content={action.content}
@@ -201,7 +200,7 @@ export default function NestedDropdown({
                                                                     (paperPlacement.startsWith(
                                                                         "right",
                                                                     ) ? (
-                                                                        <ChevronRight />
+                                                                        <IconByName name="shapes.arrow.right" />
                                                                     ) : undefined)
                                                                 }
                                                             />
