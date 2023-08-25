@@ -366,11 +366,7 @@ export default function IconByName({
     ...iconProps
 }: IconByNameProps) {
     const IconComponent = iconComponentMap[name];
-    const iconStyle = {
-        transform: "",
-        color: "icon.main",
-        ...sx,
-    };
+    const iconStyle = { transform: "", ...sx };
 
     if (rotateDegrees) iconStyle.transform = `rotate(${rotateDegrees}deg)`;
     if (IconComponent)
