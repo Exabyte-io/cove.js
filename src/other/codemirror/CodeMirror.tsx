@@ -28,6 +28,8 @@ export interface CodeMirrorProps {
     language: string;
     completions: (context: CompletionContext) => CompletionResult;
     theme?: "light" | "dark";
+    onFocus?: () => unknown;
+    onBlur?: () => unknown;
 }
 
 export interface CodeMirrorState {
@@ -78,8 +80,16 @@ class CodeMirror extends React.Component<CodeMirrorProps, CodeMirrorState> {
                 onChange={(editor: string, viewUpdate: { origin: string }) => {
                     this.handleContentChange(editor, viewUpdate);
                 }}
-                onFocus={() => this.setState({ isEditing: true })}
-                onBlur={() => this.setState({ isEditing: false })}
+                onFocus={() => {
+                    // eslint-disable-next-line react/destructuring-assignment
+                    if (this.props.onFocus) this.props.onFocus();
+                    this.setState({ isEditing: true });
+                }}
+                onBlur={() => {
+                    // eslint-disable-next-line react/destructuring-assignment
+                    if (this.props.onBlur) this.props.onBlur();
+                    this.setState({ isEditing: false });
+                }}
                 basicSetup={options}
                 theme={theme || "light"}
                 // @ts-ignore
