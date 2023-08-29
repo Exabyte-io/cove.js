@@ -3,11 +3,11 @@
     "version": "0.0.0",
     "description": "Cove.js - reusable components",
     "scripts": {
-        "lint": "eslint src tests && prettier --write src tests",
-        "lint:fix": "eslint --fix --cache src tests && prettier --write src tests",
+        "lint": "eslint src && prettier --write src",
+        "lint:fix": "eslint --fix --cache src && prettier --write src",
         "transpile": "tsc",
         "postinstall": "npm run transpile",
-        "prettier": "prettier --check src tests",
+        "prettier": "prettier --check src",
         "prepare": "husky install"
     },
     "repository": {
@@ -70,7 +70,7 @@
         "underscore.string": "^3.3.6"
     },
     "devDependencies": {
-        "@exabyte-io/eslint-config": "^2022.11.17-0",
+        "@exabyte-io/eslint-config": "^2023.8.29-1",
         "@mui/icons-material": "^5.11.9",
         "@mui/lab": "^5.0.0-alpha.120",
         "@mui/material": "^5.11.9",
@@ -91,6 +91,7 @@
         "eslint-plugin-import": "2.25.3",
         "eslint-plugin-jsdoc": "37.1.0",
         "eslint-plugin-jsx-a11y": "6.5.1",
+        "eslint-plugin-mui-path-imports": "0.0.15",
         "eslint-plugin-prettier": "4.2.1",
         "eslint-plugin-react": "7.30.0",
         "eslint-plugin-simple-import-sort": "7.0.0",
