@@ -28,8 +28,8 @@ export interface CodeMirrorProps {
     language: string;
     completions: (context: CompletionContext) => CompletionResult;
     theme?: "light" | "dark";
-    onFocus?: () => unknown;
-    onBlur?: () => unknown;
+    onFocus?: () => void;
+    onBlur?: () => void;
 }
 
 export interface CodeMirrorState {
