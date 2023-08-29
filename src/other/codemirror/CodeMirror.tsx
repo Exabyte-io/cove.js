@@ -27,6 +27,7 @@ export interface CodeMirrorProps {
     options: boolean | BasicSetupOptions;
     language: string;
     completions: (context: CompletionContext) => CompletionResult;
+    theme?: "light" | "dark";
 }
 
 export interface CodeMirrorState {
@@ -69,6 +70,7 @@ class CodeMirror extends React.Component<CodeMirrorProps, CodeMirrorState> {
         const { content = "", options = {}, language, completions } = this.props;
         const completionExtension = autocompletion({ override: [completions] });
 
+        const { theme } = this.props;
         return (
             <CodeMirrorBase
                 value={content || ""}
@@ -79,7 +81,7 @@ class CodeMirror extends React.Component<CodeMirrorProps, CodeMirrorState> {
                 onFocus={() => this.setState({ isEditing: true })}
                 onBlur={() => this.setState({ isEditing: false })}
                 basicSetup={options}
-                theme="light"
+                theme={theme || "light"}
                 // @ts-ignore
                 extensions={[completionExtension, ...this.getLanguageExtensions(language)]}
             />
