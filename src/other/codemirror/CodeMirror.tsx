@@ -72,7 +72,7 @@ class CodeMirror extends React.Component<CodeMirrorProps, CodeMirrorState> {
         const { content = "", options = {}, language, completions } = this.props;
         const completionExtension = autocompletion({ override: [completions] });
 
-        const { theme } = this.props;
+        const { theme, onFocus, onBlur } = this.props;
         return (
             <CodeMirrorBase
                 value={content || ""}
@@ -81,13 +81,11 @@ class CodeMirror extends React.Component<CodeMirrorProps, CodeMirrorState> {
                     this.handleContentChange(editor, viewUpdate);
                 }}
                 onFocus={() => {
-                    // eslint-disable-next-line react/destructuring-assignment
-                    if (this.props.onFocus) this.props.onFocus();
+                    if (onFocus) onFocus();
                     this.setState({ isEditing: true });
                 }}
                 onBlur={() => {
-                    // eslint-disable-next-line react/destructuring-assignment
-                    if (this.props.onBlur) this.props.onBlur();
+                    if (onBlur) onBlur();
                     this.setState({ isEditing: false });
                 }}
                 basicSetup={options}
