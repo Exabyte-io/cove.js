@@ -291,6 +291,7 @@ const iconComponentMap: Record<string, typeof SvgIcon | ReturnType<typeof rotate
     "actions.globalSearch": Search,
     "actions.import": CloudUpload,
     "actions.importFromBank": AccountBalance,
+    "actions.importFrom3rdParty": Language,
     "actions.leave": DirectionsWalk,
     "actions.lock": Lock,
     "actions.makeAdmin": ExpandLess,
