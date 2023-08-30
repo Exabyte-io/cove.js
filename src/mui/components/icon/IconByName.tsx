@@ -372,5 +372,5 @@ export default function IconByName({
     if (IconComponent)
         return <IconComponent {...iconProps} sx={iconStyle} name={name} fontSize={fontSize} />;
 
-    return <Circle {...iconProps} fontSize={fontSize} />;
+    return <Circle {...iconProps} sx={iconStyle} fontSize={fontSize} />;
 }
