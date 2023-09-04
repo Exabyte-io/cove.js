@@ -1,4 +1,3 @@
-import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -10,6 +9,7 @@ import React from "react";
 import InfoPopover, {
     InfoPopoverProps,
 } from "../../mui/components/popover/info-popover/InfoPopover";
+import { PositionInfoPopover } from "./PositionInfoPopover.styled";
 
 type InfoPopoverOptions = InfoPopoverProps & { content: string };
 
@@ -34,14 +34,7 @@ export default function TimePicker(props: WidgetProps<InfoPopoverOptions>) {
                     },
                 }}
             />
-            <Box
-                sx={{
-                    backgroundColor: "background.paper",
-                    position: "absolute",
-                    borderRadius: "50%",
-                    right: -14,
-                    top: -14,
-                }}>
+            <PositionInfoPopover>
                 <InfoPopover title={infoPopover?.title} iconSize="small">
                     <Typography
                         variant="body2"
@@ -49,7 +42,7 @@ export default function TimePicker(props: WidgetProps<InfoPopoverOptions>) {
                         dangerouslySetInnerHTML={{ __html: infoPopover?.content }}
                     />
                 </InfoPopover>
-            </Box>
+            </PositionInfoPopover>
         </LocalizationProvider>
     );
 }

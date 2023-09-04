@@ -1,5 +1,4 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { Widgets } from "@rjsf/mui";
 import { WidgetProps } from "@rjsf/utils";
@@ -8,6 +7,7 @@ import React from "react";
 import InfoPopover, {
     InfoPopoverProps,
 } from "../../mui/components/popover/info-popover/InfoPopover";
+import { PositionInfoPopover } from "./PositionInfoPopover.styled";
 
 const { SelectWidget } = Widgets;
 
@@ -21,14 +21,7 @@ export default function SelectWithInfoPopover(props: WidgetProps) {
     return (
         <>
             <SelectWidget {...props} size="small" />
-            <Box
-                sx={{
-                    backgroundColor: "background.paper",
-                    position: "absolute",
-                    borderRadius: "50%",
-                    right: -14,
-                    top: -14,
-                }}>
+            <PositionInfoPopover>
                 <InfoPopover title={infoPopover?.title} iconSize="small">
                     <Typography
                         variant="body2"
@@ -36,7 +29,7 @@ export default function SelectWithInfoPopover(props: WidgetProps) {
                         dangerouslySetInnerHTML={{ __html: infoPopover?.content }}
                     />
                 </InfoPopover>
-            </Box>
+            </PositionInfoPopover>
         </>
     );
 }
