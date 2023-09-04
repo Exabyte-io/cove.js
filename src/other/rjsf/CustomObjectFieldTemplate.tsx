@@ -89,7 +89,6 @@ function ObjectFieldTemplate<
                             sm={6}
                             md={4}
                             lg={3}
-                            xl={2}
                             key={index}
                             rowSpacing={theme.spacing(1.25)}>
                             {element.content}
