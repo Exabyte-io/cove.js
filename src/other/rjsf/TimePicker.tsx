@@ -21,9 +21,9 @@ export default function TimePicker(props: WidgetProps<InfoPopoverOptions>) {
     return (
         <LocalizationProvider dateAdapter={AdapterMoment}>
             <MuiTimePicker
-                onChange={(timeObj) => onChange(timeObj?.format("hh:mm:ss"))}
+                onChange={(timeObj) => onChange(timeObj?.format("HH:mm:ss"))}
                 views={["hours", "minutes", "seconds"]}
-                format="hh:mm:ss"
+                format="HH:mm:ss"
                 ampm={false}
                 value={moment("1970-01-01 " + value)}
                 label={label}
@@ -31,6 +31,7 @@ export default function TimePicker(props: WidgetProps<InfoPopoverOptions>) {
                 slotProps={{
                     textField: {
                         size: "small",
+                        className: "timePickerInput",
                     },
                 }}
             />
