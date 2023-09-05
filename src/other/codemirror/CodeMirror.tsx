@@ -7,9 +7,11 @@ import { fortran } from "@codemirror/legacy-modes/mode/fortran";
 import { jinja2 } from "@codemirror/legacy-modes/mode/jinja2";
 import { shell } from "@codemirror/legacy-modes/mode/shell";
 import { linter, lintGutter } from "@codemirror/lint";
+import { ConsistencyChecks } from "@exabyte-io/code.js/src/types";
 import CodeMirrorBase, { BasicSetupOptions } from "@uiw/react-codemirror";
 import React from "react";
 
+import { linterGenerator } from "./utils/exaxyz_linter";
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const LANGUAGES_MAP: Record<string, any> = {
     python: [python()],
@@ -18,6 +20,7 @@ const LANGUAGES_MAP: Record<string, any> = {
     jinja2: [StreamLanguage.define(jinja2)],
     javascript: [javascript()],
     json: [json(), lintGutter(), linter(jsonParseLinter())],
+    exaxyz: [StreamLanguage.define(fortran)],
 };
 
 export interface CodeMirrorProps {
@@ -30,6 +33,7 @@ export interface CodeMirrorProps {
     theme?: "light" | "dark";
     onFocus?: () => void;
     onBlur?: () => void;
+    checks?: ConsistencyChecks;
 }
 
 export interface CodeMirrorState {
@@ -63,9 +67,14 @@ class CodeMirror extends React.Component<CodeMirrorProps, CodeMirrorState> {
 
     // eslint-disable-next-line class-methods-use-this
     getLanguageExtensions(language: string) {
-        if (LANGUAGES_MAP[language]) return LANGUAGES_MAP[language];
+        const baseExtensions = LANGUAGES_MAP[language] || LANGUAGES_MAP.fortran;
 
-        return LANGUAGES_MAP.fortran;
+        if (language === "exaxyz") {
+            const { checks } = this.props;
+            return [...baseExtensions, linter(linterGenerator(checks))];
+        }
+
+        return baseExtensions;
     }
 
     render() {
