@@ -3,10 +3,10 @@ import { EditorView } from "@codemirror/view";
 import { ConsistencyChecks } from "@exabyte-io/code.js/src/types";
 import _ from "underscore";
 
-const linterGenerator = (checks: ConsistencyChecks) => {
+const linterGenerator = (checks: ConsistencyChecks | undefined) => {
     return (view: EditorView): Diagnostic[] => {
         const { doc } = view.state;
-        if (checks.messages.length === 0 || !doc) return [];
+        if (!checks || !doc) return [];
 
         const warnings = checks.messages.map((check) => {
             const keyFragments = check.key.split(".");
