@@ -7,11 +7,13 @@ import { fortran } from "@codemirror/legacy-modes/mode/fortran";
 import { jinja2 } from "@codemirror/legacy-modes/mode/jinja2";
 import { shell } from "@codemirror/legacy-modes/mode/shell";
 import { linter, lintGutter } from "@codemirror/lint";
+import { ViewUpdate } from "@codemirror/view";
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { ConsistencyChecks } from "@exabyte-io/code.js/src/types";
 import CodeMirrorBase, { BasicSetupOptions } from "@uiw/react-codemirror";
 import React from "react";
 
-import { linterGenerator } from "./utils/exaxyz_linter";
+import { ChecksAnnotation, checksStateField, exaxyzLinter } from "./utils/exaxyz_linter";
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const LANGUAGES_MAP: Record<string, any> = {
     python: [python()],
@@ -55,13 +57,11 @@ class CodeMirror extends React.Component<CodeMirrorProps, CodeMirrorState> {
     handleContentChange(newContent: string, viewUpdate: { origin: string }) {
         const { isLoaded, isEditing } = this.state;
         const { updateContent, updateOnFirstLoad = true } = this.props;
-        // kludge for the way state management is handled in web-app
+
         if (!isLoaded && !updateOnFirstLoad && viewUpdate.origin === "setValue") {
             this.setState({ isLoaded: true });
             return;
         }
-        // update content only if component is focused
-        // Otherwise content is being marked as edited when selecting a flavor in workflow designer!
         if (isEditing && updateContent) updateContent(newContent);
     }
 
@@ -70,15 +70,14 @@ class CodeMirror extends React.Component<CodeMirrorProps, CodeMirrorState> {
         const baseExtensions = LANGUAGES_MAP[language] || LANGUAGES_MAP.fortran;
 
         if (language === "exaxyz") {
-            const { checks } = this.props;
-            return [...baseExtensions, linter(linterGenerator(checks))];
+            return [...baseExtensions, checksStateField, linter(exaxyzLinter)];
         }
 
         return baseExtensions;
     }
 
     render() {
-        const { content = "", options = {}, language, completions } = this.props;
+        const { content = "", options = {}, language, completions, checks } = this.props;
         const completionExtension = autocompletion({ override: [completions] });
 
         const { theme, onFocus, onBlur } = this.props;
@@ -88,6 +87,14 @@ class CodeMirror extends React.Component<CodeMirrorProps, CodeMirrorState> {
                 // @ts-ignore
                 onChange={(editor: string, viewUpdate: { origin: string }) => {
                     this.handleContentChange(editor, viewUpdate);
+                }}
+                onUpdate={(viewUpdate: ViewUpdate) => {
+                    if (checks && checks.keys.length > 0) {
+                        console.log("viewUpdate", viewUpdate);
+                        viewUpdate.view.dispatch({
+                            annotations: [ChecksAnnotation.of({ checks })],
+                        });
+                    }
                 }}
                 onFocus={() => {
                     if (onFocus) onFocus();
