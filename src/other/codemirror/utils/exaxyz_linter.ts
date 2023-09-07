@@ -8,19 +8,20 @@ import _ from "underscore";
 export const ChecksAnnotation = Annotation.define<{ checks: ConsistencyChecks }>();
 
 export const checksStateField = StateField.define({
+    // @ts-ignore
     create() {
         return [];
-    }, // Initializes with an empty array
-    // @ts-ignore
-    update(value, tr) {
+    },
+    update: _.debounce((value: ConsistencyChecks, tr) => {
         if (tr.annotation(ChecksAnnotation)) {
             // @ts-ignore
             return tr.annotation(ChecksAnnotation).checks;
         }
         return value;
-    },
+    }, 300), // debounce for 300ms
 });
 const exaxyzLinter = (view: EditorView): Diagnostic[] => {
+    // TODO: REMOVE type casting
     const checks: ConsistencyChecks | undefined = view.state.field(checksStateField) as
         | ConsistencyChecks
         | undefined;

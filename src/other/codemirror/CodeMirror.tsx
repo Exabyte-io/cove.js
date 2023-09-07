@@ -12,6 +12,7 @@ import { ViewUpdate } from "@codemirror/view";
 import { ConsistencyChecks } from "@exabyte-io/code.js/src/types";
 import CodeMirrorBase, { BasicSetupOptions } from "@uiw/react-codemirror";
 import React from "react";
+import _ from "underscore";
 
 import { ChecksAnnotation, checksStateField, exaxyzLinter } from "./utils/exaxyz_linter";
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -44,24 +45,32 @@ export interface CodeMirrorState {
 }
 
 class CodeMirror extends React.Component<CodeMirrorProps, CodeMirrorState> {
+    // eslint-disable-next-line react/no-unused-class-component-methods
+    debouncedUpdateChecks: (viewUpdate: ViewUpdate) => void;
+
     constructor(props: CodeMirrorProps) {
         super(props);
         this.state = { isLoaded: false, isEditing: false };
         this.handleContentChange = this.handleContentChange.bind(this);
+        // eslint-disable-next-line react/no-unused-class-component-methods
+        this.debouncedUpdateChecks = _.debounce(this.updateChecks, 300);
     }
 
     /*
      * editor - CodeMirror object https://uiwjs.github.io/react-codemirror/
      * viewUpdate - object containing the update to the editor tree structure
      */
-    handleContentChange(newContent: string, viewUpdate: { origin: string }) {
+    handleContentChange(newContent: string, viewUpdate: ViewUpdate) {
+        console.log("handleContentChange viewUpdate", viewUpdate);
         const { isLoaded, isEditing } = this.state;
         const { updateContent, updateOnFirstLoad = true } = this.props;
-
-        if (!isLoaded && !updateOnFirstLoad && viewUpdate.origin === "setValue") {
+        // kludge for the way state management is handled in web-app
+        if (!isLoaded && !updateOnFirstLoad) {
             this.setState({ isLoaded: true });
             return;
         }
+        // update content only if component is focused
+        // Otherwise content is being marked as edited when selecting a flavor in workflow designer!
         if (isEditing && updateContent) updateContent(newContent);
     }
 
@@ -76,8 +85,18 @@ class CodeMirror extends React.Component<CodeMirrorProps, CodeMirrorState> {
         return baseExtensions;
     }
 
+    updateChecks(viewUpdate: ViewUpdate) {
+        console.log("updateChecks viewUpdate", viewUpdate);
+        const { checks } = this.props;
+        if (checks && checks.keys.length > 0) {
+            viewUpdate.view.dispatch({
+                annotations: [ChecksAnnotation.of({ checks })],
+            });
+        }
+    }
+
     render() {
-        const { content = "", options = {}, language, completions, checks } = this.props;
+        const { content = "", options = {}, language, completions } = this.props;
         const completionExtension = autocompletion({ override: [completions] });
 
         const { theme, onFocus, onBlur } = this.props;
@@ -85,16 +104,9 @@ class CodeMirror extends React.Component<CodeMirrorProps, CodeMirrorState> {
             <CodeMirrorBase
                 value={content || ""}
                 // @ts-ignore
-                onChange={(editor: string, viewUpdate: { origin: string }) => {
+                onChange={(editor: string, viewUpdate: ViewUpdate) => {
                     this.handleContentChange(editor, viewUpdate);
-                }}
-                onUpdate={(viewUpdate: ViewUpdate) => {
-                    if (checks && checks.keys.length > 0) {
-                        console.log("viewUpdate", viewUpdate);
-                        viewUpdate.view.dispatch({
-                            annotations: [ChecksAnnotation.of({ checks })],
-                        });
-                    }
+                    this.updateChecks(viewUpdate);
                 }}
                 onFocus={() => {
                     if (onFocus) onFocus();
