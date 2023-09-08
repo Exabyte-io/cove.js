@@ -102,7 +102,6 @@ class CodeMirror extends React.Component<CodeMirrorProps, CodeMirrorState> {
     }
 
     computeExtensions() {
-        console.log("computeExtensions");
         const { completions, language } = this.props;
         const completionExtension = autocompletion({ override: [completions] });
         const languageExtensions = this.getLanguageExtensions(language);
@@ -112,7 +111,6 @@ class CodeMirror extends React.Component<CodeMirrorProps, CodeMirrorState> {
     render() {
         const { content = "", options = {}, theme } = this.props;
         const { extensions } = this.state;
-        console.log(extensions);
 
         return (
             <CodeMirrorBase
