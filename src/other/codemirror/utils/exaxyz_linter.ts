@@ -19,12 +19,11 @@ export const checksStateField = StateField.define({
         return value;
     },
 });
-const exaxyzLinter = (view: EditorView): Diagnostic[] => {
+export function exaxyzLinter(view: EditorView): Diagnostic[] {
     // TODO: REMOVE type casting
     const checks: ConsistencyChecks | undefined = view.state.field(checksStateField) as
         | ConsistencyChecks
         | undefined;
-    console.log(view.state.update());
 
     if (!checks) return [];
     if (Object.keys(checks).length === 0) return [];
@@ -45,6 +44,4 @@ const exaxyzLinter = (view: EditorView): Diagnostic[] => {
             };
         })
         .filter(Boolean) as Diagnostic[];
-};
-
-export { exaxyzLinter };
+}
