@@ -19,29 +19,33 @@ export const checksStateField = StateField.define({
         return value;
     },
 });
-export function exaxyzLinter(view: EditorView): Diagnostic[] {
-    // TODO: REMOVE type casting
-    const checks: ConsistencyChecks | undefined = view.state.field(checksStateField) as
-        | ConsistencyChecks
-        | undefined;
+const exaxyzLinter =
+    () =>
+    (view: EditorView): Diagnostic[] => {
+        // TODO: REMOVE type casting
+        const checks: ConsistencyChecks | undefined = view.state.field(checksStateField) as
+            | ConsistencyChecks
+            | undefined;
 
-    if (!checks) return [];
-    if (Object.keys(checks).length === 0) return [];
+        if (!checks) return [];
+        if (Object.keys(checks).length === 0) return [];
 
-    return checks.messages
-        .map((check) => {
-            const keyFragments = check.key.split(".");
-            const atomIdStr = _.last(keyFragments);
-            if (!atomIdStr) return null;
+        return checks.messages
+            .map((check) => {
+                const keyFragments = check.key.split(".");
+                const atomIdStr = _.last(keyFragments);
+                if (!atomIdStr) return null;
 
-            const atomId = parseInt(atomIdStr, 10);
-            const lineNumber = atomId + 1;
-            return {
-                message: check.message,
-                severity: check.severity,
-                from: view.state.doc.line(lineNumber).from,
-                to: view.state.doc.line(lineNumber).to,
-            };
-        })
-        .filter(Boolean) as Diagnostic[];
-}
+                const atomId = parseInt(atomIdStr, 10);
+                const lineNumber = atomId + 1;
+                return {
+                    message: check.message,
+                    severity: check.severity,
+                    from: view.state.doc.line(lineNumber).from,
+                    to: view.state.doc.line(lineNumber).to,
+                };
+            })
+            .filter(Boolean) as Diagnostic[];
+    };
+
+export default exaxyzLinter;

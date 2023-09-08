@@ -9,12 +9,11 @@ import { shell } from "@codemirror/legacy-modes/mode/shell";
 import { linter, lintGutter } from "@codemirror/lint";
 import { ViewUpdate } from "@codemirror/view";
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { ConsistencyChecks } from "@exabyte-io/code.js/src/types";
+import { ConsistencyChecks } from "@exabyte-io/code.js/dist/types";
 import CodeMirrorBase, { BasicSetupOptions } from "@uiw/react-codemirror";
 import React from "react";
-import _ from "underscore";
 
-import { ChecksAnnotation, checksStateField, exaxyzLinter } from "./utils/exaxyz_linter";
+import exaxyzLinter, { ChecksAnnotation, checksStateField } from "./utils/exaxyz_linter";
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const LANGUAGES_MAP: Record<string, any> = {
     python: [python()],
@@ -23,7 +22,7 @@ const LANGUAGES_MAP: Record<string, any> = {
     jinja2: [StreamLanguage.define(jinja2)],
     javascript: [javascript()],
     json: [json(), lintGutter(), linter(jsonParseLinter())],
-    exaxyz: [StreamLanguage.define(fortran), checksStateField, linter(exaxyzLinter)],
+    exaxyz: [StreamLanguage.define(fortran), checksStateField, linter(exaxyzLinter())],
 };
 
 export interface CodeMirrorProps {
@@ -42,13 +41,20 @@ export interface CodeMirrorProps {
 export interface CodeMirrorState {
     isLoaded: boolean;
     isEditing: boolean;
+    extensions: any[];
 }
 
 class CodeMirror extends React.Component<CodeMirrorProps, CodeMirrorState> {
     constructor(props: CodeMirrorProps) {
         super(props);
-        this.state = { isLoaded: false, isEditing: false };
+        this.state = {
+            isLoaded: false,
+            isEditing: false,
+            extensions: this.computeExtensions(),
+        };
         this.handleContentChange = this.handleContentChange.bind(this);
+        this.handleFocus = this.handleFocus.bind(this);
+        this.handleBlur = this.handleBlur.bind(this);
     }
 
     /*
@@ -95,24 +101,32 @@ class CodeMirror extends React.Component<CodeMirrorProps, CodeMirrorState> {
         return LANGUAGES_MAP.fortran;
     }
 
-    render() {
-        const { content = "", options = {}, language, completions } = this.props;
+    computeExtensions() {
+        console.log("computeExtensions");
+        const { completions, language } = this.props;
         const completionExtension = autocompletion({ override: [completions] });
+        const languageExtensions = this.getLanguageExtensions(language);
+        return [completionExtension, ...languageExtensions];
+    }
 
-        const { theme } = this.props;
+    render() {
+        const { content = "", options = {}, theme } = this.props;
+        const { extensions } = this.state;
+        console.log(extensions);
+
         return (
             <CodeMirrorBase
                 value={content || ""}
                 // @ts-ignore
-                onChange={(content: string, viewUpdate: ViewUpdate) => {
-                    this.handleContentChange(content, viewUpdate);
+                onChange={(value: string, viewUpdate: ViewUpdate) => {
+                    this.handleContentChange(value, viewUpdate);
                 }}
                 onFocus={this.handleFocus}
                 onBlur={this.handleBlur}
                 basicSetup={options}
                 theme={theme || "light"}
                 // @ts-ignore
-                extensions={[completionExtension, ...this.getLanguageExtensions(language)]}
+                extensions={extensions}
             />
         );
     }
