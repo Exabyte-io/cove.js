@@ -1,5 +1,5 @@
 import { Diagnostic } from "@codemirror/lint";
-import { Annotation, StateField } from "@codemirror/state";
+import { Annotation, StateField, Transaction } from "@codemirror/state";
 import { EditorView } from "@codemirror/view";
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { ConsistencyChecks } from "@exabyte-io/code.js/src/types";
@@ -8,23 +8,23 @@ import _ from "underscore";
 export const ChecksAnnotation = Annotation.define<{ checks: ConsistencyChecks }>();
 
 export const checksStateField = StateField.define({
-    // @ts-ignore
-    create() {
-        return [];
+    create(): ConsistencyChecks {
+        return { keys: [], messages: [] };
     },
-    update: _.debounce((value: ConsistencyChecks, tr) => {
+    update: (value: ConsistencyChecks, tr: Transaction) => {
         if (tr.annotation(ChecksAnnotation)) {
             // @ts-ignore
             return tr.annotation(ChecksAnnotation).checks;
         }
         return value;
-    }, 300), // debounce for 300ms
+    },
 });
 const exaxyzLinter = (view: EditorView): Diagnostic[] => {
     // TODO: REMOVE type casting
     const checks: ConsistencyChecks | undefined = view.state.field(checksStateField) as
         | ConsistencyChecks
         | undefined;
+    console.log(view.state.update());
 
     if (!checks) return [];
     if (Object.keys(checks).length === 0) return [];

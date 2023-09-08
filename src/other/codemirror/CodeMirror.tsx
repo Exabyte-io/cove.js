@@ -65,6 +65,7 @@ class CodeMirror extends React.Component<CodeMirrorProps, CodeMirrorState> {
         const { isLoaded, isEditing } = this.state;
         const { updateContent, updateOnFirstLoad = true } = this.props;
         // kludge for the way state management is handled in web-app
+        // TODO: RESTORE whatever was removed here!!!!
         if (!isLoaded && !updateOnFirstLoad) {
             this.setState({ isLoaded: true });
             return;
@@ -86,11 +87,12 @@ class CodeMirror extends React.Component<CodeMirrorProps, CodeMirrorState> {
     }
 
     updateChecks(viewUpdate: ViewUpdate) {
-        console.log("updateChecks viewUpdate", viewUpdate);
+        // console.log("updateChecks viewUpdate", viewUpdate);
         const { checks } = this.props;
         if (checks && checks.keys.length > 0) {
             viewUpdate.view.dispatch({
                 annotations: [ChecksAnnotation.of({ checks })],
+                sequential: true,
             });
         }
     }
