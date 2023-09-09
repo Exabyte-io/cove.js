@@ -13,6 +13,7 @@ import { ConsistencyChecks } from "@exabyte-io/code.js/dist/types";
 import CodeMirrorBase, { BasicSetupOptions } from "@uiw/react-codemirror";
 import React from "react";
 
+import ErrorBoundary from "../../utils/ErrorBoundary";
 import exaxyzLinter, { ChecksAnnotation, checksStateField } from "./utils/exaxyz_linter";
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const LANGUAGES_MAP: Record<string, any> = {
@@ -50,7 +51,7 @@ class CodeMirror extends React.Component<CodeMirrorProps, CodeMirrorState> {
         this.state = {
             isLoaded: false,
             isEditing: false,
-            extensions: this.computeExtensions(),
+            extensions: this.createExtensions(),
         };
         this.handleContentChange = this.handleContentChange.bind(this);
         this.handleFocus = this.handleFocus.bind(this);
@@ -63,7 +64,7 @@ class CodeMirror extends React.Component<CodeMirrorProps, CodeMirrorState> {
      */
     handleContentChange(newContent: string, viewUpdate: ViewUpdate) {
         const { isLoaded, isEditing } = this.state;
-        const { updateContent, updateOnFirstLoad = true } = this.props;
+        const { updateContent, updateOnFirstLoad = true, checks } = this.props;
         // kludge for the way state management is handled in web-app
         // TODO: RESTORE whatever was removed here!!!!
         if (!isLoaded && !updateOnFirstLoad) {
@@ -74,8 +75,9 @@ class CodeMirror extends React.Component<CodeMirrorProps, CodeMirrorState> {
         // Otherwise content is being marked as edited when selecting a flavor in workflow designer!
         if (isEditing && updateContent) updateContent(newContent);
 
-        const { checks } = this.props;
         if (checks && checks.keys.length > 0) {
+            // @ts-ignore
+            console.log(viewUpdate.view.updateState);
             viewUpdate.view.dispatch({
                 annotations: [ChecksAnnotation.of({ checks })],
             });
@@ -101,7 +103,7 @@ class CodeMirror extends React.Component<CodeMirrorProps, CodeMirrorState> {
         return LANGUAGES_MAP.fortran;
     }
 
-    computeExtensions() {
+    createExtensions() {
         const { completions, language } = this.props;
         const completionExtension = autocompletion({ override: [completions] });
         const languageExtensions = this.getLanguageExtensions(language);
@@ -113,19 +115,21 @@ class CodeMirror extends React.Component<CodeMirrorProps, CodeMirrorState> {
         const { extensions } = this.state;
 
         return (
-            <CodeMirrorBase
-                value={content || ""}
-                // @ts-ignore
-                onChange={(value: string, viewUpdate: ViewUpdate) => {
-                    this.handleContentChange(value, viewUpdate);
-                }}
-                onFocus={this.handleFocus}
-                onBlur={this.handleBlur}
-                basicSetup={options}
-                theme={theme || "light"}
-                // @ts-ignore
-                extensions={extensions}
-            />
+            <ErrorBoundary restore>
+                <CodeMirrorBase
+                    value={content || ""}
+                    // @ts-ignore
+                    onChange={(value: string, viewUpdate: ViewUpdate) => {
+                        this.handleContentChange(value, viewUpdate);
+                    }}
+                    onFocus={this.handleFocus}
+                    onBlur={this.handleBlur}
+                    basicSetup={options}
+                    theme={theme || "light"}
+                    // @ts-ignore
+                    extensions={extensions}
+                />
+            </ErrorBoundary>
         );
     }
 }
