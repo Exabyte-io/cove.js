@@ -146,6 +146,7 @@ import WifiTethering from "@mui/icons-material/WifiTethering";
 import WorkspacesOutlined from "@mui/icons-material/WorkspacesOutlined";
 import WrapText from "@mui/icons-material/WrapText";
 import YoutubeSearchedFor from "@mui/icons-material/YoutubeSearchedFor";
+import Icon from "@mui/material/Icon";
 import SvgIcon, { SvgIconProps } from "@mui/material/SvgIcon";
 import React from "react";
 
@@ -356,6 +357,8 @@ const iconComponentMap: Record<string, typeof SvgIcon | ReturnType<typeof rotate
     "shapes.lock": Lock,
     "shapes.drag": DragIndicator,
     "shapes.blurCircular": BlurCircularOutlined,
+    // @ts-ignore
+    empty: Icon,
 };
 
 export default function IconByName({
