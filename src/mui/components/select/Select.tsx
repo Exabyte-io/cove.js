@@ -1,6 +1,7 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import Box from "@mui/material/Box";
 import Chip from "@mui/material/Chip";
-import FormControl from "@mui/material/FormControl";
+import FormControl, { FormControlProps } from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
@@ -20,6 +21,7 @@ export interface SelectProps {
     isChips?: boolean;
     onDelete?: (event: string) => void;
     getChipLabel?: (value: string) => string;
+    formControlProps: FormControlProps;
 }
 export default function SelectComponent({
     id,
@@ -33,6 +35,7 @@ export default function SelectComponent({
     sx = {},
     fontSize = 16,
     getChipLabel = (value) => value,
+    formControlProps = {},
 }: SelectProps) {
     const renderValue = isChips
         ? (selected: string[]) => (
@@ -59,7 +62,7 @@ export default function SelectComponent({
         : undefined;
 
     return (
-        <FormControl sx={{ marginY: 1, width: "100%" }}>
+        <FormControl sx={{ marginY: 1, width: "100%" }} {...formControlProps}>
             {label ? (
                 <InputLabel id={`${id}-label`} sx={{ fontSize }}>
                     {label}
