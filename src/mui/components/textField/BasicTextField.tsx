@@ -14,6 +14,7 @@ type BasicTextFieldProps = {
     sx?: SxProps;
     type?: HTMLInputTypeAttribute;
     variant?: "standard" | "filled" | "outlined";
+    required?: boolean;
 };
 
 function BasicTextField({
@@ -28,6 +29,7 @@ function BasicTextField({
     sx = {},
     type = "text",
     variant = "outlined",
+    required = false,
 }: BasicTextFieldProps) {
     const inputLabelProps = labelAsPlaceholder ? {} : { shrink: true };
 
@@ -62,6 +64,7 @@ function BasicTextField({
             disabled={disabled}
             variant={variant}
             size={size}
+            required={required}
             InputLabelProps={inputLabelProps}
             onChange={(e) => onChange(e.target.value)}
         />
