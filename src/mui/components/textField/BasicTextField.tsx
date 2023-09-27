@@ -33,26 +33,6 @@ function BasicTextField({
 }: BasicTextFieldProps) {
     const inputLabelProps = labelAsPlaceholder ? {} : { shrink: true };
 
-    const textFieldProps: TextFieldProps = {
-        type,
-        sx,
-        label,
-        fullWidth,
-        disabled,
-        variant,
-        size,
-        InputLabelProps: inputLabelProps,
-        onChange: (e) => onChange(e.target.value),
-    };
-
-    if (value !== undefined) {
-        textFieldProps.value = value;
-    }
-
-    if (defaultValue !== undefined) {
-        textFieldProps.defaultValue = defaultValue;
-    }
-
     return (
         <TextField
             type={type}

@@ -17,7 +17,7 @@ type BasicSelectProps = {
     labelAsPlaceholder?: boolean;
     renderMenuItemContent?: (value: AvailableValue) => JSX.Element;
 };
-// TODO: move to cove.js
+
 export default function BasicSelect({
     disabled = false,
     selectedValue,
