@@ -310,7 +310,7 @@ const iconComponentMap: Record<string, typeof SvgIcon | ReturnType<typeof rotate
     "actions.read": Toc,
     "actions.remove": Delete,
     "actions.reset": Cached,
-    "actions.refresh": Refresh,
+    "actions.resetExplorerSettings": Refresh,
     "actions.resubmit": Replay,
     "actions.revokeAccess": VisibilityOff,
     "actions.revokeAdmin": ExpandLess,
