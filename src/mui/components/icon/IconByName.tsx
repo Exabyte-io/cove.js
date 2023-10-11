@@ -135,6 +135,7 @@ import Sync from "@mui/icons-material/Sync";
 import SystemUpdateAlt from "@mui/icons-material/SystemUpdateAlt";
 import Terminal from "@mui/icons-material/Terminal";
 import Toc from "@mui/icons-material/Toc";
+import Tune from "@mui/icons-material/Tune";
 import UnfoldLess from "@mui/icons-material/UnfoldLess";
 import UnfoldMore from "@mui/icons-material/UnfoldMore";
 import Upgrade from "@mui/icons-material/Upgrade";
@@ -274,6 +275,7 @@ const iconComponentMap: Record<string, typeof SvgIcon | ReturnType<typeof rotate
 
     "actions.add": Add,
     "actions.advancedSearch": YoutubeSearchedFor,
+    "actions.advanced": Tune,
     "actions.clear": Clear,
     "actions.clone": CopyAllOutlined,
     "actions.close": Close,
