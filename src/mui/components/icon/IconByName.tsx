@@ -109,6 +109,7 @@ import QueryBuilder from "@mui/icons-material/QueryBuilder";
 import RadioButtonChecked from "@mui/icons-material/RadioButtonChecked";
 import RadioButtonUnchecked from "@mui/icons-material/RadioButtonUnchecked";
 import Receipt from "@mui/icons-material/Receipt";
+import Refresh from "@mui/icons-material/Refresh";
 import RemoveCircleOutline from "@mui/icons-material/RemoveCircleOutline";
 import Replay from "@mui/icons-material/Replay";
 import Save from "@mui/icons-material/Save";
@@ -309,6 +310,7 @@ const iconComponentMap: Record<string, typeof SvgIcon | ReturnType<typeof rotate
     "actions.read": Toc,
     "actions.remove": Delete,
     "actions.reset": Cached,
+    "actions.resetExplorerSettings": Refresh,
     "actions.resubmit": Replay,
     "actions.revokeAccess": VisibilityOff,
     "actions.revokeAdmin": ExpandLess,
