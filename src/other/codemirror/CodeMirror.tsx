@@ -77,8 +77,6 @@ class CodeMirror extends React.Component<CodeMirrorProps, CodeMirrorState> {
         if (isEditing && updateContent) updateContent(newContent);
 
         if (checks && checks.keys.length > 0) {
-            // @ts-ignore
-            console.log(viewUpdate.view.updateState);
             viewUpdate.view.dispatch({
                 annotations: [ChecksAnnotation.of({ checks })],
             });
