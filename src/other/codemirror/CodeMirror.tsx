@@ -37,6 +37,7 @@ export interface CodeMirrorProps {
     onFocus?: () => void;
     onBlur?: () => void;
     checks?: ConsistencyChecks;
+    readOnly?: boolean;
 }
 
 export interface CodeMirrorState {
@@ -111,7 +112,7 @@ class CodeMirror extends React.Component<CodeMirrorProps, CodeMirrorState> {
     }
 
     render() {
-        const { content = "", options = {}, theme } = this.props;
+        const { content = "", options = {}, theme, readOnly } = this.props;
         const { extensions } = this.state;
 
         return (
@@ -128,6 +129,7 @@ class CodeMirror extends React.Component<CodeMirrorProps, CodeMirrorState> {
                     theme={theme || "light"}
                     // @ts-ignore
                     extensions={extensions}
+                    readOnly={readOnly}
                 />
             </ErrorBoundary>
         );
