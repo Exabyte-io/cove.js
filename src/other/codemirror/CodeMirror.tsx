@@ -129,7 +129,6 @@ class CodeMirror extends React.Component<CodeMirrorProps, CodeMirrorState> {
                     extensions={extensions}
                     readOnly={readOnly}
                 />
-            </ErrorBoundary>
         );
     }
 }

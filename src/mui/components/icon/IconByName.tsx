@@ -109,6 +109,7 @@ import QueryBuilder from "@mui/icons-material/QueryBuilder";
 import RadioButtonChecked from "@mui/icons-material/RadioButtonChecked";
 import RadioButtonUnchecked from "@mui/icons-material/RadioButtonUnchecked";
 import Receipt from "@mui/icons-material/Receipt";
+import Refresh from "@mui/icons-material/Refresh";
 import RemoveCircleOutline from "@mui/icons-material/RemoveCircleOutline";
 import Replay from "@mui/icons-material/Replay";
 import Save from "@mui/icons-material/Save";
@@ -146,6 +147,7 @@ import WifiTethering from "@mui/icons-material/WifiTethering";
 import WorkspacesOutlined from "@mui/icons-material/WorkspacesOutlined";
 import WrapText from "@mui/icons-material/WrapText";
 import YoutubeSearchedFor from "@mui/icons-material/YoutubeSearchedFor";
+import Icon from "@mui/material/Icon";
 import SvgIcon, { SvgIconProps } from "@mui/material/SvgIcon";
 import React from "react";
 
@@ -291,6 +293,7 @@ const iconComponentMap: Record<string, typeof SvgIcon | ReturnType<typeof rotate
     "actions.globalSearch": Search,
     "actions.import": CloudUpload,
     "actions.importFromBank": AccountBalance,
+    "actions.importFrom3rdParty": Language,
     "actions.leave": DirectionsWalk,
     "actions.lock": Lock,
     "actions.makeAdmin": ExpandLess,
@@ -307,6 +310,7 @@ const iconComponentMap: Record<string, typeof SvgIcon | ReturnType<typeof rotate
     "actions.read": Toc,
     "actions.remove": Delete,
     "actions.reset": Cached,
+    "actions.resetExplorerSettings": Refresh,
     "actions.resubmit": Replay,
     "actions.revokeAccess": VisibilityOff,
     "actions.revokeAdmin": ExpandLess,
@@ -355,6 +359,8 @@ const iconComponentMap: Record<string, typeof SvgIcon | ReturnType<typeof rotate
     "shapes.lock": Lock,
     "shapes.drag": DragIndicator,
     "shapes.blurCircular": BlurCircularOutlined,
+    // @ts-ignore
+    empty: Icon,
 };
 
 export default function IconByName({
@@ -371,5 +377,5 @@ export default function IconByName({
     if (IconComponent)
         return <IconComponent {...iconProps} sx={iconStyle} name={name} fontSize={fontSize} />;
 
-    return <Circle {...iconProps} fontSize={fontSize} />;
+    return <Circle {...iconProps} sx={iconStyle} fontSize={fontSize} />;
 }
