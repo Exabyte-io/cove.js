@@ -47,6 +47,7 @@
         "@codemirror/language": "^6.6.0",
         "@codemirror/legacy-modes": "^6.3.1",
         "@codemirror/lint": "^6.2.0",
+        "@codemirror/view": "^6.21.3",
         "@mui/x-date-pickers": "6.11.1",
         "@rjsf/utils": "^5.1.0",
         "@toast-ui/editor": "^3.2.2",
