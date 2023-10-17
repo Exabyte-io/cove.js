@@ -7,6 +7,7 @@ import { fortran } from "@codemirror/legacy-modes/mode/fortran";
 import { jinja2 } from "@codemirror/legacy-modes/mode/jinja2";
 import { shell } from "@codemirror/legacy-modes/mode/shell";
 import { linter, lintGutter } from "@codemirror/lint";
+import { ViewUpdate } from "@codemirror/view";
 import CodeMirrorBase, { BasicSetupOptions } from "@uiw/react-codemirror";
 import React from "react";
 
@@ -35,31 +36,77 @@ export interface CodeMirrorProps {
 
 export interface CodeMirrorState {
     isLoaded: boolean;
+    content: string;
     isEditing: boolean;
 }
 
 class CodeMirror extends React.Component<CodeMirrorProps, CodeMirrorState> {
     constructor(props: CodeMirrorProps) {
         super(props);
-        this.state = { isLoaded: false, isEditing: false };
+        this.state = {
+            content: "",
+            isLoaded: false,
+            isEditing: false,
+        };
         this.handleContentChange = this.handleContentChange.bind(this);
+        this.handleFocus = this.handleFocus.bind(this);
+        this.handleBlur = this.handleBlur.bind(this);
+    }
+
+    componentDidMount() {
+        console.log("componentDidMount");
+        const { content } = this.props;
+        this.setState({ content: content || "" });
+    }
+
+    componentDidUpdate(prevProps: CodeMirrorProps) {
+        console.log("componentDidUpdate");
+        const { content } = this.props;
+        if (prevProps.content !== content) {
+            this.setState({ content: content || "" });
+        }
     }
 
     /*
      * editor - CodeMirror object https://uiwjs.github.io/react-codemirror/
      * viewUpdate - object containing the update to the editor tree structure
      */
-    handleContentChange(newContent: string, viewUpdate: { origin: string }) {
+    handleContentChange(newContent: string, viewUpdate: ViewUpdate) {
+        console.log("handleContentChange");
         const { isLoaded, isEditing } = this.state;
         const { updateContent, updateOnFirstLoad = true } = this.props;
         // kludge for the way state management is handled in web-app
-        if (!isLoaded && !updateOnFirstLoad && viewUpdate.origin === "setValue") {
+        if (!isLoaded && !updateOnFirstLoad) {
             this.setState({ isLoaded: true });
             return;
         }
-        // update content only if component is focused
-        // Otherwise content is being marked as edited when selecting a flavor in workflow designer!
-        if (isEditing && updateContent) updateContent(newContent);
+
+        // Avoid triggering update actions when content is set from props
+        // eslint-disable-next-line react/destructuring-assignment
+        if (this.state.content === newContent) return;
+        this.setState({ content: newContent }, () => {
+            updateContent(newContent);
+        });
+    }
+
+    handleFocus() {
+        console.log("handleFocus");
+        const { onFocus } = this.props;
+        this.setState({ isEditing: true }, () => {
+            if (onFocus) onFocus();
+        });
+    }
+
+    handleBlur() {
+        console.log("handleBlur");
+        const { onBlur, updateContent } = this.props;
+        const { content } = this.state;
+
+        this.setState({ isEditing: false }, () => {
+            if (onBlur) onBlur();
+
+            updateContent(content);
+        });
     }
 
     // eslint-disable-next-line class-methods-use-this
@@ -70,25 +117,20 @@ class CodeMirror extends React.Component<CodeMirrorProps, CodeMirrorState> {
     }
 
     render() {
-        const { content = "", options = {}, language, completions } = this.props;
+        const { options = {}, language, completions } = this.props;
+        const { content } = this.state;
         const completionExtension = autocompletion({ override: [completions] });
 
         const { theme, onFocus, onBlur, readOnly } = this.props;
         return (
             <CodeMirrorBase
-                value={content || ""}
+                value={content}
                 // @ts-ignore
-                onChange={(editor: string, viewUpdate: { origin: string }) => {
-                    this.handleContentChange(editor, viewUpdate);
+                onChange={(content: string, viewUpdate) => {
+                    this.handleContentChange(content, viewUpdate);
                 }}
-                onFocus={() => {
-                    if (onFocus) onFocus();
-                    this.setState({ isEditing: true });
-                }}
-                onBlur={() => {
-                    if (onBlur) onBlur();
-                    this.setState({ isEditing: false });
-                }}
+                onFocus={() => this.handleFocus()}
+                onBlur={() => this.handleBlur()}
                 basicSetup={options}
                 theme={theme || "light"}
                 // @ts-ignore
