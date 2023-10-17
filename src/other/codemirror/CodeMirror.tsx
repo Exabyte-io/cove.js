@@ -54,13 +54,11 @@ class CodeMirror extends React.Component<CodeMirrorProps, CodeMirrorState> {
     }
 
     componentDidMount() {
-        console.log("componentDidMount");
         const { content } = this.props;
         this.setState({ content: content || "" });
     }
 
     componentDidUpdate(prevProps: CodeMirrorProps) {
-        console.log("componentDidUpdate");
         const { content } = this.props;
         if (prevProps.content !== content) {
             this.setState({ content: content || "" });
@@ -72,7 +70,6 @@ class CodeMirror extends React.Component<CodeMirrorProps, CodeMirrorState> {
      * viewUpdate - object containing the update to the editor tree structure
      */
     handleContentChange(newContent: string, viewUpdate: ViewUpdate) {
-        console.log("handleContentChange");
         const { isLoaded, isEditing } = this.state;
         const { updateContent, updateOnFirstLoad = true } = this.props;
         // kludge for the way state management is handled in web-app
@@ -90,7 +87,6 @@ class CodeMirror extends React.Component<CodeMirrorProps, CodeMirrorState> {
     }
 
     handleFocus() {
-        console.log("handleFocus");
         const { onFocus } = this.props;
         this.setState({ isEditing: true }, () => {
             if (onFocus) onFocus();
@@ -98,7 +94,6 @@ class CodeMirror extends React.Component<CodeMirrorProps, CodeMirrorState> {
     }
 
     handleBlur() {
-        console.log("handleBlur");
         const { onBlur, updateContent } = this.props;
         const { content } = this.state;
 
