@@ -69,7 +69,7 @@ class CodeMirror extends React.Component<CodeMirrorProps, CodeMirrorState> {
      * editor - CodeMirror object https://uiwjs.github.io/react-codemirror/
      * viewUpdate - object containing the update to the editor tree structure
      */
-    handleContentChange(newContent: string, viewUpdate: ViewUpdate) {
+    handleContentChange(newContent: string) {
         const { isLoaded, isEditing } = this.state;
         const { updateContent, updateOnFirstLoad = true } = this.props;
         // kludge for the way state management is handled in web-app
@@ -81,9 +81,8 @@ class CodeMirror extends React.Component<CodeMirrorProps, CodeMirrorState> {
         // Avoid triggering update actions when content is set from props
         // eslint-disable-next-line react/destructuring-assignment
         if (this.state.content === newContent) return;
-        this.setState({ content: newContent }, () => {
-            updateContent(newContent);
-        });
+        this.setState({ content: newContent });
+        updateContent(newContent);
     }
 
     handleFocus() {
@@ -116,13 +115,13 @@ class CodeMirror extends React.Component<CodeMirrorProps, CodeMirrorState> {
         const { content } = this.state;
         const completionExtension = autocompletion({ override: [completions] });
 
-        const { theme, onFocus, onBlur, readOnly } = this.props;
+        const { theme, readOnly } = this.props;
         return (
             <CodeMirrorBase
                 value={content}
                 // @ts-ignore
-                onChange={(content: string, viewUpdate) => {
-                    this.handleContentChange(content, viewUpdate);
+                onChange={(content: string) => {
+                    this.handleContentChange(content);
                 }}
                 onFocus={() => this.handleFocus()}
                 onBlur={() => this.handleBlur()}
