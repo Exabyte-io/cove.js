@@ -7,13 +7,13 @@ import { fortran } from "@codemirror/legacy-modes/mode/fortran";
 import { jinja2 } from "@codemirror/legacy-modes/mode/jinja2";
 import { shell } from "@codemirror/legacy-modes/mode/shell";
 import { linter, lintGutter } from "@codemirror/lint";
+import { EditorState } from "@codemirror/state";
 import { ViewUpdate } from "@codemirror/view";
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { ConsistencyChecks } from "@exabyte-io/code.js/dist/types";
 import CodeMirrorBase, { BasicSetupOptions } from "@uiw/react-codemirror";
 import React from "react";
 
-import ErrorBoundary from "../../utils/ErrorBoundary";
 import exaxyzLinter, { ChecksAnnotation, checksStateField } from "./utils/exaxyz_linter";
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const LANGUAGES_MAP: Record<string, any> = {
@@ -47,6 +47,8 @@ export interface CodeMirrorState {
 }
 
 class CodeMirror extends React.Component<CodeMirrorProps, CodeMirrorState> {
+    private codeMirrorRef: React.RefObject<any>;
+
     constructor(props: CodeMirrorProps) {
         super(props);
         this.state = {
@@ -54,18 +56,28 @@ class CodeMirror extends React.Component<CodeMirrorProps, CodeMirrorState> {
             isEditing: false,
             extensions: this.createExtensions(),
         };
+        this.codeMirrorRef = React.createRef();
         this.handleContentChange = this.handleContentChange.bind(this);
         this.handleFocus = this.handleFocus.bind(this);
         this.handleBlur = this.handleBlur.bind(this);
+    }
+
+    componentDidMount() {
+        const { content } = this.props;
+        const editor = this.codeMirrorRef.current;
+        if (editor) {
+            const newState = EditorState.create({ doc: content }); // or however you want to set it up
+            editor.setState(newState);
+        }
     }
 
     /*
      * editor - CodeMirror object https://uiwjs.github.io/react-codemirror/
      * viewUpdate - object containing the update to the editor tree structure
      */
-    handleContentChange(newContent: string, viewUpdate: ViewUpdate) {
+    handleContentChange(newContent: string) {
         const { isLoaded, isEditing } = this.state;
-        const { updateContent, updateOnFirstLoad = true, checks } = this.props;
+        const { updateContent, updateOnFirstLoad = true } = this.props;
         // kludge for the way state management is handled in web-app
         // TODO: RESTORE whatever was removed here!!!!
         if (!isLoaded && !updateOnFirstLoad) {
@@ -75,7 +87,20 @@ class CodeMirror extends React.Component<CodeMirrorProps, CodeMirrorState> {
         // update content only if component is focused
         // Otherwise content is being marked as edited when selecting a flavor in workflow designer!
         if (isEditing && updateContent) updateContent(newContent);
+    }
 
+    // eslint-disable-next-line react/no-unused-class-component-methods
+    handleProgrammaticChange() {
+        const { content } = this.props;
+        const editor = this.codeMirrorRef.current;
+        if (editor) {
+            const newState = EditorState.create({ doc: content }); // or however you want to set it up
+            editor.setState(newState);
+        }
+    }
+
+    handleChecksChange(viewUpdate: ViewUpdate) {
+        const { checks } = this.props;
         if (checks && checks.keys.length > 0) {
             viewUpdate.view.dispatch({
                 annotations: [ChecksAnnotation.of({ checks })],
@@ -110,25 +135,25 @@ class CodeMirror extends React.Component<CodeMirrorProps, CodeMirrorState> {
     }
 
     render() {
-        const { content = "", options = {}, theme, readOnly } = this.props;
+        const { options = {}, theme, readOnly } = this.props;
         const { extensions } = this.state;
 
         return (
-            <ErrorBoundary restore>
-                <CodeMirrorBase
-                    value={content || ""}
-                    // @ts-ignore
-                    onChange={(value: string, viewUpdate: ViewUpdate) => {
-                        this.handleContentChange(value, viewUpdate);
-                    }}
-                    onFocus={this.handleFocus}
-                    onBlur={this.handleBlur}
-                    basicSetup={options}
-                    theme={theme || "light"}
-                    // @ts-ignore
-                    extensions={extensions}
-                    readOnly={readOnly}
-                />
+            <CodeMirrorBase
+                ref={this.codeMirrorRef}
+                // @ts-ignore
+                onChange={(value: string, viewUpdate: ViewUpdate) => {
+                    this.handleContentChange(value);
+                    this.handleChecksChange(viewUpdate);
+                }}
+                onFocus={this.handleFocus}
+                onBlur={this.handleBlur}
+                basicSetup={options}
+                theme={theme || "light"}
+                // @ts-ignore
+                extensions={extensions}
+                readOnly={readOnly}
+            />
         );
     }
 }

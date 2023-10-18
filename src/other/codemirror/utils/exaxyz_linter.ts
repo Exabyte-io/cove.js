@@ -23,9 +23,7 @@ const exaxyzLinter =
     () =>
     (view: EditorView): Diagnostic[] => {
         // TODO: REMOVE type casting
-        const checks: ConsistencyChecks | undefined = view.state.field(checksStateField) as
-            | ConsistencyChecks
-            | undefined;
+        const checks: ConsistencyChecks = view.state.field(checksStateField) as ConsistencyChecks;
 
         if (!checks) return [];
         if (Object.keys(checks).length === 0) return [];
