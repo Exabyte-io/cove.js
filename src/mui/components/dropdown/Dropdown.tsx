@@ -21,6 +21,7 @@ export interface DropdownAction {
     content: DropdownItemProps["content"];
     disabled?: DropdownItemProps["disabled"];
     icon?: DropdownItemProps["icon"];
+    endIcon?: DropdownItemProps["endIcon"];
     showCheckIcon?: DropdownItemProps["showCheckIcon"];
     shouldMenuStayOpened?: boolean;
     key?: string;

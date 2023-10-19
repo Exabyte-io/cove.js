@@ -13,6 +13,7 @@ export interface DropdownItemProps {
     onClick: (id: string) => void;
     showCheckIcon?: boolean;
     content: string | React.ReactElement;
+    endIcon?: React.ReactElement;
 }
 
 export function DropdownItem({
@@ -21,6 +22,7 @@ export function DropdownItem({
     id,
     onClick,
     showCheckIcon = false,
+    endIcon,
     content,
 }: DropdownItemProps) {
     const onItemClick = useCallback(() => onClick(id), [id]);
@@ -36,6 +38,7 @@ export function DropdownItem({
             {showCheckIcon ? (
                 <IconByName name="shapes.check" htmlColor={green[500]} fontSize="large" />
             ) : null}
+            {endIcon}
         </MenuItem>
     );
 }
