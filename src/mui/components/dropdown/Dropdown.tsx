@@ -42,7 +42,7 @@ export interface DropdownProps {
     paperPlacement?: PopperPlacementType;
     className?: string;
     disabled?: boolean;
-    buttonProps?: DefaultDropdownButtonProps;
+    buttonProps?: Partial<DefaultDropdownButtonProps>;
 }
 
 /**
