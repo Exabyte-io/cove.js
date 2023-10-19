@@ -7,8 +7,8 @@ import React, { useCallback } from "react";
 import IconByName from "../icon/IconByName";
 
 export interface DropdownItemProps {
-    disabled: boolean;
-    icon: React.ReactElement | null;
+    disabled?: boolean;
+    icon?: React.ReactElement;
     id: string;
     onClick: (id: string) => void;
     showCheckIcon?: boolean;
@@ -17,7 +17,7 @@ export interface DropdownItemProps {
 
 export function DropdownItem({
     disabled = false,
-    icon = null,
+    icon,
     id,
     onClick,
     showCheckIcon = false,
