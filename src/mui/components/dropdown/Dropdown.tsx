@@ -12,7 +12,7 @@ import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import React, { useCallback, useRef, useState } from "react";
 
-import { DefaultDropdownButton } from "./DefaultDropdownButton";
+import { DefaultDropdownButton, DefaultDropdownButtonProps } from "./DefaultDropdownButton";
 import { DropdownItem, DropdownItemProps } from "./DropdownItem";
 
 export interface DropdownAction {
@@ -42,6 +42,7 @@ export interface DropdownProps {
     paperPlacement?: PopperPlacementType;
     className?: string;
     disabled?: boolean;
+    buttonProps?: DefaultDropdownButtonProps;
 }
 
 /**
@@ -60,6 +61,7 @@ export default function Dropdown({
     disabled = false,
     paperPlacement = "bottom-start",
     className = "",
+    buttonProps,
 }: DropdownProps) {
     const containerRef = useRef<HTMLDivElement>(null);
     const [opened, setOpened] = useState(false);
@@ -99,7 +101,10 @@ export default function Dropdown({
         <Box className={className} id={id} sx={{ width: isMobile ? "100%" : undefined }}>
             <div ref={containerRef} onClick={onClick}>
                 {children || (
-                    <DefaultDropdownButton fullWidth={isMobile} disabled={disabled}>
+                    <DefaultDropdownButton
+                        fullWidth={isMobile}
+                        disabled={disabled}
+                        {...buttonProps}>
                         {buttonContent ||
                             (actions.find(({ isSelected }) => isSelected) || actions[0])?.content}
                     </DefaultDropdownButton>

@@ -1,4 +1,5 @@
-import Button from "@mui/material/Button";
+/* eslint-disable react/jsx-props-no-spreading */
+import Button, { ButtonProps } from "@mui/material/Button";
 import { Theme } from "@mui/material/styles";
 import { makeStyles } from "@mui/styles";
 import React from "react";
@@ -20,34 +21,26 @@ const useStyles = ({ fullWidth }: { fullWidth: boolean }) =>
         };
     });
 
-export interface DefaultDropdownButtonProps {
-    id?: string;
-    onClick?: () => void;
-    disabled: boolean;
-    children: React.ReactNode;
+export interface DefaultDropdownButtonProps extends ButtonProps {
     fullWidth: boolean;
 }
 
 export function DefaultDropdownButton({
-    onClick,
-    disabled = false,
-    id = "",
     children = "Button",
     fullWidth = false,
+    ...otherProps
 }: DefaultDropdownButtonProps) {
     const classes = useStyles({ fullWidth })();
 
     return (
         <Button
-            id={id}
             className={classes.root}
-            disabled={disabled}
             aria-controls="customized-menu"
             aria-haspopup="true"
             variant="outlined"
             size="small"
             endIcon={<IconByName name="shapes.arrow.dropdown" color="action" />}
-            onClick={onClick}>
+            {...otherProps}>
             {children}
         </Button>
     );
