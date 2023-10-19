@@ -17,16 +17,16 @@ import { DropdownItem, DropdownItemProps } from "./DropdownItem";
 
 export interface DropdownAction {
     id: DropdownItemProps["id"];
-    disabled: DropdownItemProps["disabled"];
+    onClick: (action: DropdownAction) => void;
     content: DropdownItemProps["content"];
-    icon: DropdownItemProps["icon"];
-    showCheckIcon: DropdownItemProps["showCheckIcon"];
+    disabled?: DropdownItemProps["disabled"];
+    icon?: DropdownItemProps["icon"];
+    showCheckIcon?: DropdownItemProps["showCheckIcon"];
     shouldMenuStayOpened?: boolean;
     key?: string;
     isShown?: boolean;
     isSelected?: boolean;
     isDivider?: boolean;
-    onClick: (action: DropdownAction) => void;
 }
 
 export interface DropdownProps {
