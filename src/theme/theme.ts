@@ -1,6 +1,7 @@
 import { createTheme, Theme } from "@mui/material/styles";
 
 import buttons from "./components/buttons";
+import chips from "./components/chips";
 import lightPalette from "./palette";
 import shadows from "./shadows";
 import typography from "./typography";
@@ -93,6 +94,7 @@ const buildTheme = (theme: Theme) => {
         shadows: shadows(theme),
         components: {
             ...buttons(theme),
+            ...chips(),
             ...MuiSvgIconSizesOverrides,
         },
     });
