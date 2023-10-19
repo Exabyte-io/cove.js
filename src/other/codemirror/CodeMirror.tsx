@@ -30,6 +30,7 @@ export interface CodeMirrorProps {
     theme?: "light" | "dark";
     onFocus?: () => void;
     onBlur?: () => void;
+    readOnly?: boolean;
 }
 
 export interface CodeMirrorState {
@@ -72,7 +73,7 @@ class CodeMirror extends React.Component<CodeMirrorProps, CodeMirrorState> {
         const { content = "", options = {}, language, completions } = this.props;
         const completionExtension = autocompletion({ override: [completions] });
 
-        const { theme, onFocus, onBlur } = this.props;
+        const { theme, onFocus, onBlur, readOnly } = this.props;
         return (
             <CodeMirrorBase
                 value={content || ""}
@@ -92,6 +93,7 @@ class CodeMirror extends React.Component<CodeMirrorProps, CodeMirrorState> {
                 theme={theme || "light"}
                 // @ts-ignore
                 extensions={[completionExtension, ...this.getLanguageExtensions(language)]}
+                readOnly={readOnly}
             />
         );
     }
