@@ -13,16 +13,16 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import React, { useCallback, useRef, useState } from "react";
 
 import { DefaultDropdownButton } from "./DefaultDropdownButton";
-import { DropdownItem } from "./DropdownItem";
+import { DropdownItem, DropdownItemProps } from "./DropdownItem";
 
 export interface DropdownAction {
-    id: string;
-    disabled: boolean;
-    content: string;
-    icon: JSX.Element;
+    id: DropdownItemProps["id"];
+    disabled: DropdownItemProps["disabled"];
+    content: DropdownItemProps["content"];
+    icon: DropdownItemProps["icon"];
+    showCheckIcon: DropdownItemProps["showCheckIcon"];
     shouldMenuStayOpened?: boolean;
     key?: string;
-    showCheckIcon?: boolean;
     isShown?: boolean;
     isSelected?: boolean;
     isDivider?: boolean;
