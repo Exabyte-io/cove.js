@@ -72,7 +72,7 @@
         "underscore.string": "^3.3.6"
     },
     "devDependencies": {
-        "@exabyte-io/code.js": "https://github.com/Exabyte-io/code.js#2c6290b74be5f4001ec72950f2c67d0880ebbe57",
+        "@exabyte-io/code.js": "file:../code.js",
         "@exabyte-io/eslint-config": "^2023.8.29-1",
         "@mui/icons-material": "^5.11.9",
         "@mui/lab": "^5.0.0-alpha.120",
