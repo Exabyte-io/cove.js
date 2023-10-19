@@ -17,7 +17,7 @@ import { DropdownItem, DropdownItemProps } from "./DropdownItem";
 
 export interface DropdownAction {
     id: DropdownItemProps["id"];
-    onClick: (action: DropdownAction) => void;
+    onClick: (action: DropdownAction, event: React.MouseEvent<HTMLLIElement>) => void;
     content: DropdownItemProps["content"];
     disabled?: DropdownItemProps["disabled"];
     icon?: DropdownItemProps["icon"];
@@ -73,7 +73,7 @@ export default function Dropdown({
     const onClickAway = useCallback(() => setOpened(false), []);
 
     const onMenuItemClick = useCallback(
-        (actionId: string) => {
+        (actionId: string, event: React.MouseEvent<HTMLLIElement>) => {
             const targetAction = actions.find((action) => {
                 return action.id === actionId;
             });
@@ -86,7 +86,7 @@ export default function Dropdown({
                 setOpened(false);
             }
 
-            targetAction.onClick(targetAction);
+            targetAction.onClick(targetAction, event);
         },
         [actions],
     );
