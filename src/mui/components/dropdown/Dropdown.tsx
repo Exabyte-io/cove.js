@@ -138,6 +138,7 @@ export default function Dropdown({
                                                 <DropdownItem
                                                     disabled={action.disabled}
                                                     icon={action.icon}
+                                                    endIcon={action.endIcon}
                                                     id={action.id}
                                                     onClick={onMenuItemClick}
                                                     showCheckIcon={action.showCheckIcon}
