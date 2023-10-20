@@ -13,7 +13,8 @@ const inputs = (): Theme["components"] => {
                 {
                     props: { size: "small" },
                     style: {
-                        height: "30px",
+                        paddingTop: "4px",
+                        paddingBottom: "3px",
                         fontSize: "13px",
                     },
                 },
