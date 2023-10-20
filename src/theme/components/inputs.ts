@@ -19,6 +19,16 @@ const inputs = (): Theme["components"] => {
                 },
             ],
         },
+        MuiInputLabel: {
+            variants: [
+                {
+                    props: { size: "small" },
+                    style: {
+                        fontSize: "13px",
+                    },
+                },
+            ],
+        },
     };
 };
 
