@@ -13,8 +13,8 @@ const inputs = (commonSettings: { inputMinWidth: string }): Theme["components"] 
                 {
                     props: { size: "small" },
                     style: {
-                        paddingTop: "4px",
-                        paddingBottom: "3px",
+                        paddingTop: "3.5px",
+                        paddingBottom: "3.5px",
                         fontSize: "13px",
                         minWidth: commonSettings.inputMinWidth,
                     },
@@ -31,6 +31,16 @@ const inputs = (commonSettings: { inputMinWidth: string }): Theme["components"] 
                     },
                 },
             ],
+        },
+        MuiAutocomplete: {
+            styleOverrides: {
+                root: {
+                    "& .MuiOutlinedInput-root.MuiInputBase-sizeSmall": {
+                        paddingTop: "3.5px",
+                        paddingBottom: "3.5px",
+                    },
+                },
+            },
         },
     };
 };
