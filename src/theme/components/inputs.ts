@@ -25,6 +25,7 @@ const inputs = (): Theme["components"] => {
                     props: { size: "small" },
                     style: {
                         fontSize: "13px",
+                        lineHeight: "13px",
                     },
                 },
             ],
