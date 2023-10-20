@@ -9,9 +9,9 @@ class FullscreenHandlerComponent extends Fullscreen {
     }
 }
 
-const FullscreenComponentMixin = (superclass: any) =>
+const FullscreenComponentMixin = (superclass: React.ComponentClass) =>
     class extends superclass {
-        constructor(props: any) {
+        constructor(props: never) {
             super(props);
             this.state = {
                 ...this.state,
