@@ -1,6 +1,6 @@
 import { Theme } from "@mui/material/styles";
 
-const inputs = (): Theme["components"] => {
+const inputs = (commonSettings: { inputMinWidth: string }): Theme["components"] => {
     return {
         MuiInputBase: {
             variants: [
@@ -16,6 +16,7 @@ const inputs = (): Theme["components"] => {
                         paddingTop: "4px",
                         paddingBottom: "3px",
                         fontSize: "13px",
+                        minWidth: commonSettings.inputMinWidth,
                     },
                 },
             ],

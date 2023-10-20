@@ -14,7 +14,8 @@ const useStyles = ({ fullWidth }: { fullWidth: boolean }) =>
                 justifyContent: "space-between",
                 display: "flex",
                 flexDirection: "row",
-                minWidth: 200,
+                // @ts-ignore
+                minWidth: theme.inputMinWidth,
                 color: theme.palette.text.secondary,
                 ...(fullWidth ? { width: "100%" } : {}),
             },

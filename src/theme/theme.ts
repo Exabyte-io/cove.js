@@ -16,6 +16,7 @@ export const sizesConfig = {
 const commonSettings = {
     dropdownPopperZindex: 2147483647,
     iconDefaultFontSize: 20,
+    inputMinWidth: "200px",
     fonts: {
         roboto: ["roboto", "sans-serif"].join(", "),
         monospace: ["Menlo", "Monaco", "Consolas", "Courier New", "monospace"].join(", "),
@@ -96,7 +97,7 @@ const buildTheme = (theme: Theme) => {
         components: {
             ...buttons(theme),
             ...chips(),
-            ...inputs(),
+            ...inputs(commonSettings),
             ...MuiSvgIconSizesOverrides,
         },
     });
