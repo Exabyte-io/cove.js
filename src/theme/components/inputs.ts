@@ -5,12 +5,6 @@ const inputs = (commonSettings: { inputMinWidth: string }): Theme["components"] 
         MuiInputBase: {
             variants: [
                 {
-                    props: { size: "medium" },
-                    style: {
-                        fontSize: "14px",
-                    },
-                },
-                {
                     props: { size: "small" },
                     style: {
                         paddingTop: "3.5px",

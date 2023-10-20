@@ -8,7 +8,7 @@ import IconByName from "../icon/IconByName";
 
 export interface DropdownItemProps {
     disabled?: boolean;
-    icon?: React.ReactElement;
+    icon?: React.ReactElement | boolean;
     id: string;
     onClick: (id: string, event: React.MouseEvent<HTMLLIElement>) => void;
     showCheckIcon?: boolean;
@@ -27,7 +27,9 @@ export function DropdownItem({
 }: DropdownItemProps) {
     return (
         <MenuItem id={id} disabled={disabled} onClick={(event) => onClick(id, event)}>
-            <ListItemIcon>{icon || <IconByName name="shapes.blurCircular" />}</ListItemIcon>
+            {icon !== false ? (
+                <ListItemIcon>{icon || <IconByName name="shapes.blurCircular" />}</ListItemIcon>
+            ) : null}
             <ListItemText
                 primaryTypographyProps={{ variant: "caption", color: "text.primary" }}
                 className="DropdownItemText">
