@@ -8,7 +8,7 @@ import { jinja2 } from "@codemirror/legacy-modes/mode/jinja2";
 import { shell } from "@codemirror/legacy-modes/mode/shell";
 import { linter, lintGutter } from "@codemirror/lint";
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { ConsistencyChecks } from "@exabyte-io/code.js/dist/types";
+import { ConsistencyCheck } from "@exabyte-io/code.js/dist/types";
 import CodeMirrorBase, { BasicSetupOptions, ReactCodeMirrorRef } from "@uiw/react-codemirror";
 import React from "react";
 
@@ -34,7 +34,7 @@ export interface CodeMirrorProps {
     theme?: "light" | "dark";
     onFocus?: () => void;
     onBlur?: () => void;
-    checks?: ConsistencyChecks;
+    checks?: ConsistencyCheck[];
     readOnly?: boolean;
 }
 
@@ -89,7 +89,7 @@ class CodeMirror extends React.Component<CodeMirrorProps, CodeMirrorState> {
             });
         }
 
-        if (checks && checks.keys.length > 0) {
+        if (checks && checks.length > 0) {
             view.dispatch({
                 annotations: [ChecksAnnotation.of({ checks })],
             });
