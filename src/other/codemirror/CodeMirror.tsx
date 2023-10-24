@@ -6,10 +6,26 @@ import { StreamLanguage } from "@codemirror/language";
 import { fortran } from "@codemirror/legacy-modes/mode/fortran";
 import { jinja2 } from "@codemirror/legacy-modes/mode/jinja2";
 import { shell } from "@codemirror/legacy-modes/mode/shell";
-import { linter, lintGutter } from "@codemirror/lint";
-import { ViewUpdate } from "@codemirror/view";
-import CodeMirrorBase, { BasicSetupOptions } from "@uiw/react-codemirror";
-import React from "react";
+import { Diagnostic, linter, lintGutter } from "@codemirror/lint";
+import { EditorView, ViewUpdate } from "@codemirror/view";
+import CodeMirrorBase, { BasicSetupOptions, ReactCodeMirrorRef } from "@uiw/react-codemirror";
+import React, { RefObject } from "react";
+
+const exaxyzLinter = linter((view: EditorView) => {
+    const { state } = view;
+    const { doc } = state;
+
+    const errors = [];
+    const deafultError = {
+        from: 0,
+        to: doc.length,
+        message: "Test",
+        severity: "error",
+    } as Diagnostic;
+    errors.push(deafultError);
+
+    return errors as Diagnostic[];
+});
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const LANGUAGES_MAP: Record<string, any> = {
@@ -19,6 +35,7 @@ const LANGUAGES_MAP: Record<string, any> = {
     jinja2: [StreamLanguage.define(jinja2)],
     javascript: [javascript()],
     json: [json(), lintGutter(), linter(jsonParseLinter())],
+    exaxyz: [StreamLanguage.define(fortran), exaxyzLinter],
 };
 
 export interface CodeMirrorProps {
@@ -41,6 +58,8 @@ export interface CodeMirrorState {
 }
 
 class CodeMirror extends React.Component<CodeMirrorProps, CodeMirrorState> {
+    codeMirrorRef: RefObject<ReactCodeMirrorRef> = React.createRef();
+
     constructor(props: CodeMirrorProps) {
         super(props);
         this.state = {
@@ -81,8 +100,11 @@ class CodeMirror extends React.Component<CodeMirrorProps, CodeMirrorState> {
         // Avoid triggering update actions when content is set from props
         // eslint-disable-next-line react/destructuring-assignment
         if (this.state.content === newContent) return;
-        this.setState({ content: newContent });
-        updateContent(newContent);
+        this.setState({ content: newContent }, () => {
+            // @ts-ignore
+            this.codeMirrorRef.current.editor.blur();
+            updateContent(newContent);
+        });
     }
 
     handleFocus() {
@@ -118,6 +140,7 @@ class CodeMirror extends React.Component<CodeMirrorProps, CodeMirrorState> {
         const { theme, readOnly } = this.props;
         return (
             <CodeMirrorBase
+                ref={this.codeMirrorRef}
                 value={content}
                 // @ts-ignore
                 onChange={(content: string) => {
