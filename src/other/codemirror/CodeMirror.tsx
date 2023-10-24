@@ -122,7 +122,7 @@ class CodeMirror extends React.Component<CodeMirrorProps, CodeMirrorState> {
                 onChange={(value: string, viewUpdate) => {
                     this.handleContentChange(value, viewUpdate);
                 }}
-                onFocus={this.handleFocus}
+                onClick={this.handleFocus}
                 onBlur={this.handleBlur}
                 basicSetup={options}
                 theme={theme || "light"}
