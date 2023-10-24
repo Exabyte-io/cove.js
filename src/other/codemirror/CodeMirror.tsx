@@ -7,9 +7,10 @@ import { fortran } from "@codemirror/legacy-modes/mode/fortran";
 import { jinja2 } from "@codemirror/legacy-modes/mode/jinja2";
 import { shell } from "@codemirror/legacy-modes/mode/shell";
 import { linter, lintGutter } from "@codemirror/lint";
+import { ViewUpdate } from "@codemirror/view";
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { ConsistencyCheck } from "@exabyte-io/code.js/dist/types";
-import CodeMirrorBase, { BasicSetupOptions, ReactCodeMirrorRef } from "@uiw/react-codemirror";
+import CodeMirrorBase, { BasicSetupOptions } from "@uiw/react-codemirror";
 import React from "react";
 
 import exaxyzLinter, { ChecksAnnotation, checksStateField } from "./utils/exaxyz_linter";
@@ -45,8 +46,6 @@ export interface CodeMirrorState {
 }
 
 class CodeMirror extends React.Component<CodeMirrorProps, CodeMirrorState> {
-    private codeMirrorRef = React.createRef<ReactCodeMirrorRef>();
-
     constructor(props: CodeMirrorProps) {
         super(props);
         this.state = {
@@ -59,48 +58,11 @@ class CodeMirror extends React.Component<CodeMirrorProps, CodeMirrorState> {
         this.handleBlur = this.handleBlur.bind(this);
     }
 
-    componentDidMount() {
-        const { content } = this.props;
-        const view = this.codeMirrorRef.current?.view;
-
-        if (view) {
-            view.dispatch({
-                changes: {
-                    from: 0,
-                    to: view.state.doc.length,
-                    insert: content || "",
-                },
-            });
-        }
-    }
-
-    componentDidUpdate(prevProps: CodeMirrorProps) {
-        const { content, checks } = this.props;
-        const view = this.codeMirrorRef.current?.view;
-        if (!view) return;
-
-        if (content !== prevProps.content) {
-            view.dispatch({
-                changes: {
-                    from: 0,
-                    to: view.state.doc.length,
-                    insert: content || "",
-                },
-            });
-        }
-
-        if (checks && checks.length > 0) {
-            view.dispatch({
-                annotations: [ChecksAnnotation.of({ checks })],
-            });
-        }
-    }
-
     /*
      * editor - CodeMirror object https://uiwjs.github.io/react-codemirror/
      * viewUpdate - object containing the update to the editor tree structure
      */
-    handleContentChange(newContent: string) {
+    handleContentChange(newContent: string, viewUpdate: ViewUpdate) {
         const { isLoaded, isEditing } = this.state;
         const { updateContent, updateOnFirstLoad = true } = this.props;
         // kludge for the way state management is handled in web-app
@@ -112,6 +74,15 @@ class CodeMirror extends React.Component<CodeMirrorProps, CodeMirrorState> {
         // update content only if component is focused
         // Otherwise content is being marked as edited when selecting a flavor in workflow designer!
         if (isEditing && updateContent) updateContent(newContent);
+
+        const { view } = viewUpdate;
+        const { checks } = this.props;
+
+        if (checks) {
+            view.dispatch({
+                annotations: [ChecksAnnotation.of(checks)],
+            });
+        }
     }
 
     handleFocus() {
@@ -141,15 +112,15 @@ class CodeMirror extends React.Component<CodeMirrorProps, CodeMirrorState> {
     }
 
     render() {
-        const { options = {}, theme, readOnly } = this.props;
+        const { options = {}, theme, readOnly, content } = this.props;
         const { extensions } = this.state;
 
         return (
             <CodeMirrorBase
-                ref={this.codeMirrorRef}
+                value={content || ""}
                 // @ts-ignore
-                onChange={(value: string) => {
-                    this.handleContentChange(value);
+                onChange={(value: string, viewUpdate) => {
+                    this.handleContentChange(value, viewUpdate);
                 }}
                 onFocus={this.handleFocus}
                 onBlur={this.handleBlur}

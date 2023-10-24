@@ -5,7 +5,7 @@ import { EditorView } from "@codemirror/view";
 import { ConsistencyCheck } from "@exabyte-io/code.js/src/types";
 import _ from "underscore";
 
-export const ChecksAnnotation = Annotation.define<{ checks: Array<ConsistencyCheck> }>();
+export const ChecksAnnotation = Annotation.define<Array<ConsistencyCheck>>();
 
 export const checksStateField = StateField.define({
     create(): Array<ConsistencyCheck> {
