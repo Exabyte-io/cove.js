@@ -7,14 +7,14 @@ import { fortran } from "@codemirror/legacy-modes/mode/fortran";
 import { jinja2 } from "@codemirror/legacy-modes/mode/jinja2";
 import { shell } from "@codemirror/legacy-modes/mode/shell";
 import { linter, lintGutter } from "@codemirror/lint";
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { ConsistencyCheck } from "@exabyte-io/code.js/dist/types";
-import CodeMirrorBase, { BasicSetupOptions, ReactCodeMirrorRef } from "@uiw/react-codemirror";
-import React, { RefObject } from "react";
+import { calculateHashFromString } from "@exabyte-io/code.js/dist/utils/hash";
+import CodeMirrorBase, { BasicSetupOptions, Extension } from "@uiw/react-codemirror";
+import React from "react";
 
 import { linterGenerator } from "./utils/exaxyz_linter";
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const LANGUAGES_MAP: Record<string, any> = {
+
+const LANGUAGES_MAP: Record<string, Extension[]> = {
     python: [python()],
     shell: [StreamLanguage.define(shell)],
     fortran: [StreamLanguage.define(fortran)],
@@ -35,18 +35,17 @@ export interface CodeMirrorProps {
     onBlur?: () => void;
     checks?: { checks: ConsistencyCheck[] };
     readOnly?: boolean;
+    triggerReload?: boolean;
 }
 
 export interface CodeMirrorState {
     content: string;
     isLoaded: boolean;
     isEditing: boolean;
-    extensions: unknown[];
+    extensions: Extension[];
 }
 
 class CodeMirror extends React.Component<CodeMirrorProps, CodeMirrorState> {
-    codeMirrorRef: RefObject<ReactCodeMirrorRef> = React.createRef();
-
     constructor(props: CodeMirrorProps) {
         super(props);
         this.state = {
@@ -61,12 +60,14 @@ class CodeMirror extends React.Component<CodeMirrorProps, CodeMirrorState> {
     }
 
     componentDidUpdate(prevProps: CodeMirrorProps) {
-        const { checks } = this.props;
+        const { content, checks } = this.props;
+        if (content && content !== prevProps.content) {
+            this.setState({ content });
+        }
+
         if (checks !== prevProps.checks) {
             const consistencyChecks = checks?.checks || [];
-            this.setState({ extensions: this.createExtensions(consistencyChecks) }, () => {
-                this.codeMirrorRef.current?.editor?.blur();
-            });
+            this.setState({ extensions: this.createExtensions(consistencyChecks) });
         }
     }
 
@@ -104,7 +105,7 @@ class CodeMirror extends React.Component<CodeMirrorProps, CodeMirrorState> {
         this.setState({ isEditing: false });
     }
 
-    createExtensions(checks?: ConsistencyCheck[]) {
+    createExtensions(checks?: ConsistencyCheck[]): Extension[] {
         const { completions, language } = this.props;
         const completionExtension = autocompletion({ override: [completions] });
         const languageExtensions = LANGUAGES_MAP[language]
@@ -120,13 +121,13 @@ class CodeMirror extends React.Component<CodeMirrorProps, CodeMirrorState> {
     }
 
     render() {
-        const { options = {}, theme, readOnly, content } = this.props;
+        const { options = {}, theme, readOnly, content, triggerReload } = this.props;
         const { extensions } = this.state;
+        const key = triggerReload ? calculateHashFromString(content || "") : "codemirror-key";
 
         return (
             <CodeMirrorBase
-                key={content}
-                ref={this.codeMirrorRef}
+                key={key}
                 value={content || ""}
                 // @ts-ignore
                 onChange={(value: string) => {
@@ -136,7 +137,6 @@ class CodeMirror extends React.Component<CodeMirrorProps, CodeMirrorState> {
                 onBlur={this.handleBlur}
                 basicSetup={options}
                 theme={theme || "light"}
-                // @ts-ignore
                 extensions={extensions}
                 readOnly={readOnly}
             />
