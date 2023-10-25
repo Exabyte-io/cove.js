@@ -88,8 +88,6 @@ class CodeMirror extends React.Component<CodeMirrorProps, CodeMirrorState> {
 
         if (content === newContent) return;
         this.setState({ content: newContent }, () => {
-            // @ts-ignore
-            this.codeMirrorRef.current.editor.blur();
             if (isEditing && updateContent) updateContent(newContent);
         });
     }
@@ -127,13 +125,14 @@ class CodeMirror extends React.Component<CodeMirrorProps, CodeMirrorState> {
 
         return (
             <CodeMirrorBase
+                key={content}
                 ref={this.codeMirrorRef}
                 value={content || ""}
                 // @ts-ignore
                 onChange={(value: string) => {
                     this.handleContentChange(value);
                 }}
-                onClick={this.handleFocus}
+                onFocus={this.handleFocus}
                 onBlur={this.handleBlur}
                 basicSetup={options}
                 theme={theme || "light"}
