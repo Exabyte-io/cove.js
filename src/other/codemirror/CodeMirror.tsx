@@ -7,13 +7,12 @@ import { fortran } from "@codemirror/legacy-modes/mode/fortran";
 import { jinja2 } from "@codemirror/legacy-modes/mode/jinja2";
 import { shell } from "@codemirror/legacy-modes/mode/shell";
 import { linter, lintGutter } from "@codemirror/lint";
-import { ViewUpdate } from "@codemirror/view";
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { ConsistencyCheck } from "@exabyte-io/code.js/dist/types";
-import CodeMirrorBase, { BasicSetupOptions } from "@uiw/react-codemirror";
-import React from "react";
+import CodeMirrorBase, { BasicSetupOptions, ReactCodeMirrorRef } from "@uiw/react-codemirror";
+import React, { RefObject } from "react";
 
-import exaxyzLinter, { ChecksAnnotation, checksStateField } from "./utils/exaxyz_linter";
+import { linterGenerator } from "./utils/exaxyz_linter";
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const LANGUAGES_MAP: Record<string, any> = {
     python: [python()],
@@ -22,7 +21,6 @@ const LANGUAGES_MAP: Record<string, any> = {
     jinja2: [StreamLanguage.define(jinja2)],
     javascript: [javascript()],
     json: [json(), lintGutter(), linter(jsonParseLinter())],
-    exaxyz: [StreamLanguage.define(fortran), checksStateField, linter(exaxyzLinter())],
 };
 
 export interface CodeMirrorProps {
@@ -35,20 +33,24 @@ export interface CodeMirrorProps {
     theme?: "light" | "dark";
     onFocus?: () => void;
     onBlur?: () => void;
-    checks?: ConsistencyCheck[];
+    checks?: { checks: ConsistencyCheck[] };
     readOnly?: boolean;
 }
 
 export interface CodeMirrorState {
+    content: string;
     isLoaded: boolean;
     isEditing: boolean;
-    extensions: any[];
+    extensions: unknown[];
 }
 
 class CodeMirror extends React.Component<CodeMirrorProps, CodeMirrorState> {
+    codeMirrorRef: RefObject<ReactCodeMirrorRef> = React.createRef();
+
     constructor(props: CodeMirrorProps) {
         super(props);
         this.state = {
+            content: props.content || "",
             isLoaded: false,
             isEditing: false,
             extensions: this.createExtensions(),
@@ -58,12 +60,22 @@ class CodeMirror extends React.Component<CodeMirrorProps, CodeMirrorState> {
         this.handleBlur = this.handleBlur.bind(this);
     }
 
+    componentDidUpdate(prevProps: CodeMirrorProps) {
+        const { checks } = this.props;
+        if (checks !== prevProps.checks) {
+            const consistencyChecks = checks?.checks || [];
+            this.setState({ extensions: this.createExtensions(consistencyChecks) }, () => {
+                this.codeMirrorRef.current?.editor?.blur();
+            });
+        }
+    }
+
     /*
      * editor - CodeMirror object https://uiwjs.github.io/react-codemirror/
      * viewUpdate - object containing the update to the editor tree structure
      */
-    handleContentChange(newContent: string, viewUpdate: ViewUpdate) {
-        const { isLoaded, isEditing } = this.state;
+    handleContentChange(newContent: string) {
+        const { isLoaded, content, isEditing } = this.state;
         const { updateContent, updateOnFirstLoad = true } = this.props;
         // kludge for the way state management is handled in web-app
         // TODO: RESTORE whatever was removed here!!!!
@@ -73,16 +85,13 @@ class CodeMirror extends React.Component<CodeMirrorProps, CodeMirrorState> {
         }
         // update content only if component is focused
         // Otherwise content is being marked as edited when selecting a flavor in workflow designer!
-        if (isEditing && updateContent) updateContent(newContent);
 
-        const { view } = viewUpdate;
-        const { checks } = this.props;
-
-        if (checks) {
-            view.dispatch({
-                annotations: [ChecksAnnotation.of(checks)],
-            });
-        }
+        if (content === newContent) return;
+        this.setState({ content: newContent }, () => {
+            // @ts-ignore
+            this.codeMirrorRef.current.editor.blur();
+            if (isEditing && updateContent) updateContent(newContent);
+        });
     }
 
     handleFocus() {
@@ -97,17 +106,18 @@ class CodeMirror extends React.Component<CodeMirrorProps, CodeMirrorState> {
         this.setState({ isEditing: false });
     }
 
-    // eslint-disable-next-line class-methods-use-this
-    getLanguageExtensions(language: string) {
-        if (LANGUAGES_MAP[language]) return LANGUAGES_MAP[language];
-
-        return LANGUAGES_MAP.fortran;
-    }
-
-    createExtensions() {
+    createExtensions(checks?: ConsistencyCheck[]) {
         const { completions, language } = this.props;
         const completionExtension = autocompletion({ override: [completions] });
-        const languageExtensions = this.getLanguageExtensions(language);
+        const languageExtensions = LANGUAGES_MAP[language]
+            ? LANGUAGES_MAP[language]
+            : LANGUAGES_MAP.fortran;
+
+        if (checks) {
+            const linterExtension = linterGenerator(checks);
+            return [completionExtension, linter(linterExtension), ...languageExtensions];
+        }
+
         return [completionExtension, ...languageExtensions];
     }
 
@@ -117,10 +127,11 @@ class CodeMirror extends React.Component<CodeMirrorProps, CodeMirrorState> {
 
         return (
             <CodeMirrorBase
+                ref={this.codeMirrorRef}
                 value={content || ""}
                 // @ts-ignore
-                onChange={(value: string, viewUpdate) => {
-                    this.handleContentChange(value, viewUpdate);
+                onChange={(value: string) => {
+                    this.handleContentChange(value);
                 }}
                 onClick={this.handleFocus}
                 onBlur={this.handleBlur}
