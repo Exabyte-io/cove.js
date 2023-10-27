@@ -3,7 +3,6 @@ import { Theme } from "@mui/material/styles";
 const Typography = (theme: Theme): Partial<Theme["typography"]> => {
     return {
         fontFamily: ["Roboto", "-apple-system", "sans-serif"].join(","),
-        fontSize: 14,
         h1: {
             fontSize: "96px",
             color: theme.palette.text.primary,
