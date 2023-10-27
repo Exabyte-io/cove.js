@@ -7,9 +7,10 @@ import { fortran } from "@codemirror/legacy-modes/mode/fortran";
 import { jinja2 } from "@codemirror/legacy-modes/mode/jinja2";
 import { shell } from "@codemirror/legacy-modes/mode/shell";
 import { linter, lintGutter } from "@codemirror/lint";
+import { Extension } from "@codemirror/state";
 import { ConsistencyCheck } from "@exabyte-io/code.js/dist/types";
-import { calculateHashFromString } from "@exabyte-io/code.js/dist/utils/hash";
-import CodeMirrorBase, { BasicSetupOptions, Extension } from "@uiw/react-codemirror";
+import { calculateHashFromString } from "@exabyte-io/code.js/dist/utils";
+import CodeMirrorBase, { BasicSetupOptions } from "@uiw/react-codemirror";
 import React from "react";
 
 import { linterGenerator } from "./utils/exaxyz_linter";
@@ -33,16 +34,16 @@ export interface CodeMirrorProps {
     theme?: "light" | "dark";
     onFocus?: () => void;
     onBlur?: () => void;
-    checks?: { checks: ConsistencyCheck[] };
+    checks?: ConsistencyCheck[];
     readOnly?: boolean;
     triggerReload?: boolean;
 }
 
 export interface CodeMirrorState {
     content: string;
+    checks?: ConsistencyCheck[];
     isLoaded: boolean;
     isEditing: boolean;
-    extensions: Extension[];
 }
 
 class CodeMirror extends React.Component<CodeMirrorProps, CodeMirrorState> {
@@ -50,26 +51,23 @@ class CodeMirror extends React.Component<CodeMirrorProps, CodeMirrorState> {
         super(props);
         this.state = {
             content: props.content || "",
+            checks: props.checks,
             isLoaded: false,
             isEditing: false,
-            extensions: this.createExtensions(),
         };
         this.handleContentChange = this.handleContentChange.bind(this);
         this.handleFocus = this.handleFocus.bind(this);
         this.handleBlur = this.handleBlur.bind(this);
     }
 
-    UNSAFE_componentWillReceiveProps(nextProps: CodeMirrorProps) {
-        if (nextProps !== this.props) {
-            const { content, checks } = this.props;
-            if (content && content !== nextProps.content) {
-                this.setState({ content });
-            }
+    componentDidUpdate(prevProps: CodeMirrorProps) {
+        const { content, checks } = this.props;
+        if (content && content !== prevProps.content) {
+            this.setState({ content });
+        }
 
-            if (checks !== nextProps.checks) {
-                const consistencyChecks = checks?.checks || [];
-                this.setState({ extensions: this.createExtensions(consistencyChecks) });
-            }
+        if (checks !== prevProps.checks) {
+            this.setState({ checks });
         }
     }
 
@@ -81,14 +79,13 @@ class CodeMirror extends React.Component<CodeMirrorProps, CodeMirrorState> {
         const { isLoaded, content, isEditing } = this.state;
         const { updateContent, updateOnFirstLoad = true } = this.props;
         // kludge for the way state management is handled in web-app
-        // TODO: RESTORE whatever was removed here!!!!
         if (!isLoaded && !updateOnFirstLoad) {
             this.setState({ isLoaded: true });
             return;
         }
+
         // update content only if component is focused
         // Otherwise content is being marked as edited when selecting a flavor in workflow designer!
-
         if (content === newContent) return;
         this.setState({ content: newContent }, () => {
             if (isEditing && updateContent) updateContent(newContent);
@@ -124,8 +121,15 @@ class CodeMirror extends React.Component<CodeMirrorProps, CodeMirrorState> {
 
     render() {
         const { options = {}, theme, readOnly, triggerReload } = this.props;
-        const { extensions, content } = this.state;
-        const key = triggerReload ? calculateHashFromString(content || "") : "codemirror-key";
+        const { checks, content } = this.state;
+
+        const extensions = this.createExtensions(checks);
+        // key has to be generated from props.content because we want recreate CodeMirror only on external change
+        // eslint-disable-next-line
+        const externalContent = this.props.content;
+        const key = triggerReload
+            ? calculateHashFromString(externalContent || "")
+            : "codemirror-key";
 
         return (
             <CodeMirrorBase
