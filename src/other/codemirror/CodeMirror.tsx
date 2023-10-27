@@ -59,15 +59,17 @@ class CodeMirror extends React.Component<CodeMirrorProps, CodeMirrorState> {
         this.handleBlur = this.handleBlur.bind(this);
     }
 
-    componentDidUpdate(prevProps: CodeMirrorProps) {
-        const { content, checks } = this.props;
-        if (content && content !== prevProps.content) {
-            this.setState({ content });
-        }
+    UNSAFE_componentWillReceiveProps(nextProps: CodeMirrorProps) {
+        if (nextProps !== this.props) {
+            const { content, checks } = this.props;
+            if (content && content !== nextProps.content) {
+                this.setState({ content });
+            }
 
-        if (checks !== prevProps.checks) {
-            const consistencyChecks = checks?.checks || [];
-            this.setState({ extensions: this.createExtensions(consistencyChecks) });
+            if (checks !== nextProps.checks) {
+                const consistencyChecks = checks?.checks || [];
+                this.setState({ extensions: this.createExtensions(consistencyChecks) });
+            }
         }
     }
 
@@ -121,8 +123,8 @@ class CodeMirror extends React.Component<CodeMirrorProps, CodeMirrorState> {
     }
 
     render() {
-        const { options = {}, theme, readOnly, content, triggerReload } = this.props;
-        const { extensions } = this.state;
+        const { options = {}, theme, readOnly, triggerReload } = this.props;
+        const { extensions, content } = this.state;
         const key = triggerReload ? calculateHashFromString(content || "") : "codemirror-key";
 
         return (
