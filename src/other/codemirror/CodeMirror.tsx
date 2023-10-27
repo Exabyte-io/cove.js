@@ -7,7 +7,8 @@ import { fortran } from "@codemirror/legacy-modes/mode/fortran";
 import { jinja2 } from "@codemirror/legacy-modes/mode/jinja2";
 import { shell } from "@codemirror/legacy-modes/mode/shell";
 import { linter, lintGutter } from "@codemirror/lint";
-import CodeMirrorBase, { BasicSetupOptions, Extension } from "@uiw/react-codemirror";
+import { Extension } from "@codemirror/state";
+import CodeMirrorBase, { BasicSetupOptions } from "@uiw/react-codemirror";
 import React from "react";
 
 const LANGUAGES_MAP: Record<string, Extension[]> = {
@@ -27,8 +28,6 @@ export interface CodeMirrorProps {
     language: string;
     completions: (context: CompletionContext) => CompletionResult;
     theme?: "light" | "dark";
-    onFocus?: () => void;
-    onBlur?: () => void;
     readOnly?: boolean;
 }
 
@@ -47,8 +46,6 @@ class CodeMirror extends React.Component<CodeMirrorProps, CodeMirrorState> {
             isEditing: false,
         };
         this.handleContentChange = this.handleContentChange.bind(this);
-        this.handleFocus = this.handleFocus.bind(this);
-        this.handleBlur = this.handleBlur.bind(this);
     }
 
     componentDidMount() {
@@ -56,10 +53,10 @@ class CodeMirror extends React.Component<CodeMirrorProps, CodeMirrorState> {
         this.setState({ content: content || "" });
     }
 
-    componentDidUpdate(prevProps: CodeMirrorProps) {
+    UNSAFE_componentWillReceiveProps(nextProps: Readonly<CodeMirrorProps>, nextContext: any) {
         const { content } = this.props;
-        if (prevProps.content !== content) {
-            this.setState({ content: content || "" });
+        if (nextProps.content !== content) {
+            this.setState({ content: nextProps.content || "" });
         }
     }
 
@@ -76,28 +73,9 @@ class CodeMirror extends React.Component<CodeMirrorProps, CodeMirrorState> {
             return;
         }
 
-        // Avoid triggering update actions when content is set from props
         if (content === newContent) return;
         this.setState({ content: newContent }, () => {
-            updateContent(newContent);
-        });
-    }
-
-    handleFocus() {
-        const { onFocus } = this.props;
-        this.setState({ isEditing: true }, () => {
-            if (onFocus) onFocus();
-        });
-    }
-
-    handleBlur() {
-        const { onBlur, updateContent } = this.props;
-        const { content } = this.state;
-
-        this.setState({ isEditing: false }, () => {
-            if (onBlur) onBlur();
-
-            updateContent(content);
+            if (isEditing) updateContent(newContent);
         });
     }
 
@@ -112,15 +90,14 @@ class CodeMirror extends React.Component<CodeMirrorProps, CodeMirrorState> {
         const { options = {}, language, completions, theme, readOnly } = this.props;
         const { content } = this.state;
         const completionExtension = autocompletion({ override: [completions] });
-
         return (
             <CodeMirrorBase
                 value={content}
                 onChange={(content: string) => {
                     this.handleContentChange(content);
                 }}
-                onFocus={() => this.handleFocus()}
-                onBlur={() => this.handleBlur()}
+                onFocus={() => this.setState({ isEditing: true })}
+                onBlur={() => this.setState({ isEditing: false })}
                 basicSetup={options}
                 theme={theme || "light"}
                 extensions={[completionExtension, ...this.getLanguageExtensions(language)]}
