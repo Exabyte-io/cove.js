@@ -6,36 +6,17 @@ import { StreamLanguage } from "@codemirror/language";
 import { fortran } from "@codemirror/legacy-modes/mode/fortran";
 import { jinja2 } from "@codemirror/legacy-modes/mode/jinja2";
 import { shell } from "@codemirror/legacy-modes/mode/shell";
-import { Diagnostic, linter, lintGutter } from "@codemirror/lint";
-import { EditorView, ViewUpdate } from "@codemirror/view";
-import CodeMirrorBase, { BasicSetupOptions, ReactCodeMirrorRef } from "@uiw/react-codemirror";
-import React, { RefObject } from "react";
+import { linter, lintGutter } from "@codemirror/lint";
+import CodeMirrorBase, { BasicSetupOptions, Extension } from "@uiw/react-codemirror";
+import React from "react";
 
-const exaxyzLinter = linter((view: EditorView) => {
-    const { state } = view;
-    const { doc } = state;
-
-    const errors = [];
-    const deafultError = {
-        from: 0,
-        to: doc.length,
-        message: "Test",
-        severity: "error",
-    } as Diagnostic;
-    errors.push(deafultError);
-
-    return errors as Diagnostic[];
-});
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const LANGUAGES_MAP: Record<string, any> = {
+const LANGUAGES_MAP: Record<string, Extension[]> = {
     python: [python()],
     shell: [StreamLanguage.define(shell)],
     fortran: [StreamLanguage.define(fortran)],
     jinja2: [StreamLanguage.define(jinja2)],
     javascript: [javascript()],
     json: [json(), lintGutter(), linter(jsonParseLinter())],
-    exaxyz: [StreamLanguage.define(fortran), exaxyzLinter],
 };
 
 export interface CodeMirrorProps {
@@ -58,8 +39,6 @@ export interface CodeMirrorState {
 }
 
 class CodeMirror extends React.Component<CodeMirrorProps, CodeMirrorState> {
-    codeMirrorRef: RefObject<ReactCodeMirrorRef> = React.createRef();
-
     constructor(props: CodeMirrorProps) {
         super(props);
         this.state = {
@@ -89,7 +68,7 @@ class CodeMirror extends React.Component<CodeMirrorProps, CodeMirrorState> {
      * viewUpdate - object containing the update to the editor tree structure
      */
     handleContentChange(newContent: string) {
-        const { isLoaded, isEditing } = this.state;
+        const { isLoaded, isEditing, content } = this.state;
         const { updateContent, updateOnFirstLoad = true } = this.props;
         // kludge for the way state management is handled in web-app
         if (!isLoaded && !updateOnFirstLoad) {
@@ -98,11 +77,8 @@ class CodeMirror extends React.Component<CodeMirrorProps, CodeMirrorState> {
         }
 
         // Avoid triggering update actions when content is set from props
-        // eslint-disable-next-line react/destructuring-assignment
-        if (this.state.content === newContent) return;
+        if (content === newContent) return;
         this.setState({ content: newContent }, () => {
-            // @ts-ignore
-            this.codeMirrorRef.current.editor.blur();
             updateContent(newContent);
         });
     }
@@ -133,16 +109,13 @@ class CodeMirror extends React.Component<CodeMirrorProps, CodeMirrorState> {
     }
 
     render() {
-        const { options = {}, language, completions } = this.props;
+        const { options = {}, language, completions, theme, readOnly } = this.props;
         const { content } = this.state;
         const completionExtension = autocompletion({ override: [completions] });
 
-        const { theme, readOnly } = this.props;
         return (
             <CodeMirrorBase
-                ref={this.codeMirrorRef}
                 value={content}
-                // @ts-ignore
                 onChange={(content: string) => {
                     this.handleContentChange(content);
                 }}
@@ -150,7 +123,6 @@ class CodeMirror extends React.Component<CodeMirrorProps, CodeMirrorState> {
                 onBlur={() => this.handleBlur()}
                 basicSetup={options}
                 theme={theme || "light"}
-                // @ts-ignore
                 extensions={[completionExtension, ...this.getLanguageExtensions(language)]}
                 readOnly={readOnly}
             />
