@@ -5,7 +5,7 @@ const tooltips = (): Theme["components"] => {
         MuiTooltip: {
             styleOverrides: {
                 tooltip: {
-                    fontSize: "13px",
+                    fontSize: "11px",
                 },
             },
         },
