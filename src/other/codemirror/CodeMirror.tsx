@@ -32,8 +32,6 @@ export interface CodeMirrorProps {
     language: string;
     completions: (context: CompletionContext) => CompletionResult;
     theme?: "light" | "dark";
-    onFocus?: () => void;
-    onBlur?: () => void;
     checks?: ConsistencyCheck[];
     readOnly?: boolean;
     triggerReload?: boolean;
@@ -56,8 +54,6 @@ class CodeMirror extends React.Component<CodeMirrorProps, CodeMirrorState> {
             isEditing: false,
         };
         this.handleContentChange = this.handleContentChange.bind(this);
-        this.handleFocus = this.handleFocus.bind(this);
-        this.handleBlur = this.handleBlur.bind(this);
     }
 
     componentDidUpdate(prevProps: CodeMirrorProps) {
@@ -90,18 +86,6 @@ class CodeMirror extends React.Component<CodeMirrorProps, CodeMirrorState> {
         this.setState({ content: newContent }, () => {
             if (isEditing && updateContent) updateContent(newContent);
         });
-    }
-
-    handleFocus() {
-        const { onFocus } = this.props;
-        if (onFocus) onFocus();
-        this.setState({ isEditing: true });
-    }
-
-    handleBlur() {
-        const { onBlur } = this.props;
-        if (onBlur) onBlur();
-        this.setState({ isEditing: false });
     }
 
     createExtensions(checks?: ConsistencyCheck[]): Extension[] {
@@ -139,8 +123,8 @@ class CodeMirror extends React.Component<CodeMirrorProps, CodeMirrorState> {
                 onChange={(value: string) => {
                     this.handleContentChange(value);
                 }}
-                onFocus={this.handleFocus}
-                onBlur={this.handleBlur}
+                onFocus={() => this.setState({ isEditing: true })}
+                onBlur={() => this.setState({ isEditing: false })}
                 basicSetup={options}
                 theme={theme || "light"}
                 extensions={extensions}
