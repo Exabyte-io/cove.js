@@ -1,6 +1,5 @@
 import { Diagnostic } from "@codemirror/lint";
 import { EditorView } from "@codemirror/view";
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { ConsistencyCheck } from "@exabyte-io/code.js/dist/types";
 import _ from "underscore";
 
@@ -14,7 +13,7 @@ const linterGenerator = (checks: ConsistencyCheck[]) => {
             const keyStr = _.last(keyFragments);
             if (!keyStr) return null;
             const key = parseInt(keyStr, 10);
-            const lineNumber = key + 1; // codemirror counts from 1
+            const lineNumber = key + 1; // codemirror counts lines from 1
             return {
                 message: check.message,
                 severity: check.severity,

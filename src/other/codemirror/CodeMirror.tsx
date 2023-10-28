@@ -12,7 +12,7 @@ import { ConsistencyCheck } from "@exabyte-io/code.js/dist/types";
 import CodeMirrorBase, { BasicSetupOptions } from "@uiw/react-codemirror";
 import React from "react";
 
-import { linterGenerator } from "./utils/exaxyz_linter";
+import { linterGenerator } from "./utils/linterGenerator";
 
 const LANGUAGES_MAP: Record<string, Extension[]> = {
     python: [python()],
