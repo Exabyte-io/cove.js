@@ -11,10 +11,10 @@ const linterGenerator = (checks: ConsistencyCheck[]) => {
 
         const warnings = checks.map((check) => {
             const keyFragments = check.key.split(".");
-            const atomIdStr = _.last(keyFragments);
-            if (!atomIdStr) return null;
-            const atomId = parseInt(atomIdStr, 10);
-            const lineNumber = atomId + 1; // codemirror counts from 1
+            const keyStr = _.last(keyFragments);
+            if (!keyStr) return null;
+            const key = parseInt(keyStr, 10);
+            const lineNumber = key + 1; // codemirror counts from 1
             return {
                 message: check.message,
                 severity: check.severity,
