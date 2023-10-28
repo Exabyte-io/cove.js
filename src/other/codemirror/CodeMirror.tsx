@@ -9,7 +9,6 @@ import { shell } from "@codemirror/legacy-modes/mode/shell";
 import { linter, lintGutter } from "@codemirror/lint";
 import { Extension } from "@codemirror/state";
 import { ConsistencyCheck } from "@exabyte-io/code.js/dist/types";
-import { calculateHashFromString, randomAlphanumeric } from "@exabyte-io/code.js/dist/utils";
 import CodeMirrorBase, { BasicSetupOptions } from "@uiw/react-codemirror";
 import React from "react";
 
@@ -34,7 +33,6 @@ export interface CodeMirrorProps {
     theme?: "light" | "dark";
     checks?: ConsistencyCheck[];
     readOnly?: boolean;
-    triggerReload?: boolean;
 }
 
 export interface CodeMirrorState {
@@ -42,7 +40,6 @@ export interface CodeMirrorState {
     checks?: ConsistencyCheck[];
     isLoaded: boolean;
     isEditing: boolean;
-    key: string;
 }
 
 class CodeMirror extends React.Component<CodeMirrorProps, CodeMirrorState> {
@@ -53,30 +50,32 @@ class CodeMirror extends React.Component<CodeMirrorProps, CodeMirrorState> {
             checks: props.checks,
             isLoaded: false,
             isEditing: false,
-            key: "codemirror-key",
         };
         this.handleContentChange = this.handleContentChange.bind(this);
     }
 
     UNSAFE_componentWillReceiveProps(nextProps: CodeMirrorProps) {
-        const { content, checks } = this.state;
-        if (content && content !== nextProps.content) {
-            this.setState({ content });
+        const { content, checks } = this.props;
+        if (nextProps.content !== content) {
+            this.setState({ content: nextProps.content || "" });
         }
 
-        if (checks !== nextProps.checks) {
-            this.setState({ checks });
-        }
-
-        if (nextProps.triggerReload) {
-            this.setState({ key: randomAlphanumeric(10) });
+        if (nextProps.checks !== checks) {
+            this.setState({ checks: nextProps.checks });
         }
     }
 
-    /*
-     * editor - CodeMirror object https://uiwjs.github.io/react-codemirror/
-     * viewUpdate - object containing the update to the editor tree structure
-     */
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    shouldComponentUpdate(
+        nextProps: Readonly<CodeMirrorProps>,
+        nextState: Readonly<CodeMirrorState>,
+        nextContext: never,
+    ): boolean {
+        const { content, checks } = this.state;
+        const { content: nextContent, checks: nextChecks } = nextState;
+        return content !== nextContent || checks !== nextChecks;
+    }
+
     handleContentChange(newContent: string) {
         const { isLoaded, content, isEditing } = this.state;
         const { updateContent, updateOnFirstLoad = true } = this.props;
@@ -110,14 +109,13 @@ class CodeMirror extends React.Component<CodeMirrorProps, CodeMirrorState> {
     }
 
     render() {
-        const { options = {}, theme, readOnly, triggerReload } = this.props;
-        const { checks, content, key } = this.state;
+        const { options = {}, theme, readOnly } = this.props;
+        const { checks, content } = this.state;
         const extensions = this.createExtensions(checks);
+
         return (
             <CodeMirrorBase
-                key={key}
                 value={content}
-                // @ts-ignore
                 onChange={(value: string) => {
                     this.handleContentChange(value);
                 }}
