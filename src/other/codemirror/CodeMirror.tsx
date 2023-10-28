@@ -9,7 +9,7 @@ import { shell } from "@codemirror/legacy-modes/mode/shell";
 import { linter, lintGutter } from "@codemirror/lint";
 import { Extension } from "@codemirror/state";
 import { ConsistencyCheck } from "@exabyte-io/code.js/dist/types";
-import { calculateHashFromString } from "@exabyte-io/code.js/dist/utils";
+import { calculateHashFromString, randomAlphanumeric } from "@exabyte-io/code.js/dist/utils";
 import CodeMirrorBase, { BasicSetupOptions } from "@uiw/react-codemirror";
 import React from "react";
 
@@ -42,6 +42,7 @@ export interface CodeMirrorState {
     checks?: ConsistencyCheck[];
     isLoaded: boolean;
     isEditing: boolean;
+    key: string;
 }
 
 class CodeMirror extends React.Component<CodeMirrorProps, CodeMirrorState> {
@@ -52,18 +53,23 @@ class CodeMirror extends React.Component<CodeMirrorProps, CodeMirrorState> {
             checks: props.checks,
             isLoaded: false,
             isEditing: false,
+            key: "codemirror-key",
         };
         this.handleContentChange = this.handleContentChange.bind(this);
     }
 
-    componentDidUpdate(prevProps: CodeMirrorProps) {
-        const { content, checks } = this.props;
-        if (content && content !== prevProps.content) {
+    UNSAFE_componentWillReceiveProps(nextProps: CodeMirrorProps) {
+        const { content, checks } = this.state;
+        if (content && content !== nextProps.content) {
             this.setState({ content });
         }
 
-        if (checks !== prevProps.checks) {
+        if (checks !== nextProps.checks) {
             this.setState({ checks });
+        }
+
+        if (nextProps.triggerReload) {
+            this.setState({ key: randomAlphanumeric(10) });
         }
     }
 
@@ -105,20 +111,12 @@ class CodeMirror extends React.Component<CodeMirrorProps, CodeMirrorState> {
 
     render() {
         const { options = {}, theme, readOnly, triggerReload } = this.props;
-        const { checks, content } = this.state;
-
+        const { checks, content, key } = this.state;
         const extensions = this.createExtensions(checks);
-        // key has to be generated from props.content because we want recreate CodeMirror only on external change
-        // eslint-disable-next-line
-        const externalContent = this.props.content;
-        const key = triggerReload
-            ? calculateHashFromString(externalContent || "")
-            : "codemirror-key";
-
         return (
             <CodeMirrorBase
                 key={key}
-                value={content || ""}
+                value={content}
                 // @ts-ignore
                 onChange={(value: string) => {
                     this.handleContentChange(value);
