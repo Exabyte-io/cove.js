@@ -53,17 +53,13 @@ class CodeMirror extends React.Component<CodeMirrorProps, CodeMirrorState> {
         this.setState({ content: content || "" });
     }
 
-    UNSAFE_componentWillReceiveProps(nextProps: Readonly<CodeMirrorProps>, nextContext: any) {
+    UNSAFE_componentWillReceiveProps(nextProps: Readonly<CodeMirrorProps>) {
         const { content } = this.props;
         if (nextProps.content !== content) {
             this.setState({ content: nextProps.content || "" });
         }
     }
 
-    /*
-     * editor - CodeMirror object https://uiwjs.github.io/react-codemirror/
-     * viewUpdate - object containing the update to the editor tree structure
-     */
     handleContentChange(newContent: string) {
         const { isLoaded, isEditing, content } = this.state;
         const { updateContent, updateOnFirstLoad = true } = this.props;
