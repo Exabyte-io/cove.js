@@ -69,7 +69,8 @@
         "react-draggable": "^4.4.5",
         "react-json-view": "^1.16.0",
         "typescript": "^4.9.5",
-        "underscore.string": "^3.3.6"
+        "underscore.string": "^3.3.6",
+        "react-full-screen": "^0.2.5"
     },
     "devDependencies": {
         "@exabyte-io/code.js": "https://github.com/Exabyte-io/code.js#2a8cc864fbec54a98084c727fa7c3698fbeb82e4",
