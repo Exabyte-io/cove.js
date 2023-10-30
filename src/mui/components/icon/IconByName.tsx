@@ -39,7 +39,7 @@ import Delete from "@mui/icons-material/Delete";
 import Description from "@mui/icons-material/Description";
 import DesktopWindowsOutlined from "@mui/icons-material/DesktopWindowsOutlined";
 import DirectionsWalk from "@mui/icons-material/DirectionsWalk";
-import Dns from '@mui/icons-material/Dns';
+import Dns from "@mui/icons-material/Dns";
 import DoubleArrow from "@mui/icons-material/DoubleArrow";
 import Download from "@mui/icons-material/Download";
 import DragIndicator from "@mui/icons-material/DragIndicator";
@@ -310,6 +310,7 @@ const iconComponentMap: Record<string, typeof SvgIcon | ReturnType<typeof rotate
     "actions.read": Toc,
     "actions.remove": Delete,
     "actions.reset": Cached,
+    "actions.saveExplorerSettings": Save,
     "actions.resetExplorerSettings": Refresh,
     "actions.resubmit": Replay,
     "actions.revokeAccess": VisibilityOff,
