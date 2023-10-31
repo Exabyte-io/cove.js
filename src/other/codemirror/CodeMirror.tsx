@@ -25,7 +25,6 @@ const LANGUAGES_MAP: Record<string, Extension[]> = {
 
 export interface CodeMirrorProps {
     updateContent: (content: string) => void;
-    updateOnFirstLoad: boolean;
     content?: string;
     options: boolean | BasicSetupOptions;
     language: string;
@@ -48,7 +47,6 @@ class CodeMirror extends React.Component<CodeMirrorProps, CodeMirrorState> {
         this.state = {
             content: props.content || "",
             checks: props.checks,
-            isLoaded: false,
             isEditing: false,
         };
         this.handleContentChange = this.handleContentChange.bind(this);
@@ -77,20 +75,10 @@ class CodeMirror extends React.Component<CodeMirrorProps, CodeMirrorState> {
     }
 
     handleContentChange(newContent: string) {
-        const { isLoaded, content, isEditing } = this.state;
-        const { updateContent, updateOnFirstLoad = true } = this.props;
-        // kludge for the way state management is handled in web-app
-        if (!isLoaded && !updateOnFirstLoad) {
-            this.setState({ isLoaded: true });
-            return;
-        }
-
-        // update content only if component is focused
-        // Otherwise content is being marked as edited when selecting a flavor in workflow designer!
-        if (content === newContent) return;
-        this.setState({ content: newContent }, () => {
-            if (isEditing && updateContent) updateContent(newContent);
-        });
+        const { isEditing } = this.state;
+        const { updateContent } = this.props;
+        if (isEditing && updateContent) updateContent(newContent);
+        this.setState({ content: newContent });
     }
 
     createExtensions(checks?: ConsistencyCheck[]): Extension[] {
