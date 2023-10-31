@@ -24,7 +24,6 @@ const LANGUAGES_MAP: Record<string, Extension[]> = {
 
 export interface CodeMirrorProps {
     updateContent: (content: string) => void;
-    updateOnFirstLoad: boolean;
     content?: string;
     options: boolean | BasicSetupOptions;
     language: string;
@@ -34,7 +33,6 @@ export interface CodeMirrorProps {
 }
 
 export interface CodeMirrorState {
-    isLoaded: boolean;
     content: string;
     isEditing: boolean;
 }
@@ -46,7 +44,6 @@ class CodeMirror extends StatefulEntityMixin(CodeMirrorClass) {
         super(props);
         this.state = {
             content: "",
-            isLoaded: false,
             isEditing: false,
         };
         this.handleContentChange = this.handleContentChange.bind(this);
@@ -65,18 +62,11 @@ class CodeMirror extends StatefulEntityMixin(CodeMirrorClass) {
     }
 
     handleContentChange(newContent: string) {
-        const { isLoaded, isEditing, content } = this.state;
-        const { updateContent, updateOnFirstLoad = true } = this.props;
-        // kludge for the way state management is handled in web-app
-        if (!isLoaded && !updateOnFirstLoad) {
-            this.setState({ isLoaded: true });
-            return;
-        }
+        const { isEditing } = this.state;
+        const { updateContent } = this.props;
 
-        if (content === newContent) return;
-        this.setState({ content: newContent }, () => {
-            if (isEditing) updateContent(newContent);
-        });
+        if (isEditing) updateContent(newContent);
+        this.setState({ content: newContent });
     }
 
     // eslint-disable-next-line class-methods-use-this
