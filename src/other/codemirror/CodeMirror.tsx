@@ -80,7 +80,8 @@ class CodeMirror extends React.Component<CodeMirrorProps, CodeMirrorState> {
         this.setState({ content: newContent });
     }
 
-    createExtensions(checks?: ConsistencyCheck[]): Extension[] {
+    createExtensions(): Extension[] {
+        const { checks } = this.state;
         const { completions, language } = this.props;
         const completionExtension = autocompletion({ override: [completions] });
         const languageExtensions = LANGUAGES_MAP[language]
@@ -97,8 +98,8 @@ class CodeMirror extends React.Component<CodeMirrorProps, CodeMirrorState> {
 
     render() {
         const { options = {}, theme, readOnly } = this.props;
-        const { checks, content } = this.state;
-        const extensions = this.createExtensions(checks);
+        const { content } = this.state;
+        const extensions = this.createExtensions();
 
         return (
             <CodeMirrorBase
