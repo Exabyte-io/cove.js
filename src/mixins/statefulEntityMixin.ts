@@ -1,15 +1,11 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { InMemoryEntity } from "@exabyte-io/code.js/dist/entity";
-import React from "react";
 
-export function StatefulEntityMixin<
-    P,
-    S,
-    T extends React.ComponentClass<P, S> = React.ComponentClass<P, S>,
->(superclass: T) {
-    // @ts-ignore
-    return class Mixin extends T {
-        constructor(props: P) {
+// @ts-ignore
+export const StatefulEntityMixin = (superclass) =>
+    class extends superclass {
+        // @ts-ignore
+        constructor(props) {
             super(props);
             this._resetStateEntity = this._resetStateEntity.bind(this);
             this._propagateChangesToParents = this._propagateChangesToParents.bind(this);
@@ -35,4 +31,3 @@ export function StatefulEntityMixin<
             this.setState({ entity: entity || this.state.entity }, callback);
         }
     };
-}

@@ -11,6 +11,8 @@ import { Extension } from "@codemirror/state";
 import CodeMirrorBase, { BasicSetupOptions } from "@uiw/react-codemirror";
 import React from "react";
 
+import { StatefulEntityMixin } from "../../mixins/statefulEntityMixin";
+
 const LANGUAGES_MAP: Record<string, Extension[]> = {
     python: [python()],
     shell: [StreamLanguage.define(shell)],
@@ -37,7 +39,9 @@ export interface CodeMirrorState {
     isEditing: boolean;
 }
 
-class CodeMirror extends React.Component<CodeMirrorProps, CodeMirrorState> {
+const CodeMirrorClass = React.Component<CodeMirrorProps, CodeMirrorState>;
+
+class CodeMirror extends StatefulEntityMixin(CodeMirrorClass) {
     constructor(props: CodeMirrorProps) {
         super(props);
         this.state = {
