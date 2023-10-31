@@ -37,7 +37,6 @@ export interface CodeMirrorProps {
 export interface CodeMirrorState {
     content: string;
     checks?: ConsistencyCheck[];
-    isLoaded: boolean;
     isEditing: boolean;
 }
 
