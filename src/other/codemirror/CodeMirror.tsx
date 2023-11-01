@@ -53,12 +53,9 @@ class CodeMirror extends React.Component<CodeMirrorProps, CodeMirrorState> {
 
     UNSAFE_componentWillReceiveProps(nextProps: CodeMirrorProps) {
         const { content, checks } = this.props;
-        if (nextProps.content !== content) {
-            this.setState({ content: nextProps.content || "" });
-        }
-
-        if (nextProps.checks !== checks) {
-            this.setState({ checks: nextProps.checks });
+        const { content: nextContent, checks: nextChecks } = nextProps;
+        if (content !== nextContent || checks !== nextChecks) {
+            this.setState({ checks: nextChecks, content: nextContent || "" });
         }
     }
 
