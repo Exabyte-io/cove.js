@@ -48,6 +48,7 @@
         "@codemirror/legacy-modes": "^6.3.1",
         "@codemirror/lint": "^6.2.0",
         "@mui/x-date-pickers": "6.11.1",
+        "@rjsf/mui": "^5.12.1",
         "@rjsf/utils": "^5.1.0",
         "@toast-ui/editor": "^3.2.2",
         "@toast-ui/editor-plugin-code-syntax-highlight": "^3.1.0",
@@ -67,7 +68,8 @@
         "react-draggable": "^4.4.5",
         "react-json-view": "^1.16.0",
         "typescript": "^4.9.5",
-        "underscore.string": "^3.3.6"
+        "underscore.string": "^3.3.6",
+        "react-full-screen": "^0.2.5"
     },
     "devDependencies": {
         "@exabyte-io/eslint-config": "^2023.8.29-1",
