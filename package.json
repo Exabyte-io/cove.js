@@ -73,7 +73,7 @@
         "react-full-screen": "^0.2.5"
     },
     "devDependencies": {
-        "@exabyte-io/code.js": "https://github.com/Exabyte-io/code.js#2a8cc864fbec54a98084c727fa7c3698fbeb82e4",
+        "@exabyte-io/code.js": "2023.11.1-0",
         "@exabyte-io/eslint-config": "^2023.8.29-1",
         "@mui/icons-material": "^5.11.9",
         "@mui/lab": "^5.0.0-alpha.120",
