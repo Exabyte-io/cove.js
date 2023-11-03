@@ -53,10 +53,14 @@ class CodeMirror extends React.Component<CodeMirrorProps, CodeMirrorState> {
 
     UNSAFE_componentWillReceiveProps(nextProps: CodeMirrorProps) {
         const { content, checks } = this.props;
-        const { content: nextContent, checks: nextChecks } = nextProps;
-        if (content !== nextContent || checks !== nextChecks) {
-            this.setState({ checks: nextChecks, content: nextContent || "" });
+        const update = {};
+        if (nextProps.content !== content) {
+            Object.assign(update, { content: nextProps.content || "" });
         }
+        if (nextProps.checks !== checks) {
+            Object.assign(update, { checks: nextProps.checks });
+        }
+        this.setState(update);
     }
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
