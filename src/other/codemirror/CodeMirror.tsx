@@ -7,11 +7,14 @@ import { fortran } from "@codemirror/legacy-modes/mode/fortran";
 import { jinja2 } from "@codemirror/legacy-modes/mode/jinja2";
 import { shell } from "@codemirror/legacy-modes/mode/shell";
 import { linter, lintGutter } from "@codemirror/lint";
+import { Extension } from "@codemirror/state";
+import { ConsistencyCheck } from "@exabyte-io/code.js/dist/types";
 import CodeMirrorBase, { BasicSetupOptions } from "@uiw/react-codemirror";
 import React from "react";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const LANGUAGES_MAP: Record<string, any> = {
+import { linterGenerator } from "./utils/linterGenerator";
+
+const LANGUAGES_MAP: Record<string, Extension[]> = {
     python: [python()],
     shell: [StreamLanguage.define(shell)],
     fortran: [StreamLanguage.define(fortran)],
@@ -22,77 +25,90 @@ const LANGUAGES_MAP: Record<string, any> = {
 
 export interface CodeMirrorProps {
     updateContent: (content: string) => void;
-    updateOnFirstLoad: boolean;
     content?: string;
     options: boolean | BasicSetupOptions;
     language: string;
     completions: (context: CompletionContext) => CompletionResult;
     theme?: "light" | "dark";
-    onFocus?: () => void;
-    onBlur?: () => void;
+    checks?: ConsistencyCheck[];
     readOnly?: boolean;
 }
 
 export interface CodeMirrorState {
-    isLoaded: boolean;
+    content: string;
+    checks?: ConsistencyCheck[];
     isEditing: boolean;
 }
 
 class CodeMirror extends React.Component<CodeMirrorProps, CodeMirrorState> {
     constructor(props: CodeMirrorProps) {
         super(props);
-        this.state = { isLoaded: false, isEditing: false };
+        this.state = {
+            content: props.content || "",
+            checks: props.checks,
+            isEditing: false,
+        };
         this.handleContentChange = this.handleContentChange.bind(this);
     }
 
-    /*
-     * editor - CodeMirror object https://uiwjs.github.io/react-codemirror/
-     * viewUpdate - object containing the update to the editor tree structure
-     */
-    handleContentChange(newContent: string, viewUpdate: { origin: string }) {
-        const { isLoaded, isEditing } = this.state;
-        const { updateContent, updateOnFirstLoad = true } = this.props;
-        // kludge for the way state management is handled in web-app
-        if (!isLoaded && !updateOnFirstLoad && viewUpdate.origin === "setValue") {
-            this.setState({ isLoaded: true });
-            return;
+    UNSAFE_componentWillReceiveProps(nextProps: CodeMirrorProps) {
+        const { content, checks } = this.props;
+        const { content: nextContent, checks: nextChecks } = nextProps;
+        if (content !== nextContent || checks !== nextChecks) {
+            this.setState({ checks: nextChecks, content: nextContent || "" });
         }
-        // update content only if component is focused
-        // Otherwise content is being marked as edited when selecting a flavor in workflow designer!
-        if (isEditing && updateContent) updateContent(newContent);
     }
 
-    // eslint-disable-next-line class-methods-use-this
-    getLanguageExtensions(language: string) {
-        if (LANGUAGES_MAP[language]) return LANGUAGES_MAP[language];
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    shouldComponentUpdate(
+        nextProps: Readonly<CodeMirrorProps>,
+        nextState: Readonly<CodeMirrorState>,
+        nextContext: never,
+    ): boolean {
+        const { content, checks } = this.state;
+        const { content: nextContent, checks: nextChecks } = nextState;
+        return content !== nextContent || checks !== nextChecks;
+    }
 
-        return LANGUAGES_MAP.fortran;
+    handleContentChange(newContent: string) {
+        const { isEditing } = this.state;
+        const { updateContent } = this.props;
+        if (isEditing && updateContent) updateContent(newContent);
+        this.setState({ content: newContent });
+    }
+
+    createExtensions(): Extension[] {
+        const { checks } = this.state;
+        const { completions, language } = this.props;
+        const completionExtension = autocompletion({ override: [completions] });
+        const languageExtensions = LANGUAGES_MAP[language]
+            ? LANGUAGES_MAP[language]
+            : LANGUAGES_MAP.fortran;
+
+        if (checks) {
+            const linterExtension = linterGenerator(checks);
+            return [completionExtension, linter(linterExtension), ...languageExtensions];
+        }
+
+        return [completionExtension, ...languageExtensions];
     }
 
     render() {
-        const { content = "", options = {}, language, completions } = this.props;
-        const completionExtension = autocompletion({ override: [completions] });
+        const { options = {}, theme, readOnly } = this.props;
+        const { content } = this.state;
+        const extensions = this.createExtensions();
 
-        const { theme, onFocus, onBlur, readOnly } = this.props;
         return (
             <CodeMirrorBase
-                value={content || ""}
-                // @ts-ignore
-                onChange={(editor: string, viewUpdate: { origin: string }) => {
-                    this.handleContentChange(editor, viewUpdate);
+                value={content}
+                onChange={(value: string) => {
+                    this.handleContentChange(value);
                 }}
-                onFocus={() => {
-                    if (onFocus) onFocus();
-                    this.setState({ isEditing: true });
-                }}
-                onBlur={() => {
-                    if (onBlur) onBlur();
-                    this.setState({ isEditing: false });
-                }}
+                onFocus={() => this.setState({ isEditing: true })}
+                onBlur={() => this.setState({ isEditing: false })}
                 basicSetup={options}
                 theme={theme || "light"}
-                // @ts-ignore
-                extensions={[completionExtension, ...this.getLanguageExtensions(language)]}
+                extensions={extensions}
                 readOnly={readOnly}
             />
         );
