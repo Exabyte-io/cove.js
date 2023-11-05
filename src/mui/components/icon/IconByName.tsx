@@ -39,7 +39,7 @@ import Delete from "@mui/icons-material/Delete";
 import Description from "@mui/icons-material/Description";
 import DesktopWindowsOutlined from "@mui/icons-material/DesktopWindowsOutlined";
 import DirectionsWalk from "@mui/icons-material/DirectionsWalk";
-import Dns from '@mui/icons-material/Dns';
+import Dns from "@mui/icons-material/Dns";
 import DoubleArrow from "@mui/icons-material/DoubleArrow";
 import Download from "@mui/icons-material/Download";
 import DragIndicator from "@mui/icons-material/DragIndicator";
@@ -51,7 +51,6 @@ import FilterDrama from "@mui/icons-material/FilterDrama";
 import FlashOn from "@mui/icons-material/FlashOn";
 import Flip from "@mui/icons-material/Flip";
 import Folder from "@mui/icons-material/Folder";
-import FolderOpen from "@mui/icons-material/FolderOpen";
 import FolderOutlined from "@mui/icons-material/FolderOutlined";
 import FormatLineSpacing from "@mui/icons-material/FormatLineSpacing";
 import FormatListBulleted from "@mui/icons-material/FormatListBulleted";
@@ -283,7 +282,7 @@ const iconComponentMap: Record<string, typeof SvgIcon | ReturnType<typeof rotate
     "actions.cancel": Cancel,
     "actions.create": Add,
     "actions.createJob": OpenInNew,
-    "actions.createSet": FolderOpen,
+    "actions.createSet": Add,
     "actions.delete": Delete,
     "actions.download": Download,
     "actions.edit": Edit,
@@ -310,6 +309,7 @@ const iconComponentMap: Record<string, typeof SvgIcon | ReturnType<typeof rotate
     "actions.read": Toc,
     "actions.remove": Delete,
     "actions.reset": Cached,
+    "actions.saveExplorerSettings": Save,
     "actions.resetExplorerSettings": Refresh,
     "actions.resubmit": Replay,
     "actions.revokeAccess": VisibilityOff,

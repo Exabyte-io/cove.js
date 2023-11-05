@@ -8,10 +8,12 @@ import { jinja2 } from "@codemirror/legacy-modes/mode/jinja2";
 import { shell } from "@codemirror/legacy-modes/mode/shell";
 import { linter, lintGutter } from "@codemirror/lint";
 import { Extension } from "@codemirror/state";
+import { ConsistencyCheck } from "@exabyte-io/code.js/dist/types";
 import CodeMirrorBase, { BasicSetupOptions } from "@uiw/react-codemirror";
 import React from "react";
 
 import { StatefulEntityMixin } from "../../mixins/statefulEntityMixin";
+import { linterGenerator } from "./utils/linterGenerator";
 
 const LANGUAGES_MAP: Record<string, Extension[]> = {
     python: [python()],
@@ -29,11 +31,13 @@ export interface CodeMirrorProps {
     language: string;
     completions: (context: CompletionContext) => CompletionResult;
     theme?: "light" | "dark";
+    checks?: ConsistencyCheck[];
     readOnly?: boolean;
 }
 
 export interface CodeMirrorState {
     content: string;
+    checks?: ConsistencyCheck[];
     isEditing: boolean;
 }
 
@@ -43,54 +47,75 @@ class CodeMirror extends StatefulEntityMixin(CodeMirrorClass) {
     constructor(props: CodeMirrorProps) {
         super(props);
         this.state = {
-            content: "",
+            content: props.content || "",
+            checks: props.checks,
             isEditing: false,
         };
         this.handleContentChange = this.handleContentChange.bind(this);
     }
 
-    componentDidMount() {
-        const { content } = this.props;
-        this.setState({ content: content || "" });
+    UNSAFE_componentWillReceiveProps(nextProps: CodeMirrorProps) {
+        const { content, checks } = this.props;
+        const update = {};
+        if (nextProps.content !== content) {
+            Object.assign(update, { content: nextProps.content || "" });
+        }
+        if (nextProps.checks !== checks) {
+            Object.assign(update, { checks: nextProps.checks });
+        }
+        this.setState(update);
     }
 
-    UNSAFE_componentWillReceiveProps(nextProps: Readonly<CodeMirrorProps>) {
-        const { content } = this.props;
-        if (nextProps.content !== content) {
-            this.setState({ content: nextProps.content || "" });
-        }
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    shouldComponentUpdate(
+        nextProps: Readonly<CodeMirrorProps>,
+        nextState: Readonly<CodeMirrorState>,
+        nextContext: never,
+    ): boolean {
+        const { content, checks } = this.state;
+        const { content: nextContent, checks: nextChecks } = nextState;
+        return content !== nextContent || checks !== nextChecks;
     }
 
     handleContentChange(newContent: string) {
         const { isEditing } = this.state;
         const { updateContent } = this.props;
-
-        if (isEditing) updateContent(newContent);
+        if (isEditing && updateContent) updateContent(newContent);
         this.setState({ content: newContent });
     }
 
-    // eslint-disable-next-line class-methods-use-this
-    getLanguageExtensions(language: string) {
-        if (LANGUAGES_MAP[language]) return LANGUAGES_MAP[language];
+    createExtensions(): Extension[] {
+        const { checks } = this.state;
+        const { completions, language } = this.props;
+        const completionExtension = autocompletion({ override: [completions] });
+        const languageExtensions = LANGUAGES_MAP[language]
+            ? LANGUAGES_MAP[language]
+            : LANGUAGES_MAP.fortran;
 
-        return LANGUAGES_MAP.fortran;
+        if (checks) {
+            const linterExtension = linterGenerator(checks);
+            return [completionExtension, linter(linterExtension), ...languageExtensions];
+        }
+
+        return [completionExtension, ...languageExtensions];
     }
 
     render() {
-        const { options = {}, language, completions, theme, readOnly } = this.props;
+        const { options = {}, theme, readOnly } = this.props;
         const { content } = this.state;
-        const completionExtension = autocompletion({ override: [completions] });
+        const extensions = this.createExtensions();
+
         return (
             <CodeMirrorBase
                 value={content}
-                onChange={(content: string) => {
-                    this.handleContentChange(content);
+                onChange={(value: string) => {
+                    this.handleContentChange(value);
                 }}
                 onFocus={() => this.setState({ isEditing: true })}
                 onBlur={() => this.setState({ isEditing: false })}
                 basicSetup={options}
                 theme={theme || "light"}
-                extensions={[completionExtension, ...this.getLanguageExtensions(language)]}
+                extensions={extensions}
                 readOnly={readOnly}
             />
         );
