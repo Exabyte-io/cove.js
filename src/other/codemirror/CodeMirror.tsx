@@ -36,8 +36,7 @@ export interface CodeMirrorProps {
 }
 
 export interface CodeMirrorState {
-    content: string;
-    checks?: ConsistencyCheck[];
+    entity: { content: string; checks?: ConsistencyCheck[] };
     isEditing: boolean;
 }
 
@@ -47,45 +46,46 @@ class CodeMirror extends StatefulEntityMixin(CodeMirrorClass) {
     constructor(props: CodeMirrorProps) {
         super(props);
         this.state = {
-            content: props.content || "",
-            checks: props.checks,
+            entity: { content: props.content || "", checks: props.checks },
             isEditing: false,
         };
         this.handleContentChange = this.handleContentChange.bind(this);
     }
 
     UNSAFE_componentWillReceiveProps(nextProps: CodeMirrorProps) {
-        const { content, checks } = this.props;
-        const update = {};
+        const { content, checks } = this.state.entity || {}; // Adjusted to access entity
+        const entityUpdate = { ...this.state.entity }; // Spread into a new object to maintain immutability
+
         if (nextProps.content !== content) {
-            Object.assign(update, { content: nextProps.content || "" });
+            entityUpdate.content = nextProps.content || "";
         }
         if (nextProps.checks !== checks) {
-            Object.assign(update, { checks: nextProps.checks });
+            entityUpdate.checks = nextProps.checks;
         }
-        this.setState(update);
+
+        this.setState({ entity: entityUpdate });
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     shouldComponentUpdate(
         nextProps: Readonly<CodeMirrorProps>,
         nextState: Readonly<CodeMirrorState>,
         nextContext: never,
     ): boolean {
-        const { content, checks } = this.state;
-        const { content: nextContent, checks: nextChecks } = nextState;
-        return content !== nextContent || checks !== nextChecks;
+        const { entity } = this.state;
+        const { entity: nextEntity } = nextState;
+
+        return entity.content !== nextEntity.content || entity.checks !== nextEntity.checks;
     }
 
     handleContentChange(newContent: string) {
         const { isEditing } = this.state;
         const { updateContent } = this.props;
         if (isEditing && updateContent) updateContent(newContent);
-        this.setState({ content: newContent });
+        this.setState({ entity: { content: newContent } });
     }
 
     createExtensions(): Extension[] {
-        const { checks } = this.state;
+        const { checks } = this.state.entity;
         const { completions, language } = this.props;
         const completionExtension = autocompletion({ override: [completions] });
         const languageExtensions = LANGUAGES_MAP[language]
@@ -102,7 +102,7 @@ class CodeMirror extends StatefulEntityMixin(CodeMirrorClass) {
 
     render() {
         const { options = {}, theme, readOnly } = this.props;
-        const { content } = this.state;
+        const { content } = this.state.entity;
         const extensions = this.createExtensions();
 
         return (
