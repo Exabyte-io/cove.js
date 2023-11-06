@@ -53,8 +53,8 @@ class CodeMirror extends StatefulEntityMixin(CodeMirrorClass) {
     }
 
     UNSAFE_componentWillReceiveProps(nextProps: CodeMirrorProps) {
-        const { content, checks } = this.state.entity || {}; // Adjusted to access entity
-        const entityUpdate = { ...this.state.entity }; // Spread into a new object to maintain immutability
+        const { content, checks } = this.state.entity || {};
+        const entityUpdate = { ...this.state.entity };
 
         if (nextProps.content !== content) {
             entityUpdate.content = nextProps.content || "";
