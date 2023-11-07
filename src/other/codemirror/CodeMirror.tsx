@@ -78,10 +78,10 @@ class CodeMirror extends StatefulEntityMixin(CodeMirrorClass) {
     }
 
     handleContentChange(newContent: string) {
-        const { isEditing } = this.state;
+        const { isEditing, entity } = this.state;
         const { updateContent } = this.props;
         if (isEditing && updateContent) updateContent(newContent);
-        this.setState({ entity: { content: newContent } });
+        this.setState({ ...entity, content: newContent });
     }
 
     createExtensions(): Extension[] {
