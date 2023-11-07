@@ -1,6 +1,6 @@
 import { Theme } from "@mui/material/styles";
 
-const Typography = (theme: Theme) => {
+const Typography = (theme: Theme): Partial<Theme["typography"]> => {
     return {
         fontFamily: ["Roboto", "-apple-system", "sans-serif"].join(","),
         h1: {

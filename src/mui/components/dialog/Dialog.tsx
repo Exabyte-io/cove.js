@@ -1,5 +1,6 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import LoadingButton from "@mui/lab/LoadingButton";
-import Button from "@mui/material/Button";
+import Button, { ButtonProps } from "@mui/material/Button";
 import Dialog, { DialogProps } from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
@@ -30,6 +31,8 @@ export interface DialogModalProps extends DialogProps {
     renderFooterCustom?: () => React.ReactNode;
     submitButtonText?: string;
     cancelButtonText?: string;
+    submitButtonProps?: ButtonProps;
+    cancelButtonProps?: ButtonProps;
     draggableId?: string;
 }
 
@@ -54,6 +57,8 @@ function DialogModal({
     renderFooterCustom,
     submitButtonText = "Submit",
     cancelButtonText = "Cancel",
+    submitButtonProps,
+    cancelButtonProps,
     PaperComponent,
     draggableId,
 }: DialogModalProps) {
@@ -107,7 +112,8 @@ function DialogModal({
                     color="neutral"
                     data-dismiss="modal"
                     aria-label={cancelButtonText}
-                    onClick={handleCancel}>
+                    onClick={handleCancel}
+                    {...cancelButtonProps}>
                     {cancelButtonText}
                 </Button>
                 <LoadingButton
@@ -116,7 +122,8 @@ function DialogModal({
                     variant="text"
                     aria-label={submitButtonText}
                     disabled={isSubmitButtonDisabled || isSubmitButtonProcessing}
-                    onClick={handleSubmit}>
+                    onClick={handleSubmit}
+                    {...submitButtonProps}>
                     {submitButtonText}
                 </LoadingButton>
             </DialogActions>

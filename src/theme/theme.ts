@@ -1,6 +1,9 @@
 import { createTheme, Theme } from "@mui/material/styles";
 
 import buttons from "./components/buttons";
+import chips from "./components/chips";
+import inputs from "./components/inputs";
+import tooltips from "./components/tooltips";
 import lightPalette from "./palette";
 import shadows from "./shadows";
 import typography from "./typography";
@@ -14,6 +17,7 @@ export const sizesConfig = {
 const commonSettings = {
     dropdownPopperZindex: 2147483647,
     iconDefaultFontSize: 20,
+    inputMinWidth: "200px",
     fonts: {
         roboto: ["roboto", "sans-serif"].join(", "),
         monospace: ["Menlo", "Monaco", "Consolas", "Courier New", "monospace"].join(", "),
@@ -93,6 +97,9 @@ const buildTheme = (theme: Theme) => {
         shadows: shadows(theme),
         components: {
             ...buttons(theme),
+            ...chips(),
+            ...tooltips(),
+            ...inputs(commonSettings),
             ...MuiSvgIconSizesOverrides,
         },
     });
