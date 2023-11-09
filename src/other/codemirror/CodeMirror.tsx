@@ -43,6 +43,7 @@ export interface CodeMirrorState {
 
 const CodeMirrorClass = React.Component<CodeMirrorProps, CodeMirrorState>;
 
+// TODO: reuse the methods from `StatefulEntityMixin` to update the state
 class CodeMirror extends StatefulEntityMixin(CodeMirrorClass) {
     constructor(props: CodeMirrorProps) {
         super(props);
