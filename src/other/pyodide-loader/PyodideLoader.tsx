@@ -7,29 +7,70 @@ interface PyodideLoaderProps {
 
 interface PyodideLoaderState {
     url: string;
+    pyodideInitialized: boolean;
+    pyodide?: any;
 }
 
 const defaultUrl = "https://cdn.jsdelivr.net/pyodide/v0.24.0/full/pyodide.js";
 
-// eslint-disable-next-line
 class PyodideLoader extends React.Component<PyodideLoaderProps, PyodideLoaderState> {
-    // eslint-disable-next-line
     constructor(props: PyodideLoaderProps) {
         super(props);
         this.state = {
             url: props.url || defaultUrl,
+            pyodideInitialized: false,
+            pyodide: null,
         };
+    }
+
+    componentDidMount(): void {
+        this.initializePyodide();
+    }
+
+    async initializePyodide() {
+        const { pyodide, pyodideInitialized, url } = this.state;
+        if (!pyodideInitialized) {
+            const script =
+                document.querySelector(".pyodide-script") || document.createElement("script");
+            if (!document.querySelector(".pyodide-script")) {
+                // @ts-ignore
+                script.src = url;
+                script.className = "pyodide-script";
+                document.body.appendChild(script);
+                await new Promise<void>((resolve, reject) => {
+                    // @ts-ignore
+                    script.onload = () => {
+                        this.setState({ pyodideInitialized: true });
+                        resolve();
+                    };
+                    // @ts-ignore
+                    script.onerror = reject;
+                });
+            }
+
+            // @ts-ignore
+            if (typeof window.loadPyodide === "undefined") {
+                throw new Error("loadPyodide is not available. Please check the CDN URL.");
+            }
+
+            // @ts-ignore
+            this.setState({ pyodide: window.loadPyodide() });
+            await pyodide.loadPackage("micropip");
+
+            // TODO: add caching for our code as well
+            const response = await fetch(
+                "https://raw.githubusercontent.com/Exabyte-io/api-examples/48f86e29c069fc0205216c50b1b98c19634a6445/other/pyodide/imports.py",
+            );
+            const pythonCode = await response.text();
+            await pyodide.runPythonAsync(pythonCode);
+
+            // document.pyodideMplTarget = document.getElementById("pyodide-plot-target");
+        }
     }
 
     render() {
         const { children } = this.props;
-        const { url } = this.state;
-        return (
-            <div>
-                <script src={url} />
-                {children}
-            </div>
-        );
+        return <div>{children}</div>;
     }
 }
 
