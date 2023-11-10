@@ -12,21 +12,22 @@ import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import React, { useCallback, useRef, useState } from "react";
 
-import { DefaultDropdownButton } from "./DefaultDropdownButton";
-import { DropdownItem } from "./DropdownItem";
+import { DefaultDropdownButton, DefaultDropdownButtonProps } from "./DefaultDropdownButton";
+import { DropdownItem, DropdownItemProps } from "./DropdownItem";
 
 export interface DropdownAction {
-    id: string;
-    disabled: boolean;
-    content: string;
-    icon: JSX.Element;
+    id: DropdownItemProps["id"];
+    onClick: (action: DropdownAction, event: React.MouseEvent<HTMLLIElement>) => void;
+    content: DropdownItemProps["content"];
+    disabled?: DropdownItemProps["disabled"];
+    icon?: DropdownItemProps["icon"];
+    endIcon?: DropdownItemProps["endIcon"];
+    showCheckIcon?: DropdownItemProps["showCheckIcon"];
     shouldMenuStayOpened?: boolean;
     key?: string;
-    showCheckIcon?: boolean;
     isShown?: boolean;
     isSelected?: boolean;
     isDivider?: boolean;
-    onClick: (action: DropdownAction) => void;
 }
 
 export interface DropdownProps {
@@ -42,6 +43,7 @@ export interface DropdownProps {
     paperPlacement?: PopperPlacementType;
     className?: string;
     disabled?: boolean;
+    buttonProps?: Partial<DefaultDropdownButtonProps>;
 }
 
 /**
@@ -60,6 +62,7 @@ export default function Dropdown({
     disabled = false,
     paperPlacement = "bottom-start",
     className = "",
+    buttonProps,
 }: DropdownProps) {
     const containerRef = useRef<HTMLDivElement>(null);
     const [opened, setOpened] = useState(false);
@@ -70,7 +73,7 @@ export default function Dropdown({
     const onClickAway = useCallback(() => setOpened(false), []);
 
     const onMenuItemClick = useCallback(
-        (actionId: string) => {
+        (actionId: string, event: React.MouseEvent<HTMLLIElement>) => {
             const targetAction = actions.find((action) => {
                 return action.id === actionId;
             });
@@ -83,7 +86,7 @@ export default function Dropdown({
                 setOpened(false);
             }
 
-            targetAction.onClick(targetAction);
+            targetAction.onClick(targetAction, event);
         },
         [actions],
     );
@@ -99,7 +102,10 @@ export default function Dropdown({
         <Box className={className} id={id} sx={{ width: isMobile ? "100%" : undefined }}>
             <div ref={containerRef} onClick={onClick}>
                 {children || (
-                    <DefaultDropdownButton fullWidth={isMobile} disabled={disabled}>
+                    <DefaultDropdownButton
+                        fullWidth={isMobile}
+                        disabled={disabled}
+                        {...buttonProps}>
                         {buttonContent ||
                             (actions.find(({ isSelected }) => isSelected) || actions[0])?.content}
                     </DefaultDropdownButton>
@@ -132,6 +138,7 @@ export default function Dropdown({
                                                 <DropdownItem
                                                     disabled={action.disabled}
                                                     icon={action.icon}
+                                                    endIcon={action.endIcon}
                                                     id={action.id}
                                                     onClick={onMenuItemClick}
                                                     showCheckIcon={action.showCheckIcon}

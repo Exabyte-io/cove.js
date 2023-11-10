@@ -12,6 +12,7 @@ import { ConsistencyCheck } from "@exabyte-io/code.js/dist/types";
 import CodeMirrorBase, { BasicSetupOptions } from "@uiw/react-codemirror";
 import React from "react";
 
+import { StatefulEntityMixin } from "../../mixins/statefulEntityMixin";
 import { linterGenerator } from "./utils/linterGenerator";
 
 const LANGUAGES_MAP: Record<string, Extension[]> = {
@@ -40,7 +41,10 @@ export interface CodeMirrorState {
     isEditing: boolean;
 }
 
-class CodeMirror extends React.Component<CodeMirrorProps, CodeMirrorState> {
+const CodeMirrorClass = React.Component<CodeMirrorProps, CodeMirrorState>;
+
+// TODO: reuse the methods from `StatefulEntityMixin` to update the state
+class CodeMirror extends StatefulEntityMixin(CodeMirrorClass) {
     constructor(props: CodeMirrorProps) {
         super(props);
         this.state = {
@@ -53,10 +57,14 @@ class CodeMirror extends React.Component<CodeMirrorProps, CodeMirrorState> {
 
     UNSAFE_componentWillReceiveProps(nextProps: CodeMirrorProps) {
         const { content, checks } = this.props;
-        const { content: nextContent, checks: nextChecks } = nextProps;
-        if (content !== nextContent || checks !== nextChecks) {
-            this.setState({ checks: nextChecks, content: nextContent || "" });
+        const update = {};
+        if (nextProps.content !== content) {
+            Object.assign(update, { content: nextProps.content || "" });
         }
+        if (nextProps.checks !== checks) {
+            Object.assign(update, { checks: nextProps.checks });
+        }
+        this.setState(update);
     }
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
