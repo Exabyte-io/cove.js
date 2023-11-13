@@ -10,7 +10,6 @@ const inputs = (commonSettings: { inputMinWidth: string }): Theme["components"] 
                         paddingTop: "3.5px",
                         paddingBottom: "3.5px",
                         fontSize: "13px",
-                        minWidth: commonSettings.inputMinWidth,
                     },
                 },
             ],
