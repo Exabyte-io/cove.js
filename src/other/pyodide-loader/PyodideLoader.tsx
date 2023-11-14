@@ -10,6 +10,7 @@ interface PyodideLoaderProps extends React.ComponentProps<any> {
 declare global {
     interface Window {
         loadPyodide: () => Promise<any>;
+        pyodide: any;
     }
 }
 
@@ -37,8 +38,8 @@ function PyodideLoader({
     const initializePyodide = async () => {
         try {
             await createScriptTag(url);
-            const loadedPyodide = await window.loadPyodide();
-
+            window.pyodide = await window.loadPyodide();
+            const loadedPyodide = window.pyodide;
             await loadedPyodide.loadPackage("micropip");
             setPyodide(loadedPyodide);
             setPyodideInitialized(true);
