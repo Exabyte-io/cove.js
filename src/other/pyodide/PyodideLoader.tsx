@@ -18,6 +18,13 @@ declare global {
 
 const defaultSourceUrl = "https://cdn.jsdelivr.net/pyodide/v0.24.0/full/pyodide.js";
 
+/**
+ * Loads Pyodide in window.pyodide and initializes it with micropip to allow for packages installation.
+ * @param url The URL to load Pyodide from.
+ * @param getPyodide A callback that receives the Pyodide instance once it is loaded.
+ * @param triggerLoad A variable that triggers the loading of Pyodide. If true, Pyodide will be loaded.
+ * @constructor
+ */
 function PyodideLoader({
     url = defaultSourceUrl,
     getPyodide,
