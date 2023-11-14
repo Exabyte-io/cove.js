@@ -2,13 +2,16 @@ import { useEffect, useState } from "react";
 
 interface PyodideLoaderProps {
     url?: string;
+    // @ts-ignore
     getPyodide: (pyodide: any) => void;
     triggerLoad?: boolean;
 }
 
 declare global {
     interface Window {
+        // @ts-ignore
         loadPyodide: () => Promise<any>;
+        // @ts-ignore
         pyodide: any;
     }
 }
