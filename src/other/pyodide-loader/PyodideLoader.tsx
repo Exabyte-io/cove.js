@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
-interface PyodideLoaderProps extends React.ComponentProps<any> {
+interface PyodideLoaderProps {
     url?: string;
     getPyodide: (pyodide: any) => void;
-    children: React.ReactNode;
     triggerLoad?: boolean;
 }
 
@@ -19,7 +18,6 @@ const defaultSourceUrl = "https://cdn.jsdelivr.net/pyodide/v0.24.0/full/pyodide.
 function PyodideLoader({
     url = defaultSourceUrl,
     getPyodide,
-    children,
     triggerLoad = true,
 }: PyodideLoaderProps) {
     const [pyodide, setPyodide] = useState<any>(null);
@@ -60,7 +58,7 @@ function PyodideLoader({
         }
     }, [pyodideInitialized, pyodide]);
 
-    return <div>{children}</div>;
+    return null;
 }
 
 export default PyodideLoader;
