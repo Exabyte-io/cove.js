@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 
-import PyodideContext from "./PyodideContext";
-
-interface PyodideLoaderProps {
+interface PyodideLoaderProps extends React.ComponentProps<any> {
     url?: string;
+    getPyodide: (pyodide: any) => void;
     children: React.ReactNode;
     triggerLoad?: boolean;
 }
@@ -15,18 +14,17 @@ declare global {
 }
 
 const defaultSourceUrl = "https://cdn.jsdelivr.net/pyodide/v0.24.0/full/pyodide.js";
-const importsUrl =
-    "https://raw.githubusercontent.com/Exabyte-io/api-examples/48f86e29c069fc0205216c50b1b98c19634a6445/other/pyodide/imports.py";
 
 function PyodideLoader({
     url = defaultSourceUrl,
+    getPyodide,
     children,
     triggerLoad = true,
 }: PyodideLoaderProps) {
     const [pyodide, setPyodide] = useState<any>(null);
     const [pyodideInitialized, setPyodideInitialized] = useState(false);
 
-    const loadScript = (src: string) => {
+    const createScriptTag = (src: string) => {
         return new Promise<void>((resolve, reject) => {
             const script = document.createElement("script");
             script.src = src;
@@ -38,14 +36,10 @@ function PyodideLoader({
 
     const initializePyodide = async () => {
         try {
-            await loadScript(url);
+            await createScriptTag(url);
             const loadedPyodide = await window.loadPyodide();
+
             await loadedPyodide.loadPackage("micropip");
-
-            const response = await fetch(importsUrl);
-            const pythonCode = await response.text();
-            await loadedPyodide.runPythonAsync(pythonCode);
-
             setPyodide(loadedPyodide);
             setPyodideInitialized(true);
         } catch (error) {
@@ -59,7 +53,13 @@ function PyodideLoader({
         }
     }, [triggerLoad, pyodideInitialized]);
 
-    return <PyodideContext.Provider value={pyodide}>{children}</PyodideContext.Provider>;
+    useEffect(() => {
+        if (pyodideInitialized) {
+            getPyodide(pyodide);
+        }
+    }, [pyodideInitialized, pyodide]);
+
+    return <div>{children}</div>;
 }
 
 export default PyodideLoader;
