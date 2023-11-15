@@ -45,11 +45,12 @@ function PyodideLoader({
 
     const initializePyodide = async () => {
         try {
-            await createScriptTag(url);
-            window.pyodide = await window.loadPyodide();
-            const loadedPyodide = window.pyodide;
-            await loadedPyodide.loadPackage("micropip");
-            setPyodide(loadedPyodide);
+            if (!window.pyodide) {
+                await createScriptTag(url);
+                window.pyodide = await window.loadPyodide();
+                await window.pyodide.loadPackage("micropip");
+            }
+            setPyodide(window.pyodide);
             setPyodideInitialized(true);
         } catch (error) {
             console.error("Could not initialize Pyodide", error);
