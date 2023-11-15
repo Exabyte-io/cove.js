@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 interface PyodideLoaderProps {
     url?: string;
     // @ts-ignore
-    getPyodide: (pyodide: any) => void;
+    onLoad: (pyodide: any) => void;
     triggerLoad?: boolean;
 }
 
@@ -21,15 +21,11 @@ const defaultSourceUrl = "https://cdn.jsdelivr.net/pyodide/v0.24.0/full/pyodide.
 /**
  * Loads Pyodide in window.pyodide and initializes it with micropip to allow for packages installation.
  * @param url The URL to load Pyodide from.
- * @param getPyodide A callback that receives the Pyodide instance once it is loaded.
- * @param triggerLoad A variable that triggers the loading of Pyodide. If true, Pyodide will be loaded.
+ * @param onLoad A callback that receives the Pyodide instance once it is loaded.
+ * @param triggerLoad A variable for conditional loading of Pyodide.
  * @constructor
  */
-function PyodideLoader({
-    url = defaultSourceUrl,
-    getPyodide,
-    triggerLoad = true,
-}: PyodideLoaderProps) {
+function PyodideLoader({ url = defaultSourceUrl, onLoad, triggerLoad = true }: PyodideLoaderProps) {
     const [pyodide, setPyodide] = useState<any>(null);
     const [pyodideInitialized, setPyodideInitialized] = useState(false);
 
@@ -65,7 +61,7 @@ function PyodideLoader({
 
     useEffect(() => {
         if (pyodideInitialized) {
-            getPyodide(pyodide);
+            onLoad(pyodide);
         }
     }, [pyodideInitialized, pyodide]);
 
