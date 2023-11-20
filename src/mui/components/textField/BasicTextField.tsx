@@ -1,6 +1,7 @@
 import { SxProps } from "@mui/material";
-import TextField, { TextFieldProps } from "@mui/material/TextField";
+import TextField from "@mui/material/TextField";
 import React, { HTMLInputTypeAttribute } from "react";
+import s from "underscore.string";
 
 type BasicTextFieldProps = {
     label: string;
@@ -35,6 +36,7 @@ function BasicTextField({
 
     return (
         <TextField
+            className={`text-field-${s.slugify(label)}`}
             type={type}
             sx={sx}
             label={label}

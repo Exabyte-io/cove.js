@@ -45,7 +45,7 @@ export default function BasicSelect({
 
     return (
         <TextField
-            className={`select-${label}`}
+            className={`select-${s.slugify(label)}`}
             disabled={disabled}
             label={s.capitalize(label)}
             value={selectedValue}
