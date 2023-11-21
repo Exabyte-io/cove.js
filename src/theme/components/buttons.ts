@@ -24,12 +24,12 @@ const buttons = (theme: Theme) => {
             {
                 props: { variant: "exablue-contained" },
                 style: {
-                    backgroundColor: theme.palette.primary.dark,
+                    backgroundColor: theme.palette.primary.main,
                     color: "white",
                     boxShadow: theme.shadows[2],
 
                     "&:hover": {
-                        backgroundColor: theme.palette.primary.dark,
+                        backgroundColor: theme.palette.primary.light,
                         boxShadow: theme.shadows[4],
                     },
                     "&.Mui-disabled": {
