@@ -22,7 +22,7 @@ const buttons = (theme: Theme) => {
                 },
             },
             {
-                props: { variant: "exablue-contained" },
+                props: { variant: "exapurple-contained" },
                 style: {
                     backgroundColor: theme.palette.primary.main,
                     color: "white",
