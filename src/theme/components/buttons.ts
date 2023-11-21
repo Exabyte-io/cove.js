@@ -43,6 +43,7 @@ const buttons = (theme: Theme) => {
                     color: theme.palette.primary.main,
                     "&:hover": {
                         backgroundColor: "#3F2A9811", // exapurple-translucent
+                        color: theme.palette.primary.main,
                     },
                     "&.Mui-disabled": {
                         color: theme.palette.text.disabled,
