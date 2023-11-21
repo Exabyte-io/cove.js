@@ -25,7 +25,7 @@ const buttons = (theme: Theme) => {
                 props: { variant: "exapurple-contained" },
                 style: {
                     backgroundColor: theme.palette.primary.main,
-                    color: "white",
+                    color: theme.palette.primary.contrastText,
                     boxShadow: theme.shadows[2],
 
                     "&:hover": {
@@ -33,7 +33,19 @@ const buttons = (theme: Theme) => {
                         boxShadow: theme.shadows[4],
                     },
                     "&.Mui-disabled": {
-                        color: theme.palette.primary.contrastText,
+                        opacity: 0.8,
+                    },
+                },
+            },
+            {
+                props: { variant: "exapurple-text" },
+                style: {
+                    color: theme.palette.primary.main,
+                    "&:hover": {
+                        backgroundColor: "#3F2A9811", // exapurple-translucent
+                    },
+                    "&.Mui-disabled": {
+                        color: theme.palette.text.disabled,
                         opacity: 0.8,
                     },
                 },
