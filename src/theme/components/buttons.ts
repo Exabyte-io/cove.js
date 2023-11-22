@@ -22,7 +22,7 @@ const buttons = (theme: Theme) => {
                 },
             },
             {
-                props: { variant: "exapurple-contained" },
+                props: { variant: "primary-contained" },
                 style: {
                     backgroundColor: theme.palette.primary.main,
                     color: theme.palette.primary.contrastText,
@@ -38,7 +38,7 @@ const buttons = (theme: Theme) => {
                 },
             },
             {
-                props: { variant: "exapurple-text" },
+                props: { variant: "primary-text" },
                 style: {
                     color: theme.palette.primary.main,
                     "&:hover": {
