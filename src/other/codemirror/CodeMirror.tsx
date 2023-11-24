@@ -12,7 +12,6 @@ import { ConsistencyCheck } from "@exabyte-io/code.js/dist/types";
 import CodeMirrorBase, { BasicSetupOptions } from "@uiw/react-codemirror";
 import React from "react";
 
-import { StatefulEntityMixin } from "../../mixins/statefulEntityMixin";
 import { linterGenerator } from "./utils/linterGenerator";
 
 const LANGUAGES_MAP: Record<string, Extension[]> = {
@@ -41,10 +40,8 @@ export interface CodeMirrorState {
     isEditing: boolean;
 }
 
-const CodeMirrorClass = React.Component<CodeMirrorProps, CodeMirrorState>;
-
-// TODO: reuse the methods from `StatefulEntityMixin` to update the state
-class CodeMirror extends StatefulEntityMixin(CodeMirrorClass) {
+// TODO: add `StatefulEntityMixin` to update the state of content and checks
+class CodeMirror extends React.Component<CodeMirrorProps, CodeMirrorState> {
     constructor(props: CodeMirrorProps) {
         super(props);
         this.state = {

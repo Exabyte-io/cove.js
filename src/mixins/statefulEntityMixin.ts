@@ -1,6 +1,7 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { InMemoryEntity } from "@exabyte-io/code.js/dist/entity";
 
+// TODO: figure out correct types for this mixin
 // @ts-ignore
 export const StatefulEntityMixin = (superclass) =>
     class extends superclass {
