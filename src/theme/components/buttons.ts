@@ -22,18 +22,31 @@ const buttons = (theme: Theme) => {
                 },
             },
             {
-                props: { variant: "exablue-contained" },
+                props: { variant: "primary-contained" },
                 style: {
-                    backgroundColor: theme.palette.primary.dark,
-                    color: "white",
+                    backgroundColor: theme.palette.primary.main,
+                    color: theme.palette.primary.contrastText,
                     boxShadow: theme.shadows[2],
 
                     "&:hover": {
-                        backgroundColor: theme.palette.primary.dark,
+                        backgroundColor: theme.palette.primary.light,
                         boxShadow: theme.shadows[4],
                     },
                     "&.Mui-disabled": {
-                        color: theme.palette.primary.contrastText,
+                        opacity: 0.8,
+                    },
+                },
+            },
+            {
+                props: { variant: "primary-text" },
+                style: {
+                    color: theme.palette.primary.main,
+                    "&:hover": {
+                        backgroundColor: "#3F2A9811", // exapurple-translucent
+                        color: theme.palette.primary.main,
+                    },
+                    "&.Mui-disabled": {
+                        color: theme.palette.text.disabled,
                         opacity: 0.8,
                     },
                 },
