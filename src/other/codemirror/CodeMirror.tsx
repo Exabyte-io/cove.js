@@ -24,11 +24,11 @@ const LANGUAGES_MAP: Record<string, Extension[]> = {
 };
 
 export interface CodeMirrorProps {
-    updateContent: (content: string) => void;
+    updateContent?: (content: string) => void;
     content?: string;
     options: boolean | BasicSetupOptions;
     language: string;
-    completions: (context: CompletionContext) => CompletionResult;
+    completions?: (context: CompletionContext) => CompletionResult;
     theme?: "light" | "dark";
     checks?: ConsistencyCheck[];
     readOnly?: boolean;
@@ -83,19 +83,23 @@ class CodeMirror extends React.Component<CodeMirrorProps, CodeMirrorState> {
     }
 
     createExtensions(): Extension[] {
-        const { checks } = this.state;
-        const { completions, language } = this.props;
-        const completionExtension = autocompletion({ override: [completions] });
-        const languageExtensions = LANGUAGES_MAP[language]
-            ? LANGUAGES_MAP[language]
-            : LANGUAGES_MAP.fortran;
+        const { checks, language, completions } = this.props;
+        let extensions: Extension[] = [];
+
+        if (completions) {
+            const completionExtension = autocompletion({ override: [completions] });
+            extensions.push(completionExtension);
+        }
+
+        const languageExtensions = LANGUAGES_MAP[language] || LANGUAGES_MAP.fortran;
+        extensions = extensions.concat(languageExtensions);
 
         if (checks) {
             const linterExtension = linterGenerator(checks);
-            return [completionExtension, linter(linterExtension), ...languageExtensions];
+            extensions.push(linter(linterExtension));
         }
 
-        return [completionExtension, ...languageExtensions];
+        return extensions;
     }
 
     render() {
