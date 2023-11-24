@@ -1,3 +1,4 @@
+/* Legacy Exabyte.io: primary - main: "#1056BE", dark: "#0A3677", light: "#0A6EBD" */
 const palette = {
     primary: {
         main: "#3F2A98",
