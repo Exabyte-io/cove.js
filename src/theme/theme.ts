@@ -89,7 +89,7 @@ const MuiSvgIconSizesOverrides = {
 
 export const theme = createTheme({ palette: lightPalette });
 // default MUI dark theme:
-export const darkTheme = createTheme({ palette: { mode: "dark" } });
+export const darkTheme = createTheme({ palette: { mode: "dark", neutral: lightPalette.neutral } });
 const buildTheme = (theme: Theme) => {
     return createTheme(theme, {
         ...commonSettings,
