@@ -36,9 +36,6 @@ const palette = {
         light: "#03A9F4",
         contrastText: "rgba(0, 0, 0, 0.23)",
     },
-    neutral: {
-        main: "rgba(0, 0, 0, 0.5)",
-    },
     text: {
         primary: "rgba(37, 39, 60, 0.87)",
         secondary: "rgba(76, 78, 100, 0.6)",

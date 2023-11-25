@@ -90,7 +90,7 @@ function DialogModal({
                         </Typography>
                     )}
                     {onClose && (
-                        <IconButton id={`${id}-close-button`} color="neutral" onClick={onClose}>
+                        <IconButton id={`${id}-close-button`} onClick={onClose}>
                             <IconByName name="actions.close" fontSize="small" />
                         </IconButton>
                     )}
@@ -109,7 +109,6 @@ function DialogModal({
                 <Button
                     id={`${id}-cancel-button`}
                     variant="text"
-                    color="neutral"
                     data-dismiss="modal"
                     aria-label={cancelButtonText}
                     onClick={handleCancel}
