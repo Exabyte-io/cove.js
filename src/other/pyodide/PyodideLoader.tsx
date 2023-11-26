@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 
+// TODO: add Pyodide types from https://github.com/pyodide/pyodide/blob/2cdca2ea47ab428087cd9597748a0f87391f60ae/src/js/types.ts#L3
 interface PyodideLoaderProps {
     url?: string;
     // @ts-ignore

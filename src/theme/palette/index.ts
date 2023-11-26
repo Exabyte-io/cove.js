@@ -1,8 +1,9 @@
+/* Legacy Exabyte.io: primary - main: "#1056BE", dark: "#0A3677", light: "#0A6EBD" */
 const palette = {
     primary: {
-        main: "#1056BE", // #3F2A98
-        dark: "#0A3677", // #00114A
-        light: "#0A6EBD", // #533AC0
+        main: "#3F2A98",
+        dark: "#00114A",
+        light: "#533AC0",
         contrastText: "#FFFFFF",
     },
     secondary: {
@@ -34,9 +35,6 @@ const palette = {
         dark: "#01579B",
         light: "#03A9F4",
         contrastText: "rgba(0, 0, 0, 0.23)",
-    },
-    neutral: {
-        main: "rgba(0, 0, 0, 0.5)",
     },
     text: {
         primary: "rgba(37, 39, 60, 0.87)",
