@@ -106,7 +106,7 @@ const patchTheme = (theme: Theme) => {
     });
 };
 
-const LightMaterialUITheme = patchTheme(lightThemePrototype);
+export const LightMaterialUITheme = patchTheme(lightThemePrototype);
 export const DarkMaterialUITheme = patchTheme(darkThemePrototype);
 
 export default LightMaterialUITheme;
