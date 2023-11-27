@@ -87,8 +87,8 @@ const MuiSvgIconSizesOverrides = {
     },
 };
 
-export const lightThemePrototype = createTheme({ palette: {...paletteLight, mode: "light"} });
-export const darkThemePrototype = createTheme({ palette: {...paletteDark, mode: "dark"} });
+const lightThemePrototype = createTheme({ palette: {...paletteLight, mode: "light"} });
+const darkThemePrototype = createTheme({ palette: {...paletteDark, mode: "dark"} });
 
 // TODO: figure out how to avoid having to patch the theme and use the above createTheme() function instead
 const patchTheme = (theme: Theme) => {
