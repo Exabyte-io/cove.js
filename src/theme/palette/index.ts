@@ -51,6 +51,8 @@ const otherColorOptions = {
         light: "#03A9F4",
         contrastText: "rgba(0, 0, 0, 0.23)",
     },
+};
+const otherOptions = {
     text: {
         primary: "rgba(37, 39, 60, 0.87)",
         secondary: "rgba(76, 78, 100, 0.6)",
@@ -85,13 +87,12 @@ const otherColorOptions = {
 };
 
 export const paletteLight = {
-    type: "light",
     ...otherColorOptions,
+    ...otherOptions,
     ...primaryAndSecondaryColorOptionsLight,
 };
 
 export const paletteDark = {
-    type: "dark",
     ...otherColorOptions,
     ...primaryAndSecondaryColorOptionsDark,
 };
