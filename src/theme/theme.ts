@@ -4,7 +4,7 @@ import buttons from "./components/buttons";
 import chips from "./components/chips";
 import inputs from "./components/inputs";
 import tooltips from "./components/tooltips";
-import lightPalette from "./palette";
+import { paletteDark, paletteLight } from "./palette";
 import shadows from "./shadows";
 import typography from "./typography";
 
@@ -55,9 +55,9 @@ const commonSettings = {
         values: {
             xs: 0,
             sm: 600,
-            md: 900,
-            lg: 1200,
-            xl: 1536,
+            md: 960,
+            lg: 1280,
+            xl: 1920,
         },
     },
 };
@@ -87,10 +87,11 @@ const MuiSvgIconSizesOverrides = {
     },
 };
 
-export const theme = createTheme({ palette: lightPalette });
-// default MUI dark theme:
-export const darkTheme = createTheme({ palette: { mode: "dark"} });
-const buildTheme = (theme: Theme) => {
+export const lightThemePrototype = createTheme({ palette: paletteLight });
+export const darkThemePrototype = createTheme({ palette: paletteDark });
+
+// TODO: figure out how to avoid having to patch the theme and use the above createTheme() function instead
+const patchTheme = (theme: Theme) => {
     return createTheme(theme, {
         ...commonSettings,
         typography: typography(theme),
@@ -105,7 +106,7 @@ const buildTheme = (theme: Theme) => {
     });
 };
 
-const LightMaterialUITheme = buildTheme(theme);
-export const DarkMaterialUITheme = buildTheme(darkTheme);
+const LightMaterialUITheme = patchTheme(lightThemePrototype);
+export const DarkMaterialUITheme = patchTheme(darkThemePrototype);
 
 export default LightMaterialUITheme;
