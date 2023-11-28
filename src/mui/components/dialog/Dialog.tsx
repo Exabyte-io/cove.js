@@ -47,7 +47,7 @@ function DialogModal({
     onClose,
     children,
     maxWidth = "sm",
-    dividers = false,
+    dividers = true,
     fullWidth = true,
     isSubmitButtonDisabled = false,
     isSubmitButtonProcessing = false,
