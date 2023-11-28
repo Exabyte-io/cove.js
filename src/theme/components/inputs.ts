@@ -32,6 +32,7 @@ const inputs = (commonSettings: { inputMinWidth: string }): Theme["components"] 
                         paddingTop: "3.5px",
                         paddingBottom: "3.5px",
                     },
+                    "& .MuiAutocomplete-tag": { margin: "0 !important" },
                 },
             },
         },
