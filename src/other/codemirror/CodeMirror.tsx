@@ -14,7 +14,7 @@ import React from "react";
 
 import { linterGenerator } from "./utils/linterGenerator";
 
-const LANGUAGES_MAP: Record<string, Extension[]> = {
+const LANGUAGE_EXTENSIONS_MAP: Record<string, Extension[]> = {
     python: [python()],
     shell: [StreamLanguage.define(shell)],
     fortran: [StreamLanguage.define(fortran)],
@@ -64,11 +64,9 @@ class CodeMirror extends React.Component<CodeMirrorProps, CodeMirrorState> {
         this.setState(update);
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     shouldComponentUpdate(
         nextProps: Readonly<CodeMirrorProps>,
         nextState: Readonly<CodeMirrorState>,
-        nextContext: never,
     ): boolean {
         const { content, checks } = this.state;
         const { content: nextContent, checks: nextChecks } = nextState;
@@ -84,16 +82,17 @@ class CodeMirror extends React.Component<CodeMirrorProps, CodeMirrorState> {
 
     createExtensions(): Extension[] {
         const { checks } = this.state;
-        const { language, completions } = this.props;
-        let extensions: Extension[] = [];
+        const { completions, language } = this.props;
+        const extensions: Extension[] = [];
+
+        const languageExtensions =
+            LANGUAGE_EXTENSIONS_MAP[language] || LANGUAGE_EXTENSIONS_MAP.fortran;
+        extensions.push(...languageExtensions);
 
         if (completions) {
             const completionExtension = autocompletion({ override: [completions] });
             extensions.push(completionExtension);
         }
-
-        const languageExtensions = LANGUAGES_MAP[language] || LANGUAGES_MAP.fortran;
-        extensions = extensions.concat(languageExtensions);
 
         if (checks) {
             const linterExtension = linterGenerator(checks);
