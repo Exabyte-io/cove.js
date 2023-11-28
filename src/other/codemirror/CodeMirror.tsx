@@ -83,7 +83,8 @@ class CodeMirror extends React.Component<CodeMirrorProps, CodeMirrorState> {
     }
 
     createExtensions(): Extension[] {
-        const { checks, language, completions } = this.props;
+        const { checks } = this.state;
+        const { language, completions } = this.props;
         let extensions: Extension[] = [];
 
         if (completions) {
