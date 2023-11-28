@@ -83,6 +83,7 @@ import Lock from "@mui/icons-material/Lock";
 import LoginOutlined from "@mui/icons-material/LoginOutlined";
 import LogoutOutlined from "@mui/icons-material/LogoutOutlined";
 import LooksOne from "@mui/icons-material/LooksOne";
+import Loop from "@mui/icons-material/Loop";
 import Memory from "@mui/icons-material/Memory";
 import Menu from "@mui/icons-material/Menu";
 import Message from "@mui/icons-material/Message";
@@ -359,6 +360,7 @@ const iconComponentMap: Record<string, typeof SvgIcon | ReturnType<typeof rotate
     "shapes.lock": Lock,
     "shapes.drag": DragIndicator,
     "shapes.blurCircular": BlurCircularOutlined,
+    "shapes.loop": Loop,
     // @ts-ignore
     empty: Icon,
 };

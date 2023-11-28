@@ -109,3 +109,6 @@ npm run lint:fix
 In which case, you may need to then add the linter edits to your staging, which in the example above, puts the
 file back to identical with the base branch, resulting in no staged changes whatsoever.
 
+## Notes
+
+Legacy Exabyte.io colors: main: "#1056BE", dark: "#0A3677", light: "#0A6EBD".
