@@ -22,36 +22,6 @@ const buttons = (theme: Theme) => {
                 },
             },
             {
-                props: { variant: "primary-contained" },
-                style: {
-                    backgroundColor: theme.palette.primary.main,
-                    color: theme.palette.primary.contrastText,
-                    boxShadow: theme.shadows[2],
-
-                    "&:hover": {
-                        backgroundColor: theme.palette.primary.light,
-                        boxShadow: theme.shadows[4],
-                    },
-                    "&.Mui-disabled": {
-                        opacity: 0.8,
-                    },
-                },
-            },
-            {
-                props: { variant: "primary-text" },
-                style: {
-                    color: theme.palette.primary.main,
-                    "&:hover": {
-                        backgroundColor: "#3F2A9811", // exapurple-translucent
-                        color: theme.palette.primary.main,
-                    },
-                    "&.Mui-disabled": {
-                        color: theme.palette.text.disabled,
-                        opacity: 0.8,
-                    },
-                },
-            },
-            {
                 props: { variant: "selected" },
                 style: {
                     backgroundColor: "rgba(16,86,190,0.1)",
