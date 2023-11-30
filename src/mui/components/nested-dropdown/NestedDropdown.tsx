@@ -21,7 +21,6 @@ export interface NestedDropdownAction {
     id: string;
     disabled: boolean;
     shouldMenuStayOpened?: boolean;
-    key?: string;
     isActive?: boolean;
     isShown?: boolean;
     isSelected?: boolean;
@@ -168,9 +167,7 @@ export default function NestedDropdown({
                                             ?.filter(({ isShown }) => isShown !== false)
                                             .map((action) => {
                                                 if (action.isDivider) {
-                                                    return (
-                                                        <Divider key={action.key || action.id} />
-                                                    );
+                                                    return <Divider key={action.id} />;
                                                 }
                                                 if (action.actions) {
                                                     return (
@@ -184,7 +181,7 @@ export default function NestedDropdown({
                                                             <NestedDropdownItem
                                                                 disabled={action.disabled}
                                                                 id={action.id}
-                                                                key={action.key || action.id}
+                                                                key={action.id}
                                                                 // TODO: detect whether the popper opens to the left or to the right and render only corresponding default icon, currently works only with explicit left/right placement
                                                                 leftIcon={
                                                                     action.leftIcon ||
@@ -216,7 +213,7 @@ export default function NestedDropdown({
                                                         leftIcon={action.leftIcon}
                                                         content={action.content}
                                                         rightIcon={action.rightIcon}
-                                                        key={action.key || action.id}
+                                                        key={action.id}
                                                         typographyProps={{
                                                             variant: isMobile ? "body2" : "body1",
                                                             color: theme.palette.text.primary,
