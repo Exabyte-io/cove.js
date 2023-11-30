@@ -175,6 +175,7 @@ export default function NestedDropdown({
                                                 if (action.actions) {
                                                     return (
                                                         <NestedDropdown
+                                                            key={action.key || action.id}
                                                             actions={action.actions}
                                                             header={action.header}
                                                             paperPlacement={

@@ -21,7 +21,6 @@ const StyledBox = styled(Box)(({ theme }: { theme: Theme }) => ({
 export interface DropdownItemProps {
     disabled: boolean;
     id: string;
-    key?: string;
     onClick?: (id: string) => void;
     isActive?: boolean;
     leftIcon?: React.ReactElement;
@@ -38,7 +37,6 @@ export interface DropdownItemProps {
 export function NestedDropdownItem({
     disabled = false,
     id,
-    key,
     onClick,
     isActive = false,
     leftIcon,
@@ -54,7 +52,7 @@ export function NestedDropdownItem({
 
     return (
         <MenuItem
-            key={key}
+            key={id}
             id={id}
             disabled={disabled}
             onClick={onItemClick}
