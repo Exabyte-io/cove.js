@@ -9,6 +9,7 @@ export interface AvailableValue {
 }
 
 type BasicSelectProps = {
+    id: string;
     disabled?: boolean;
     selectedValue: string;
     options: AvailableValue[];
@@ -19,6 +20,7 @@ type BasicSelectProps = {
 };
 
 export default function BasicSelect({
+    id = "",
     disabled = false,
     selectedValue,
     options,
@@ -45,6 +47,7 @@ export default function BasicSelect({
 
     return (
         <TextField
+            id={id}
             className={`select-${s.slugify(label)}`}
             disabled={disabled}
             label={s.capitalize(label)}
