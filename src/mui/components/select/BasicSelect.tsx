@@ -51,7 +51,7 @@ export default function BasicSelect({
             className={`select-${s.slugify(label)}`}
             disabled={disabled}
             label={s.capitalize(label)}
-            value={selectedValue}
+            defaultValue={selectedValue}
             onChange={(e) => onChange(e.target.value)}
             variant="outlined"
             fullWidth
