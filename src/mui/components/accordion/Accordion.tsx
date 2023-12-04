@@ -13,7 +13,9 @@ import IconByName from "../icon/IconByName";
 // deletes header animation in accordion
 const StyledAccordion = withStyles({
     root: {
-        margin: "0",
+        "&$expanded": {
+            margin: "0",
+        },
     },
     expanded: {},
 })(MuiAccordion);
@@ -22,13 +24,18 @@ const StyledAccordion = withStyles({
 const AccordionSummary = withStyles({
     root: {
         minHeight: "48px",
-        margin: "0",
+        "&$expanded": {
+            minHeight: "48px",
+            margin: "0",
+        },
     },
     content: {
         display: "flex",
         justifyContent: "space-between",
         alignItems: "center",
-        margin: "0",
+        "&$expanded": {
+            margin: "0",
+        },
     },
     expanded: {},
 })(MuiAccordionSummary);
