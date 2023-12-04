@@ -24,6 +24,7 @@ const StyledAccordion = withStyles({
 const AccordionSummary = withStyles({
     root: {
         minHeight: "48px",
+        margin: "0",
         "&$expanded": {
             minHeight: "48px",
             margin: "0",
