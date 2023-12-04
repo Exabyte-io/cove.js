@@ -3,10 +3,10 @@ import TextField from "@mui/material/TextField";
 import React from "react";
 import s from "underscore.string";
 
-export type AvailableValue = {
+export interface AvailableValue {
     id: string | undefined;
     name: string;
-};
+}
 
 type BasicSelectProps = {
     disabled?: boolean;
