@@ -12,10 +12,9 @@ import { ConsistencyCheck } from "@exabyte-io/code.js/dist/types";
 import CodeMirrorBase, { BasicSetupOptions } from "@uiw/react-codemirror";
 import React from "react";
 
-import { StatefulEntityMixin } from "../../mixins/statefulEntityMixin";
 import { linterGenerator } from "./utils/linterGenerator";
 
-const LANGUAGES_MAP: Record<string, Extension[]> = {
+const LANGUAGE_EXTENSIONS_MAP: Record<string, Extension[]> = {
     python: [python()],
     shell: [StreamLanguage.define(shell)],
     fortran: [StreamLanguage.define(fortran)],
@@ -25,11 +24,11 @@ const LANGUAGES_MAP: Record<string, Extension[]> = {
 };
 
 export interface CodeMirrorProps {
-    updateContent: (content: string) => void;
+    updateContent?: (content: string) => void;
     content?: string;
     options: boolean | BasicSetupOptions;
     language: string;
-    completions: (context: CompletionContext) => CompletionResult;
+    completions?: (context: CompletionContext) => CompletionResult;
     theme?: "light" | "dark";
     checks?: ConsistencyCheck[];
     readOnly?: boolean;
@@ -41,10 +40,8 @@ export interface CodeMirrorState {
     isEditing: boolean;
 }
 
-const CodeMirrorClass = React.Component<CodeMirrorProps, CodeMirrorState>;
-
-// TODO: reuse the methods from `StatefulEntityMixin` to update the state
-class CodeMirror extends StatefulEntityMixin(CodeMirrorClass) {
+// TODO: add `StatefulEntityMixin` to update the state of content and checks
+class CodeMirror extends React.Component<CodeMirrorProps, CodeMirrorState> {
     constructor(props: CodeMirrorProps) {
         super(props);
         this.state = {
@@ -67,11 +64,9 @@ class CodeMirror extends StatefulEntityMixin(CodeMirrorClass) {
         this.setState(update);
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     shouldComponentUpdate(
         nextProps: Readonly<CodeMirrorProps>,
         nextState: Readonly<CodeMirrorState>,
-        nextContext: never,
     ): boolean {
         const { content, checks } = this.state;
         const { content: nextContent, checks: nextChecks } = nextState;
@@ -88,17 +83,23 @@ class CodeMirror extends StatefulEntityMixin(CodeMirrorClass) {
     createExtensions(): Extension[] {
         const { checks } = this.state;
         const { completions, language } = this.props;
-        const completionExtension = autocompletion({ override: [completions] });
-        const languageExtensions = LANGUAGES_MAP[language]
-            ? LANGUAGES_MAP[language]
-            : LANGUAGES_MAP.fortran;
+        const extensions: Extension[] = [];
+
+        const languageExtensions =
+            LANGUAGE_EXTENSIONS_MAP[language] || LANGUAGE_EXTENSIONS_MAP.fortran;
+        extensions.push(...languageExtensions);
+
+        if (completions) {
+            const completionExtension = autocompletion({ override: [completions] });
+            extensions.push(completionExtension);
+        }
 
         if (checks) {
             const linterExtension = linterGenerator(checks);
-            return [completionExtension, linter(linterExtension), ...languageExtensions];
+            extensions.push(linter(linterExtension));
         }
 
-        return [completionExtension, ...languageExtensions];
+        return extensions;
     }
 
     render() {

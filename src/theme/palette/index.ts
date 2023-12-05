@@ -1,16 +1,32 @@
-const palette = {
+// Note: https://bareynol.github.io/mui-theme-creator/#Dialog can be used to preview theme changes
+
+const primaryColorConfig = {
+    main: "#5b37c0",
+    // To be better readable on dark backgrounds
+    lighter: "#7c5fcd",
+};
+
+const secondaryColorConfig = {
+    main: "#757575",
+};
+
+const primaryAndSecondaryColorOptionsLight = {
     primary: {
-        main: "#1056BE", // #3F2A98
-        dark: "#0A3677", // #00114A
-        light: "#0A6EBD", // #533AC0
-        contrastText: "#FFFFFF",
+        main: primaryColorConfig.main,
     },
     secondary: {
-        main: "#03DAC6",
-        dark: "#018786",
-        light: "#23E0CF",
-        contrastText: "#FFFFFF",
+        main: secondaryColorConfig.main,
     },
+};
+const primaryAndSecondaryColorOptionsDark = {
+    primary: {
+        main: primaryColorConfig.lighter,
+    },
+    secondary: {
+        main: secondaryColorConfig.main,
+    },
+};
+const otherColorOptions = {
     success: {
         main: "#72E128",
         dark: "#64C623",
@@ -35,9 +51,8 @@ const palette = {
         light: "#03A9F4",
         contrastText: "rgba(0, 0, 0, 0.23)",
     },
-    neutral: {
-        main: "rgba(0, 0, 0, 0.5)",
-    },
+};
+const otherOptions = {
     text: {
         primary: "rgba(37, 39, 60, 0.87)",
         secondary: "rgba(76, 78, 100, 0.6)",
@@ -71,4 +86,13 @@ const palette = {
     },
 };
 
-export default palette;
+export const paletteLight = {
+    ...otherColorOptions,
+    ...otherOptions,
+    ...primaryAndSecondaryColorOptionsLight,
+};
+
+export const paletteDark = {
+    ...otherColorOptions,
+    ...primaryAndSecondaryColorOptionsDark,
+};
