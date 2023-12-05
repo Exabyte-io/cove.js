@@ -79,6 +79,7 @@ export default function SelectComponent({
                 label={label}
                 value={value}
                 multiple={multiple}
+                size={size}
                 sx={{
                     width: "100%",
                     minHeight: 56,
