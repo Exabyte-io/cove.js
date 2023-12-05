@@ -69,7 +69,7 @@ export default function SelectComponent({
                 <InputLabel
                     id={`${id}-label`}
                     sx={{ fontSize }}
-                    size={size === "small" ? "small" : "normal"}>
+                    size={size === "small" ? size : "normal"}>
                     {label}
                 </InputLabel>
             ) : null}
@@ -82,7 +82,6 @@ export default function SelectComponent({
                 size={size}
                 sx={{
                     width: "100%",
-                    minHeight: 56,
                     fontSize,
                     ...sx,
                 }}
