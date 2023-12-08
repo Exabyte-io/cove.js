@@ -45,6 +45,7 @@ import Download from "@mui/icons-material/Download";
 import DragIndicator from "@mui/icons-material/DragIndicator";
 import Edit from "@mui/icons-material/Edit";
 import Email from "@mui/icons-material/Email";
+import ErrorOutline from "@mui/icons-material/ErrorOutline";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import Face from "@mui/icons-material/Face";
 import FilterDrama from "@mui/icons-material/FilterDrama";
@@ -65,6 +66,7 @@ import Hexagon from "@mui/icons-material/Hexagon";
 import Home from "@mui/icons-material/Home";
 import Hub from "@mui/icons-material/Hub";
 import Info from "@mui/icons-material/Info";
+import InfoOutlined from "@mui/icons-material/InfoOutlined";
 import Input from "@mui/icons-material/Input";
 import InsertDriveFile from "@mui/icons-material/InsertDriveFile";
 import KeyboardArrowDown from "@mui/icons-material/KeyboardArrowDown";
@@ -112,8 +114,8 @@ import Receipt from "@mui/icons-material/Receipt";
 import Refresh from "@mui/icons-material/Refresh";
 import RemoveCircleOutline from "@mui/icons-material/RemoveCircleOutline";
 import Replay from "@mui/icons-material/Replay";
+import ReportProblemOutlined from "@mui/icons-material/ReportProblemOutlined";
 import Save from "@mui/icons-material/Save";
-import SavedSearch from "@mui/icons-material/SavedSearch";
 import School from "@mui/icons-material/School";
 import Search from "@mui/icons-material/Search";
 import Send from "@mui/icons-material/Send";
@@ -134,6 +136,7 @@ import SwapCalls from "@mui/icons-material/SwapCalls";
 import SwapVert from "@mui/icons-material/SwapVert";
 import Sync from "@mui/icons-material/Sync";
 import SystemUpdateAlt from "@mui/icons-material/SystemUpdateAlt";
+import TaskAlt from "@mui/icons-material/TaskAlt";
 import Terminal from "@mui/icons-material/Terminal";
 import Toc from "@mui/icons-material/Toc";
 import Tune from "@mui/icons-material/Tune";
@@ -335,6 +338,11 @@ const iconComponentMap: Record<string, typeof SvgIcon | ReturnType<typeof rotate
     "actions.upload": Publish,
     "actions.uploadFile": UploadFile,
     "actions.visualize": OpenInBrowser,
+
+    "status.info": InfoOutlined,
+    "status.warning": ReportProblemOutlined,
+    "status.error": ErrorOutline,
+    "status.success": TaskAlt,
 
     "shapes.arrow.doubleUp": DoubleArrow,
     "shapes.arrow.down": KeyboardArrowDown,
