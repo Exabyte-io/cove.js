@@ -26,7 +26,7 @@ interface QuotaAlertProps {
     fontSize?: number;
 }
 
-export function Alert({ variation = Statuses.INFO, message = "", sx, fontSize }: QuotaAlertProps) {
+function Alert({ variation = Statuses.INFO, message = "", sx, fontSize }: QuotaAlertProps) {
     const theme = useTheme();
     let color: string;
     let iconName: string;
