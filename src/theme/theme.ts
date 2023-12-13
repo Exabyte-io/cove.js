@@ -6,7 +6,7 @@ import inputs from "./components/inputs";
 import tooltips from "./components/tooltips";
 import { paletteDark, paletteLight } from "./palette";
 import shadows from "./shadows";
-import typography from "./typography";
+import oldTypography, { Typography } from "./typography";
 
 export const sizesConfig = {
     buttonPrimary: {
@@ -91,7 +91,7 @@ const lightThemePrototype = createTheme({ palette: { ...paletteLight, mode: "lig
 const darkThemePrototype = createTheme({ palette: { ...paletteDark, mode: "dark" } });
 
 // TODO: figure out how to avoid having to patch the theme and use the above createTheme() function instead
-const patchTheme = (theme: Theme) => {
+const patchTheme = (theme: Theme, typography: any) => {
     return createTheme(theme, {
         ...commonSettings,
         typography: typography(theme),
@@ -106,7 +106,10 @@ const patchTheme = (theme: Theme) => {
     });
 };
 
-export const LightMaterialUITheme = patchTheme(lightThemePrototype);
-export const DarkMaterialUITheme = patchTheme(darkThemePrototype);
+export const oldLightMaterialUITheme = patchTheme(lightThemePrototype, oldTypography);
+export const LightMaterialUITheme = patchTheme(lightThemePrototype, Typography);
+export const DarkMaterialUITheme = patchTheme(darkThemePrototype, Typography);
 
-export default LightMaterialUITheme;
+// Temporarily use oldTypography for compatibility purposes with the web app.
+// TODO: make light and dark themes both use Typography and remove "old".
+export default oldLightMaterialUITheme;
