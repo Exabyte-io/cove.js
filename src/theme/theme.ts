@@ -1,3 +1,4 @@
+import darkScrollbar from "@mui/material/darkScrollbar";
 import { createTheme, Theme } from "@mui/material/styles";
 
 import buttons from "./components/buttons";
@@ -86,6 +87,15 @@ const MuiSvgIconSizesOverrides = {
         ],
     },
 };
+// Used to make scrollbars dark in dark mode per https://mui.com/material-ui/react-css-baseline/#scrollbars
+// Otherwise, b/c the Dialogs are appended to the body, they will have light scrollbars in dark mode
+const MuiCssBaselineOverrides = {
+    MuiCssBaseline: {
+        styleOverrides: (themeParam: Theme) => ({
+            body: themeParam.palette.mode === "dark" ? darkScrollbar() : null,
+        }),
+    },
+};
 
 const lightThemePrototype = createTheme({ palette: { ...paletteLight, mode: "light" } });
 const darkThemePrototype = createTheme({ palette: { ...paletteDark, mode: "dark" } });
@@ -102,6 +112,7 @@ const patchTheme = (theme: Theme, typography: any) => {
             ...tooltips(),
             ...inputs(commonSettings),
             ...MuiSvgIconSizesOverrides,
+            ...MuiCssBaselineOverrides,
         },
     });
 };
