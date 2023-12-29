@@ -20,7 +20,8 @@
  *    ]}
  *    localStorageKey="myButtonSelectKey"
  *    size="medium"
- *    compact={true}
+ *    isLoading={false}
+ *    isCompact={true}
  * />
  * ```
  */
