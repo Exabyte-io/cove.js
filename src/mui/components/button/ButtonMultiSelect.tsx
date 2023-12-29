@@ -9,7 +9,6 @@
  * Usage:
  * To use this component, define an array of ButtonConfig objects, each representing a button's configuration.
  * Pass this array along with a localStorage key (for saving the selected button's state) to the component.
- * Optionally, you can also specify the size of the buttons (see https://mui.com/material-ui/react-button/#sizes).
  *
  * Example:
  * ```
