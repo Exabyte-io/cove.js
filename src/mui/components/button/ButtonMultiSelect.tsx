@@ -20,6 +20,7 @@
  *    ]}
  *    localStorageKey="myButtonSelectKey"
  *    size="medium"
+ *    compact={true}
  * />
  * ```
  */
@@ -46,6 +47,7 @@ type ButtonMultiSelectProps = {
     size?: "small" | "medium" | "large";
     localStorageKey: string;
     isLoading?: boolean;
+    isCompact?: boolean;
 };
 
 function ButtonMultiSelect({
@@ -54,6 +56,7 @@ function ButtonMultiSelect({
     size = "small",
     localStorageKey,
     isLoading = false,
+    isCompact = false,
 }: ButtonMultiSelectProps) {
     const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
     const [selectedOption, setSelectedOption] = useState<ButtonConfig>(buttonConfigs[0]);
@@ -87,11 +90,7 @@ function ButtonMultiSelect({
 
     return (
         <>
-            <ButtonGroup
-                variant="contained"
-                size={size}
-                aria-label="outlined primary button group"
-                sx={{ height: "fit-content" }}>
+            <ButtonGroup variant="contained" size={size} sx={{ height: "fit-content" }}>
                 <LoadingButton
                     id={id}
                     ref={mainButtonRef}
@@ -99,8 +98,14 @@ function ButtonMultiSelect({
                     onClick={selectedOption.onClick}
                     variant="contained"
                     loading={isLoading}
-                    startIcon={<IconByName name={selectedOption.iconName} fontSize={size} />}>
-                    {selectedOption.label}
+                    startIcon={
+                        !isCompact && <IconByName name={selectedOption.iconName} fontSize={size} />
+                    }>
+                    {isCompact ? (
+                        <IconByName name={selectedOption.iconName} fontSize={size} />
+                    ) : (
+                        selectedOption.label
+                    )}
                 </LoadingButton>
                 <Button onClick={handleExpandClick} size={size}>
                     <IconByName name="shapes.arrow.dropdown" fontSize={size} />
