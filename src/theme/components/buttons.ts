@@ -2,8 +2,10 @@ import { Theme } from "@mui/material/styles";
 
 const buttons = (theme: Theme) => {
     const config = {
-        root: {
-            whiteSpace: "nowrap",
+        styleOverrides: {
+            root: {
+                whiteSpace: "nowrap",
+            },
         },
         variants: [
             {
@@ -31,8 +33,6 @@ const buttons = (theme: Theme) => {
                     color: theme.palette.primary.main,
                     boxShadow: theme.shadows[2],
                     padding: "8px 22px",
-                    whiteSpace: "nowrap", // Add this line
-
                     "&:hover": {
                         backgroundColor: "rgba(16,86,190,0.2)",
                     },
