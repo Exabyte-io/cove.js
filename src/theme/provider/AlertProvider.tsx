@@ -6,45 +6,23 @@ import React, { forwardRef } from "react";
 
 const useStyles = makeStyles({
     root: {
-        maxWidth: "450px",
+        maxWidth: "500px",
     },
 });
 
-const errorAlert = forwardRef<HTMLDivElement, CustomContentProps>(({ id, ...props }, ref) => {
-    const { closeSnackbar } = useSnackbar();
-    return (
-        <SnackbarContent ref={ref}>
-            <Alert severity="error" onClose={() => closeSnackbar(id)} {...props} />;
-        </SnackbarContent>
-    );
-});
-
-const warningAlert = forwardRef<HTMLDivElement, CustomContentProps>(({ id, ...props }, ref) => {
-    const { closeSnackbar } = useSnackbar();
-    return (
-        <SnackbarContent ref={ref}>
-            <Alert severity="warning" onClose={() => closeSnackbar(id)} {...props} />;
-        </SnackbarContent>
-    );
-});
-
-const infoAlert = forwardRef<HTMLDivElement, CustomContentProps>(({ id, ...props }, ref) => {
-    const { closeSnackbar } = useSnackbar();
-    return (
-        <SnackbarContent ref={ref}>
-            <Alert severity="info" onClose={() => closeSnackbar(id)} {...props} />;
-        </SnackbarContent>
-    );
-});
-
-const successAlert = forwardRef<HTMLDivElement, CustomContentProps>(({ id, ...props }, ref) => {
-    const { closeSnackbar } = useSnackbar();
-    return (
-        <SnackbarContent ref={ref}>
-            <Alert severity="success" onClose={() => closeSnackbar(id)} {...props} />;
-        </SnackbarContent>
-    );
-});
+const customAlert = forwardRef<HTMLDivElement, CustomContentProps>(
+    ({ id, variant, ...props }, ref) => {
+        const { closeSnackbar } = useSnackbar();
+        const mappedVariant = variant === "default" ? "info" : variant;
+        return (
+            <SnackbarContent ref={ref}>
+                <Alert severity={mappedVariant} onClose={() => closeSnackbar(id)}>
+                    {props.message}
+                </Alert>
+            </SnackbarContent>
+        );
+    },
+);
 
 export function AlertProvider({ children }: { children: React.ReactNode }) {
     const classes = useStyles();
@@ -54,10 +32,11 @@ export function AlertProvider({ children }: { children: React.ReactNode }) {
             maxSnack={3}
             autoHideDuration={4000}
             Components={{
-                error: errorAlert,
-                warning: warningAlert,
-                info: infoAlert,
-                success: successAlert,
+                error: customAlert,
+                warning: customAlert,
+                info: customAlert,
+                success: customAlert,
+                default: customAlert,
             }}
             anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
             classes={{ containerRoot: classes.root }}>
