@@ -16,7 +16,11 @@ const customAlert = forwardRef<HTMLDivElement, CustomContentProps>(
         const mappedVariant = variant === "default" ? "info" : variant;
         return (
             <SnackbarContent ref={ref}>
-                <Alert severity={mappedVariant} onClose={() => closeSnackbar(id)} variant="filled">
+                <Alert
+                    severity={mappedVariant}
+                    className={`alert alert-${mappedVariant}`}
+                    onClose={() => closeSnackbar(id)}
+                    variant="filled">
                     {props.message}
                 </Alert>
             </SnackbarContent>
