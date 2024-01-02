@@ -1,9 +1,8 @@
-import IconButton from "@mui/material/IconButton";
+/* eslint-disable react/jsx-props-no-spreading */
+import Alert from "@mui/material/Alert";
 import { makeStyles } from "@mui/styles";
-import { closeSnackbar, SnackbarKey, SnackbarProvider } from "notistack";
-import React from "react";
-
-import IconByName from "../../mui/components/icon/IconByName";
+import { CustomContentProps, SnackbarContent, SnackbarProvider, useSnackbar } from "notistack";
+import React, { forwardRef } from "react";
 
 const useStyles = makeStyles({
     root: {
@@ -11,19 +10,55 @@ const useStyles = makeStyles({
     },
 });
 
+const errorAlert = forwardRef<HTMLDivElement, CustomContentProps>(({ id, ...props }, ref) => {
+    const { closeSnackbar } = useSnackbar();
+    return (
+        <SnackbarContent ref={ref}>
+            <Alert severity="error" onClose={() => closeSnackbar(id)} {...props} />;
+        </SnackbarContent>
+    );
+});
+
+const warningAlert = forwardRef<HTMLDivElement, CustomContentProps>(({ id, ...props }, ref) => {
+    const { closeSnackbar } = useSnackbar();
+    return (
+        <SnackbarContent ref={ref}>
+            <Alert severity="warning" onClose={() => closeSnackbar(id)} {...props} />;
+        </SnackbarContent>
+    );
+});
+
+const infoAlert = forwardRef<HTMLDivElement, CustomContentProps>(({ id, ...props }, ref) => {
+    const { closeSnackbar } = useSnackbar();
+    return (
+        <SnackbarContent ref={ref}>
+            <Alert severity="info" onClose={() => closeSnackbar(id)} {...props} />;
+        </SnackbarContent>
+    );
+});
+
+const successAlert = forwardRef<HTMLDivElement, CustomContentProps>(({ id, ...props }, ref) => {
+    const { closeSnackbar } = useSnackbar();
+    return (
+        <SnackbarContent ref={ref}>
+            <Alert severity="success" onClose={() => closeSnackbar(id)} {...props} />;
+        </SnackbarContent>
+    );
+});
+
 export function AlertProvider({ children }: { children: React.ReactNode }) {
     const classes = useStyles();
 
-    const closeButton = (snackbarId: SnackbarKey) => (
-        <IconButton onClick={() => closeSnackbar(snackbarId)}>
-            <IconByName name="actions.close" />
-        </IconButton>
-    );
     return (
         <SnackbarProvider
             maxSnack={3}
             autoHideDuration={4000}
-            action={closeButton}
+            Components={{
+                error: errorAlert,
+                warning: warningAlert,
+                info: infoAlert,
+                success: successAlert,
+            }}
             anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
             classes={{ containerRoot: classes.root }}>
             {children}
