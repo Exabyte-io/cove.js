@@ -2,6 +2,12 @@ import { Theme } from "@mui/material/styles";
 
 const buttons = (theme: Theme) => {
     const config = {
+        styleOverrides: {
+            root: {
+                // b/c of https://github.com/material-components/material-components-web/issues/4894
+                whiteSpace: "nowrap",
+            },
+        },
         variants: [
             {
                 props: { size: "large" },
@@ -28,7 +34,6 @@ const buttons = (theme: Theme) => {
                     color: theme.palette.primary.main,
                     boxShadow: theme.shadows[2],
                     padding: "8px 22px",
-
                     "&:hover": {
                         backgroundColor: "rgba(16,86,190,0.2)",
                     },
