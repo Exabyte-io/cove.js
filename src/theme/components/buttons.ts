@@ -4,6 +4,7 @@ const buttons = (theme: Theme) => {
     const config = {
         styleOverrides: {
             root: {
+                // b/c of https://github.com/material-components/material-components-web/issues/4894
                 whiteSpace: "nowrap",
             },
         },
