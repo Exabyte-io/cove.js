@@ -51,6 +51,10 @@ const commonSettings = {
                 height: "30px",
             },
         },
+        input: {
+            defaultLineHeight: "1.3125rem",
+            largeLineHeight: "1.375rem",
+        },
     },
     breakpoints: {
         values: {
@@ -107,10 +111,10 @@ const patchTheme = (theme: Theme, typography: any) => {
         typography: typography(theme),
         shadows: shadows(theme),
         components: {
-            ...buttons(theme),
+            ...buttons(theme, commonSettings),
             ...chips(),
             ...tooltips(),
-            ...inputs(commonSettings),
+            ...inputs(theme, commonSettings),
             ...MuiSvgIconSizesOverrides,
             ...MuiCssBaselineOverrides,
         },
