@@ -28,6 +28,9 @@ const buttons = (
                     "&.MuiIconButton-sizeLarge": {
                         padding: `calc(${theme.spacing(2)} - 5px)`,
                     },
+                    "&.MuiIconButton-root .MuiSvgIcon-root": {
+                        fontSize: "24px",
+                    },
                 },
             },
         },
