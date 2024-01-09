@@ -41,6 +41,15 @@ const inputs = (theme: Theme, commonSettings: { inputMinWidth: string }): Theme[
                 },
             },
         },
+        MuiAutocomplete: {
+            styleOverrides: {
+                root: {
+                    "& .MuiAutoComplete-endAdornment .MuiIconButton-root": {
+                        padding: 0,
+                    },
+                },
+            },
+        },
     };
 };
 
