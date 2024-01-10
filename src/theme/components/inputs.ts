@@ -72,7 +72,7 @@ const inputs = (theme: Theme, commonSettings: { inputMinWidth: string }): Theme[
                     "& .MuiFilledInput-root": {
                         paddingTop: "11px",
                     },
-                    "& .MuiAutoComplete-inputRoot.MuiOutlinedInput-root": {
+                    "& .MuiAutocomplete-inputRoot.MuiOutlinedInput-root": {
                         paddingTop: "5px",
                         paddingBottom: "5px",
                     },
@@ -80,7 +80,7 @@ const inputs = (theme: Theme, commonSettings: { inputMinWidth: string }): Theme[
                         paddingTop: "14px",
                         paddingBottom: "3px",
                     },
-                    "& .MuiInputBase-sizeSmall.MuiAutoComplete-inputRoot.MuiOutlinedInput-root": {
+                    "& .MuiInputBase-sizeSmall.MuiAutocomplete-inputRoot.MuiOutlinedInput-root": {
                         paddingTop: "6px",
                         paddingBottom: "6px",
                     },
