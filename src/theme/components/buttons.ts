@@ -4,75 +4,47 @@ const buttons = (
     theme: Theme,
     commonSettings: {
         sizes: {
-            input: {
-                defaultLineHeight: string;
-                largeLineHeight: string;
+            button: {
+                height: {
+                    small: string;
+                    medium: string;
+                    large: string;
+                };
+                icon: {
+                    small: string;
+                    medium: string;
+                    large: string;
+                };
+                startIcon: {
+                    small: string;
+                    medium: string;
+                    large: string;
+                };
             };
         };
     },
 ) => {
-    const { defaultLineHeight, largeLineHeight } = commonSettings.sizes.input;
-
-    const buttonPaddings = {
-        unbordered: {
-            small: {
-                paddingTop: `calc(${theme.spacing(1)} + 1px)`,
-                paddingBottom: `calc(${theme.spacing(1)} + 1px)`,
-                paddingLeft: `calc(${theme.spacing(1.5)} + 1px)`,
-                paddingRight: `calc(${theme.spacing(1.5)} + 1px)`,
-            },
-            medium: {
-                paddingTop: `calc(${theme.spacing(1.5)} + 1px)`,
-                paddingBottom: `calc(${theme.spacing(1.5)} + 1px)`,
-                paddingLeft: `calc(${theme.spacing(2)} + 1px)`,
-                paddingRight: `calc(${theme.spacing(2)} + 1px)`,
-            },
-            large: {
-                paddingTop: `calc(${theme.spacing(2)} + 1px)`,
-                paddingBottom: `calc(${theme.spacing(2)} + 1px)`,
-                paddingLeft: `calc(${theme.spacing(2.5)} + 1px)`,
-                paddingRight: `calc(${theme.spacing(2.5)} + 1px)`,
-            },
-        },
-        bordered: {
-            small: {
-                paddingTop: theme.spacing(1),
-                paddingBottom: theme.spacing(1),
-                paddingLeft: theme.spacing(1.5),
-                paddingRight: theme.spacing(1.5),
-            },
-            medium: {
-                paddingTop: theme.spacing(1.5),
-                paddingBottom: theme.spacing(1.5),
-                paddingLeft: theme.spacing(2),
-                paddingRight: theme.spacing(2),
-            },
-            large: {
-                paddingTop: theme.spacing(2),
-                paddingBottom: theme.spacing(2),
-                paddingLeft: theme.spacing(2.5),
-                paddingRight: theme.spacing(2.5),
-            },
-        },
-    };
-
     return {
-        MuiIconButton: {
+        MuiToggleButton: {
             styleOverrides: {
                 root: {
                     minWidth: "fit-content",
                     height: "fit-content",
-                    "&.MuiIconButton-sizeSmall": {
-                        padding: `calc(${theme.spacing(1)} - .5px)`,
+                    "&.MuiToggleButton-sizeSmall": {
+                        height: commonSettings.sizes.button.height.small,
                     },
-                    "&.MuiIconButton-sizeMedium": {
-                        padding: `calc(${theme.spacing(1.5)} - .5px)`,
+                    "&.MuiToggleButton-sizeMedium": {
+                        height: commonSettings.sizes.button.height.medium,
                     },
-                    "&.MuiIconButton-sizeLarge": {
-                        padding: `calc(${theme.spacing(2)} - 5px)`,
+                    "&.MuiToggleButton-sizeLarge": {
+                        height: commonSettings.sizes.button.height.large,
                     },
-                    "&.MuiIconButton-root .MuiSvgIcon-root": {
-                        fontSize: "24px",
+                    // small/medium icons
+                    "&.MuiToggleButton-root .MuiSvgIcon-root": {
+                        fontSize: commonSettings.sizes.button.icon.medium,
+                    },
+                    "&.MuiToggleButton-sizeLarge .MuiSvgIcon-root": {
+                        fontSize: commonSettings.sizes.button.icon.large,
                     },
                 },
             },
@@ -84,82 +56,57 @@ const buttons = (
                     height: "fit-content",
                     // b/c of https://github.com/material-components/material-components-web/issues/4894
                     whiteSpace: "nowrap",
-                    // small sizing
+                    // fixed heights for all sizes
                     "&.MuiButton-sizeSmall": {
-                        lineHeight: defaultLineHeight,
+                        height: commonSettings.sizes.button.height.small,
                     },
-                    "&.MuiButton-outlined.MuiButton-sizeSmall": {
-                        ...buttonPaddings.bordered.small,
-                    },
-                    "&.MuiButton-contained.MuiButton-sizeSmall": {
-                        ...buttonPaddings.unbordered.small,
-                    },
-                    "&.MuiButton-text.MuiButton-sizeSmall": {
-                        ...buttonPaddings.unbordered.small,
-                    },
-                    // medium sizing
                     "&.MuiButton-sizeMedium": {
-                        lineHeight: defaultLineHeight,
+                        height: commonSettings.sizes.button.height.medium,
                     },
-                    "&.MuiButton-outlined.MuiButton-sizeMedium": {
-                        ...buttonPaddings.bordered.medium,
-                    },
-                    "&.MuiButton-contained.MuiButton-sizeMedium": {
-                        ...buttonPaddings.unbordered.medium,
-                    },
-                    "&.MuiButton-text.MuiButton-sizeMedium": {
-                        ...buttonPaddings.unbordered.medium,
-                    },
-                    // large sizing
                     "&.MuiButton-sizeLarge": {
-                        lineHeight: largeLineHeight,
+                        height: commonSettings.sizes.button.height.large,
                     },
-                    "&.MuiButton-outlined.MuiButton-sizeLarge": {
-                        ...buttonPaddings.bordered.large,
-                    },
-                    "&.MuiButton-contained.MuiButton-sizeLarge": {
-                        ...buttonPaddings.unbordered.large,
-                    },
-                    "&.MuiButton-text.MuiButton-sizeLarge": {
-                        ...buttonPaddings.unbordered.large,
-                    },
-                    // small/medium icons
+                    // change icon size to prevent icon from increasing button size
                     "&.MuiButton-root .MuiSvgIcon-root": {
-                        fontSize: defaultLineHeight,
-                        lineHeight: defaultLineHeight,
+                        fontSize: commonSettings.sizes.button.icon.medium,
                     },
-                    // large icons
-                    "&.MuiButton-sizeLarge .MuiSvgIcon-root": {
-                        fontSize: largeLineHeight,
-                        lineHeight: largeLineHeight,
+                    "&.MuiButton-sizeSmall .MuiSvgIcon-root": {
+                        fontSize: commonSettings.sizes.button.icon.small,
+                    },
+                    "&.MuiButton-sizeSmall .MuiButton-startIcon .MuiSvgIcon-root": {
+                        fontSize: commonSettings.sizes.button.startIcon.small,
+                    },
+                    "&.MuiButton-sizeSmall .MuiButton-endIcon .MuiSvgIcon-root": {
+                        fontSize: commonSettings.sizes.button.startIcon.small,
+                    },
+                    "&.MuiButton-sizeMedium .MuiButton-startIcon .MuiSvgIcon-root": {
+                        fontSize: commonSettings.sizes.button.startIcon.medium,
+                    },
+                    "&.MuiButton-sizeMedium .MuiButton-endIcon .MuiSvgIcon-root": {
+                        fontSize: commonSettings.sizes.button.startIcon.medium,
+                    },
+                    "&.MuiButton-sizeLarge .MuiButton-startIcon .MuiSvgIcon-root": {
+                        fontSize: commonSettings.sizes.button.startIcon.large,
+                    },
+                    "&.MuiButton-sizeLarge .MuiButton-endIcon .MuiSvgIcon-root": {
+                        fontSize: commonSettings.sizes.button.startIcon.large,
                     },
                 },
             },
         },
-        MuiToggleButton: {
+        MuiIconButton: {
             styleOverrides: {
                 root: {
                     minWidth: "fit-content",
                     height: "fit-content",
-                    "&.MuiToggleButton-sizeSmall": {
-                        lineHeight: defaultLineHeight,
-                        ...buttonPaddings.bordered.small,
+                    "&.MuiIconButton-sizeSmall .MuiSvgIcon-root": {
+                        fontSize: commonSettings.sizes.button.icon.small,
                     },
-                    "&.MuiToggleButton-sizeMedium": {
-                        ...buttonPaddings.bordered.medium,
+                    "&.MuiIconButton-sizeMedium .MuiSvgIcon-root": {
+                        fontSize: commonSettings.sizes.button.icon.medium,
                     },
-                    "&.MuiToggleButton-sizeLarge": {
-                        ...buttonPaddings.bordered.large,
-                    },
-                    // small/medium icons
-                    "&.MuiToggleButton-root .MuiSvgIcon-root": {
-                        fontSize: defaultLineHeight,
-                        lineHeight: defaultLineHeight,
-                    },
-                    // large icons
-                    "&.MuiToggleButton-sizeLarge .MuiSvgIcon-root": {
-                        fontSize: largeLineHeight,
-                        lineHeight: largeLineHeight,
+                    "&.MuiIconButton-sizeLarge .MuiSvgIcon-root": {
+                        fontSize: commonSettings.sizes.button.icon.large,
                     },
                 },
             },

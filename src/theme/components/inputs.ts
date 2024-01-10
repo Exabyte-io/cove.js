@@ -6,13 +6,27 @@ const inputs = (theme: Theme, commonSettings: { inputMinWidth: string }): Theme[
             styleOverrides: {
                 root: {
                     minWidth: commonSettings.inputMinWidth,
+                    // Outlined variant
                     "& .MuiOutlinedInput-input": {
-                        paddingTop: theme.spacing(1.5),
-                        paddingBottom: theme.spacing(1.5),
+                        paddingTop: `calc(${theme.spacing(1.5)} + 0.5px)`,
+                        paddingBottom: `calc(${theme.spacing(1.5)} + 0.5px)`,
                     },
                     "&.MuiInputBase-sizeSmall .MuiOutlinedInput-input": {
-                        paddingTop: theme.spacing(1),
-                        paddingBottom: theme.spacing(1),
+                        paddingTop: `calc(${theme.spacing(1)} + 0.5px)`,
+                        paddingBottom: `calc(${theme.spacing(1)} + 0.5px)`,
+                    },
+                    // Underlined variant
+                    "&.MuiInputBase-sizeSmall.MuiInput-underline": {
+                        marginTop: "11px",
+                    },
+                    // Filled variant
+                    "& .MuiFilledInput-input": {
+                        paddingTop: "18px",
+                        paddingBottom: "7px",
+                    },
+                    "&.MuiInputBase-sizeSmall .MuiFilledInput-input": {
+                        paddingTop: "14px",
+                        paddingBottom: "3px",
                     },
                 },
             },
@@ -20,15 +34,15 @@ const inputs = (theme: Theme, commonSettings: { inputMinWidth: string }): Theme[
         MuiInputLabel: {
             styleOverrides: {
                 root: {
-                    "&.MuiInputLabel-outlined": {
-                        transform: `translate(14px, ${theme.spacing(1.5)}) scale(1)`,
+                    "&.MuiInputLabel-sizeSmall": {
+                        transform: `translate(14px, 8px) scale(1)`,
                     },
-                    "&.MuiInputLabel-sizeSmall.MuiInputLabel-outlined": {
-                        transform: `translate(14px, ${theme.spacing(1)}) scale(1)`,
+                    "&.MuiInputLabel-sizeMedium": {
+                        transform: `translate(14px, 13px) scale(1)`,
                     },
                 },
                 shrink: {
-                    "&.MuiInputLabel-shrink.MuiInputLabel-outlined": {
+                    "&.MuiInputLabel-shrink.MuiInputLabel-root": {
                         transform: "translate(14px, -0.5em) scale(0.75)",
                     },
                 },
@@ -38,14 +52,37 @@ const inputs = (theme: Theme, commonSettings: { inputMinWidth: string }): Theme[
             styleOverrides: {
                 root: {
                     minWidth: commonSettings.inputMinWidth,
+                    "&.MuiInputBase-sizeSmall.MuiInput-underline": {
+                        marginTop: "11px",
+                    },
+                    "& .MuiFilledInput-input": {
+                        paddingTop: "18px",
+                        paddingBottom: "7px",
+                    },
+                    "&.MuiInputBase-sizeSmall .MuiFilledInput-input": {
+                        paddingTop: "14px",
+                        paddingBottom: "3px",
+                    },
                 },
             },
         },
         MuiAutocomplete: {
             styleOverrides: {
                 root: {
-                    "& .MuiAutocomplete-endAdornment .MuiIconButton-root": {
-                        padding: 0,
+                    "& .MuiFilledInput-root": {
+                        paddingTop: "11px",
+                    },
+                    "& .MuiAutocomplete-inputRoot.MuiOutlinedInput-root": {
+                        paddingTop: "5px",
+                        paddingBottom: "5px",
+                    },
+                    "&.MuiInputBase-sizeSmall .MuiFilledInput-input": {
+                        paddingTop: "14px",
+                        paddingBottom: "3px",
+                    },
+                    "& .MuiInputBase-sizeSmall.MuiAutocomplete-inputRoot.MuiOutlinedInput-root": {
+                        paddingTop: "6px",
+                        paddingBottom: "6px",
                     },
                 },
             },
