@@ -28,6 +28,10 @@ const inputs = (theme: Theme, commonSettings: { inputMinWidth: string }): Theme[
                         paddingTop: "14px",
                         paddingBottom: "3px",
                     },
+                    // Chips
+                    "& .MuiInputBase-input .MuiChip-root": {
+                        height: "23px",
+                    },
                 },
             },
         },
