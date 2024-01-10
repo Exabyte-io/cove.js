@@ -17,10 +17,10 @@ export interface CheckboxComponentProps {
     label: string;
     onChange: (checked: boolean) => void;
     className: string;
-    slotProps: { typography: TypographyProps };
-    labelPlacement: FormControlLabelProps["labelPlacement"];
-    formControlLabelSx: SxProps;
-    checkboxSx: SxProps;
+    slotProps?: { typography: TypographyProps };
+    labelPlacement?: FormControlLabelProps["labelPlacement"];
+    formControlLabelSx?: SxProps;
+    checkboxSx?: SxProps;
 }
 
 function CheckboxComponent({
