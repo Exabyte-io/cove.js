@@ -10,8 +10,25 @@ import shadows from "./shadows";
 import oldTypography, { Typography } from "./typography";
 
 export const sizesConfig = {
-    buttonPrimary: {
+    menuItem: {
         height: "32.5px",
+    },
+    button: {
+        height: {
+            small: "32px",
+            medium: "40px",
+            large: "48px",
+        },
+        startIcon: {
+            small: "18px",
+            medium: "20px",
+            large: "22px",
+        },
+        icon: {
+            small: "24px",
+            medium: "24px",
+            large: "24px",
+        },
     },
 };
 
@@ -27,23 +44,23 @@ const commonSettings = {
         dropdown: {
             s: {
                 width: "64px",
-                height: sizesConfig.buttonPrimary.height,
+                height: sizesConfig.menuItem.height,
             },
             m: {
                 width: "128px",
-                height: sizesConfig.buttonPrimary.height,
+                height: sizesConfig.menuItem.height,
             },
             l: {
                 width: "192px",
-                height: sizesConfig.buttonPrimary.height,
+                height: sizesConfig.menuItem.height,
             },
             xl: {
                 width: "256px",
-                height: sizesConfig.buttonPrimary.height,
+                height: sizesConfig.menuItem.height,
             },
             inherit: {
                 width: "auto",
-                height: sizesConfig.buttonPrimary.height,
+                height: sizesConfig.menuItem.height,
             },
         },
         header: {
@@ -51,6 +68,7 @@ const commonSettings = {
                 height: "30px",
             },
         },
+        button: sizesConfig.button,
     },
     breakpoints: {
         values: {
@@ -107,10 +125,10 @@ const patchTheme = (theme: Theme, typography: any) => {
         typography: typography(theme),
         shadows: shadows(theme),
         components: {
-            ...buttons(theme),
+            ...buttons(theme, commonSettings),
             ...chips(),
             ...tooltips(),
-            ...inputs(commonSettings),
+            ...inputs(theme, commonSettings),
             ...MuiSvgIconSizesOverrides,
             ...MuiCssBaselineOverrides,
         },
