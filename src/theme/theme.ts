@@ -68,11 +68,7 @@ const commonSettings = {
                 height: "30px",
             },
         },
-        button: {
-            small: sizesConfig.button.height.small,
-            medium: sizesConfig.button.height.medium,
-            large: sizesConfig.button.height.large,
-        },
+        button: sizesConfig.button,
     },
     breakpoints: {
         values: {
