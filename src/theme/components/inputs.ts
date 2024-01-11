@@ -49,6 +49,9 @@ const inputs = (theme: Theme, commonSettings: { inputMinWidth: string }): Theme[
                     "&.MuiInputLabel-shrink.MuiInputLabel-root": {
                         transform: "translate(14px, -0.5em) scale(0.75)",
                     },
+                    "&.MuiInputLabel-shrink.MuiInputLabel-root.MuiInputLabel-standard": {
+                        transform: "translate(0px, -0.5em) scale(0.75)",
+                    },
                 },
             },
         },
@@ -60,12 +63,12 @@ const inputs = (theme: Theme, commonSettings: { inputMinWidth: string }): Theme[
                         marginTop: "11px",
                     },
                     "& .MuiFilledInput-input": {
-                        paddingTop: "18px",
-                        paddingBottom: "7px",
+                        paddingTop: "12.5px",
+                        paddingBottom: "12.5px",
                     },
                     "&.MuiInputBase-sizeSmall .MuiFilledInput-input": {
-                        paddingTop: "14px",
-                        paddingBottom: "3px",
+                        paddingTop: "8.5px",
+                        paddingBottom: "8.5px",
                     },
                 },
             },
