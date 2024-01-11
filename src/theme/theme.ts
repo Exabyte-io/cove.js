@@ -7,7 +7,7 @@ import inputs from "./components/inputs";
 import tooltips from "./components/tooltips";
 import { paletteDark, paletteLight } from "./palette";
 import shadows from "./shadows";
-import oldTypography, { Typography } from "./typography";
+import Typography, { MDTypography } from "./typography";
 
 export const sizesConfig = {
     menuItem: {
@@ -135,9 +135,9 @@ const patchTheme = (theme: Theme, typography: any) => {
     });
 };
 
-export const oldLightMaterialUITheme = patchTheme(lightThemePrototype, oldTypography);
-export const LightMaterialUITheme = patchTheme(lightThemePrototype, Typography);
-export const DarkMaterialUITheme = patchTheme(darkThemePrototype, Typography);
+export const oldLightMaterialUITheme = patchTheme(lightThemePrototype, Typography);
+export const LightMaterialUITheme = patchTheme(lightThemePrototype, MDTypography);
+export const DarkMaterialUITheme = patchTheme(darkThemePrototype, MDTypography);
 
 // Temporarily use oldTypography for compatibility purposes with the web app.
 // TODO: make light and dark themes both use Typography and remove "old".

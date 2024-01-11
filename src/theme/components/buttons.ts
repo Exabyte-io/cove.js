@@ -59,12 +59,18 @@ const buttons = (
                     // fixed heights for all sizes
                     "&.MuiButton-sizeSmall": {
                         height: commonSettings.sizes.button.height.small,
+                        paddingLeft: "10px",
+                        paddingRight: "10px",
                     },
                     "&.MuiButton-sizeMedium": {
                         height: commonSettings.sizes.button.height.medium,
+                        paddingLeft: "16px",
+                        paddingRight: "16px",
                     },
                     "&.MuiButton-sizeLarge": {
                         height: commonSettings.sizes.button.height.large,
+                        paddingLeft: "22px",
+                        paddingRight: "22px",
                     },
                     // change icon size to prevent icon from increasing button size
                     "&.MuiButton-root .MuiSvgIcon-root": {
