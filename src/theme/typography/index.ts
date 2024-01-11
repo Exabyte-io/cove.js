@@ -1,6 +1,6 @@
 import { Theme } from "@mui/material/styles";
 
-const oldTypography = (theme: Theme): Partial<Theme["typography"]> => {
+const Typography = (theme: Theme): Partial<Theme["typography"]> => {
     return {
         fontFamily: ["Roboto", "-apple-system", "sans-serif"].join(","),
         subtitle2: {
@@ -14,15 +14,4 @@ const oldTypography = (theme: Theme): Partial<Theme["typography"]> => {
         },
     };
 };
-
-export default oldTypography;
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const Typography = (theme: Theme): Partial<Theme["typography"]> => {
-    return {
-        fontFamily: ["Roboto", "-apple-system", "sans-serif"].join(","),
-        body1: {
-            fontSize: 12,
-        },
-    };
-};
+export default Typography;

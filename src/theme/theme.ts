@@ -7,7 +7,7 @@ import inputs from "./components/inputs";
 import tooltips from "./components/tooltips";
 import { paletteDark, paletteLight } from "./palette";
 import shadows from "./shadows";
-import oldTypography, { Typography } from "./typography";
+import Typography from "./typography";
 
 export const sizesConfig = {
     menuItem: {
@@ -135,7 +135,7 @@ const patchTheme = (theme: Theme, typography: any) => {
     });
 };
 
-export const oldLightMaterialUITheme = patchTheme(lightThemePrototype, oldTypography);
+export const oldLightMaterialUITheme = patchTheme(lightThemePrototype, Typography);
 export const LightMaterialUITheme = patchTheme(lightThemePrototype, Typography);
 export const DarkMaterialUITheme = patchTheme(darkThemePrototype, Typography);
 
