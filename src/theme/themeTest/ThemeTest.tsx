@@ -16,29 +16,23 @@ import { TextFieldTest } from "./inputs/TextField";
 import { TypographyTest } from "./typography/Typography";
 
 export default function ThemeTest({ theme }: { theme: Theme }) {
-    theme = theme || useTheme();
-
     const testComponents = [
-        ButtonTest,
-        IconButtonTest,
-        ButtonGroupTest,
-        ToggleButtonTest,
-        SwitchTest,
-        TextFieldTest,
-        AutocompleteTest,
-        SelectTest,
-        TypographyTest,
+        <ButtonTest />,
+        <IconButtonTest />,
+        <ButtonGroupTest />,
+        <ToggleButtonTest />,
+        <SwitchTest />,
+        <TextFieldTest />,
+        <AutocompleteTest />,
+        <SelectTest />,
+        <TypographyTest />,
     ];
 
     return (
         <ThemeProvider theme={theme}>
             <Box>
                 <Stack spacing={2} m={2}>
-                    {testComponents.map((Component) => (
-                        <Paper sx={{ p: 2, m: 2 }} elevation={1}>
-                            <Component />
-                        </Paper>
-                    ))}
+                    {testComponents}
                 </Stack>
             </Box>
         </ThemeProvider>

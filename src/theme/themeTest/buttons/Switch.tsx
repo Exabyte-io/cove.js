@@ -1,26 +1,25 @@
 import Stack from "@mui/material/Stack";
-import Switch from "@mui/material/Switch";
+import Switch, { SwitchProps } from "@mui/material/Switch";
 import Typography from "@mui/material/Typography";
 import React from "react";
 
+import TestComponentContainer from "../TestComponentContainer";
+
 export function SwitchTest() {
+    const sizes: SwitchProps["size"][] = ["small", "medium"];
+    const otherColors: SwitchProps["color"][] = ["secondary", "warning", "default"];
     return (
-        <Stack spacing={2} alignItems="center">
-            <Typography variant="h6">Switch</Typography>
-            <Stack direction="row" spacing={1}>
-                <Switch defaultChecked size="small" />
-                <Switch defaultChecked size="small" disabled />
-                <Switch defaultChecked color="secondary" size="small" />
-                <Switch defaultChecked color="warning" size="small" />
-                <Switch defaultChecked color="default" size="small" />
-            </Stack>
-            <Stack direction="row" spacing={1}>
-                <Switch defaultChecked />
-                <Switch defaultChecked disabled />
-                <Switch defaultChecked color="secondary" />
-                <Switch defaultChecked color="warning" />
-                <Switch defaultChecked color="default" />
-            </Stack>
-        </Stack>
+        <TestComponentContainer title="Switch">
+            {sizes.map((size) => (
+                <Stack direction="row" spacing={1} key="size">
+                    <Typography variant="caption">{size}</Typography>
+                    <Switch defaultChecked size={size} />
+                    <Switch defaultChecked size={size} disabled />
+                    {otherColors.map((color) => (
+                        <Switch defaultChecked color={color} size={size} />
+                    ))}
+                </Stack>
+            ))}
+        </TestComponentContainer>
     );
 }
