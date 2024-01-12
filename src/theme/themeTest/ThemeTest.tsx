@@ -2,7 +2,7 @@ import { createTheme, ThemeProvider } from "@mui/material";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Stack from "@mui/material/Stack";
-import { useTheme } from "@mui/material/styles";
+import { Theme, useTheme } from "@mui/material/styles";
 import React from "react";
 
 import { ButtonTest } from "./buttons/Button";
@@ -15,8 +15,8 @@ import { SelectTest } from "./inputs/Select";
 import { TextFieldTest } from "./inputs/TextField";
 import { TypographyTest } from "./typography/Typography";
 
-export default function ThemeTest() {
-    const theme = useTheme();
+export default function ThemeTest({ theme }: { theme: Theme }) {
+    theme = theme || useTheme();
     const extendedTheme = createTheme(theme, {});
 
     const testComponents = [
