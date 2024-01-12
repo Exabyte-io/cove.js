@@ -12,7 +12,7 @@ const inputSizes = {
             height: "23px",
         },
         label: {
-            translateDown: "7px",
+            translateDown: "8.5px",
         },
         outlined: {
             paddingTop: "8.5px",

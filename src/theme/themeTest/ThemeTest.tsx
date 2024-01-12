@@ -17,7 +17,6 @@ import { TypographyTest } from "./typography/Typography";
 
 export default function ThemeTest({ theme }: { theme: Theme }) {
     theme = theme || useTheme();
-    const extendedTheme = createTheme(theme, {});
 
     const testComponents = [
         ButtonTest,
@@ -32,7 +31,7 @@ export default function ThemeTest({ theme }: { theme: Theme }) {
     ];
 
     return (
-        <ThemeProvider theme={extendedTheme}>
+        <ThemeProvider theme={theme}>
             <Box>
                 <Stack spacing={2} m={2}>
                     {testComponents.map((Component) => (

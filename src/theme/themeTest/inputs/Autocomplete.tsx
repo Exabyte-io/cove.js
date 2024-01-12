@@ -28,7 +28,7 @@ const sizes = ["small", "medium"] as ("small" | "medium")[];
 export function AutocompleteTest() {
     return (
         <Stack spacing={2} alignItems="center">
-            <Typography variant="subtitle1">Autocomplete</Typography>
+            <Typography variant="h6">Autocomplete</Typography>
             {sizes.map((size) => (
                 <Stack direction="row" spacing={1}>
                     <AutocompleteVariants size={size} variant="outlined" />
