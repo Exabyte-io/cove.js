@@ -3,7 +3,7 @@ import { Theme } from "@mui/material/styles/createTheme";
 import React from "react";
 
 import { AlertContextProvider } from "../../mui/components/custom/alert/AlertContextProvider";
-import LightMaterialUITheme from "../theme";
+import { LightMaterialUITheme } from "../theme";
 
 /**
  * TODO: will be a good practice to add CSSBaseline component from material-ui
