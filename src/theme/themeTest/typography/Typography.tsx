@@ -5,7 +5,7 @@ import React from "react";
 export function TypographyTest() {
     return (
         <Stack spacing={2} alignItems="center">
-            <Typography variant="subtitle1">Typography</Typography>
+            <Typography variant="h6">Typography</Typography>
             <Typography variant="h1">h1</Typography>
             <Typography variant="h2">h2</Typography>
             <Typography variant="h3">h3</Typography>

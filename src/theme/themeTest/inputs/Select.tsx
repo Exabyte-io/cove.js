@@ -66,7 +66,7 @@ export function SelectTest() {
 
     return (
         <Stack spacing={2} alignItems="center">
-            <Typography variant="subtitle1">Select</Typography>
+            <Typography variant="h6">Select</Typography>
             {sizes.map((size) => (
                 <Stack direction="row" spacing={2}>
                     <FormControl size={size}>
