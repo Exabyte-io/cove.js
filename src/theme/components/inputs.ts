@@ -12,15 +12,15 @@ const inputSizes = {
             height: "23px",
         },
         label: {
-            translateDown: "8.5px",
+            translateDown: "7px",
         },
         outlined: {
             paddingTop: "8.5px",
             paddingBottom: "8.5px",
         },
         autoComplete: {
-            paddingTop: "5px",
-            paddingBottom: "5px",
+            paddingTop: "6px",
+            paddingBottom: "6px",
         },
     },
     medium: {
@@ -33,15 +33,15 @@ const inputSizes = {
             height: "23px",
         },
         label: {
-            translateDown: "12.5px",
+            translateDown: "13px",
         },
         outlined: {
             paddingTop: "12.5px",
             paddingBottom: "12.5px",
         },
         autoComplete: {
-            paddingTop: "6px",
-            paddingBottom: "6px",
+            paddingTop: "5px",
+            paddingBottom: "5px",
         },
     },
 };
