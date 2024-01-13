@@ -76,7 +76,6 @@ export default function SelectComponent({
                 multiple={multiple}
                 sx={{
                     width: "100%",
-                    minHeight: 56,
                     fontSize,
                     ...sx,
                 }}
