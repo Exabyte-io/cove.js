@@ -11,7 +11,7 @@ export function SwitchTest() {
     return (
         <TestComponentContainer title="Switch">
             {sizes.map((size) => (
-                <Stack direction="row" spacing={1} key="size">
+                <Stack direction="row" spacing={1} key={size}>
                     <Typography variant="caption">{size}</Typography>
                     <Switch defaultChecked size={size} />
                     <Switch defaultChecked size={size} disabled />

@@ -18,7 +18,7 @@ export function ButtonGroupTest() {
                 <>
                     <Typography variant="body2">{size}</Typography>
                     {variants.map((variant) => (
-                        <Stack direction="row" spacing={2}>
+                        <Stack direction="row" spacing={2} key={variant}>
                             <Typography variant="caption">{variant}</Typography>
                             <ButtonGroup variant={variant} size={size}>
                                 <Button>One</Button>

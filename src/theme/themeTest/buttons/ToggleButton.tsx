@@ -25,7 +25,7 @@ export function ToggleButtonTest() {
                 <Stack direction="row" spacing={2} alignItems="center" key={size}>
                     <Typography variant="caption">{size}</Typography>
                     {orientations.map((orientation) => (
-                        <>
+                        <React.Fragment key={orientation}>
                             <ToggleButtonGroup
                                 size={size}
                                 value={alignment}
@@ -64,7 +64,7 @@ export function ToggleButtonTest() {
                                     Justify
                                 </ToggleButton>
                             </ToggleButtonGroup>
-                        </>
+                        </React.Fragment>
                     ))}
                 </Stack>
             ))}

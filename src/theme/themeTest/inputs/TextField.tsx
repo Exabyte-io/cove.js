@@ -11,10 +11,16 @@ export function TextFieldTest() {
     return (
         <TestComponentContainer title="TextField">
             {sizes.map((size) => (
-                <Stack spacing={2} direction="row" component="form" noValidate autoComplete="off">
+                <Stack
+                    spacing={2}
+                    direction="row"
+                    component="form"
+                    noValidate
+                    autoComplete="off"
+                    key={size}>
                     <Typography variant="caption">{size}</Typography>
                     {variants.map((variant) => (
-                        <TextField label={variant} variant={variant} size={size} />
+                        <TextField label={variant} variant={variant} size={size} key={variant} />
                     ))}
                 </Stack>
             ))}

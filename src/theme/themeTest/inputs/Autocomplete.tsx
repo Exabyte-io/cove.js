@@ -1,4 +1,4 @@
-import Autocomplete, { AutocompleteProps } from "@mui/material/Autocomplete";
+import Autocomplete from "@mui/material/Autocomplete";
 import Stack from "@mui/material/Stack";
 import TextField, { TextFieldProps } from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
@@ -12,7 +12,7 @@ export function AutocompleteTest() {
     return (
         <TestComponentContainer title="Autocomplete">
             {sizes.map((size) => (
-                <Stack direction="row" spacing={1} key="size">
+                <Stack direction="row" spacing={1} key={size}>
                     <Typography variant="caption">{size}</Typography>
                     {variants.map((variant) => (
                         <Autocomplete
@@ -25,6 +25,7 @@ export function AutocompleteTest() {
                                 // eslint-disable-next-line react/jsx-props-no-spreading
                                 <TextField {...params} label="Movie" variant={variant} />
                             )}
+                            key={variant}
                         />
                     ))}
                 </Stack>

@@ -11,7 +11,7 @@ export function IconButtonTest() {
     return (
         <TestComponentContainer title="Icon Button">
             {sizes.map((size) => (
-                <Stack direction="row" spacing={2}>
+                <Stack direction="row" spacing={2} key={size}>
                     <Typography variant="caption">{size}</Typography>
                     <IconButton size={size}>
                         <Save />

@@ -21,7 +21,9 @@ export function TypographyTest() {
     return (
         <TestComponentContainer title="Typography">
             {variants.map((variant) => (
-                <Typography variant={variant}>{variant}</Typography>
+                <Typography variant={variant} key={variant}>
+                    {variant}
+                </Typography>
             ))}
         </TestComponentContainer>
     );
