@@ -14,6 +14,7 @@ export function TextFieldTest() {
                 <Stack
                     spacing={2}
                     direction="row"
+                    alignItems="center"
                     component="form"
                     noValidate
                     autoComplete="off"

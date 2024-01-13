@@ -47,7 +47,7 @@ export function SelectTest() {
     return (
         <TestComponentContainer title="Select">
             {sizes.map((size) => (
-                <Stack direction="row" spacing={2} key="size">
+                <Stack direction="row" spacing={2} alignItems="center" key={size}>
                     <Typography variant="caption">{size}</Typography>
                     <FormControl size={size}>
                         <InputLabel id="select-small-label">Age</InputLabel>

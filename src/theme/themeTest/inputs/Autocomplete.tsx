@@ -12,7 +12,7 @@ export function AutocompleteTest() {
     return (
         <TestComponentContainer title="Autocomplete">
             {sizes.map((size) => (
-                <Stack direction="row" spacing={1} key={size}>
+                <Stack direction="row" spacing={1} alignItems="center" key={size}>
                     <Typography variant="caption">{size}</Typography>
                     {variants.map((variant) => (
                         <Autocomplete
