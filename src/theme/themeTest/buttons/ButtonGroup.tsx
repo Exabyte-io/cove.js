@@ -1,5 +1,5 @@
-import Looks from "@mui/icons-material/Looks";
 import Looks3 from "@mui/icons-material/Looks3";
+import LooksOne from "@mui/icons-material/LooksOne";
 import LooksTwo from "@mui/icons-material/LooksTwo";
 import Button from "@mui/material/Button";
 import ButtonGroup, { ButtonGroupProps } from "@mui/material/ButtonGroup";
@@ -27,7 +27,7 @@ export function ButtonGroupTest() {
                             </ButtonGroup>
                             <ButtonGroup variant={variant} size={size}>
                                 <Button>
-                                    <Looks />
+                                    <LooksOne />
                                 </Button>
                                 <Button>
                                     <LooksTwo />
