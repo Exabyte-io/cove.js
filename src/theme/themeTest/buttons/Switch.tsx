@@ -16,7 +16,7 @@ export function SwitchTest() {
                     <Switch defaultChecked size={size} />
                     <Switch defaultChecked size={size} disabled />
                     {otherColors.map((color) => (
-                        <Switch defaultChecked color={color} size={size} />
+                        <Switch defaultChecked color={color} size={size} key={color} />
                     ))}
                 </Stack>
             ))}

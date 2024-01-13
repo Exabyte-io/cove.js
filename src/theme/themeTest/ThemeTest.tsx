@@ -16,23 +16,19 @@ import { TextFieldTest } from "./inputs/TextField";
 import { TypographyTest } from "./typography/Typography";
 
 export default function ThemeTest({ theme = oldLightMaterialUITheme }: { theme?: Theme }) {
-    const testComponents = [
-        <ButtonTest />,
-        <IconButtonTest />,
-        <ButtonGroupTest />,
-        <ToggleButtonTest />,
-        <SwitchTest />,
-        <TextFieldTest />,
-        <AutocompleteTest />,
-        <SelectTest />,
-        <TypographyTest />,
-    ];
-
     return (
         <ThemeProvider theme={theme}>
             <Box>
                 <Stack spacing={2} m={2}>
-                    {testComponents}
+                    <ButtonTest />
+                    <IconButtonTest />
+                    <ButtonGroupTest />
+                    <ToggleButtonTest />
+                    <SwitchTest />
+                    <TextFieldTest />
+                    <AutocompleteTest />
+                    <SelectTest />
+                    <TypographyTest />
                 </Stack>
             </Box>
         </ThemeProvider>

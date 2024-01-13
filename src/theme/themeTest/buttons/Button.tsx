@@ -12,7 +12,7 @@ export function ButtonTest() {
     return (
         <TestComponentContainer title="Button">
             {sizes.map((size) => (
-                <>
+                <React.Fragment key={size}>
                     <Typography variant="body2">{size}</Typography>
                     {variants.map((variant) => (
                         <Stack direction="row" spacing={2} alignItems="center" key={variant}>
@@ -31,7 +31,7 @@ export function ButtonTest() {
                             </Button>
                         </Stack>
                     ))}
-                </>
+                </React.Fragment>
             ))}
         </TestComponentContainer>
     );
