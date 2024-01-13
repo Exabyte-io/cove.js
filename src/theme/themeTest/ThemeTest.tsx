@@ -1,10 +1,10 @@
-import { createTheme, ThemeProvider } from "@mui/material";
+import { ThemeProvider } from "@mui/material";
 import Box from "@mui/material/Box";
-import Paper from "@mui/material/Paper";
 import Stack from "@mui/material/Stack";
-import { Theme, useTheme } from "@mui/material/styles";
+import { Theme } from "@mui/material/styles";
 import React from "react";
 
+import { oldLightMaterialUITheme } from "../theme";
 import { ButtonTest } from "./buttons/Button";
 import { ButtonGroupTest } from "./buttons/ButtonGroup";
 import { IconButtonTest } from "./buttons/IconButton";
@@ -15,30 +15,20 @@ import { SelectTest } from "./inputs/Select";
 import { TextFieldTest } from "./inputs/TextField";
 import { TypographyTest } from "./typography/Typography";
 
-export default function ThemeTest({ theme }: { theme: Theme }) {
-    theme = theme || useTheme();
-
-    const testComponents = [
-        ButtonTest,
-        IconButtonTest,
-        ButtonGroupTest,
-        ToggleButtonTest,
-        SwitchTest,
-        TextFieldTest,
-        AutocompleteTest,
-        SelectTest,
-        TypographyTest,
-    ];
-
+export default function ThemeTest({ theme = oldLightMaterialUITheme }: { theme?: Theme }) {
     return (
         <ThemeProvider theme={theme}>
             <Box>
                 <Stack spacing={2} m={2}>
-                    {testComponents.map((Component) => (
-                        <Paper sx={{ p: 2, m: 2 }} elevation={1}>
-                            <Component />
-                        </Paper>
-                    ))}
+                    <ButtonTest />
+                    <IconButtonTest />
+                    <ButtonGroupTest />
+                    <ToggleButtonTest />
+                    <SwitchTest />
+                    <TextFieldTest />
+                    <AutocompleteTest />
+                    <SelectTest />
+                    <TypographyTest />
                 </Stack>
             </Box>
         </ThemeProvider>

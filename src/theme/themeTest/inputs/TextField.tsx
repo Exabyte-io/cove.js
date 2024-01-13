@@ -1,22 +1,30 @@
 import Stack from "@mui/material/Stack";
-import TextField from "@mui/material/TextField";
+import TextField, { TextFieldProps } from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
-import * as React from "react";
+import React from "react";
+
+import TestComponentContainer from "../TestComponentContainer";
 
 export function TextFieldTest() {
+    const sizes: TextFieldProps["size"][] = ["small", "medium"];
+    const variants: TextFieldProps["variant"][] = ["outlined", "filled", "standard"];
     return (
-        <Stack spacing={2} alignItems="center">
-            <Typography variant="h6">TextField</Typography>
-            <Stack spacing={2} direction="row" component="form" noValidate autoComplete="off">
-                <TextField id="outlined-basic" label="Outlined" variant="outlined" size="small" />
-                <TextField id="filled-basic" label="Filled" variant="filled" size="small" />
-                <TextField id="standard-basic" label="Standard" variant="standard" size="small" />
-            </Stack>
-            <Stack spacing={2} direction="row" component="form" noValidate autoComplete="off">
-                <TextField id="outlined-basic" label="Outlined" variant="outlined" size="medium" />
-                <TextField id="filled-basic" label="Filled" variant="filled" size="medium" />
-                <TextField id="standard-basic" label="Standard" variant="standard" size="medium" />
-            </Stack>
-        </Stack>
+        <TestComponentContainer title="TextField">
+            {sizes.map((size) => (
+                <Stack
+                    spacing={2}
+                    direction="row"
+                    alignItems="center"
+                    component="form"
+                    noValidate
+                    autoComplete="off"
+                    key={size}>
+                    <Typography variant="caption">{size}</Typography>
+                    {variants.map((variant) => (
+                        <TextField label={variant} variant={variant} size={size} key={variant} />
+                    ))}
+                </Stack>
+            ))}
+        </TestComponentContainer>
     );
 }

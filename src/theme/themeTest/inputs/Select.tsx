@@ -5,20 +5,10 @@ import MenuItem from "@mui/material/MenuItem";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import Stack from "@mui/material/Stack";
-import { Theme, useTheme } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
 import React from "react";
 
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
-const MenuProps = {
-    PaperProps: {
-        style: {
-            maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-            width: 250,
-        },
-    },
-};
+import TestComponentContainer from "../TestComponentContainer";
 
 const names = [
     "Oliver Hansen",
@@ -33,17 +23,7 @@ const names = [
     "Kelly Snyder",
 ];
 
-function getStyles(name: string, personName: readonly string[], theme: Theme) {
-    return {
-        fontWeight:
-            personName.indexOf(name) === -1
-                ? theme.typography.fontWeightRegular
-                : theme.typography.fontWeightMedium,
-    };
-}
-
 export function SelectTest() {
-    const theme = useTheme();
     const [personName, setPersonName] = React.useState<string[]>([]);
 
     const handleNameChange = (event: SelectChangeEvent<typeof personName>) => {
@@ -62,18 +42,18 @@ export function SelectTest() {
         setAge(event.target.value);
     };
 
-    const sizes = ["small", undefined] as FormControlProps["size"][];
+    const sizes: FormControlProps["size"][] = ["small", "medium"];
 
     return (
-        <Stack spacing={2} alignItems="center">
-            <Typography variant="h6">Select</Typography>
+        <TestComponentContainer title="Select">
             {sizes.map((size) => (
-                <Stack direction="row" spacing={2}>
+                <Stack direction="row" spacing={2} alignItems="center" key={size}>
+                    <Typography variant="caption">{size}</Typography>
                     <FormControl size={size}>
-                        <InputLabel id="demo-select-small-label">Age</InputLabel>
+                        <InputLabel id="select-small-label">Age</InputLabel>
                         <Select
-                            labelId="demo-select-small-label"
-                            id="demo-select-small"
+                            labelId="select-small-label"
+                            id="select-small"
                             value={age}
                             label="Age"
                             onChange={handleAgeChange}>
@@ -86,28 +66,24 @@ export function SelectTest() {
                         </Select>
                     </FormControl>
                     <FormControl size={size}>
-                        <InputLabel id="demo-multiple-chip-label">Chip</InputLabel>
+                        <InputLabel id="multiselect-chip-label">Chip</InputLabel>
                         <Select
-                            labelId="demo-multiple-chip-label"
-                            id="demo-multiple-chip"
+                            labelId="multiselect-chip-label"
+                            id="multiselect-chip"
                             multiple
                             value={personName}
-                            sx={{ maxWidth: "300px" }}
+                            sx={{ maxWidth: "300px" }} // required to prevent overflow
                             onChange={handleNameChange}
-                            input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
+                            input={<OutlinedInput id="select-multiselect-chip" label="Chip" />}
                             renderValue={(selected) => (
                                 <Stack direction="row" useFlexGap flexWrap="wrap" gap={0.5}>
                                     {selected.map((value) => (
                                         <Chip key={value} label={value} />
                                     ))}
                                 </Stack>
-                            )}
-                            MenuProps={MenuProps}>
+                            )}>
                             {names.map((name) => (
-                                <MenuItem
-                                    key={name}
-                                    value={name}
-                                    style={getStyles(name, personName, theme)}>
+                                <MenuItem key={name} value={name}>
                                     {name}
                                 </MenuItem>
                             ))}
@@ -115,6 +91,6 @@ export function SelectTest() {
                     </FormControl>
                 </Stack>
             ))}
-        </Stack>
+        </TestComponentContainer>
     );
 }

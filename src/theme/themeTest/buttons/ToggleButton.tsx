@@ -2,12 +2,13 @@ import FormatAlignCenterIcon from "@mui/icons-material/FormatAlignCenter";
 import FormatAlignJustifyIcon from "@mui/icons-material/FormatAlignJustify";
 import FormatAlignLeftIcon from "@mui/icons-material/FormatAlignLeft";
 import FormatAlignRightIcon from "@mui/icons-material/FormatAlignRight";
-import { ButtonProps } from "@mui/material";
 import Stack from "@mui/material/Stack";
 import ToggleButton from "@mui/material/ToggleButton";
-import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
+import ToggleButtonGroup, { ToggleButtonGroupProps } from "@mui/material/ToggleButtonGroup";
 import Typography from "@mui/material/Typography";
-import * as React from "react";
+import React from "react";
+
+import TestComponentContainer from "../TestComponentContainer";
 
 export function ToggleButtonTest() {
     const [alignment, setAlignment] = React.useState("left");
@@ -16,74 +17,57 @@ export function ToggleButtonTest() {
         setAlignment(newAlignment);
     };
 
-    const childrenIcon = [
-        <ToggleButton value="left" key="left">
-            <FormatAlignLeftIcon />
-        </ToggleButton>,
-        <ToggleButton value="center" key="center">
-            <FormatAlignCenterIcon />
-        </ToggleButton>,
-        <ToggleButton value="right" key="right">
-            <FormatAlignRightIcon />
-        </ToggleButton>,
-        <ToggleButton value="justify" key="justify">
-            <FormatAlignJustifyIcon />
-        </ToggleButton>,
-    ];
-
-    const childrenText = [
-        <ToggleButton value="left" key="left">
-            Left
-        </ToggleButton>,
-        <ToggleButton value="center" key="center">
-            Center
-        </ToggleButton>,
-        <ToggleButton value="right" key="right">
-            Right
-        </ToggleButton>,
-        <ToggleButton value="justify" key="justify">
-            Justify
-        </ToggleButton>,
-    ];
-
-    const sizes = ["small", "medium", "large"] as ButtonProps["size"][];
+    const sizes: ToggleButtonGroupProps["size"][] = ["small", "medium", "large"];
+    const orientations: ToggleButtonGroupProps["orientation"][] = ["horizontal", "vertical"];
     return (
-        <Stack spacing={2} alignItems="center">
-            <Typography variant="h6">ToggleButton</Typography>
+        <TestComponentContainer title="Toggle Button">
             {sizes.map((size) => (
-                <Stack direction="row" spacing={2} alignItems="center">
-                    <ToggleButtonGroup
-                        size={size}
-                        value={alignment}
-                        onChange={handleChange}
-                        exclusive>
-                        {childrenIcon}
-                    </ToggleButtonGroup>
-                    <ToggleButtonGroup
-                        size={size}
-                        value={alignment}
-                        onChange={handleChange}
-                        exclusive>
-                        {childrenText}
-                    </ToggleButtonGroup>
-                    <ToggleButtonGroup
-                        size={size}
-                        value={alignment}
-                        orientation="vertical"
-                        onChange={handleChange}
-                        exclusive>
-                        {childrenIcon}
-                    </ToggleButtonGroup>
-                    <ToggleButtonGroup
-                        size={size}
-                        value={alignment}
-                        orientation="vertical"
-                        onChange={handleChange}
-                        exclusive>
-                        {childrenText}
-                    </ToggleButtonGroup>
+                <Stack direction="row" spacing={2} alignItems="center" key={size}>
+                    <Typography variant="caption">{size}</Typography>
+                    {orientations.map((orientation) => (
+                        <React.Fragment key={orientation}>
+                            <ToggleButtonGroup
+                                size={size}
+                                value={alignment}
+                                orientation={orientation}
+                                onChange={handleChange}
+                                exclusive>
+                                <ToggleButton value="left" key="left">
+                                    <FormatAlignLeftIcon />
+                                </ToggleButton>
+                                <ToggleButton value="center" key="center">
+                                    <FormatAlignCenterIcon />
+                                </ToggleButton>
+                                <ToggleButton value="right" key="right">
+                                    <FormatAlignRightIcon />
+                                </ToggleButton>
+                                <ToggleButton value="justify" key="justify">
+                                    <FormatAlignJustifyIcon />
+                                </ToggleButton>
+                            </ToggleButtonGroup>
+                            <ToggleButtonGroup
+                                size={size}
+                                value={alignment}
+                                orientation={orientation}
+                                onChange={handleChange}
+                                exclusive>
+                                <ToggleButton value="left" key="left">
+                                    Left
+                                </ToggleButton>
+                                <ToggleButton value="center" key="center">
+                                    Center
+                                </ToggleButton>
+                                <ToggleButton value="right" key="right">
+                                    Right
+                                </ToggleButton>
+                                <ToggleButton value="justify" key="justify">
+                                    Justify
+                                </ToggleButton>
+                            </ToggleButtonGroup>
+                        </React.Fragment>
+                    ))}
                 </Stack>
             ))}
-        </Stack>
+        </TestComponentContainer>
     );
 }

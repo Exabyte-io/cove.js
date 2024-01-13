@@ -1,24 +1,31 @@
-import Stack from "@mui/material/Stack";
-import Typography from "@mui/material/Typography";
+import Typography, { TypographyProps } from "@mui/material/Typography";
 import React from "react";
 
+import TestComponentContainer from "../TestComponentContainer";
+
 export function TypographyTest() {
+    const variants: TypographyProps["variant"][] = [
+        "h1",
+        "h2",
+        "h3",
+        "h4",
+        "h5",
+        "h6",
+        "subtitle1",
+        "subtitle2",
+        "body1",
+        "body2",
+        "caption",
+        "button",
+    ];
     return (
-        <Stack spacing={2} alignItems="center">
-            <Typography variant="h6">Typography</Typography>
-            <Typography variant="h1">h1</Typography>
-            <Typography variant="h2">h2</Typography>
-            <Typography variant="h3">h3</Typography>
-            <Typography variant="h4">h4</Typography>
-            <Typography variant="h5">h5</Typography>
-            <Typography variant="h6">h6</Typography>
-            <Typography variant="subtitle1">subtitle1</Typography>
-            <Typography variant="subtitle2">subtitle2</Typography>
-            <Typography variant="body1">body1</Typography>
-            <Typography variant="body2">body2</Typography>
-            <Typography variant="caption">caption</Typography>
-            <Typography variant="button">button</Typography>
-        </Stack>
+        <TestComponentContainer title="Typography">
+            {variants.map((variant) => (
+                <Typography variant={variant} key={variant}>
+                    {variant}
+                </Typography>
+            ))}
+        </TestComponentContainer>
     );
 }
 
