@@ -59,6 +59,7 @@ const customYesNoAlert = forwardRef<HTMLDivElement, YesNoAlertProps>(
                         <>
                             <Button
                                 color={severity}
+                                data-test="alert-confirm"
                                 onClick={() => {
                                     onConfirm();
                                     closeSnackbar();
@@ -67,6 +68,7 @@ const customYesNoAlert = forwardRef<HTMLDivElement, YesNoAlertProps>(
                             </Button>
                             <Button
                                 color={severity}
+                                data-test="alert-deny"
                                 onClick={() => {
                                     onDeny();
                                     closeSnackbar();
