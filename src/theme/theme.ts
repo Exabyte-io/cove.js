@@ -49,42 +49,38 @@ const commonSettings = {
 
 export type CommonSettings = typeof commonSettings;
 
-const defaultTheme = createTheme();
-
 const createCustomTheme = (
-    theme: Theme,
     palette: object,
     typography: (theme: Theme, commonSettings: CommonSettings) => Partial<Theme["typography"]>,
-) =>
-    createTheme(theme, {
+) => {
+    const defaultTheme = createTheme();
+    return createTheme(defaultTheme, {
         ...commonSettings,
         palette,
-        shadows: shadows(theme),
+        shadows: shadows(defaultTheme),
         components: {
             ...icons(),
-            ...buttons(theme, commonSettings),
+            ...buttons(defaultTheme, commonSettings),
             ...chips(),
             ...tooltips(),
-            ...inputs(theme, commonSettings),
+            ...inputs(defaultTheme, commonSettings),
             ...cssBaseline(),
         },
-        typography: typography(theme, commonSettings),
+        typography: typography(defaultTheme, commonSettings),
     });
+};
 
 export const oldLightMaterialUITheme = createCustomTheme(
-    defaultTheme,
     { ...paletteLight, mode: "light" },
     typography,
 );
 
 export const LightMaterialUITheme = createCustomTheme(
-    defaultTheme,
     { ...paletteLight, mode: "light" },
     MDTypography,
 );
 
 export const DarkMaterialUITheme = createCustomTheme(
-    defaultTheme,
     { ...paletteDark, mode: "dark" },
     MDTypography,
 );
