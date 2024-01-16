@@ -16,21 +16,21 @@ export const sizesConfig = {
     button: {
         small: {
             height: "32px",
-            icon: "22px",
-            startIcon: "18px",
-            paddingX: "10px",
+            icon: "1.375rem",
+            startIcon: "1.125rem",
+            paddingX: 2.5,
         },
         medium: {
             height: "40px",
-            icon: "24px",
-            startIcon: "20px",
-            paddingX: "16px",
+            icon: "1.5rem",
+            startIcon: "1.25rem",
+            paddingX: 4,
         },
         large: {
             height: "48px",
-            icon: "26px",
-            startIcon: "22px",
-            paddingX: "22px",
+            icon: "1.625rem",
+            startIcon: "1.375px",
+            paddingX: 5.5,
         },
     },
 };

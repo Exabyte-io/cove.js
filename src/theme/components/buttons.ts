@@ -1,32 +1,37 @@
 import { Theme } from "@mui/material/styles";
 
+const defaultRootStyles = {
+    minWidth: "fit-content",
+    height: "fit-content",
+};
+
 type SizeConfig = {
     height: string;
     icon: string;
     startIcon: string;
-    paddingX?: string;
+    paddingX?: number;
 };
 
-const getButtonSizeStyles = (config: SizeConfig, { includePadding = true, fixedHeight = true }) => {
+const getButtonSizeStyles = (
+    theme: Theme,
+    config: SizeConfig,
+    { includePadding = true, fixedHeight = true },
+) => {
     return {
         ...(fixedHeight && config.height && { height: config.height }),
         ...(includePadding &&
             config.paddingX && {
-                paddingLeft: config.paddingX,
-                paddingRight: config.paddingX,
+                paddingLeft: theme.spacing(config.paddingX),
+                paddingRight: theme.spacing(config.paddingX),
             }),
         "& .MuiSvgIcon-root": {
             fontSize: config.icon,
         },
+        // start and end icons should be closer to the text font size
         "& .MuiButton-startIcon .MuiSvgIcon-root, & .MuiButton-endIcon .MuiSvgIcon-root": {
             fontSize: config.startIcon,
         },
     };
-};
-
-const defaultRootStyles = {
-    minWidth: "fit-content",
-    height: "fit-content",
 };
 
 const buttons = (
@@ -49,13 +54,19 @@ const buttons = (
                     ...defaultRootStyles,
                 },
                 sizeSmall: {
-                    ...getButtonSizeStyles(buttonSizeConfig.small, { includePadding: false }),
+                    ...getButtonSizeStyles(theme, buttonSizeConfig.small, {
+                        includePadding: false,
+                    }),
                 },
                 sizeMedium: {
-                    ...getButtonSizeStyles(buttonSizeConfig.medium, { includePadding: false }),
+                    ...getButtonSizeStyles(theme, buttonSizeConfig.medium, {
+                        includePadding: false,
+                    }),
                 },
                 sizeLarge: {
-                    ...getButtonSizeStyles(buttonSizeConfig.large, { includePadding: false }),
+                    ...getButtonSizeStyles(theme, buttonSizeConfig.large, {
+                        includePadding: false,
+                    }),
                 },
             },
         },
@@ -67,13 +78,15 @@ const buttons = (
                     whiteSpace: "nowrap",
                 },
                 sizeSmall: {
-                    ...getButtonSizeStyles(buttonSizeConfig.small, { includePadding: true }),
+                    ...getButtonSizeStyles(theme, buttonSizeConfig.small, { includePadding: true }),
                 },
                 sizeMedium: {
-                    ...getButtonSizeStyles(buttonSizeConfig.medium, { includePadding: true }),
+                    ...getButtonSizeStyles(theme, buttonSizeConfig.medium, {
+                        includePadding: true,
+                    }),
                 },
                 sizeLarge: {
-                    ...getButtonSizeStyles(buttonSizeConfig.large, { includePadding: true }),
+                    ...getButtonSizeStyles(theme, buttonSizeConfig.large, { includePadding: true }),
                 },
             },
         },
@@ -83,19 +96,19 @@ const buttons = (
                     ...defaultRootStyles,
                 },
                 sizeSmall: {
-                    ...getButtonSizeStyles(buttonSizeConfig.small, {
+                    ...getButtonSizeStyles(theme, buttonSizeConfig.small, {
                         includePadding: false,
                         fixedHeight: false,
                     }),
                 },
                 sizeMedium: {
-                    ...getButtonSizeStyles(buttonSizeConfig.medium, {
+                    ...getButtonSizeStyles(theme, buttonSizeConfig.medium, {
                         includePadding: false,
                         fixedHeight: false,
                     }),
                 },
                 sizeLarge: {
-                    ...getButtonSizeStyles(buttonSizeConfig.large, {
+                    ...getButtonSizeStyles(theme, buttonSizeConfig.large, {
                         includePadding: false,
                         fixedHeight: false,
                     }),
