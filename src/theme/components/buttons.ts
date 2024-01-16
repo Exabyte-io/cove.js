@@ -1,54 +1,127 @@
 import { Theme } from "@mui/material/styles";
 
-const buttons = (theme: Theme) => {
-    const config = {
-        styleOverrides: {
-            root: {
-                // b/c of https://github.com/material-components/material-components-web/issues/4894
-                whiteSpace: "nowrap",
+const defaultRootStyles = {
+    minWidth: "fit-content",
+    height: "fit-content",
+};
+
+type SizeConfig = {
+    height: number;
+    icon: string;
+    startIcon: string;
+    paddingX?: number;
+};
+
+const getButtonSizeStyles = (
+    theme: Theme,
+    config: SizeConfig,
+    { includePadding = true, fixedHeight = true },
+) => {
+    return {
+        ...(fixedHeight && config.height && { height: theme.spacing(config.height) }),
+        ...(includePadding &&
+            config.paddingX && {
+                paddingLeft: theme.spacing(config.paddingX),
+                paddingRight: theme.spacing(config.paddingX),
+            }),
+        "& .MuiSvgIcon-root": {
+            fontSize: config.icon,
+        },
+        // start and end icons should be closer to the text font size
+        "& .MuiButton-startIcon .MuiSvgIcon-root, & .MuiButton-endIcon .MuiSvgIcon-root": {
+            fontSize: config.startIcon,
+        },
+    };
+};
+
+const buttons = (
+    theme: Theme,
+    commonSettings: {
+        sizes: {
+            button: {
+                small: SizeConfig;
+                medium: SizeConfig;
+                large: SizeConfig;
+            };
+        };
+    },
+) => {
+    const buttonSizeConfig = commonSettings.sizes.button;
+    return {
+        MuiToggleButton: {
+            styleOverrides: {
+                root: {
+                    ...defaultRootStyles,
+                },
+                sizeSmall: {
+                    ...getButtonSizeStyles(theme, buttonSizeConfig.small, {
+                        includePadding: false,
+                    }),
+                },
+                sizeMedium: {
+                    ...getButtonSizeStyles(theme, buttonSizeConfig.medium, {
+                        includePadding: false,
+                    }),
+                },
+                sizeLarge: {
+                    ...getButtonSizeStyles(theme, buttonSizeConfig.large, {
+                        includePadding: false,
+                    }),
+                },
             },
         },
-        variants: [
-            {
-                props: { size: "large" },
-                style: {
-                    fontSize: "15px",
+        MuiButton: {
+            styleOverrides: {
+                root: {
+                    ...defaultRootStyles,
+                    // b/c of https://github.com/material-components/material-components-web/issues/4894
+                    whiteSpace: "nowrap",
+                },
+                sizeSmall: {
+                    ...getButtonSizeStyles(theme, buttonSizeConfig.small, { includePadding: true }),
+                },
+                sizeMedium: {
+                    ...getButtonSizeStyles(theme, buttonSizeConfig.medium, {
+                        includePadding: true,
+                    }),
+                },
+                sizeLarge: {
+                    ...getButtonSizeStyles(theme, buttonSizeConfig.large, { includePadding: true }),
                 },
             },
-            {
-                props: { size: "medium" },
-                style: {
-                    fontSize: "14px",
+        },
+        MuiIconButton: {
+            styleOverrides: {
+                root: {
+                    ...defaultRootStyles,
+                },
+                sizeSmall: {
+                    ...getButtonSizeStyles(theme, buttonSizeConfig.small, {
+                        includePadding: false,
+                        fixedHeight: false,
+                    }),
+                },
+                sizeMedium: {
+                    ...getButtonSizeStyles(theme, buttonSizeConfig.medium, {
+                        includePadding: false,
+                        fixedHeight: false,
+                    }),
+                },
+                sizeLarge: {
+                    ...getButtonSizeStyles(theme, buttonSizeConfig.large, {
+                        includePadding: false,
+                        fixedHeight: false,
+                    }),
                 },
             },
-            {
-                props: { size: "small" },
-                style: {
-                    fontSize: "13px",
+        },
+        MuiButtonGroup: {
+            styleOverrides: {
+                root: {
+                    ...defaultRootStyles,
                 },
             },
-            {
-                props: { variant: "selected" },
-                style: {
-                    backgroundColor: "rgba(16,86,190,0.1)",
-                    color: theme.palette.primary.main,
-                    boxShadow: theme.shadows[2],
-                    padding: "8px 22px",
-                    "&:hover": {
-                        backgroundColor: "rgba(16,86,190,0.2)",
-                    },
-                    "&.Mui-disabled": {
-                        color: theme.palette.primary.main,
-                        boxShadow: "none",
-                    },
-                },
-            },
-        ],
-    };
-
-    return {
-        MuiButton: config,
-        MuiToggleButton: config,
+        },
     };
 };
 
