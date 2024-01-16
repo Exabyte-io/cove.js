@@ -30,7 +30,7 @@ const commonSettings = {
             },
             large: {
                 height: 6,
-                icon: "1.625rem",
+                icon: "1.5rem",
                 startIcon: "1.375rem",
                 paddingX: 2.75,
             },
