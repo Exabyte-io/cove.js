@@ -50,104 +50,105 @@ const inputs = (theme: Theme, commonSettings: { inputMinWidth: string }): Theme[
     return {
         MuiInputBase: {
             styleOverrides: {
-                root: {
+                root: ({ ownerState }) => ({
                     minWidth: commonSettings.inputMinWidth,
-                    // outlined variant medium
-                    "& .MuiOutlinedInput-input": {
-                        paddingTop: inputSizes.medium.outlined.paddingTop,
-                        paddingBottom: inputSizes.medium.outlined.paddingBottom,
+                    "& .MuiInputBase-input": {
+                        // Check for size and variant
+                        ...(ownerState.size === "small" &&
+                            ownerState.variant === "outlined" && {
+                                paddingTop: inputSizes.small.outlined.paddingTop,
+                                paddingBottom: inputSizes.small.outlined.paddingBottom,
+                            }),
+                        ...(ownerState.size === "small" &&
+                            ownerState.variant === "filled" && {
+                                paddingTop: inputSizes.small.paddingTop,
+                                paddingBottom: inputSizes.small.paddingBottom,
+                            }),
+                        ...(ownerState.size === "small" &&
+                            ownerState.variant === "standard" && {
+                                marginTop: inputSizes.small.textField.marginTop,
+                            }),
+                        ...(ownerState.size === "medium" &&
+                            ownerState.variant === "outlined" && {
+                                paddingTop: inputSizes.medium.outlined.paddingTop,
+                                paddingBottom: inputSizes.medium.outlined.paddingBottom,
+                            }),
+                        ...(ownerState.size === "medium" &&
+                            ownerState.variant === "filled" && {
+                                paddingTop: inputSizes.medium.paddingTop,
+                                paddingBottom: inputSizes.medium.paddingBottom,
+                            }),
+
+                        "& .MuiChip-root": {
+                            height: inputSizes.small.chip.height,
+                        },
                     },
-                    // outlined variant small
-                    "&.MuiInputBase-sizeSmall .MuiOutlinedInput-input": {
-                        paddingTop: inputSizes.small.outlined.paddingTop,
-                        paddingBottom: inputSizes.small.outlined.paddingBottom,
-                    },
-                    // filled variant medium
-                    "& .MuiFilledInput-input": {
-                        paddingTop: inputSizes.medium.paddingTop,
-                        paddingBottom: inputSizes.medium.paddingBottom,
-                    },
-                    // filled variant small
-                    "&.MuiInputBase-sizeSmall .MuiFilledInput-input": {
-                        paddingTop: inputSizes.small.paddingTop,
-                        paddingBottom: inputSizes.small.paddingBottom,
-                    },
-                    // underlined variant small
-                    "&.MuiInputBase-sizeSmall.MuiInput-underline": {
-                        marginTop: inputSizes.small.textField.marginTop,
-                    },
-                    // Chips
-                    "& .MuiInputBase-input .MuiChip-root": {
-                        height: inputSizes.small.chip.height,
-                    },
-                },
+                }),
             },
         },
         MuiInputLabel: {
             styleOverrides: {
-                root: {
-                    // all variants medium
-                    "&.MuiInputLabel-sizeMedium": {
+                root: ({ ownerState }) => ({
+                    ...(ownerState.size === "normal" && {
                         transform: `translate(14px, ${inputSizes.medium.label.translateDown}) scale(1)`,
-                    },
-                    // all variants small
-                    "&.MuiInputLabel-sizeSmall": {
+                    }),
+                    ...(ownerState.size === "small" && {
                         transform: `translate(14px, ${inputSizes.small.label.translateDown}) scale(1)`,
-                    },
-                },
+                    }),
+                }),
                 shrink: {
-                    // all variants all sizes
-                    "&.MuiInputLabel-shrink.MuiInputLabel-root": {
-                        // use 0.5em to achieve better behavior on font size changes
-                        transform: "translate(14px, -0.5em) scale(0.75)",
-                    },
+                    transform: "translate(14px, -0.5em) scale(0.75)",
                 },
             },
         },
         MuiTextField: {
             styleOverrides: {
-                root: {
+                root: ({ ownerState }) => ({
                     minWidth: commonSettings.inputMinWidth,
-                    // standard variant small
-                    "&.MuiInputBase-sizeSmall.MuiInput-underline": {
+                    ...(ownerState.size === "small" && {
                         marginTop: inputSizes.small.textField.marginTop,
+                    }),
+                    ".MuiInputBase-input": {
+                        ...(ownerState.size === "medium" &&
+                            ownerState.variant === "filled" && {
+                                paddingTop: inputSizes.medium.paddingTop,
+                                paddingBottom: inputSizes.medium.paddingBottom,
+                            }),
+                        ...(ownerState.size === "small" &&
+                            ownerState.variant === "filled" && {
+                                paddingTop: inputSizes.small.paddingTop,
+                                paddingBottom: inputSizes.small.paddingBottom,
+                            }),
                     },
-                    // filled variant medium
-                    "& .MuiFilledInput-input": {
-                        paddingTop: inputSizes.medium.paddingTop,
-                        paddingBottom: inputSizes.medium.paddingBottom,
-                    },
-                    // filled variant small
-                    "&.MuiInputBase-sizeSmall .MuiFilledInput-input": {
-                        paddingTop: inputSizes.small.paddingTop,
-                        paddingBottom: inputSizes.small.paddingBottom,
-                    },
-                },
+                }),
             },
         },
         MuiAutocomplete: {
             styleOverrides: {
-                root: {
-                    // default small
-                    "& .MuiInputBase-sizeSmall.MuiAutocomplete-inputRoot.MuiOutlinedInput-root": {
-                        paddingTop: inputSizes.small.autoComplete.paddingTop,
-                        paddingBottom: inputSizes.small.autoComplete.paddingBottom,
+                root: ({ ownerState }) => ({
+                    "& .MuiInputBase-root": {
+                        ...(ownerState.size === "small" &&
+                            ownerState.variant === "outlined" && {
+                                paddingTop: inputSizes.small.autoComplete.paddingTop,
+                                paddingBottom: inputSizes.small.autoComplete.paddingBottom,
+                            }),
+                        ...(ownerState.size === "small" &&
+                            ownerState.variant === "filled" && {
+                                paddingTop: inputSizes.small.autoComplete.paddingTop,
+                                paddingBottom: inputSizes.small.autoComplete.paddingBottom,
+                            }),
+                        ...(ownerState.size === "medium" &&
+                            ownerState.variant === "outlined" && {
+                                paddingTop: inputSizes.medium.autoComplete.paddingTop,
+                                paddingBottom: inputSizes.medium.autoComplete.paddingBottom,
+                            }),
+                        ...(ownerState.size === "medium" &&
+                            ownerState.variant === "filled" && {
+                                paddingTop: inputSizes.medium.autoComplete.paddingTop,
+                                paddingBottom: inputSizes.medium.autoComplete.paddingBottom,
+                            }),
                     },
-                    // default medium
-                    "& .MuiAutocomplete-inputRoot.MuiOutlinedInput-root": {
-                        paddingTop: inputSizes.medium.autoComplete.paddingTop,
-                        paddingBottom: inputSizes.medium.autoComplete.paddingBottom,
-                    },
-                    // filled variant small
-                    "&.MuiInputBase-sizeSmall .MuiFilledInput-input": {
-                        paddingTop: inputSizes.small.paddingTop,
-                        paddingBottom: inputSizes.small.paddingBottom,
-                    },
-                    // filled variant medium
-                    "& .MuiFilledInput-root": {
-                        paddingTop: inputSizes.medium.textField.marginTop,
-                    },
-                },
+                }),
             },
         },
     };
