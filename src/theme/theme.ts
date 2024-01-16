@@ -1,77 +1,40 @@
-import darkScrollbar from "@mui/material/darkScrollbar";
 import { createTheme, Theme } from "@mui/material/styles";
 
-import buttons from "./components/buttons";
-import chips from "./components/chips";
-import inputs from "./components/inputs";
-import tooltips from "./components/tooltips";
+import { buttons, chips, cssBaseline, icons, inputs, tooltips } from "./components";
 import { paletteDark, paletteLight } from "./palette";
 import shadows from "./shadows";
-import Typography, { MDTypography } from "./typography";
-
-export const sizesConfig = {
-    menuItem: {
-        height: "32.5px",
-    },
-    button: {
-        small: {
-            height: 8,
-            icon: "1.375rem",
-            startIcon: "1.125rem",
-            paddingX: 2.5,
-        },
-        medium: {
-            height: 10,
-            icon: "1.5rem",
-            startIcon: "1.25rem",
-            paddingX: 4,
-        },
-        large: {
-            height: 12,
-            icon: "1.625rem",
-            startIcon: "1.375rem",
-            paddingX: 5.5,
-        },
-    },
-};
+import { MDTypography, typography } from "./typography";
 
 const commonSettings = {
     dropdownPopperZindex: 2147483647,
     iconDefaultFontSize: 20,
     inputMinWidth: "75px",
     fonts: {
-        roboto: ["roboto", "sans-serif"].join(", "),
+        roboto: ["Roboto", "-apple-system", "sans-serif"].join(","),
         monospace: ["Menlo", "Monaco", "Consolas", "Courier New", "monospace"].join(", "),
     },
     sizes: {
-        dropdown: {
-            s: {
-                width: "64px",
-                height: sizesConfig.menuItem.height,
+        button: {
+            // numbers are in theme.spacing units
+            small: {
+                height: 8,
+                icon: "1.375rem",
+                startIcon: "1.125rem",
+                paddingX: 2.5,
             },
-            m: {
-                width: "128px",
-                height: sizesConfig.menuItem.height,
+            medium: {
+                height: 10,
+                icon: "1.5rem",
+                startIcon: "1.25rem",
+                paddingX: 4,
             },
-            l: {
-                width: "192px",
-                height: sizesConfig.menuItem.height,
-            },
-            xl: {
-                width: "256px",
-                height: sizesConfig.menuItem.height,
-            },
-            inherit: {
-                width: "auto",
-                height: sizesConfig.menuItem.height,
-            },
-        },
-        header: {
-            subHeader: {
-                height: "30px",
+            large: {
+                height: 12,
+                icon: "1.625rem",
+                startIcon: "1.375rem",
+                paddingX: 5.5,
             },
         },
-        button: sizesConfig.button,
     },
     breakpoints: {
         values: {
@@ -84,63 +47,47 @@ const commonSettings = {
     },
 };
 
-const MuiSvgIconSizesOverrides = {
-    MuiSvgIcon: {
-        variants: [
-            {
-                props: { fontSize: "small" },
-                style: {
-                    fontSize: "18px",
-                },
-            },
-            {
-                props: { fontSize: "medium" },
-                style: {
-                    fontSize: "20px",
-                },
-            },
-            {
-                props: { fontSize: "large" },
-                style: {
-                    fontSize: "35px",
-                },
-            },
-        ],
-    },
-};
-// Used to make scrollbars dark in dark mode per https://mui.com/material-ui/react-css-baseline/#scrollbars
-// Otherwise, b/c the Dialogs are appended to the body, they will have light scrollbars in dark mode
-const MuiCssBaselineOverrides = {
-    MuiCssBaseline: {
-        styleOverrides: (themeParam: Theme) => ({
-            body: themeParam.palette.mode === "dark" ? darkScrollbar() : null,
-        }),
-    },
-};
+export type CommonSettings = typeof commonSettings;
 
-const lightThemePrototype = createTheme({ palette: { ...paletteLight, mode: "light" } });
-const darkThemePrototype = createTheme({ palette: { ...paletteDark, mode: "dark" } });
+const defaultTheme = createTheme();
 
-// TODO: figure out how to avoid having to patch the theme and use the above createTheme() function instead
-const patchTheme = (theme: Theme, typography: any) => {
-    return createTheme(theme, {
+const createCustomTheme = (
+    theme: Theme,
+    palette: Partial<Theme["palette"]>,
+    typography: (theme: Theme, commonSettings: CommonSettings) => Partial<Theme["typography"]>,
+) =>
+    createTheme(theme, {
         ...commonSettings,
-        typography: typography(theme),
+        palette,
         shadows: shadows(theme),
         components: {
+            ...icons(),
             ...buttons(theme, commonSettings),
             ...chips(),
             ...tooltips(),
             ...inputs(theme, commonSettings),
-            ...MuiSvgIconSizesOverrides,
-            ...MuiCssBaselineOverrides,
+            ...cssBaseline(),
         },
+        typography: typography(theme, commonSettings),
     });
-};
 
-export const oldLightMaterialUITheme = patchTheme(lightThemePrototype, Typography);
-export const LightMaterialUITheme = patchTheme(lightThemePrototype, MDTypography);
-export const DarkMaterialUITheme = patchTheme(darkThemePrototype, MDTypography);
+export const oldLightMaterialUITheme = createCustomTheme(
+    defaultTheme,
+    { ...paletteLight, mode: "light" },
+    typography,
+);
+
+export const LightMaterialUITheme = createCustomTheme(
+    defaultTheme,
+    { ...paletteLight, mode: "light" },
+    MDTypography,
+);
+
+export const DarkMaterialUITheme = createCustomTheme(
+    defaultTheme,
+    { ...paletteDark, mode: "dark" },
+    MDTypography,
+);
 
 // Temporarily use oldTypography for compatibility purposes with the web app.
 // TODO: make light and dark themes both use Typography and remove "old".

@@ -1,5 +1,7 @@
 // Note: https://bareynol.github.io/mui-theme-creator/#Dialog can be used to preview theme changes
 
+import { Theme } from "@mui/material/styles";
+
 const primaryColorConfig = {
     main: "#5b37c0",
     // To be better readable on dark backgrounds
@@ -86,13 +88,13 @@ const otherOptions = {
     },
 };
 
-export const paletteLight = {
+export const paletteLight: Partial<Theme["palette"]> = {
     ...otherColorOptions,
     ...otherOptions,
     ...primaryAndSecondaryColorOptionsLight,
 };
 
-export const paletteDark = {
+export const paletteDark: Partial<Theme["palette"]> = {
     ...otherColorOptions,
     ...primaryAndSecondaryColorOptionsDark,
 };
