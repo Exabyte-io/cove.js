@@ -60,16 +60,6 @@ const inputs = (theme: Theme, commonSettings: { inputMinWidth: string }): Theme[
             styleOverrides: {
                 root: ({ ownerState }) => ({
                     minWidth: commonSettings.inputMinWidth,
-                    "& .MuiInputBase-input": {
-                        ...(ownerState.size === "small" && {
-                            paddingTop: inputSizes.small.outlined.paddingTop,
-                            paddingBottom: inputSizes.small.outlined.paddingBottom,
-                        }),
-                        ...(ownerState.size === "medium" && {
-                            paddingTop: inputSizes.medium.outlined.paddingTop,
-                            paddingBottom: inputSizes.medium.outlined.paddingBottom,
-                        }),
-                    },
                 }),
             },
         },
@@ -170,7 +160,7 @@ const inputs = (theme: Theme, commonSettings: { inputMinWidth: string }): Theme[
                             paddingBottom: inputSizes.medium.autoComplete.paddingBottom,
                         },
                         "& .MuiFilledInput-root": {
-                            paddingTop: inputSizes.medium.paddingTop,
+                            paddingTop: inputSizes.small.autoComplete.paddingTop,
                             paddingBottom: inputSizes.medium.paddingBottom,
                         },
                         "& .MuiInput-underline": {
@@ -182,18 +172,15 @@ const inputs = (theme: Theme, commonSettings: { inputMinWidth: string }): Theme[
         },
         MuiSelect: {
             styleOverrides: {
-                select: ({ ownerState }) => {
+                root: ({ ownerState }) => {
                     return {
                         "& .MuiSelect-select": {
                             paddingTop: inputSizes.medium.outlined.paddingTop,
                             paddingBottom: inputSizes.medium.outlined.paddingBottom,
                         },
-                        "&.MuiInputBase-inputSizeSmall .MuiSelect-select": {
+                        "& .MuiSelect-select.MuiInputBase-inputSizeSmall": {
                             paddingTop: inputSizes.small.outlined.paddingTop,
                             paddingBottom: inputSizes.small.outlined.paddingBottom,
-                        },
-                        "& .MuiChip-root": {
-                            height: inputSizes.small.chip.height,
                         },
                     };
                 },
