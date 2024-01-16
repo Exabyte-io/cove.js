@@ -50,13 +50,13 @@ const commonSettings = {
 export type CommonSettings = typeof commonSettings;
 
 const createCustomTheme = (
-    palette: object,
+    palette: (theme: Theme) => Partial<Theme["palette"]>,
     typography: (theme: Theme, commonSettings: CommonSettings) => Partial<Theme["typography"]>,
 ) => {
     const defaultTheme = createTheme();
     return createTheme(defaultTheme, {
         ...commonSettings,
-        palette,
+        palette: palette(defaultTheme),
         shadows: shadows(defaultTheme),
         components: {
             ...icons(),

@@ -12,22 +12,16 @@ const secondaryColorConfig = {
     main: "#757575",
 };
 
-const primaryAndSecondaryColorOptionsLight = {
-    primary: {
-        main: primaryColorConfig.main,
-    },
-    secondary: {
-        main: secondaryColorConfig.main,
-    },
-};
-const primaryAndSecondaryColorOptionsDark = {
-    primary: {
-        main: primaryColorConfig.lighter,
-    },
-    secondary: {
-        main: secondaryColorConfig.main,
-    },
-};
+const primaryAndSecondaryColorOptionsLight = (theme: Theme) => ({
+    primary: theme.palette.augmentColor({ color: { main: primaryColorConfig.main } }),
+    secondary: theme.palette.augmentColor({ color: { main: secondaryColorConfig.main } }),
+});
+
+const primaryAndSecondaryColorOptionsDark = (theme: Theme) => ({
+    primary: theme.palette.augmentColor({ color: { main: primaryColorConfig.lighter } }),
+    secondary: theme.palette.augmentColor({ color: { main: secondaryColorConfig.main } }),
+});
+
 const otherColorOptions = {
     success: {
         main: "#72E128",
@@ -88,13 +82,14 @@ const otherOptions = {
     },
 };
 
-export const paletteLight = {
+// @ts-ignore
+export const paletteLight = (theme: Theme): Partial<Theme["palette"]> => ({
     ...otherColorOptions,
     ...otherOptions,
-    ...primaryAndSecondaryColorOptionsLight,
-};
+    ...primaryAndSecondaryColorOptionsLight(theme),
+});
 
-export const paletteDark = {
+export const paletteDark = (theme: Theme): Partial<Theme["palette"]> => ({
     ...otherColorOptions,
-    ...primaryAndSecondaryColorOptionsDark,
-};
+    ...primaryAndSecondaryColorOptionsDark(theme),
+});
