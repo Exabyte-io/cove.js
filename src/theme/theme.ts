@@ -53,7 +53,7 @@ const defaultTheme = createTheme();
 
 const createCustomTheme = (
     theme: Theme,
-    palette: Partial<Theme["palette"]>,
+    palette: object,
     typography: (theme: Theme, commonSettings: CommonSettings) => Partial<Theme["typography"]>,
 ) =>
     createTheme(theme, {

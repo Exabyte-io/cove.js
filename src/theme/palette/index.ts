@@ -88,13 +88,13 @@ const otherOptions = {
     },
 };
 
-export const paletteLight: Partial<Theme["palette"]> = {
+export const paletteLight = {
     ...otherColorOptions,
     ...otherOptions,
     ...primaryAndSecondaryColorOptionsLight,
 };
 
-export const paletteDark: Partial<Theme["palette"]> = {
+export const paletteDark = {
     ...otherColorOptions,
     ...primaryAndSecondaryColorOptionsDark,
 };
