@@ -35,7 +35,7 @@ export const sizesConfig = {
 const commonSettings = {
     dropdownPopperZindex: 2147483647,
     iconDefaultFontSize: 20,
-    inputMinWidth: "200px",
+    inputMinWidth: "75px",
     fonts: {
         roboto: ["roboto", "sans-serif"].join(", "),
         monospace: ["Menlo", "Monaco", "Consolas", "Courier New", "monospace"].join(", "),
