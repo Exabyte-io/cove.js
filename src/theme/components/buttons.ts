@@ -6,7 +6,7 @@ const defaultRootStyles = {
 };
 
 type SizeConfig = {
-    height: string;
+    height: number;
     icon: string;
     startIcon: string;
     paddingX?: number;
@@ -18,7 +18,7 @@ const getButtonSizeStyles = (
     { includePadding = true, fixedHeight = true },
 ) => {
     return {
-        ...(fixedHeight && config.height && { height: config.height }),
+        ...(fixedHeight && config.height && { height: theme.spacing(config.height) }),
         ...(includePadding &&
             config.paddingX && {
                 paddingLeft: theme.spacing(config.paddingX),
