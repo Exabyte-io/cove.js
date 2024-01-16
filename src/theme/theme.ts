@@ -70,20 +70,9 @@ const createCustomTheme = (
     });
 };
 
-export const oldLightMaterialUITheme = createCustomTheme(
-    { ...paletteLight, mode: "light" },
-    typography,
-);
-
-export const LightMaterialUITheme = createCustomTheme(
-    { ...paletteLight, mode: "light" },
-    MDTypography,
-);
-
-export const DarkMaterialUITheme = createCustomTheme(
-    { ...paletteDark, mode: "dark" },
-    MDTypography,
-);
+export const oldLightMaterialUITheme = createCustomTheme(paletteLight, typography);
+export const LightMaterialUITheme = createCustomTheme(paletteDark, MDTypography);
+export const DarkMaterialUITheme = createCustomTheme(paletteDark, MDTypography);
 
 // Temporarily use oldTypography for compatibility purposes with the web app.
 // TODO: make light and dark themes both use Typography and remove "old".

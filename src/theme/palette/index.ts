@@ -87,9 +87,11 @@ export const paletteLight = (theme: Theme): Partial<Theme["palette"]> => ({
     ...otherColorOptions,
     ...otherOptions,
     ...primaryAndSecondaryColorOptionsLight(theme),
+    mode: "light",
 });
 
 export const paletteDark = (theme: Theme): Partial<Theme["palette"]> => ({
     ...otherColorOptions,
     ...primaryAndSecondaryColorOptionsDark(theme),
+    mode: "dark",
 });
