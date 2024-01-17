@@ -30,10 +30,12 @@ export function TextWidget({
             formContext,
         } = props;
 
-        const _onChange = ({ target: { value } }) =>
-            onChange(value === "" ? options.emptyValue : value);
-        const _onBlur = ({ target: { value } }) => onBlur(id, value);
-        const _onFocus = ({ target: { value } }) => onFocus(id, value);
+        const _onChange = (event: React.ChangeEvent<HTMLInputElement>) =>
+            onChange(event.target.value === "" ? options.emptyValue : event.target.value);
+        const _onBlur = (event: React.FocusEvent<HTMLInputElement>) =>
+            onBlur(id, event.target.value);
+        const _onFocus = (event: React.FocusEvent<HTMLInputElement>) =>
+            onFocus(id, event.target.value);
 
         const displayLabel = getDisplayLabel(validator, schema, uiSchema, formContext);
         // eslint-disable-next-line no-nested-ternary
