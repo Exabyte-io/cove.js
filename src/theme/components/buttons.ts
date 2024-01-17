@@ -1,126 +1,124 @@
 import { Theme } from "@mui/material/styles";
 
+const defaultRootStyles = {
+    minWidth: "fit-content",
+    height: "fit-content",
+};
+
+type SizeConfig = {
+    height: number;
+    icon: string;
+    startIcon: string;
+    paddingX?: number;
+};
+
+const getButtonSizeStyles = (
+    theme: Theme,
+    config: SizeConfig,
+    { includePadding = true, fixedHeight = true },
+) => {
+    return {
+        ...(fixedHeight && config.height && { height: theme.spacing(config.height) }),
+        ...(includePadding &&
+            config.paddingX && {
+                paddingLeft: theme.spacing(config.paddingX),
+                paddingRight: theme.spacing(config.paddingX),
+            }),
+        "& .MuiSvgIcon-root": {
+            fontSize: config.icon,
+        },
+        // start and end icons should be closer to the text font size
+        "& .MuiButton-startIcon .MuiSvgIcon-root, & .MuiButton-endIcon .MuiSvgIcon-root": {
+            fontSize: config.startIcon,
+        },
+    };
+};
+
 const buttons = (
     theme: Theme,
     commonSettings: {
         sizes: {
             button: {
-                height: {
-                    small: string;
-                    medium: string;
-                    large: string;
-                };
-                icon: {
-                    small: string;
-                    medium: string;
-                    large: string;
-                };
-                startIcon: {
-                    small: string;
-                    medium: string;
-                    large: string;
-                };
+                small: SizeConfig;
+                medium: SizeConfig;
+                large: SizeConfig;
             };
         };
     },
 ) => {
+    const buttonSizeConfig = commonSettings.sizes.button;
     return {
         MuiToggleButton: {
             styleOverrides: {
                 root: {
-                    minWidth: "fit-content",
-                    height: "fit-content",
-                    "&.MuiToggleButton-sizeSmall": {
-                        height: commonSettings.sizes.button.height.small,
-                    },
-                    "&.MuiToggleButton-sizeMedium": {
-                        height: commonSettings.sizes.button.height.medium,
-                    },
-                    "&.MuiToggleButton-sizeLarge": {
-                        height: commonSettings.sizes.button.height.large,
-                    },
-                    // small/medium icons
-                    "&.MuiToggleButton-root .MuiSvgIcon-root": {
-                        fontSize: commonSettings.sizes.button.icon.medium,
-                    },
-                    "&.MuiToggleButton-sizeLarge .MuiSvgIcon-root": {
-                        fontSize: commonSettings.sizes.button.icon.large,
-                    },
+                    ...defaultRootStyles,
+                },
+                sizeSmall: {
+                    ...getButtonSizeStyles(theme, buttonSizeConfig.small, {
+                        includePadding: false,
+                    }),
+                },
+                sizeMedium: {
+                    ...getButtonSizeStyles(theme, buttonSizeConfig.medium, {
+                        includePadding: false,
+                    }),
+                },
+                sizeLarge: {
+                    ...getButtonSizeStyles(theme, buttonSizeConfig.large, {
+                        includePadding: false,
+                    }),
                 },
             },
         },
         MuiButton: {
             styleOverrides: {
                 root: {
-                    minWidth: "fit-content",
-                    height: "fit-content",
+                    ...defaultRootStyles,
                     // b/c of https://github.com/material-components/material-components-web/issues/4894
                     whiteSpace: "nowrap",
-                    // fixed heights for all sizes
-                    "&.MuiButton-sizeSmall": {
-                        height: commonSettings.sizes.button.height.small,
-                        paddingLeft: "10px",
-                        paddingRight: "10px",
-                    },
-                    "&.MuiButton-sizeMedium": {
-                        height: commonSettings.sizes.button.height.medium,
-                        paddingLeft: "16px",
-                        paddingRight: "16px",
-                    },
-                    "&.MuiButton-sizeLarge": {
-                        height: commonSettings.sizes.button.height.large,
-                        paddingLeft: "22px",
-                        paddingRight: "22px",
-                    },
-                    // change icon size to prevent icon from increasing button size
-                    "&.MuiButton-root .MuiSvgIcon-root": {
-                        fontSize: commonSettings.sizes.button.icon.medium,
-                    },
-                    "&.MuiButton-sizeSmall .MuiSvgIcon-root": {
-                        fontSize: commonSettings.sizes.button.icon.small,
-                    },
-                    "&.MuiButton-sizeSmall .MuiButton-startIcon .MuiSvgIcon-root": {
-                        fontSize: commonSettings.sizes.button.startIcon.small,
-                    },
-                    "&.MuiButton-sizeSmall .MuiButton-endIcon .MuiSvgIcon-root": {
-                        fontSize: commonSettings.sizes.button.startIcon.small,
-                    },
-                    "&.MuiButton-sizeMedium .MuiButton-startIcon .MuiSvgIcon-root": {
-                        fontSize: commonSettings.sizes.button.startIcon.medium,
-                    },
-                    "&.MuiButton-sizeMedium .MuiButton-endIcon .MuiSvgIcon-root": {
-                        fontSize: commonSettings.sizes.button.startIcon.medium,
-                    },
-                    "&.MuiButton-sizeLarge .MuiButton-startIcon .MuiSvgIcon-root": {
-                        fontSize: commonSettings.sizes.button.startIcon.large,
-                    },
-                    "&.MuiButton-sizeLarge .MuiButton-endIcon .MuiSvgIcon-root": {
-                        fontSize: commonSettings.sizes.button.startIcon.large,
-                    },
+                },
+                sizeSmall: {
+                    ...getButtonSizeStyles(theme, buttonSizeConfig.small, { includePadding: true }),
+                },
+                sizeMedium: {
+                    ...getButtonSizeStyles(theme, buttonSizeConfig.medium, {
+                        includePadding: true,
+                    }),
+                },
+                sizeLarge: {
+                    ...getButtonSizeStyles(theme, buttonSizeConfig.large, { includePadding: true }),
                 },
             },
         },
         MuiIconButton: {
             styleOverrides: {
                 root: {
-                    minWidth: "fit-content",
-                    height: "fit-content",
-                    "&.MuiIconButton-sizeSmall .MuiSvgIcon-root": {
-                        fontSize: commonSettings.sizes.button.icon.small,
-                    },
-                    "&.MuiIconButton-sizeMedium .MuiSvgIcon-root": {
-                        fontSize: commonSettings.sizes.button.icon.medium,
-                    },
-                    "&.MuiIconButton-sizeLarge .MuiSvgIcon-root": {
-                        fontSize: commonSettings.sizes.button.icon.large,
-                    },
+                    ...defaultRootStyles,
+                },
+                sizeSmall: {
+                    ...getButtonSizeStyles(theme, buttonSizeConfig.small, {
+                        includePadding: false,
+                        fixedHeight: false,
+                    }),
+                },
+                sizeMedium: {
+                    ...getButtonSizeStyles(theme, buttonSizeConfig.medium, {
+                        includePadding: false,
+                        fixedHeight: false,
+                    }),
+                },
+                sizeLarge: {
+                    ...getButtonSizeStyles(theme, buttonSizeConfig.large, {
+                        includePadding: false,
+                        fixedHeight: false,
+                    }),
                 },
             },
         },
         MuiButtonGroup: {
             styleOverrides: {
                 root: {
-                    height: "fit-content",
+                    ...defaultRootStyles,
                 },
             },
         },

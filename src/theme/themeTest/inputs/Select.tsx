@@ -56,6 +56,7 @@ export function SelectTest() {
                             id="select-small"
                             value={age}
                             label="Age"
+                            size={size}
                             onChange={handleAgeChange}>
                             <MenuItem value="">
                                 <em>None</em>
@@ -74,6 +75,7 @@ export function SelectTest() {
                             value={personName}
                             sx={{ maxWidth: "300px" }} // required to prevent overflow
                             onChange={handleNameChange}
+                            size={size}
                             input={<OutlinedInput id="select-multiselect-chip" label="Chip" />}
                             renderValue={(selected) => (
                                 <Stack direction="row" useFlexGap flexWrap="wrap" gap={0.5}>
