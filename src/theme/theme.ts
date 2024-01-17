@@ -49,30 +49,29 @@ const commonSettings = {
 
 export type CommonSettings = typeof commonSettings;
 
-const createCustomTheme = (
-    palette: (theme: Theme) => Partial<Theme["palette"]>,
-    typography: (theme: Theme, commonSettings: CommonSettings) => Partial<Theme["typography"]>,
-) => {
-    const defaultTheme = createTheme();
-    return createTheme(defaultTheme, {
+const lightThemePrototype = createTheme({ palette: { ...paletteLight, mode: "light" } });
+const darkThemePrototype = createTheme({ palette: { ...paletteDark, mode: "dark" } });
+
+// TODO: figure out how to avoid having to patch the theme and use the above createTheme() function instead
+const patchTheme = (theme: Theme, typography: any) => {
+    return createTheme(theme, {
         ...commonSettings,
-        palette: palette(defaultTheme),
-        shadows: shadows(defaultTheme),
+        typography: typography(theme, commonSettings),
+        shadows: shadows(theme),
         components: {
-            ...icons(),
-            ...buttons(defaultTheme, commonSettings),
+            ...buttons(theme, commonSettings),
             ...chips(),
             ...tooltips(),
-            ...inputs(defaultTheme, commonSettings),
+            ...inputs(commonSettings),
+            ...icons(),
             ...cssBaseline(),
         },
-        typography: typography(defaultTheme, commonSettings),
     });
 };
 
-export const oldLightMaterialUITheme = createCustomTheme(paletteLight, typography);
-export const LightMaterialUITheme = createCustomTheme(paletteDark, MDTypography);
-export const DarkMaterialUITheme = createCustomTheme(paletteDark, MDTypography);
+export const oldLightMaterialUITheme = patchTheme(lightThemePrototype, typography);
+export const LightMaterialUITheme = patchTheme(lightThemePrototype, MDTypography);
+export const DarkMaterialUITheme = patchTheme(darkThemePrototype, MDTypography);
 
 // Temporarily use oldTypography for compatibility purposes with the web app.
 // TODO: make light and dark themes both use Typography and remove "old".

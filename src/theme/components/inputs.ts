@@ -54,7 +54,7 @@ const inputSizes = {
     },
 };
 
-const inputs = (theme: Theme, commonSettings: { inputMinWidth: string }): Theme["components"] => {
+const inputs = (commonSettings: { inputMinWidth: string }): Theme["components"] => {
     return {
         MuiInputBase: {
             styleOverrides: {
@@ -98,7 +98,7 @@ const inputs = (theme: Theme, commonSettings: { inputMinWidth: string }): Theme[
                                     paddingTop: inputSizes.small.outlined.paddingTop,
                                     paddingBottom: inputSizes.small.outlined.paddingBottom,
                                 }),
-                            ...(ownerState.size === "medium" &&
+                            ...((ownerState.size === "medium" || ownerState.size === undefined) &&
                                 ownerState.variant === "outlined" && {
                                     paddingTop: inputSizes.medium.outlined.paddingTop,
                                     paddingBottom: inputSizes.medium.outlined.paddingBottom,
@@ -108,7 +108,7 @@ const inputs = (theme: Theme, commonSettings: { inputMinWidth: string }): Theme[
                                     paddingTop: inputSizes.small.paddingTop,
                                     paddingBottom: inputSizes.small.paddingBottom,
                                 }),
-                            ...(ownerState.size === "medium" &&
+                            ...((ownerState.size === "medium" || ownerState.size === undefined) &&
                                 ownerState.variant === "filled" && {
                                     paddingTop: inputSizes.medium.paddingTop,
                                     paddingBottom: inputSizes.medium.paddingBottom,
@@ -118,7 +118,7 @@ const inputs = (theme: Theme, commonSettings: { inputMinWidth: string }): Theme[
                                     paddingTop: inputSizes.small.standard.paddingTop,
                                     paddingBottom: inputSizes.small.standard.paddingBottom,
                                 }),
-                            ...(ownerState.size === "medium" &&
+                            ...((ownerState.size === "medium" || ownerState.size === undefined) &&
                                 ownerState.variant === "standard" && {
                                     paddingTop: inputSizes.medium.standard.paddingTop,
                                     paddingBottom: inputSizes.medium.standard.paddingBottom,

@@ -1,7 +1,5 @@
 // Note: https://bareynol.github.io/mui-theme-creator/#Dialog can be used to preview theme changes
 
-import { Theme } from "@mui/material/styles";
-
 const primaryColorConfig = {
     main: "#5b37c0",
     // To be better readable on dark backgrounds
@@ -12,16 +10,22 @@ const secondaryColorConfig = {
     main: "#757575",
 };
 
-const primaryAndSecondaryColorOptionsLight = (theme: Theme) => ({
-    primary: theme.palette.augmentColor({ color: { main: primaryColorConfig.main } }),
-    secondary: theme.palette.augmentColor({ color: { main: secondaryColorConfig.main } }),
-});
-
-const primaryAndSecondaryColorOptionsDark = (theme: Theme) => ({
-    primary: theme.palette.augmentColor({ color: { main: primaryColorConfig.lighter } }),
-    secondary: theme.palette.augmentColor({ color: { main: secondaryColorConfig.main } }),
-});
-
+const primaryAndSecondaryColorOptionsLight = {
+    primary: {
+        main: primaryColorConfig.main,
+    },
+    secondary: {
+        main: secondaryColorConfig.main,
+    },
+};
+const primaryAndSecondaryColorOptionsDark = {
+    primary: {
+        main: primaryColorConfig.lighter,
+    },
+    secondary: {
+        main: secondaryColorConfig.main,
+    },
+};
 const otherColorOptions = {
     success: {
         main: "#72E128",
@@ -82,16 +86,13 @@ const otherOptions = {
     },
 };
 
-// @ts-ignore
-export const paletteLight = (theme: Theme): Partial<Theme["palette"]> => ({
+export const paletteLight = {
     ...otherColorOptions,
     ...otherOptions,
-    ...primaryAndSecondaryColorOptionsLight(theme),
-    mode: "light",
-});
+    ...primaryAndSecondaryColorOptionsLight,
+};
 
-export const paletteDark = (theme: Theme): Partial<Theme["palette"]> => ({
+export const paletteDark = {
     ...otherColorOptions,
-    ...primaryAndSecondaryColorOptionsDark(theme),
-    mode: "dark",
-});
+    ...primaryAndSecondaryColorOptionsDark,
+};
