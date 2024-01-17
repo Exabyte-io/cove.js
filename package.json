@@ -48,11 +48,12 @@
         "@codemirror/language": "^6.6.0",
         "@codemirror/legacy-modes": "^6.3.1",
         "@codemirror/lint": "^6.2.0",
-        "@codemirror/view": "^6.18.0",
         "@codemirror/state": "^6.3.0",
+        "@codemirror/view": "^6.18.0",
         "@mui/x-date-pickers": "6.11.1",
         "@rjsf/mui": "^5.12.1",
         "@rjsf/utils": "^5.1.0",
+        "@rjsf/validator-ajv8": "^5.16.1",
         "@toast-ui/editor": "^3.2.2",
         "@toast-ui/editor-plugin-code-syntax-highlight": "^3.1.0",
         "@toast-ui/react-editor": "^3.2.3",
@@ -68,10 +69,10 @@
         "prismjs": "^1.29.0",
         "react-beautiful-dnd": "^13.1.1",
         "react-draggable": "^4.4.5",
+        "react-full-screen": "^0.2.5",
         "react-json-view": "^1.16.0",
         "typescript": "^4.9.5",
-        "underscore.string": "^3.3.6",
-        "react-full-screen": "^0.2.5"
+        "underscore.string": "^3.3.6"
     },
     "devDependencies": {
         "@exabyte-io/code.js": "2023.12.1-0",
