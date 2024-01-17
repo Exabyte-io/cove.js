@@ -56,7 +56,7 @@ const darkThemePrototype = createTheme({ palette: { ...paletteDark, mode: "dark"
 const patchTheme = (theme: Theme, typography: any) => {
     return createTheme(theme, {
         ...commonSettings,
-        typography: typography(theme),
+        typography: typography(theme, commonSettings),
         shadows: shadows(theme),
         components: {
             ...buttons(theme, commonSettings),
