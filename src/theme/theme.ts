@@ -1,54 +1,38 @@
-import darkScrollbar from "@mui/material/darkScrollbar";
 import { createTheme, Theme } from "@mui/material/styles";
 
-import buttons from "./components/buttons";
-import chips from "./components/chips";
-import inputs from "./components/inputs";
-import tooltips from "./components/tooltips";
+import { buttons, chips, cssBaseline, icons, inputs, tooltips } from "./components";
 import { paletteDark, paletteLight } from "./palette";
 import shadows from "./shadows";
-import oldTypography, { Typography } from "./typography";
-
-export const sizesConfig = {
-    buttonPrimary: {
-        height: "32.5px",
-    },
-};
+import { MDTypography, typography } from "./typography";
 
 const commonSettings = {
     dropdownPopperZindex: 2147483647,
     iconDefaultFontSize: 20,
-    inputMinWidth: "200px",
+    inputMinWidth: "75px",
     fonts: {
-        roboto: ["roboto", "sans-serif"].join(", "),
+        roboto: ["Roboto", "-apple-system", "sans-serif"].join(","),
         monospace: ["Menlo", "Monaco", "Consolas", "Courier New", "monospace"].join(", "),
     },
     sizes: {
-        dropdown: {
-            s: {
-                width: "64px",
-                height: sizesConfig.buttonPrimary.height,
+        button: {
+            // numbers are in theme.spacing units
+            small: {
+                height: 4,
+                icon: "1.375rem",
+                startIcon: "1.125rem",
+                paddingX: 1.25,
             },
-            m: {
-                width: "128px",
-                height: sizesConfig.buttonPrimary.height,
+            medium: {
+                height: 5,
+                icon: "1.5rem",
+                startIcon: "1.25rem",
+                paddingX: 2,
             },
-            l: {
-                width: "192px",
-                height: sizesConfig.buttonPrimary.height,
-            },
-            xl: {
-                width: "256px",
-                height: sizesConfig.buttonPrimary.height,
-            },
-            inherit: {
-                width: "auto",
-                height: sizesConfig.buttonPrimary.height,
-            },
-        },
-        header: {
-            subHeader: {
-                height: "30px",
+            large: {
+                height: 6,
+                icon: "1.5rem",
+                startIcon: "1.375rem",
+                paddingX: 2.75,
             },
         },
     },
@@ -63,39 +47,7 @@ const commonSettings = {
     },
 };
 
-const MuiSvgIconSizesOverrides = {
-    MuiSvgIcon: {
-        variants: [
-            {
-                props: { fontSize: "small" },
-                style: {
-                    fontSize: "18px",
-                },
-            },
-            {
-                props: { fontSize: "medium" },
-                style: {
-                    fontSize: "20px",
-                },
-            },
-            {
-                props: { fontSize: "large" },
-                style: {
-                    fontSize: "35px",
-                },
-            },
-        ],
-    },
-};
-// Used to make scrollbars dark in dark mode per https://mui.com/material-ui/react-css-baseline/#scrollbars
-// Otherwise, b/c the Dialogs are appended to the body, they will have light scrollbars in dark mode
-const MuiCssBaselineOverrides = {
-    MuiCssBaseline: {
-        styleOverrides: (themeParam: Theme) => ({
-            body: themeParam.palette.mode === "dark" ? darkScrollbar() : null,
-        }),
-    },
-};
+export type CommonSettings = typeof commonSettings;
 
 const lightThemePrototype = createTheme({ palette: { ...paletteLight, mode: "light" } });
 const darkThemePrototype = createTheme({ palette: { ...paletteDark, mode: "dark" } });
@@ -104,22 +56,22 @@ const darkThemePrototype = createTheme({ palette: { ...paletteDark, mode: "dark"
 const patchTheme = (theme: Theme, typography: any) => {
     return createTheme(theme, {
         ...commonSettings,
-        typography: typography(theme),
+        typography: typography(theme, commonSettings),
         shadows: shadows(theme),
         components: {
-            ...buttons(theme),
+            ...buttons(theme, commonSettings),
             ...chips(),
             ...tooltips(),
             ...inputs(commonSettings),
-            ...MuiSvgIconSizesOverrides,
-            ...MuiCssBaselineOverrides,
+            ...icons(),
+            ...cssBaseline(),
         },
     });
 };
 
-export const oldLightMaterialUITheme = patchTheme(lightThemePrototype, oldTypography);
-export const LightMaterialUITheme = patchTheme(lightThemePrototype, Typography);
-export const DarkMaterialUITheme = patchTheme(darkThemePrototype, Typography);
+export const oldLightMaterialUITheme = patchTheme(lightThemePrototype, typography);
+export const LightMaterialUITheme = patchTheme(lightThemePrototype, MDTypography);
+export const DarkMaterialUITheme = patchTheme(darkThemePrototype, MDTypography);
 
 // Temporarily use oldTypography for compatibility purposes with the web app.
 // TODO: make light and dark themes both use Typography and remove "old".
