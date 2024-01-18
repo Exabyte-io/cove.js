@@ -23,6 +23,9 @@ const names = [
     "Kelly Snyder",
 ];
 
+const sizes: FormControlProps["size"][] = ["small", "medium"];
+const maxWidth = "300px";
+
 export function SelectTest() {
     const [personName, setPersonName] = React.useState<string[]>([]);
 
@@ -41,8 +44,6 @@ export function SelectTest() {
     const handleAgeChange = (event: SelectChangeEvent) => {
         setAge(event.target.value);
     };
-
-    const sizes: FormControlProps["size"][] = ["small", "medium"];
 
     return (
         <TestComponentContainer title="Select">
@@ -73,7 +74,7 @@ export function SelectTest() {
                             id="multiselect-chip"
                             multiple
                             value={personName}
-                            sx={{ maxWidth: "300px" }} // required to prevent overflow
+                            sx={{ maxWidth }} // required to prevent overflow
                             onChange={handleNameChange}
                             size={size}
                             input={<OutlinedInput id="select-multiselect-chip" label="Chip" />}
