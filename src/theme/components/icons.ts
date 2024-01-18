@@ -16,7 +16,7 @@ const icons = () => ({
             {
                 props: { fontSize: "large" },
                 style: {
-                    fontSize: "2.1875px",
+                    fontSize: "2.1875rem",
                 },
             },
         ],
