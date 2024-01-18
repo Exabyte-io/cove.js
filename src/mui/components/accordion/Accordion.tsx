@@ -13,6 +13,7 @@ import IconByName from "../icon/IconByName";
 // deletes header animation in accordion
 const StyledAccordion = withStyles({
     root: {
+        margin: "0",
         "&$expanded": {
             margin: "0",
         },
@@ -23,6 +24,8 @@ const StyledAccordion = withStyles({
 // deletes header animation in accordion
 const AccordionSummary = withStyles({
     root: {
+        minHeight: "48px",
+        margin: "0",
         "&$expanded": {
             minHeight: "48px",
             margin: "0",
@@ -32,6 +35,7 @@ const AccordionSummary = withStyles({
         display: "flex",
         justifyContent: "space-between",
         alignItems: "center",
+        margin: "0",
         "&$expanded": {
             margin: "0",
         },

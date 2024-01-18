@@ -15,6 +15,7 @@ export interface SelectProps {
     multiple?: boolean;
     items: { id: string; name: string; value: string | number }[];
     value: "" | string[] | undefined;
+    size?: "small" | "medium";
     sx?: object;
     fontSize?: number;
     onChange: (event: SelectChangeEvent<string[]>) => void;
@@ -28,6 +29,7 @@ export default function SelectComponent({
     items,
     label,
     value,
+    size = "small",
     onChange,
     onDelete,
     isChips = false,
@@ -62,9 +64,12 @@ export default function SelectComponent({
         : undefined;
 
     return (
-        <FormControl sx={{ marginY: 1, width: "100%" }} {...formControlProps}>
+        <FormControl sx={{ marginY: 1, width: "100%" }} size={size} {...formControlProps}>
             {label ? (
-                <InputLabel id={`${id}-label`} sx={{ fontSize }}>
+                <InputLabel
+                    id={`${id}-label`}
+                    sx={{ fontSize }}
+                    size={size === "small" ? size : "normal"}>
                     {label}
                 </InputLabel>
             ) : null}
@@ -74,6 +79,7 @@ export default function SelectComponent({
                 label={label}
                 value={value}
                 multiple={multiple}
+                size={size}
                 sx={{
                     width: "100%",
                     fontSize,

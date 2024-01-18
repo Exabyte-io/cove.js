@@ -3,12 +3,13 @@ import TextField from "@mui/material/TextField";
 import React from "react";
 import s from "underscore.string";
 
-export type AvailableValue = {
+export interface AvailableValue {
     id: string | undefined;
     name: string;
-};
+}
 
 type BasicSelectProps = {
+    id: string;
     disabled?: boolean;
     selectedValue: string;
     options: AvailableValue[];
@@ -19,6 +20,7 @@ type BasicSelectProps = {
 };
 
 export default function BasicSelect({
+    id = "",
     disabled = false,
     selectedValue,
     options,
@@ -45,9 +47,11 @@ export default function BasicSelect({
 
     return (
         <TextField
+            id={id}
+            className={`select-${s.slugify(label)}`}
             disabled={disabled}
             label={s.capitalize(label)}
-            value={selectedValue}
+            defaultValue={selectedValue}
             onChange={(e) => onChange(e.target.value)}
             variant="outlined"
             fullWidth

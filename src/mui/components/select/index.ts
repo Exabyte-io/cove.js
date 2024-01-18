@@ -1,5 +1,6 @@
-import BasicSelect from "./BasicSelect";
+import BasicSelect, { type AvailableValue } from "./BasicSelect";
 
 export { default } from "./Select";
 export * from "./Select";
-export { BasicSelect };
+
+export { BasicSelect, AvailableValue };

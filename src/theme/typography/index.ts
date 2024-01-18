@@ -1,8 +1,13 @@
 import { Theme } from "@mui/material/styles";
 
-const Typography = (theme: Theme): Partial<Theme["typography"]> => {
+import { type CommonSettings } from "../theme";
+
+export const typography = (
+    theme: Theme,
+    commonSettings: CommonSettings,
+): Partial<Theme["typography"]> => {
     return {
-        fontFamily: ["Roboto", "-apple-system", "sans-serif"].join(","),
+        fontFamily: commonSettings.fonts.roboto,
         subtitle2: {
             color: theme.palette.text.secondary,
         },
@@ -15,12 +20,13 @@ const Typography = (theme: Theme): Partial<Theme["typography"]> => {
     };
 };
 
-export default Typography;
-
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const MDTypography = (theme: Theme): Partial<Theme["typography"]> => {
+export const MDTypography = (
+    theme: Theme,
+    commonSettings: CommonSettings,
+): Partial<Theme["typography"]> => {
     return {
-        fontFamily: ["Roboto", "-apple-system", "sans-serif"].join(","),
+        fontFamily: commonSettings.fonts.roboto,
         body1: {
             fontSize: 12,
         },
