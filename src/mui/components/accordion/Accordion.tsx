@@ -78,7 +78,7 @@ export default function Accordion({
                 onClick={handleToggleExpanded}
                 aria-controls="panel2a-content"
                 expandIcon={!hideExpandIcon && <IconByName name="actions.expand" />}>
-                <Typography variant="overline">{header}</Typography>
+                {header && <Typography variant="overline">{header}</Typography>}
                 {alternativeComponent}
             </AccordionSummary>
             <Divider />
