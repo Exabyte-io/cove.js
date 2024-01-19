@@ -54,7 +54,7 @@ export interface AccordionProps {
 export default function Accordion({
     hideExpandIcon,
     children,
-    isExpanded,
+    isExpanded = false,
     header,
     alternativeComponent,
     ...restProps
