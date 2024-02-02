@@ -44,11 +44,11 @@ const AccordionSummary = withStyles({
 })(MuiAccordionSummary);
 
 export interface AccordionProps {
-    hideExpandIcon: boolean;
-    children: React.ReactNode;
+    hideExpandIcon?: boolean;
+    children?: React.ReactNode;
     isExpanded: boolean;
-    header: React.ReactNode;
-    renderSummary: React.ReactNode;
+    header?: React.ReactNode;
+    renderSummary?: React.ReactNode;
 }
 
 export default function Accordion({
