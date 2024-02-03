@@ -1,4 +1,4 @@
-import Checkbox, { CheckboxProps } from "@mui/material/Checkbox";
+import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel, { FormControlLabelProps } from "@mui/material/FormControlLabel";
 import { SxProps } from "@mui/material/styles";
 import { TypographyProps } from "@mui/material/Typography";
@@ -14,7 +14,7 @@ export interface CheckboxComponentProps {
     checked: boolean;
     required: boolean;
     disabled: boolean;
-    label: string;
+    label: React.ReactNode;
     onChange: (checked: boolean) => void;
     className: string;
     slotProps: { typography: TypographyProps };
