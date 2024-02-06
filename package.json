@@ -28,6 +28,7 @@
     "homepage": "https://github.com/Exabyte-io/cove.js",
     "peerDependencies": {
         "@exabyte-io/code.js": "*",
+        "@mat3ra/esse": "*",
         "@mui/icons-material": "^5.11.9",
         "@mui/lab": "^5.0.0-alpha.120",
         "@mui/material": "^5.11.9",
@@ -75,8 +76,9 @@
         "underscore.string": "^3.3.6"
     },
     "devDependencies": {
-        "@exabyte-io/code.js": "2023.12.1-0",
+        "@exabyte-io/code.js": "git+https://github.com/Exabyte-io/code.js.git#57e4ed388b0ffb9c8bf319a8b25525f951a3901b",
         "@exabyte-io/eslint-config": "^2023.8.29-1",
+        "@mat3ra/esse": "git+https://github.com/Exabyte-io/esse.git#abb477b79876e4411f2c97f96eb207e1a667774c",
         "@mui/icons-material": "^5.11.9",
         "@mui/lab": "^5.0.0-alpha.120",
         "@mui/material": "^5.11.9",

@@ -1,6 +1,6 @@
 import { Diagnostic } from "@codemirror/lint";
 import { EditorView } from "@codemirror/view";
-import { ConsistencyCheck } from "@exabyte-io/code.js/dist/types";
+import { ConsistencyCheck } from "@mat3ra/esse/lib/js/types";
 import _ from "underscore";
 
 const linterGenerator = (checks: ConsistencyCheck[]) => {
