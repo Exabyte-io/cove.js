@@ -76,7 +76,7 @@
         "underscore.string": "^3.3.6"
     },
     "devDependencies": {
-        "@exabyte-io/code.js": "git+https://github.com/Exabyte-io/code.js.git#update/SOF-7161",
+        "@exabyte-io/code.js": "^2024.2.20-0",
         "@exabyte-io/eslint-config": "^2023.8.29-1",
         "@mui/icons-material": "^5.11.9",
         "@mui/lab": "^5.0.0-alpha.120",
