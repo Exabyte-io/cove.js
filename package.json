@@ -28,7 +28,6 @@
     "homepage": "https://github.com/Exabyte-io/cove.js",
     "peerDependencies": {
         "@exabyte-io/code.js": "*",
-        "@mat3ra/esse": "*",
         "@mui/icons-material": "^5.11.9",
         "@mui/lab": "^5.0.0-alpha.120",
         "@mui/material": "^5.11.9",
@@ -51,6 +50,7 @@
         "@codemirror/lint": "^6.2.0",
         "@codemirror/state": "^6.3.0",
         "@codemirror/view": "^6.18.0",
+        "@mat3ra/esse": ">=2024.2.19-0",
         "@mui/x-date-pickers": "6.11.1",
         "@rjsf/mui": "^5.12.1",
         "@rjsf/utils": "^5.1.0",
@@ -76,9 +76,8 @@
         "underscore.string": "^3.3.6"
     },
     "devDependencies": {
-        "@exabyte-io/code.js": "git+https://github.com/Exabyte-io/code.js.git#8a63988e1d1b59b9deff3f328a7021046f3ac72d",
+        "@exabyte-io/code.js": "git+https://github.com/Exabyte-io/code.js.git#600fada51b2055fcaa49dbfb69f07e188df29c0b",
         "@exabyte-io/eslint-config": "^2023.8.29-1",
-        "@mat3ra/esse": "git+https://github.com/Exabyte-io/esse.git#fa660c7668fd48414dfee53ecccc3625b5ed28c6",
         "@mui/icons-material": "^5.11.9",
         "@mui/lab": "^5.0.0-alpha.120",
         "@mui/material": "^5.11.9",
