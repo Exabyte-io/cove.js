@@ -20,6 +20,8 @@ const names = [
     "Virginia Andrews",
     "Kelly Snyder",
 ];
+const sizes = ["small", "medium"];
+const maxWidth = "300px";
 export function SelectTest() {
     const [personName, setPersonName] = React.useState([]);
     const handleNameChange = (event) => {
@@ -32,7 +34,6 @@ export function SelectTest() {
     const handleAgeChange = (event) => {
         setAge(event.target.value);
     };
-    const sizes = ["small", "medium"];
     return (React.createElement(TestComponentContainer, { title: "Select" }, sizes.map((size) => (React.createElement(Stack, { direction: "row", spacing: 2, alignItems: "center", key: size },
         React.createElement(Typography, { variant: "caption" }, size),
         React.createElement(FormControl, { size: size },
@@ -45,5 +46,5 @@ export function SelectTest() {
                 React.createElement(MenuItem, { value: 30 }, "Thirty"))),
         React.createElement(FormControl, { size: size },
             React.createElement(InputLabel, { id: "multiselect-chip-label" }, "Chip"),
-            React.createElement(Select, { labelId: "multiselect-chip-label", id: "multiselect-chip", multiple: true, value: personName, sx: { maxWidth: "300px" }, onChange: handleNameChange, size: size, input: React.createElement(OutlinedInput, { id: "select-multiselect-chip", label: "Chip" }), renderValue: (selected) => (React.createElement(Stack, { direction: "row", useFlexGap: true, flexWrap: "wrap", gap: 0.5 }, selected.map((value) => (React.createElement(Chip, { key: value, label: value }))))) }, names.map((name) => (React.createElement(MenuItem, { key: name, value: name }, name))))))))));
+            React.createElement(Select, { labelId: "multiselect-chip-label", id: "multiselect-chip", multiple: true, value: personName, sx: { maxWidth }, onChange: handleNameChange, size: size, input: React.createElement(OutlinedInput, { id: "select-multiselect-chip", label: "Chip" }), renderValue: (selected) => (React.createElement(Stack, { direction: "row", useFlexGap: true, flexWrap: "wrap", gap: 0.5 }, selected.map((value) => (React.createElement(Chip, { key: value, label: value }))))) }, names.map((name) => (React.createElement(MenuItem, { key: name, value: name }, name))))))))));
 }
