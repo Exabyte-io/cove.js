@@ -44,11 +44,11 @@ const AccordionSummary = withStyles({
 })(MuiAccordionSummary);
 
 export interface AccordionProps {
-    hideExpandIcon: boolean;
-    children: React.ReactNode;
+    hideExpandIcon?: boolean;
+    children?: React.ReactNode;
     isExpanded: boolean;
-    header: React.ReactNode;
-    alternativeComponent: React.ReactNode;
+    header?: React.ReactNode;
+    renderSummary?: React.ReactNode;
 }
 
 export default function Accordion({
@@ -56,7 +56,7 @@ export default function Accordion({
     children,
     isExpanded,
     header,
-    alternativeComponent,
+    renderSummary,
     ...restProps
 }: AccordionProps) {
     const [isExpanded_, setIsExpanded] = useState(isExpanded);
@@ -78,8 +78,7 @@ export default function Accordion({
                 onClick={handleToggleExpanded}
                 aria-controls="panel2a-content"
                 expandIcon={!hideExpandIcon && <IconByName name="actions.expand" />}>
-                <Typography variant="overline">{header}</Typography>
-                {alternativeComponent}
+                {renderSummary || <Typography variant="overline">{header}</Typography>}
             </AccordionSummary>
             <Divider />
             <AccordionDetails>{children}</AccordionDetails>
