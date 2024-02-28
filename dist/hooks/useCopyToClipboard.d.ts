@@ -1,1 +1,1 @@
-export declare const useCopyToClipboard: (alertProps?: {}) => (textToCopy: string, content: string) => void;
+export declare const useCopyToClipboard: () => (textToCopy: string, content: string) => void;
