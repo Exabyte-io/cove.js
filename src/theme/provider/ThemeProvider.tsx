@@ -2,7 +2,6 @@ import { StyledEngineProvider, ThemeProvider as BaseThemeProvider } from "@mui/m
 import { Theme } from "@mui/material/styles/createTheme";
 import React from "react";
 
-import { AlertContextProvider } from "../../mui/components/custom/alert/AlertContextProvider";
 import { LightMaterialUITheme } from "../theme";
 
 /**
@@ -20,9 +19,7 @@ export default function ThemeProvider({
 }: ThemeProviderProps) {
     return (
         <StyledEngineProvider injectFirst>
-            <BaseThemeProvider theme={theme}>
-                <AlertContextProvider>{children}</AlertContextProvider>
-            </BaseThemeProvider>
+            <BaseThemeProvider theme={theme}>{children}</BaseThemeProvider>
         </StyledEngineProvider>
     );
 }
