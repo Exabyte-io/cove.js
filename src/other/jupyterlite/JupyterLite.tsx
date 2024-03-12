@@ -1,22 +1,59 @@
-import React from 'react';
+import React from "react";
 
-function JupyterLiteSession(props: {URL: string, defaultNotebookPath: string}) {
-
-    const ORIGIN_URL = "https://jupyterlite.mat3ra.com";
-    const IFRAME_ID = "jupyter-lite-iframe";
-    const DEFAULT_NOTEBOOK_PATH = "api-examples/other/materials_designer/Introduction.ipynb";
-
-    return (
-        <iframe
-            name="jupyterlite"
-            title="JupyterLite"
-            id={IFRAME_ID}
-            src={`${ORIGIN_URL}/lab/tree?path=${DEFAULT_NOTEBOOK_PATH}`}
-            sandbox="allow-scripts allow-same-origin allow-popups allow-forms allow-modals allow-top-navigation-by-user-activation allow-downloads"
-            width="100%"
-            height="100%"
-        />
-    )
+interface JupyterLiteSessionProps {
+    originURL: string;
+    defaultNotebookPath: string | null;
+    frameId: string;
+    onMessage: (event: MessageEvent) => void;
 }
 
-export default JupyterLiteSession;
+const JupyterLiteSessionDefaultProps: JupyterLiteSessionProps = {
+    originURL: "https://jupyterlite.mat3ra.com",
+    defaultNotebookPath: null,
+    frameId: "jupyter-lite-iframe",
+    onMessage: () => {},
+}
+
+class JupyterLiteSession extends React.Component<JupyterLiteSessionProps> {
+    constructor(props: JupyterLiteSessionProps = JupyterLiteSessionDefaultProps) {
+        super(props);
+    }
+
+    componentDidMount() {
+        window.addEventListener('message', this.handleReceiveMessage, false);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('message', this.handleReceiveMessage, false);
+    }
+
+    handleReceiveMessage = (event: MessageEvent) => {
+        if (event.origin !== new URL(this.props.originURL).origin) return;
+        this.props.onMessage(event);
+    };
+
+    sendDataToIFrame = (data: Record<string, unknown>[], variableName = "data") => {
+        const message = {type: "from-host-to-iframe", data, variableName};
+        const iframe = document.getElementById(this.props.frameId) as HTMLIFrameElement | null;
+        if (iframe && iframe.contentWindow) {
+            iframe.contentWindow.postMessage(message, this.props.originURL);
+        } else {
+            console.error("JupyterLite iframe not found");
+        }
+    };
+
+    render() {
+        const src = this.props.defaultNotebookPath ? `${this.props.originURL}/lab/tree?path=${this.props.defaultNotebookPath}` : `${this.props.originURL}/lab`;
+        return (
+            <iframe
+                name="jupyterlite"
+                title="JupyterLite"
+                id={this.props.frameId}
+                src={src}
+                sandbox="allow-scripts allow-same-origin allow-popups allow-forms allow-modals allow-top-navigation-by-user-activation allow-downloads"
+                width="100%"
+                height="100%"
+            />
+        );
+    }
+}
