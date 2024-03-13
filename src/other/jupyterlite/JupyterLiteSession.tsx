@@ -26,7 +26,7 @@ class JupyterLiteSession extends React.Component<JupyterLiteSessionProps> {
         if (event.origin !== new URL(this.props.originURL).origin) return;
         if (event.data) {
             if (event.data.type === "from-iframe-to-host") {
-                if (this.props.receiveData) this.props.receiveData(event.data.payload);
+                if (this.props.receiveData) this.props.receiveData(event.data);
             }
         }
     };

@@ -77,7 +77,7 @@
     },
     "devDependencies": {
         "@exabyte-io/code.js": "^2024.2.20-0",
-        "@mat3ra/esse": "https://github.com/Exabyte-io/esse.git#56051891cc8d54a8f17ff16edacc75894450bb4c",
+        "@mat3ra/esse": "https://github.com/Exabyte-io/esse.git#bdf3516f2f7caef4567f1a4253925979273f69ed",
         "@exabyte-io/eslint-config": "^2023.8.29-1",
         "@mui/icons-material": "^5.11.9",
         "@mui/lab": "^5.0.0-alpha.120",
