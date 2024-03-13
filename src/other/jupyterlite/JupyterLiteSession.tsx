@@ -1,23 +1,23 @@
 import React from "react";
 
-interface JupyterLiteSessionProps {
-    originURL: string;
-    defaultNotebookPath: string | null;
-    frameId: string;
-    onMessage: (event: MessageEvent) => void;
+interface IframeMessage {
+    type: string;
+    data: Record<string, unknown>[];
+    variableName: string;
 }
 
-const JupyterLiteSessionDefaultProps: JupyterLiteSessionProps = {
-    originURL: "https://jupyterlite.mat3ra.com",
-    defaultNotebookPath: null,
-    frameId: "jupyter-lite-iframe",
-    onMessage: () => {},
-};
+interface JupyterLiteSessionProps {
+    originURL: string;
+    defaultNotebookPath?: string;
+    frameId: string;
+    receiveData?: (data: any) => void;
+}
 
 class JupyterLiteSession extends React.Component<JupyterLiteSessionProps> {
-    constructor(props: JupyterLiteSessionProps = JupyterLiteSessionDefaultProps) {
-        super(props);
-    }
+    static defaultProps: Partial<JupyterLiteSessionProps> = {
+        originURL: "https://jupyterlite.mat3ra.com",
+        frameId: "jupyter-lite-iframe",
+    };
 
     componentDidMount() {
         window.addEventListener("message", this.handleReceiveMessage, false);
@@ -29,11 +29,13 @@ class JupyterLiteSession extends React.Component<JupyterLiteSessionProps> {
 
     handleReceiveMessage = (event: MessageEvent) => {
         if (event.origin !== new URL(this.props.originURL).origin) return;
-        this.props.onMessage(event);
+        if (event.data.type === "from-iframe-to-host") {
+            this.props.receiveData?.(event.data.data);
+        }
     };
 
-    sendDataToIFrame = (data: Record<string, unknown>[], variableName = "data") => {
-        const message = { type: "from-host-to-iframe", data, variableName };
+    sendDataToIFrame = (data: Record<string, unknown>[], variableName: string) => {
+        const message: IframeMessage = { type: "from-host-to-iframe", data, variableName };
         const iframe = document.getElementById(this.props.frameId) as HTMLIFrameElement | null;
         if (iframe && iframe.contentWindow) {
             iframe.contentWindow.postMessage(message, this.props.originURL);
