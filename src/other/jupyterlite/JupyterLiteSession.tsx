@@ -1,10 +1,5 @@
+import { JupyterliteMessageSchema } from "@mat3ra/esse/lib/js/types";
 import React from "react";
-
-interface IframeMessage {
-    type: string;
-    data: Record<string, unknown>[];
-    variableName: string;
-}
 
 interface JupyterLiteSessionProps {
     originURL: string;
@@ -27,17 +22,20 @@ class JupyterLiteSession extends React.Component<JupyterLiteSessionProps> {
         window.removeEventListener("message", this.receiveMessage, false);
     }
 
-    receiveMessage = (event: MessageEvent) => {
+    receiveMessage = (event: MessageEvent<JupyterliteMessageSchema>) => {
         if (event.origin !== new URL(this.props.originURL).origin) return;
         if (event.data) {
             if (event.data.type === "from-iframe-to-host") {
-                if (this.props.receiveData) this.props.receiveData(event.data);
+                if (this.props.receiveData) this.props.receiveData(event.data.payload);
             }
         }
     };
 
     sendData = (data: Record<string, unknown>[], variableName: string) => {
-        const message: IframeMessage = { type: "from-host-to-iframe", data, variableName };
+        const message: JupyterliteMessageSchema = {
+            type: "from-host-to-iframe",
+            payload: { data, variableName },
+        };
         const iframe = document.getElementById(this.props.frameId) as HTMLIFrameElement | null;
         if (iframe && iframe.contentWindow) {
             iframe.contentWindow.postMessage(message, this.props.originURL);
