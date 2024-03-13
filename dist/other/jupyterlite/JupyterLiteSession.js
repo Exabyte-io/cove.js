@@ -2,15 +2,17 @@ import React from "react";
 class JupyterLiteSession extends React.Component {
     constructor() {
         super(...arguments);
-        this.handleReceiveMessage = (event) => {
-            var _a, _b;
+        this.receiveMessage = (event) => {
             if (event.origin !== new URL(this.props.originURL).origin)
                 return;
-            if (event.data.type === "from-iframe-to-host") {
-                (_b = (_a = this.props).receiveData) === null || _b === void 0 ? void 0 : _b.call(_a, event.data.data);
+            if (event.data) {
+                if (event.data.type === "from-iframe-to-host") {
+                    if (this.props.receiveData)
+                        this.props.receiveData(event.data);
+                }
             }
         };
-        this.sendDataToIFrame = (data, variableName) => {
+        this.sendData = (data, variableName) => {
             const message = { type: "from-host-to-iframe", data, variableName };
             const iframe = document.getElementById(this.props.frameId);
             if (iframe && iframe.contentWindow) {
@@ -22,10 +24,10 @@ class JupyterLiteSession extends React.Component {
         };
     }
     componentDidMount() {
-        window.addEventListener("message", this.handleReceiveMessage, false);
+        window.addEventListener("message", this.receiveMessage, false);
     }
     componentWillUnmount() {
-        window.removeEventListener("message", this.handleReceiveMessage, false);
+        window.removeEventListener("message", this.receiveMessage, false);
     }
     render() {
         const src = this.props.defaultNotebookPath
