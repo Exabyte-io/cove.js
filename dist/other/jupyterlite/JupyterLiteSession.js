@@ -15,7 +15,7 @@ class JupyterLiteSession extends React.Component {
         this.sendData = (data, variableName) => {
             const message = {
                 type: "from-host-to-iframe",
-                payload: { data, variableName },
+                payload: { data: data, variableName: variableName },
             };
             const iframe = document.getElementById(this.props.frameId);
             if (iframe && iframe.contentWindow) {

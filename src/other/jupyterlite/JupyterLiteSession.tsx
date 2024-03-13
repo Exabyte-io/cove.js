@@ -1,4 +1,4 @@
-import { JupyterliteMessageSchema } from "@mat3ra/esse/lib/js/types";
+import {JupyterliteMessageSchema} from "@mat3ra/esse/lib/js/types";
 import React from "react";
 
 interface JupyterLiteSessionProps {
@@ -34,7 +34,7 @@ class JupyterLiteSession extends React.Component<JupyterLiteSessionProps> {
     sendData = (data: Record<string, unknown>[], variableName: string) => {
         const message: JupyterliteMessageSchema = {
             type: "from-host-to-iframe",
-            payload: { data, variableName },
+            payload: {data: data, variableName: variableName},
         };
         const iframe = document.getElementById(this.props.frameId) as HTMLIFrameElement | null;
         if (iframe && iframe.contentWindow) {
