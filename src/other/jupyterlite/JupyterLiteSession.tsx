@@ -20,21 +20,23 @@ class JupyterLiteSession extends React.Component<JupyterLiteSessionProps> {
     };
 
     componentDidMount() {
-        window.addEventListener("message", this.handleReceiveMessage, false);
+        window.addEventListener("message", this.receiveMessage, false);
     }
 
     componentWillUnmount() {
-        window.removeEventListener("message", this.handleReceiveMessage, false);
+        window.removeEventListener("message", this.receiveMessage, false);
     }
 
-    handleReceiveMessage = (event: MessageEvent) => {
+    receiveMessage = (event: MessageEvent) => {
         if (event.origin !== new URL(this.props.originURL).origin) return;
-        if (event.data.type === "from-iframe-to-host") {
-            this.props.receiveData?.(event.data.data);
+        if (event.data) {
+            if (event.data.type === "from-iframe-to-host") {
+                if (this.props.receiveData) this.props.receiveData(event.data);
+            }
         }
     };
 
-    sendDataToIFrame = (data: Record<string, unknown>[], variableName: string) => {
+    sendData = (data: Record<string, unknown>[], variableName: string) => {
         const message: IframeMessage = { type: "from-host-to-iframe", data, variableName };
         const iframe = document.getElementById(this.props.frameId) as HTMLIFrameElement | null;
         if (iframe && iframe.contentWindow) {
