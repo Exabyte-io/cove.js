@@ -1,10 +1,11 @@
 import { CompletionContext, CompletionResult } from "@codemirror/autocomplete";
 import { Extension } from "@codemirror/state";
 import { ConsistencyCheck } from "@mat3ra/esse/lib/js/types";
-import { BasicSetupOptions } from "@uiw/react-codemirror";
+import { BasicSetupOptions, Statistics } from "@uiw/react-codemirror";
 import React from "react";
 export interface CodeMirrorProps {
     updateContent?: (content: string) => void;
+    onSelection?: (content: Statistics) => void;
     content?: string;
     options: boolean | BasicSetupOptions;
     language: string;

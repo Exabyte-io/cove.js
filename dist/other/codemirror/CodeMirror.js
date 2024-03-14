@@ -22,7 +22,6 @@ const LANGUAGE_EXTENSIONS_MAP = {
 class CodeMirror extends React.Component {
     constructor(props) {
         super(props);
-        console.log("Seth&Sasha testing git link in package.json");
         this.state = {
             content: props.content || "",
             checks: props.checks,
@@ -70,12 +69,16 @@ class CodeMirror extends React.Component {
         return extensions;
     }
     render() {
-        const { options = {}, theme, readOnly } = this.props;
+        const { options = {}, theme, readOnly, onSelection } = this.props;
         const { content } = this.state;
         const extensions = this.createExtensions();
         return (React.createElement(CodeMirrorBase, { value: content, onChange: (value) => {
                 this.handleContentChange(value);
-            }, onFocus: () => this.setState({ isEditing: true }), onBlur: () => this.setState({ isEditing: false }), basicSetup: options, theme: theme || "light", extensions: extensions, readOnly: readOnly }));
+            }, onFocus: () => this.setState({ isEditing: true }), onBlur: () => this.setState({ isEditing: false }), onStatistics: (data) => {
+                console.log(data);
+                if (onSelection)
+                    onSelection(data);
+            }, basicSetup: options, theme: theme || "light", extensions: extensions, readOnly: readOnly }));
     }
 }
 export default CodeMirror;
