@@ -69,12 +69,12 @@ class CodeMirror extends React.Component {
         return extensions;
     }
     render() {
-        const { options = {}, theme, readOnly } = this.props;
+        const { options = {}, theme, readOnly, onSelection } = this.props;
         const { content } = this.state;
         const extensions = this.createExtensions();
         return (React.createElement(CodeMirrorBase, { value: content, onChange: (value) => {
                 this.handleContentChange(value);
-            }, onFocus: () => this.setState({ isEditing: true }), onBlur: () => this.setState({ isEditing: false }), basicSetup: options, theme: theme || "light", extensions: extensions, readOnly: readOnly }));
+            }, onFocus: () => this.setState({ isEditing: true }), onBlur: () => this.setState({ isEditing: false }), onStatistics: (data) => onSelection && onSelection(data), basicSetup: options, theme: theme || "light", extensions: extensions, readOnly: readOnly }));
     }
 }
 export default CodeMirror;

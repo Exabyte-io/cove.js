@@ -9,7 +9,7 @@ import { shell } from "@codemirror/legacy-modes/mode/shell";
 import { linter, lintGutter } from "@codemirror/lint";
 import { Extension } from "@codemirror/state";
 import { ConsistencyCheck } from "@mat3ra/esse/lib/js/types";
-import CodeMirrorBase, { BasicSetupOptions } from "@uiw/react-codemirror";
+import CodeMirrorBase, { BasicSetupOptions, Statistics } from "@uiw/react-codemirror";
 import React from "react";
 
 import { linterGenerator } from "./utils/linterGenerator";
@@ -25,6 +25,7 @@ const LANGUAGE_EXTENSIONS_MAP: Record<string, Extension[]> = {
 
 export interface CodeMirrorProps {
     updateContent?: (content: string) => void;
+    onSelection?: (content: Statistics) => void;
     content?: string;
     options: boolean | BasicSetupOptions;
     language: string;
@@ -103,7 +104,7 @@ class CodeMirror extends React.Component<CodeMirrorProps, CodeMirrorState> {
     }
 
     render() {
-        const { options = {}, theme, readOnly } = this.props;
+        const { options = {}, theme, readOnly, onSelection } = this.props;
         const { content } = this.state;
         const extensions = this.createExtensions();
 
@@ -115,6 +116,7 @@ class CodeMirror extends React.Component<CodeMirrorProps, CodeMirrorState> {
                 }}
                 onFocus={() => this.setState({ isEditing: true })}
                 onBlur={() => this.setState({ isEditing: false })}
+                onStatistics={(data) => onSelection && onSelection(data)}
                 basicSetup={options}
                 theme={theme || "light"}
                 extensions={extensions}
