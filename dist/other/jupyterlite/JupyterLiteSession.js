@@ -5,17 +5,23 @@ class JupyterLiteSession extends React.Component {
         this.receiveMessage = (event) => {
             if (event.origin !== new URL(this.props.originURL).origin)
                 return;
-            if (event.data) {
-                if (event.data.type === "from-iframe-to-host") {
-                    if (this.props.receiveData)
-                        this.props.receiveData(event.data);
+            const message = event.data;
+            const applicableHandlers = this.props.handlers.filter(handlerConfig => handlerConfig.filter.keys.every(key => message.payload.hasOwnProperty(key)));
+            applicableHandlers.forEach(handlerConfig => {
+                const result = handlerConfig.handler(message.payload);
+                // TODO: solve ts-ignores
+                // If the handler returns a payload for sending message, use it
+                // @ts-ignore
+                if (result && 'variableName' in result) {
+                    // @ts-ignore
+                    this.sendMessage(result.data, result.variableName);
                 }
-            }
+            });
         };
-        this.sendData = (data, variableName) => {
+        this.sendMessage = (data, variableName) => {
             const message = {
                 type: "from-host-to-iframe",
-                payload: { data: data, variableName: variableName },
+                payload: { data, variableName },
             };
             const iframe = document.getElementById(this.props.frameId);
             if (iframe && iframe.contentWindow) {
@@ -33,10 +39,11 @@ class JupyterLiteSession extends React.Component {
         window.removeEventListener("message", this.receiveMessage, false);
     }
     render() {
-        const src = this.props.defaultNotebookPath
-            ? `${this.props.originURL}/lab/tree?path=${this.props.defaultNotebookPath}`
-            : `${this.props.originURL}/lab`;
-        return (React.createElement("iframe", { name: "jupyterlite", title: "JupyterLite", id: this.props.frameId, src: src, sandbox: "allow-scripts allow-same-origin allow-popups allow-forms allow-modals allow-top-navigation-by-user-activation allow-downloads", width: "100%", height: "100%" }));
+        const { defaultNotebookPath, originURL, frameId } = this.props;
+        const src = defaultNotebookPath
+            ? `${originURL}/lab/tree?path=${defaultNotebookPath}`
+            : `${originURL}/lab`;
+        return (React.createElement("iframe", { name: "jupyterlite", title: "JupyterLite", id: frameId, src: src, sandbox: "allow-scripts allow-same-origin allow-popups allow-forms allow-modals allow-top-navigation-by-user-activation allow-downloads", width: "100%", height: "100%" }));
     }
 }
 JupyterLiteSession.defaultProps = {

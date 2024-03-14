@@ -4,14 +4,21 @@ interface JupyterLiteSessionProps {
     originURL: string;
     defaultNotebookPath?: string;
     frameId: string;
-    receiveData?: (data: any) => void;
+    handlers: {
+        type: string;
+        filter: {
+            keys: string[];
+        };
+        extraParameters: any[];
+        handler: (data: any) => void;
+    }[];
 }
 declare class JupyterLiteSession extends React.Component<JupyterLiteSessionProps> {
     static defaultProps: Partial<JupyterLiteSessionProps>;
     componentDidMount(): void;
     componentWillUnmount(): void;
     receiveMessage: (event: MessageEvent<JupyterliteMessageSchema>) => void;
-    sendData: (data: Record<string, unknown>[], variableName: string) => void;
+    sendMessage: (data: never, variableName: string) => void;
     render(): React.JSX.Element;
 }
 export default JupyterLiteSession;
