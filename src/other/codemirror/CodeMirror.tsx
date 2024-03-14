@@ -116,10 +116,7 @@ class CodeMirror extends React.Component<CodeMirrorProps, CodeMirrorState> {
                 }}
                 onFocus={() => this.setState({ isEditing: true })}
                 onBlur={() => this.setState({ isEditing: false })}
-                onStatistics={(data: Statistics) => {
-                    console.log(data);
-                    if (onSelection) onSelection(data);
-                }}
+                onStatistics={(data) => onSelection && onSelection(data)}
                 basicSetup={options}
                 theme={theme || "light"}
                 extensions={extensions}
