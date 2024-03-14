@@ -5,7 +5,7 @@ interface JupyterLiteSessionProps {
     originURL: string;
     defaultNotebookPath?: string;
     frameId: string;
-    receiveData?: (data: any) => void;
+    onMessage?: (message: JupyterliteMessageSchema) => void;
 }
 
 class JupyterLiteSession extends React.Component<JupyterLiteSessionProps> {
@@ -26,12 +26,12 @@ class JupyterLiteSession extends React.Component<JupyterLiteSessionProps> {
         if (event.origin !== new URL(this.props.originURL).origin) return;
         if (event.data) {
             if (event.data.type === "from-iframe-to-host") {
-                if (this.props.receiveData) this.props.receiveData(event.data);
+                if (this.props.onMessage) this.props.onMessage(event.data);
             }
         }
     };
 
-    sendData = (data: Record<string, unknown>[], variableName: string) => {
+    sendData = (data: never, variableName: string) => {
         const message: JupyterliteMessageSchema = {
             type: "from-host-to-iframe",
             payload: {data: data, variableName: variableName},
@@ -45,14 +45,15 @@ class JupyterLiteSession extends React.Component<JupyterLiteSessionProps> {
     };
 
     render() {
-        const src = this.props.defaultNotebookPath
-            ? `${this.props.originURL}/lab/tree?path=${this.props.defaultNotebookPath}`
-            : `${this.props.originURL}/lab`;
+        const {defaultNotebookPath, originURL, frameId} = this.props;
+        const src = defaultNotebookPath
+            ? `${originURL}/lab/tree?path=${defaultNotebookPath}`
+            : `${originURL}/lab`;
         return (
             <iframe
                 name="jupyterlite"
                 title="JupyterLite"
-                id={this.props.frameId}
+                id={frameId}
                 src={src}
                 sandbox="allow-scripts allow-same-origin allow-popups allow-forms allow-modals allow-top-navigation-by-user-activation allow-downloads"
                 width="100%"
