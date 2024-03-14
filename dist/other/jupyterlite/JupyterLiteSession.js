@@ -6,18 +6,16 @@ class JupyterLiteSession extends React.Component {
             if (event.origin !== new URL(this.props.originURL).origin)
                 return;
             const message = event.data;
-            const handlerConfig = this.props.handlers.find(handler => {
-                return handler.type === message.type &&
-                    handler.filter.keys.every(key => message.payload.hasOwnProperty(key));
+            const handlerConfig = this.props.handlers.find((handler) => {
+                return (handler.type === message.type &&
+                    handler.filter.keys.every((key) => message.payload.hasOwnProperty(key)));
             });
             if (handlerConfig) {
                 const { handler, filter, extraParameters } = handlerConfig;
                 handler(message.payload);
                 // TODO: make more generic
-                const requestData = message.payload.requestData;
-                const variableName = message.payload.variableName;
+                const { requestData, variableName } = message.payload;
                 if (requestData && variableName) {
-                    // @ts-ignore
                     const data = handler(variableName)();
                     this.sendMessage(data, variableName);
                 }

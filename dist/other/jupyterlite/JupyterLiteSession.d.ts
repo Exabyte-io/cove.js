@@ -10,7 +10,7 @@ interface JupyterLiteSessionProps {
             keys: string[];
         };
         extraParameters: any[];
-        handler: (data: any) => void;
+        handler: (args: any) => void | any;
     }[];
 }
 declare class JupyterLiteSession extends React.Component<JupyterLiteSessionProps> {
