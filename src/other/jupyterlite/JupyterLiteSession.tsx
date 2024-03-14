@@ -1,4 +1,4 @@
-import {JupyterliteMessageSchema} from "@mat3ra/esse/lib/js/types";
+import { JupyterliteMessageSchema } from "@mat3ra/esse/lib/js/types";
 import React from "react";
 
 interface JupyterLiteSessionProps {
@@ -33,17 +33,18 @@ class JupyterLiteSession extends React.Component<JupyterLiteSessionProps> {
         if (event.origin !== new URL(this.props.originURL).origin) return;
         const message = event.data;
 
-        const handlerConfig = this.props.handlers.find(handler => {
-            return handler.type === message.type &&
-                handler.filter.keys.every(key => message.payload.hasOwnProperty(key));
+        const handlerConfig = this.props.handlers.find((handler) => {
+            return (
+                handler.type === message.type &&
+                handler.filter.keys.every((key) => message.payload.hasOwnProperty(key))
+            );
         });
 
         if (handlerConfig) {
-            const {handler, filter, extraParameters} = handlerConfig;
+            const { handler, filter, extraParameters } = handlerConfig;
             handler(message.payload);
             // TODO: make more generic
-            const requestData = message.payload.requestData;
-            const variableName = message.payload.variableName;
+            const { requestData, variableName } = message.payload;
             if (requestData && variableName) {
                 const data = handler(variableName)();
                 this.sendMessage(data, variableName);
@@ -51,11 +52,10 @@ class JupyterLiteSession extends React.Component<JupyterLiteSessionProps> {
         }
     };
 
-
     sendMessage = (data: any, variableName: string) => {
         const message: JupyterliteMessageSchema = {
             type: "from-host-to-iframe",
-            payload: {data, variableName},
+            payload: { data, variableName },
         };
         const iframe = document.getElementById(this.props.frameId) as HTMLIFrameElement | null;
         if (iframe && iframe.contentWindow) {
@@ -66,7 +66,7 @@ class JupyterLiteSession extends React.Component<JupyterLiteSessionProps> {
     };
 
     render() {
-        const {defaultNotebookPath, originURL, frameId} = this.props;
+        const { defaultNotebookPath, originURL, frameId } = this.props;
         const src = defaultNotebookPath
             ? `${originURL}/lab/tree?path=${defaultNotebookPath}`
             : `${originURL}/lab`;
