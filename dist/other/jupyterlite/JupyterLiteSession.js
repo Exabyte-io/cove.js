@@ -6,17 +6,22 @@ class JupyterLiteSession extends React.Component {
             if (event.origin !== new URL(this.props.originURL).origin)
                 return;
             const message = event.data;
-            const applicableHandlers = this.props.handlers.filter(handlerConfig => handlerConfig.filter.keys.every(key => message.payload.hasOwnProperty(key)));
-            applicableHandlers.forEach(handlerConfig => {
-                const result = handlerConfig.handler(message.payload);
-                // TODO: solve ts-ignores
-                // If the handler returns a payload for sending message, use it
-                // @ts-ignore
-                if (result && 'variableName' in result) {
-                    // @ts-ignore
-                    this.sendMessage(result.data, result.variableName);
-                }
+            const handlerConfig = this.props.handlers.find(handler => {
+                return handler.type === message.type &&
+                    handler.filter.keys.every(key => message.payload.hasOwnProperty(key));
             });
+            if (handlerConfig) {
+                const { handler, filter, extraParameters } = handlerConfig;
+                handler(message.payload);
+                // TODO: make more generic
+                const requestData = message.payload.requestData;
+                const variableName = message.payload.variableName;
+                if (requestData && variableName) {
+                    // @ts-ignore
+                    const data = handler(variableName)();
+                    this.sendMessage(data, variableName);
+                }
+            }
         };
         this.sendMessage = (data, variableName) => {
             const message = {

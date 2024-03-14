@@ -18,7 +18,7 @@ declare class JupyterLiteSession extends React.Component<JupyterLiteSessionProps
     componentDidMount(): void;
     componentWillUnmount(): void;
     receiveMessage: (event: MessageEvent<JupyterliteMessageSchema>) => void;
-    sendMessage: (data: never, variableName: string) => void;
+    sendMessage: (data: any, variableName: string) => void;
     render(): React.JSX.Element;
 }
 export default JupyterLiteSession;

@@ -33,56 +33,56 @@ class JupyterLiteSession extends React.Component<JupyterLiteSessionProps> {
         if (event.origin !== new URL(this.props.originURL).origin) return;
         const message = event.data;
 
-        const applicableHandlers = this.props.handlers.filter(handlerConfig =>
-            handlerConfig.filter.keys.every(key => message.payload.hasOwnProperty(key))
-        );
-
-        applicableHandlers.forEach(handlerConfig => {
-            const result = handlerConfig.handler(message.payload);
-
-            // TODO: solve ts-ignores
-            // If the handler returns a payload for sending message, use it
-            // @ts-ignore
-            if (result && 'variableName' in result) {
-                // @ts-ignore
-                this.sendMessage(result.data, result.variableName);
-            }
+        const handlerConfig = this.props.handlers.find(handler => {
+            return handler.type === message.type &&
+                handler.filter.keys.every(key => message.payload.hasOwnProperty(key));
         });
+
+        if (handlerConfig) {
+            const {handler, filter, extraParameters} = handlerConfig;
+            handler(message.payload);
+            // TODO: make more generic
+            const requestData = message.payload.requestData;
+            const variableName = message.payload.variableName;
+            if (requestData && variableName) {
+                // @ts-ignore
+                const data = handler(variableName)();
+                this.sendMessage(data, variableName);
+            }
+        }
     };
 
-    sendMessage = (data: never, variableName: string) => {
-            const message: JupyterliteMessageSchema = {
-                type: "from-host-to-iframe",
-                payload: {data, variableName},
-            };
-            const iframe = document.getElementById(this.props.frameId) as HTMLIFrameElement | null;
-            if (iframe && iframe.contentWindow) {
-                iframe.contentWindow.postMessage(message, this.props.originURL);
-            } else {
-                console.error("JupyterLite iframe not found");
-            }
+
+    sendMessage = (data: any, variableName: string) => {
+        const message: JupyterliteMessageSchema = {
+            type: "from-host-to-iframe",
+            payload: {data, variableName},
         };
-
-        render()
-        {
-            const {defaultNotebookPath, originURL, frameId} = this.props;
-            const src = defaultNotebookPath
-                ? `${originURL}/lab/tree?path=${defaultNotebookPath}`
-                : `${originURL}/lab`;
-            return (
-                <iframe
-                    name="jupyterlite"
-                    title="JupyterLite"
-                    id={frameId}
-                    src={src}
-                    sandbox="allow-scripts allow-same-origin allow-popups allow-forms allow-modals allow-top-navigation-by-user-activation allow-downloads"
-                    width="100%"
-                    height="100%"
-                />
-            );
+        const iframe = document.getElementById(this.props.frameId) as HTMLIFrameElement | null;
+        if (iframe && iframe.contentWindow) {
+            iframe.contentWindow.postMessage(message, this.props.originURL);
+        } else {
+            console.error("JupyterLite iframe not found");
         }
-    }
+    };
 
-    export
-    default
-    JupyterLiteSession;
+    render() {
+        const {defaultNotebookPath, originURL, frameId} = this.props;
+        const src = defaultNotebookPath
+            ? `${originURL}/lab/tree?path=${defaultNotebookPath}`
+            : `${originURL}/lab`;
+        return (
+            <iframe
+                name="jupyterlite"
+                title="JupyterLite"
+                id={frameId}
+                src={src}
+                sandbox="allow-scripts allow-same-origin allow-popups allow-forms allow-modals allow-top-navigation-by-user-activation allow-downloads"
+                width="100%"
+                height="100%"
+            />
+        );
+    }
+}
+
+export default JupyterLiteSession;
