@@ -11,7 +11,7 @@ interface JupyterLiteSessionProps {
             keys: string[]; // ["data"] or ["requestData", "variableName"]
         };
         extraParameters: any[];
-        handler: (data: any) => void;
+        handler: (args: any) => void | any;
     }[];
 }
 
@@ -45,7 +45,6 @@ class JupyterLiteSession extends React.Component<JupyterLiteSessionProps> {
             const requestData = message.payload.requestData;
             const variableName = message.payload.variableName;
             if (requestData && variableName) {
-                // @ts-ignore
                 const data = handler(variableName)();
                 this.sendMessage(data, variableName);
             }
