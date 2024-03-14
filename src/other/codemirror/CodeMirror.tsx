@@ -44,6 +44,8 @@ export interface CodeMirrorState {
 class CodeMirror extends React.Component<CodeMirrorProps, CodeMirrorState> {
     constructor(props: CodeMirrorProps) {
         super(props);
+        console.log("Seth&Sasha testing git link in package.json");
+
         this.state = {
             content: props.content || "",
             checks: props.checks,

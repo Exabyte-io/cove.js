@@ -22,6 +22,7 @@ const LANGUAGE_EXTENSIONS_MAP = {
 class CodeMirror extends React.Component {
     constructor(props) {
         super(props);
+        console.log("Seth&Sasha testing git link in package.json");
         this.state = {
             content: props.content || "",
             checks: props.checks,
