@@ -1,75 +1,41 @@
-import { JupyterliteMessageSchema } from "@mat3ra/esse/lib/js/types";
 import React from "react";
+
+import MessageHandler from "./MessageHandler";
 
 interface JupyterLiteSessionProps {
     originURL: string;
     defaultNotebookPath?: string;
     frameId: string;
-    handlers: {
-        type: string; // from-iframe-to-host
-        filter: {
-            keys: string[]; // ["data"] or ["requestData", "variableName"]
-        };
-        extraParameters: any[];
-        handler: (args: any) => void | any;
-    }[];
+    messageHandler?: MessageHandler;
 }
 
+const defaultProps: Partial<JupyterLiteSessionProps> = {
+    // eslint-disable-next-line react/default-props-match-prop-types
+    originURL: "https://jupyterlite.mat3ra.com",
+    // eslint-disable-next-line react/default-props-match-prop-types
+    frameId: "jupyter-lite-iframe",
+};
+
 class JupyterLiteSession extends React.Component<JupyterLiteSessionProps> {
-    static defaultProps: Partial<JupyterLiteSessionProps> = {
-        originURL: "https://jupyterlite.mat3ra.com",
-        frameId: "jupyter-lite-iframe",
-    };
+    // eslint-disable-next-line react/static-property-placement
+    static defaultProps = defaultProps;
 
     componentDidMount() {
-        window.addEventListener("message", this.receiveMessage, false);
+        const { messageHandler, originURL } = this.props;
+        messageHandler?.init(originURL);
     }
 
     componentWillUnmount() {
-        window.removeEventListener("message", this.receiveMessage, false);
+        const { messageHandler } = this.props;
+        messageHandler?.destroy();
     }
-
-    receiveMessage = (event: MessageEvent<JupyterliteMessageSchema>) => {
-        if (event.origin !== new URL(this.props.originURL).origin) return;
-        const message = event.data;
-
-        const handlerConfig = this.props.handlers.find((handler) => {
-            return (
-                handler.type === message.type &&
-                handler.filter.keys.every((key) => message.payload.hasOwnProperty(key))
-            );
-        });
-
-        if (handlerConfig) {
-            const { handler, filter, extraParameters } = handlerConfig;
-            handler(message.payload);
-            // TODO: make more generic
-            const { requestData, variableName } = message.payload;
-            if (requestData && variableName) {
-                const data = handler(variableName)();
-                this.sendMessage(data, variableName);
-            }
-        }
-    };
-
-    sendMessage = (data: any, variableName: string) => {
-        const message: JupyterliteMessageSchema = {
-            type: "from-host-to-iframe",
-            payload: { data, variableName },
-        };
-        const iframe = document.getElementById(this.props.frameId) as HTMLIFrameElement | null;
-        if (iframe && iframe.contentWindow) {
-            iframe.contentWindow.postMessage(message, this.props.originURL);
-        } else {
-            console.error("JupyterLite iframe not found");
-        }
-    };
 
     render() {
         const { defaultNotebookPath, originURL, frameId } = this.props;
         const src = defaultNotebookPath
             ? `${originURL}/lab/tree?path=${defaultNotebookPath}`
             : `${originURL}/lab`;
+
         return (
             <iframe
                 name="jupyterlite"
