@@ -9,7 +9,7 @@ interface JupyterLiteSessionProps {
     messageHandler?: MessageHandler;
 }
 
-const defaultProps: Partial<JupyterLiteSessionProps> = {
+const defaultProps: JupyterLiteSessionProps = {
     // eslint-disable-next-line react/default-props-match-prop-types
     originURL: "https://jupyterlite.mat3ra.com",
     // eslint-disable-next-line react/default-props-match-prop-types
@@ -20,9 +20,13 @@ class JupyterLiteSession extends React.Component<JupyterLiteSessionProps> {
     // eslint-disable-next-line react/static-property-placement
     static defaultProps = defaultProps;
 
+    constructor(props: JupyterLiteSessionProps = defaultProps) {
+        super(props);
+    }
+
     componentDidMount() {
-        const { messageHandler, originURL } = this.props;
-        messageHandler?.init(originURL);
+        const { messageHandler, originURL, frameId } = this.props;
+        messageHandler?.init(originURL, frameId);
     }
 
     componentWillUnmount() {

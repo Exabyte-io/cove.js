@@ -1,7 +1,6 @@
 import { IframeMessageSchema } from "@mat3ra/esse/lib/js/types";
 
-// Define a type for the handler functions
-type HandlerFunction = (data?: any, variableName?: string) => void;
+type HandlerFunction = (...args: any[]) => void | any;
 
 // Define a type for the handler map
 type HandlersMap = {
@@ -13,9 +12,12 @@ class MessageHandler {
 
     private originURL = "*";
 
-    public init(originURL: string): void {
+    private frameId = "";
+
+    public init(originURL: string, frameId: string): void {
         window.addEventListener("message", this.receiveMessage);
         this.originURL = originURL;
+        this.frameId = frameId;
     }
 
     public destroy(): void {
@@ -40,15 +42,19 @@ class MessageHandler {
             // @ts-ignore
             if (this.handlers[action]) {
                 // @ts-ignore
-                this.handlers[action].forEach((handler) => {
+                this.handlers["set-data"].forEach((handler) => {
                     handler(event.data.payload.data, event.data.payload.variableName);
+                });
+                this.handlers["get-data"].forEach((handler) => {
+                    const data = handler(event.data.payload.variableName);
+                    this.sendData(data, event.data.payload.variableName);
                 });
             }
         }
     };
 
     public sendData(data: any, variableName = "data"): void {
-        const message: IframeMessageSchema = {
+        const message = {
             type: "from-host-to-iframe",
             payload: {
                 action: "set-data",
@@ -56,8 +62,11 @@ class MessageHandler {
                 variableName,
             },
         };
-
-        window.parent.postMessage(message, this.originURL);
+        const iframe = document.getElementById(this.frameId);
+        if (iframe) {
+            // @ts-ignore
+            iframe.contentWindow.postMessage(message, this.originURL);
+        }
     }
 }
 
