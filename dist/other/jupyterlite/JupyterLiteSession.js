@@ -6,9 +6,12 @@ const defaultProps = {
     frameId: "jupyter-lite-iframe",
 };
 class JupyterLiteSession extends React.Component {
+    constructor(props = defaultProps) {
+        super(props);
+    }
     componentDidMount() {
-        const { messageHandler, originURL } = this.props;
-        messageHandler === null || messageHandler === void 0 ? void 0 : messageHandler.init(originURL);
+        const { messageHandler, originURL, frameId } = this.props;
+        messageHandler === null || messageHandler === void 0 ? void 0 : messageHandler.init(originURL, frameId);
     }
     componentWillUnmount() {
         const { messageHandler } = this.props;

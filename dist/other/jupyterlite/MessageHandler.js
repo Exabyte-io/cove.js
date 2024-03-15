@@ -2,6 +2,7 @@ class MessageHandler {
     constructor() {
         this.handlers = {};
         this.originURL = "*";
+        this.frameId = "";
         this.receiveMessage = (event) => {
             if (this.originURL !== "*" && event.origin !== this.originURL) {
                 return;
@@ -12,16 +13,21 @@ class MessageHandler {
                 // @ts-ignore
                 if (this.handlers[action]) {
                     // @ts-ignore
-                    this.handlers[action].forEach((handler) => {
+                    this.handlers["set-data"].forEach((handler) => {
                         handler(event.data.payload.data, event.data.payload.variableName);
+                    });
+                    this.handlers["get-data"].forEach((handler) => {
+                        const data = handler(event.data.payload.variableName);
+                        this.sendData(data, event.data.payload.variableName);
                     });
                 }
             }
         };
     }
-    init(originURL) {
+    init(originURL, frameId) {
         window.addEventListener("message", this.receiveMessage);
         this.originURL = originURL;
+        this.frameId = frameId;
     }
     destroy() {
         window.removeEventListener("message", this.receiveMessage);
@@ -41,7 +47,11 @@ class MessageHandler {
                 variableName,
             },
         };
-        window.parent.postMessage(message, this.originURL);
+        const iframe = document.getElementById(this.frameId);
+        if (iframe) {
+            // @ts-ignore
+            iframe.contentWindow.postMessage(message, this.originURL);
+        }
     }
 }
 export default MessageHandler;

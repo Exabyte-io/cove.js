@@ -7,7 +7,8 @@ interface JupyterLiteSessionProps {
     messageHandler?: MessageHandler;
 }
 declare class JupyterLiteSession extends React.Component<JupyterLiteSessionProps> {
-    static defaultProps: Partial<JupyterLiteSessionProps>;
+    static defaultProps: JupyterLiteSessionProps;
+    constructor(props?: JupyterLiteSessionProps);
     componentDidMount(): void;
     componentWillUnmount(): void;
     render(): React.JSX.Element;
