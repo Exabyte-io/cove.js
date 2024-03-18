@@ -5,7 +5,7 @@ import MessageHandler from "./MessageHandler";
 interface JupyterLiteSessionProps {
     originURL: string;
     defaultNotebookPath?: string;
-    frameId: string;
+    iframeId: string;
     messageHandler?: MessageHandler;
 }
 
@@ -13,7 +13,7 @@ const defaultProps: JupyterLiteSessionProps = {
     // eslint-disable-next-line react/default-props-match-prop-types
     originURL: "https://jupyterlite.mat3ra.com",
     // eslint-disable-next-line react/default-props-match-prop-types
-    frameId: "jupyter-lite-iframe",
+    iframeId: "jupyter-lite-iframe",
 };
 
 class JupyterLiteSession extends React.Component<JupyterLiteSessionProps> {
@@ -25,8 +25,8 @@ class JupyterLiteSession extends React.Component<JupyterLiteSessionProps> {
     }
 
     componentDidMount() {
-        const { messageHandler, originURL, frameId } = this.props;
-        messageHandler?.init(originURL, frameId);
+        const { messageHandler, originURL, iframeId } = this.props;
+        messageHandler?.init(originURL, iframeId);
     }
 
     componentWillUnmount() {
@@ -35,7 +35,7 @@ class JupyterLiteSession extends React.Component<JupyterLiteSessionProps> {
     }
 
     render() {
-        const { defaultNotebookPath, originURL, frameId } = this.props;
+        const { defaultNotebookPath, originURL, iframeId } = this.props;
         const src = defaultNotebookPath
             ? `${originURL}/lab/tree?path=${defaultNotebookPath}`
             : `${originURL}/lab`;
@@ -44,7 +44,7 @@ class JupyterLiteSession extends React.Component<JupyterLiteSessionProps> {
             <iframe
                 name="jupyterlite"
                 title="JupyterLite"
-                id={frameId}
+                id={iframeId}
                 src={src}
                 sandbox="allow-scripts allow-same-origin allow-popups allow-forms allow-modals allow-top-navigation-by-user-activation allow-downloads"
                 width="100%"
