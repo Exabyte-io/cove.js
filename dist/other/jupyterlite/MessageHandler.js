@@ -1,33 +1,36 @@
 class MessageHandler {
     constructor() {
-        this.handlers = {};
-        this.originURL = "*";
-        this.frameId = "";
+        this.handlers = { "get-data": [], "set-data": [], info: [] };
+        this.iframeOriginURL = "*";
+        this.hostOriginURL = "*";
+        this.iframeId = "";
         this.receiveMessage = (event) => {
-            if (this.originURL !== "*" && event.origin !== this.originURL) {
+            if (this.iframeOriginURL !== "*" &&
+                event.origin !== this.iframeOriginURL &&
+                event.origin !== this.hostOriginURL) {
                 return;
             }
             if (event.data.type === "from-iframe-to-host") {
-                const { action } = event.data.payload;
-                // TODO: make action required in ESSE
+                const { action, payload } = event.data;
                 // @ts-ignore
                 if (this.handlers[action]) {
                     // @ts-ignore
                     this.handlers["set-data"].forEach((handler) => {
-                        handler(event.data.payload.data, event.data.payload.variableName);
+                        handler(payload);
                     });
                     this.handlers["get-data"].forEach((handler) => {
-                        const data = handler(event.data.payload.variableName);
-                        this.sendData(data, event.data.payload.variableName);
+                        const data = handler();
+                        this.sendData(data);
                     });
                 }
             }
         };
     }
-    init(originURL, frameId) {
+    init(iframeOriginURL, iframeId) {
         window.addEventListener("message", this.receiveMessage);
-        this.originURL = originURL;
-        this.frameId = frameId;
+        this.iframeOriginURL = iframeOriginURL;
+        this.hostOriginURL = window.location.origin;
+        this.iframeId = iframeId;
     }
     destroy() {
         window.removeEventListener("message", this.receiveMessage);
@@ -38,19 +41,16 @@ class MessageHandler {
         }
         this.handlers[action].push(...handlers);
     }
-    sendData(data, variableName = "data") {
+    sendData(data) {
         const message = {
             type: "from-host-to-iframe",
-            payload: {
-                action: "set-data",
-                data,
-                variableName,
-            },
+            action: "set-data",
+            payload: data,
         };
-        const iframe = document.getElementById(this.frameId);
+        const iframe = document.getElementById(this.iframeId);
         if (iframe) {
             // @ts-ignore
-            iframe.contentWindow.postMessage(message, this.originURL);
+            iframe.contentWindow.postMessage(message, this.iframeOriginURL);
         }
     }
 }

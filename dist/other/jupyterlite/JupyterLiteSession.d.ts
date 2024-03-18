@@ -3,7 +3,7 @@ import MessageHandler from "./MessageHandler";
 interface JupyterLiteSessionProps {
     originURL: string;
     defaultNotebookPath?: string;
-    frameId: string;
+    iframeId: string;
     messageHandler?: MessageHandler;
 }
 declare class JupyterLiteSession extends React.Component<JupyterLiteSessionProps> {
