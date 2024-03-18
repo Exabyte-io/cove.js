@@ -1,30 +1,32 @@
 import { IframeMessageSchema } from "@mat3ra/esse/lib/js/types";
 
-type HandlerFunction = (...args: any[]) => void | any;
+type HandlerFunction = (...args: IframeMessageSchema["payload"][]) => void | any;
 
-// Define a type for the handler map
 type HandlersMap = {
-    [action: string]: HandlerFunction[];
+    [action in IframeMessageSchema["action"]]: HandlerFunction[];
 };
 
 class MessageHandler {
-    private handlers: HandlersMap = {};
+    private handlers: HandlersMap = { "get-data": [], "set-data": [], info: [] };
 
-    private originURL = "*";
+    private iframeOriginURL = "*";
 
-    private frameId = "";
+    private hostOriginURL = "*";
 
-    public init(originURL: string, frameId: string): void {
+    private iframeId = "";
+
+    public init(iframeOriginURL: string, iframeId: string): void {
         window.addEventListener("message", this.receiveMessage);
-        this.originURL = originURL;
-        this.frameId = frameId;
+        this.iframeOriginURL = iframeOriginURL;
+        this.hostOriginURL = window.location.origin;
+        this.iframeId = iframeId;
     }
 
     public destroy(): void {
         window.removeEventListener("message", this.receiveMessage);
     }
 
-    public addHandlers(action: string, handlers: HandlerFunction[]): void {
+    public addHandlers(action: IframeMessageSchema["action"], handlers: HandlerFunction[]): void {
         if (!this.handlers[action]) {
             this.handlers[action] = [];
         }
@@ -32,40 +34,40 @@ class MessageHandler {
     }
 
     private receiveMessage = (event: MessageEvent<IframeMessageSchema>) => {
-        if (this.originURL !== "*" && event.origin !== this.originURL) {
+        if (
+            this.iframeOriginURL !== "*" &&
+            event.origin !== this.iframeOriginURL &&
+            event.origin !== this.hostOriginURL
+        ) {
             return;
         }
 
         if (event.data.type === "from-iframe-to-host") {
-            const { action } = event.data.payload;
-            // TODO: make action required in ESSE
+            const { action, payload } = event.data;
             // @ts-ignore
             if (this.handlers[action]) {
                 // @ts-ignore
                 this.handlers["set-data"].forEach((handler) => {
-                    handler(event.data.payload.data, event.data.payload.variableName);
+                    handler(payload);
                 });
                 this.handlers["get-data"].forEach((handler) => {
-                    const data = handler(event.data.payload.variableName);
-                    this.sendData(data, event.data.payload.variableName);
+                    const data = handler();
+                    this.sendData(data);
                 });
             }
         }
     };
 
-    public sendData(data: any, variableName = "data"): void {
+    public sendData(data: JSON): void {
         const message = {
             type: "from-host-to-iframe",
-            payload: {
-                action: "set-data",
-                data,
-                variableName,
-            },
+            action: "set-data",
+            payload: data,
         };
-        const iframe = document.getElementById(this.frameId);
+        const iframe = document.getElementById(this.iframeId);
         if (iframe) {
             // @ts-ignore
-            iframe.contentWindow.postMessage(message, this.originURL);
+            iframe.contentWindow.postMessage(message, this.iframeOriginURL);
         }
     }
 }
