@@ -58,7 +58,7 @@ class MessageHandler {
         }
     };
 
-    public sendData(data: JSON): void {
+    public sendData(data: object): void {
         const message = {
             type: "from-host-to-iframe",
             action: "set-data",

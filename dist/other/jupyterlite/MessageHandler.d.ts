@@ -9,6 +9,6 @@ declare class MessageHandler {
     destroy(): void;
     addHandlers(action: IframeMessageSchema["action"], handlers: HandlerFunction[]): void;
     private receiveMessage;
-    sendData(data: JSON): void;
+    sendData(data: object): void;
 }
 export default MessageHandler;
