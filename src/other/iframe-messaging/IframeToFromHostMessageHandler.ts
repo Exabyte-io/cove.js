@@ -6,7 +6,7 @@ type HandlersMap = {
     [action in IframeMessageSchema["action"]]: HandlerFunction[];
 };
 
-class MessageHandler {
+class IframeToFromHostMessageHandler {
     private handlers: HandlersMap = { "get-data": [], "set-data": [], info: [] };
 
     private iframeOriginURL = "*";
@@ -44,9 +44,7 @@ class MessageHandler {
 
         if (event.data.type === "from-iframe-to-host") {
             const { action, payload } = event.data;
-            // @ts-ignore
             if (this.handlers[action]) {
-                // @ts-ignore
                 this.handlers["set-data"].forEach((handler) => {
                     handler(payload);
                 });
@@ -72,4 +70,4 @@ class MessageHandler {
     }
 }
 
-export default MessageHandler;
+export default IframeToFromHostMessageHandler;
