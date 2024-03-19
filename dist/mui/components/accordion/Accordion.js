@@ -39,7 +39,7 @@ const AccordionSummary = withStyles({
     },
     expanded: {},
 })(MuiAccordionSummary);
-export default function Accordion({ hideExpandIcon, children, isExpanded, header, renderSummary, ...restProps }) {
+export default function Accordion({ hideExpandIcon, children, isExpanded, header, alternativeComponent, ...restProps }) {
     const [isExpanded_, setIsExpanded] = useState(isExpanded);
     useEffect(() => {
         setIsExpanded(isExpanded);
@@ -51,7 +51,9 @@ export default function Accordion({ hideExpandIcon, children, isExpanded, header
         }
     };
     return (React.createElement(StyledAccordion, { defaultExpanded: isExpanded, expanded: isExpanded_, ...restProps },
-        React.createElement(AccordionSummary, { onClick: handleToggleExpanded, "aria-controls": "panel2a-content", expandIcon: !hideExpandIcon && React.createElement(IconByName, { name: "actions.expand" }) }, renderSummary || React.createElement(Typography, { variant: "overline" }, header)),
+        React.createElement(AccordionSummary, { onClick: handleToggleExpanded, "aria-controls": "panel2a-content", expandIcon: !hideExpandIcon && React.createElement(IconByName, { name: "actions.expand" }) },
+            React.createElement(Typography, { variant: "overline" }, header),
+            alternativeComponent),
         React.createElement(Divider, null),
         React.createElement(AccordionDetails, null, children)));
 }
