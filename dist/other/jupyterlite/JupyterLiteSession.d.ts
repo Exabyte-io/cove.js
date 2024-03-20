@@ -1,5 +1,5 @@
 import React from "react";
-import IframeToFromHostMessageHandler from "../iframe-messaging";
+import IframeToFromHostMessageHandler from "../iframe-messaging/IframeToFromHostMessageHandler";
 interface JupyterLiteSessionProps {
     originURL: string;
     defaultNotebookPath?: string;
