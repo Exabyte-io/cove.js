@@ -1,8 +1,10 @@
 class IframeToFromHostMessageHandler {
     constructor() {
         this.handlers = { "get-data": [], "set-data": [], info: [] };
+        // Default values for the origin URLs  to pass the CORS policy, if not provided from the parent component
         this.iframeOriginURL = "*";
         this.hostOriginURL = "*";
+        // The DOM id of the iframe that is loaded in the host page to send messages from/to
         this.iframeId = "";
         this.receiveMessage = (event) => {
             if (this.iframeOriginURL !== "*" &&
