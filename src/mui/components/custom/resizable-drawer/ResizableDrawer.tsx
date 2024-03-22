@@ -20,7 +20,19 @@ type UseResizeReturn = {
     disableResize: () => void;
 };
 
-function removeResizeListener({ resize, disableResize, refocusChild, childIdToRefocus }: any) {
+interface ResizeListenerProps {
+    resize: (e: MouseEvent) => void;
+    disableResize: () => void;
+    refocusChild?: boolean;
+    childIdToRefocus?: string;
+}
+
+function removeResizeListener({
+    resize,
+    disableResize,
+    refocusChild,
+    childIdToRefocus,
+}: ResizeListenerProps) {
     document.removeEventListener("mousemove", resize);
     document.removeEventListener("mouseup", disableResize);
     if (refocusChild && childIdToRefocus) {
@@ -28,7 +40,10 @@ function removeResizeListener({ resize, disableResize, refocusChild, childIdToRe
     }
 }
 
-function addResizeListener({ resize, disableResize }: any) {
+function addResizeListener({
+    resize,
+    disableResize,
+}: Pick<ResizeListenerProps, "resize" | "disableResize">) {
     document.addEventListener("mousemove", resize);
     document.addEventListener("mouseup", disableResize);
 }
