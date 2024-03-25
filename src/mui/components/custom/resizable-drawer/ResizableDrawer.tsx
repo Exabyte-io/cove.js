@@ -103,40 +103,18 @@ const Puller = styled(Box)(({ theme, isResizing }: { theme?: Theme; isResizing: 
     left: "calc(50% - 15px)",
 }));
 
-const StyledDrawer = styled(Drawer, {
-    shouldForwardProp: (prop) => prop !== "containerRef" && prop !== "contained",
-})(({ containerRef, contained, theme }) => ({
-    "& .MuiDrawer-paper":
-        contained && containerRef?.current
-            ? {
-                  position: "absolute",
-                  // Set the maximum height and width based on the container's dimensions
-                  maxHeight: containerRef.current.offsetHeight,
-                  maxWidth: containerRef.current.offsetWidth,
-                  // You might need additional styles to handle the exact positioning within the container
-              }
-            : {
-                  // Default styles if not contained
-              },
-    // ... other styles
-}));
-
 const TRANSITION_DURATION = 500;
 const DRAWER_MIN_HEGHT = 20;
 export default function ResizableDrawer({
     children,
     open,
     onClose,
-    contained = false,
-    containerRef = null,
     refocusChild = false,
     childIdToRefocus,
 }: {
     children: React.ReactElement;
     open: boolean;
     onClose: () => void;
-    contained?: boolean;
-    containerRef?: React.RefObject<HTMLDivElement> | null;
     refocusChild?: boolean;
     childIdToRefocus?: string;
 }) {
@@ -165,9 +143,7 @@ export default function ResizableDrawer({
     };
 
     return (
-        <StyledDrawer
-            containerRef={containerRef}
-            contained={contained}
+        <Drawer
             variant="persistent"
             anchor="bottom"
             open={open}
@@ -208,6 +184,6 @@ export default function ResizableDrawer({
                 />
             </StyledBox>
             {children}
-        </StyledDrawer>
+        </Drawer>
     );
 }
