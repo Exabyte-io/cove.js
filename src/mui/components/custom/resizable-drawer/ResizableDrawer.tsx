@@ -112,6 +112,7 @@ export default function ResizableDrawer({
     refocusChild = false,
     childIdToRefocus,
     paperProps,
+    containerRef,
 }: {
     children: React.ReactElement;
     open: boolean;
@@ -119,12 +120,33 @@ export default function ResizableDrawer({
     refocusChild?: boolean;
     childIdToRefocus?: string;
     paperProps?: object;
+    containerRef?: React.RefObject<HTMLDivElement>;
 }) {
     const { height, setHeight, isResizing, enableResize, disableResize } = useResize({
         minHeight: DRAWER_MIN_HEGHT,
         refocusChild,
         childIdToRefocus,
     });
+
+    const [containerSize, setContainerSize] = useState({ width: 0, height: 0 });
+
+    // A resize observer to listen for changes in the size of the containerRef
+    useEffect(() => {
+        if (containerRef && containerRef.current) {
+            const resizeObserver = new ResizeObserver((entries) => {
+                // eslint-disable-next-line no-restricted-syntax
+                entries.forEach((entry) => {
+                    setContainerSize({
+                        width: entry.contentRect.width,
+                        height: entry.contentRect.height,
+                    });
+                });
+            });
+            resizeObserver.observe(containerRef.current);
+
+            return () => resizeObserver.disconnect();
+        }
+    }, [containerRef]);
 
     const maximize = () => {
         const targetHeight =
@@ -144,6 +166,14 @@ export default function ResizableDrawer({
         }
     };
 
+    // const drawerBleeding = 80;
+    // const drawerPaperStyle = {
+    //     height: `calc(50% - ${drawerBleeding}px)`, // Set the height dynamically
+    //     overflow: "visible", // Make overflow visible to see the puller
+    //     // @ts-ignore
+    //     ...(paperProps?.style || {}), // Merge any additional styles passed via paperProps
+    // };
+
     return (
         <Drawer
             variant="persistent"
@@ -160,6 +190,9 @@ export default function ResizableDrawer({
                 ...paperProps,
                 style: {
                     height,
+                    width: containerSize.width,
+                    maxWidth: containerSize.width,
+                    boxSizing: "border-box",
                 },
             }}>
             <Box display="flex" justifyContent="right">

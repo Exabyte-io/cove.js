@@ -59,12 +59,29 @@ const Puller = styled(Box)(({ theme, isResizing }) => ({
 }));
 const TRANSITION_DURATION = 500;
 const DRAWER_MIN_HEGHT = 20;
-export default function ResizableDrawer({ children, open, onClose, refocusChild = false, childIdToRefocus, paperProps, }) {
+export default function ResizableDrawer({ children, open, onClose, refocusChild = false, childIdToRefocus, paperProps, containerRef, }) {
     const { height, setHeight, isResizing, enableResize, disableResize } = useResize({
         minHeight: DRAWER_MIN_HEGHT,
         refocusChild,
         childIdToRefocus,
     });
+    const [containerSize, setContainerSize] = useState({ width: 0, height: 0 });
+    // A resize observer to listen for changes in the size of the containerRef
+    useEffect(() => {
+        if (containerRef.current) {
+            const resizeObserver = new ResizeObserver((entries) => {
+                // eslint-disable-next-line no-restricted-syntax
+                entries.forEach((entry) => {
+                    setContainerSize({
+                        width: entry.contentRect.width,
+                        height: entry.contentRect.height,
+                    });
+                });
+            });
+            resizeObserver.observe(containerRef.current);
+            return () => resizeObserver.disconnect();
+        }
+    }, [containerRef]);
     const maximize = () => {
         var _a;
         const targetHeight = height < window.innerHeight / 3 ? window.innerHeight / 3 : window.innerHeight;
@@ -81,6 +98,13 @@ export default function ResizableDrawer({ children, open, onClose, refocusChild 
             (_a = document.getElementById(childIdToRefocus)) === null || _a === void 0 ? void 0 : _a.focus();
         }
     };
+    // const drawerBleeding = 80;
+    // const drawerPaperStyle = {
+    //     height: `calc(50% - ${drawerBleeding}px)`, // Set the height dynamically
+    //     overflow: "visible", // Make overflow visible to see the puller
+    //     // @ts-ignore
+    //     ...(paperProps?.style || {}), // Merge any additional styles passed via paperProps
+    // };
     return (React.createElement(Drawer, { variant: "persistent", anchor: "bottom", open: open, onClose: onClose, SlideProps: {
             direction: "up",
             timeout: TRANSITION_DURATION,
@@ -90,6 +114,9 @@ export default function ResizableDrawer({ children, open, onClose, refocusChild 
             ...paperProps,
             style: {
                 height,
+                width: containerSize.width,
+                maxWidth: containerSize.width,
+                boxSizing: "border-box",
             },
         } },
         React.createElement(Box, { display: "flex", justifyContent: "right" },
