@@ -65,23 +65,23 @@ export default function ResizableDrawer({ children, open, onClose, refocusChild 
         refocusChild,
         childIdToRefocus,
     });
-    const [containerSize, setContainerSize] = useState({ width: 0, height: 0 });
-    // A resize observer to listen for changes in the size of the containerRef
-    useEffect(() => {
-        if (containerRef && containerRef.current) {
-            const resizeObserver = new ResizeObserver((entries) => {
-                // eslint-disable-next-line no-restricted-syntax
-                entries.forEach((entry) => {
-                    setContainerSize({
-                        width: entry.contentRect.width,
-                        height: entry.contentRect.height,
-                    });
-                });
-            });
-            resizeObserver.observe(containerRef.current);
-            return () => resizeObserver.disconnect();
+    const drawerStyles = containerRef && containerRef.current
+        ? {
+            position: "absolute",
+            left: containerRef.current.offsetLeft,
+            bottom: window.innerHeight -
+                (containerRef.current.offsetTop + containerRef.current.offsetHeight),
+            maxHeight: containerRef.current.offsetHeight,
         }
-    }, [containerRef]);
+        : {};
+    const drawerPaperProps = {
+        style: {
+            ...drawerStyles,
+            height,
+            // @ts-ignore
+            ...((paperProps === null || paperProps === void 0 ? void 0 : paperProps.style) || {}),
+        },
+    };
     const maximize = () => {
         var _a;
         const targetHeight = height < window.innerHeight / 3 ? window.innerHeight / 3 : window.innerHeight;
@@ -103,17 +103,7 @@ export default function ResizableDrawer({ children, open, onClose, refocusChild 
             timeout: TRANSITION_DURATION,
             in: true,
             appear: true,
-        }, PaperProps: {
-            ...paperProps,
-            style: {
-                // @ts-ignore
-                ...paperProps.style,
-                height,
-                width: containerSize.width,
-                maxWidth: containerSize.width,
-                boxSizing: "border-box",
-            },
-        } },
+        }, PaperProps: drawerPaperProps },
         React.createElement(Box, { display: "flex", justifyContent: "right" },
             React.createElement(KeyboardArrowUpIcon, { fontSize: "large", onClick: maximize, sx: { cursor: "pointer" } }),
             React.createElement(KeyboardArrowDownIcon, { fontSize: "large", onClick: minimize, sx: { cursor: "pointer" } }),
