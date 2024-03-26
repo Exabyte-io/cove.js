@@ -1,4 +1,4 @@
-import { IframeMessageSchema } from "@mat3ra/esse/lib/js/types";
+import { IframeMessageSchema } from "@mat3ra/esse/dist/js/types";
 type HandlerFunction = (...args: IframeMessageSchema["payload"][]) => void | any;
 declare class IframeToFromHostMessageHandler {
     private handlers;

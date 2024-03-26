@@ -8,7 +8,7 @@ import { jinja2 } from "@codemirror/legacy-modes/mode/jinja2";
 import { shell } from "@codemirror/legacy-modes/mode/shell";
 import { linter, lintGutter } from "@codemirror/lint";
 import { Extension } from "@codemirror/state";
-import { ConsistencyCheck } from "@mat3ra/esse/lib/js/types";
+import { ConsistencyCheck } from "@mat3ra/esse/dist/js/types";
 import CodeMirrorBase, { BasicSetupOptions } from "@uiw/react-codemirror";
 import React from "react";
 
