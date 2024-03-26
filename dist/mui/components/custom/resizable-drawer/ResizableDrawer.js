@@ -68,7 +68,7 @@ export default function ResizableDrawer({ children, open, onClose, refocusChild 
     const [containerSize, setContainerSize] = useState({ width: 0, height: 0 });
     // A resize observer to listen for changes in the size of the containerRef
     useEffect(() => {
-        if (containerRef.current) {
+        if (containerRef && containerRef.current) {
             const resizeObserver = new ResizeObserver((entries) => {
                 // eslint-disable-next-line no-restricted-syntax
                 entries.forEach((entry) => {
