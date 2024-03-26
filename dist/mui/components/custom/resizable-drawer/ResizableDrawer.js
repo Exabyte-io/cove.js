@@ -59,7 +59,7 @@ const Puller = styled(Box)(({ theme, isResizing }) => ({
 }));
 const TRANSITION_DURATION = 500;
 const DRAWER_MIN_HEGHT = 20;
-export default function ResizableDrawer({ children, open, onClose, refocusChild = false, childIdToRefocus, }) {
+export default function ResizableDrawer({ children, open, onClose, refocusChild = false, childIdToRefocus, paperProps, }) {
     const { height, setHeight, isResizing, enableResize, disableResize } = useResize({
         minHeight: DRAWER_MIN_HEGHT,
         refocusChild,
@@ -86,7 +86,12 @@ export default function ResizableDrawer({ children, open, onClose, refocusChild 
             timeout: TRANSITION_DURATION,
             in: true,
             appear: true,
-        }, PaperProps: { style: { height } } },
+        }, PaperProps: {
+            ...paperProps,
+            style: {
+                height,
+            },
+        } },
         React.createElement(Box, { display: "flex", justifyContent: "right" },
             React.createElement(KeyboardArrowUpIcon, { fontSize: "large", onClick: maximize, sx: { cursor: "pointer" } }),
             React.createElement(KeyboardArrowDownIcon, { fontSize: "large", onClick: minimize, sx: { cursor: "pointer" } }),

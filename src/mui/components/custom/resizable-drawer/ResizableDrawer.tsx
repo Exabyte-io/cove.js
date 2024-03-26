@@ -111,12 +111,14 @@ export default function ResizableDrawer({
     onClose,
     refocusChild = false,
     childIdToRefocus,
+    paperProps,
 }: {
     children: React.ReactElement;
     open: boolean;
     onClose: () => void;
     refocusChild?: boolean;
     childIdToRefocus?: string;
+    paperProps?: object;
 }) {
     const { height, setHeight, isResizing, enableResize, disableResize } = useResize({
         minHeight: DRAWER_MIN_HEGHT,
@@ -154,7 +156,12 @@ export default function ResizableDrawer({
                 in: true,
                 appear: true,
             }}
-            PaperProps={{ style: { height } }}>
+            PaperProps={{
+                ...paperProps,
+                style: {
+                    height,
+                },
+            }}>
             <Box display="flex" justifyContent="right">
                 <KeyboardArrowUpIcon
                     fontSize="large"
