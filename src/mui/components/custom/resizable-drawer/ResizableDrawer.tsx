@@ -166,14 +166,6 @@ export default function ResizableDrawer({
         }
     };
 
-    // const drawerBleeding = 80;
-    // const drawerPaperStyle = {
-    //     height: `calc(50% - ${drawerBleeding}px)`, // Set the height dynamically
-    //     overflow: "visible", // Make overflow visible to see the puller
-    //     // @ts-ignore
-    //     ...(paperProps?.style || {}), // Merge any additional styles passed via paperProps
-    // };
-
     return (
         <Drawer
             variant="persistent"
@@ -189,6 +181,8 @@ export default function ResizableDrawer({
             PaperProps={{
                 ...paperProps,
                 style: {
+                    // @ts-ignore
+                    ...paperProps.style,
                     height,
                     width: containerSize.width,
                     maxWidth: containerSize.width,
