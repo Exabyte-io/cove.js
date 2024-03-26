@@ -4,7 +4,7 @@ import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import { styled, Theme } from "@mui/material/styles";
-import React, { CSSProperties, useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 
 type UseResizeProps = {
     minHeight: number;
@@ -128,25 +128,25 @@ export default function ResizableDrawer({
         childIdToRefocus,
     });
 
-    const drawerStyles: CSSProperties =
-        containerRef && containerRef.current
-            ? {
-                  position: "absolute",
-                  left: containerRef.current.offsetLeft,
-                  bottom:
-                      window.innerHeight -
-                      (containerRef.current.offsetTop + containerRef.current.offsetHeight),
-                  maxHeight: containerRef.current.offsetHeight,
-                  maxWidth: containerRef.current.offsetWidth,
-              }
-            : {};
+    const [containerSize, setContainerSize] = useState({ width: 0, height: 0 });
 
-    const drawerPaperProps: CSSProperties = {
-        // @ts-ignore
-        ...(paperProps?.style || {}),
-        ...drawerStyles,
-        height,
-    };
+    // A resize observer to listen for changes in the size of the containerRef
+    useEffect(() => {
+        if (containerRef && containerRef.current) {
+            const resizeObserver = new ResizeObserver((entries) => {
+                // eslint-disable-next-line no-restricted-syntax
+                entries.forEach((entry) => {
+                    setContainerSize({
+                        width: entry.contentRect.width,
+                        height: entry.contentRect.height,
+                    });
+                });
+            });
+            resizeObserver.observe(containerRef.current);
+
+            return () => resizeObserver.disconnect();
+        }
+    }, [containerRef]);
 
     const maximize = () => {
         const targetHeight =
@@ -178,7 +178,17 @@ export default function ResizableDrawer({
                 in: true,
                 appear: true,
             }}
-            PaperProps={drawerPaperProps}>
+            PaperProps={{
+                ...paperProps,
+                style: {
+                    // @ts-ignore
+                    ...paperProps.style,
+                    height,
+                    width: containerSize.width,
+                    maxWidth: containerSize.width,
+                    boxSizing: "border-box",
+                },
+            }}>
             <Box display="flex" justifyContent="right">
                 <KeyboardArrowUpIcon
                     fontSize="large"
