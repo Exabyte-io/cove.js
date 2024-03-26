@@ -1,6 +1,6 @@
 import { CompletionContext, CompletionResult } from "@codemirror/autocomplete";
 import { Extension } from "@codemirror/state";
-import { ConsistencyCheck } from "@mat3ra/esse/lib/js/types";
+import { ConsistencyCheck } from "@mat3ra/esse/dist/js/types";
 import { BasicSetupOptions } from "@uiw/react-codemirror";
 import React from "react";
 export interface CodeMirrorProps {

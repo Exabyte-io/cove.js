@@ -1,4 +1,4 @@
-import { InMemoryEntity } from "@exabyte-io/code.js/dist/entity";
+import { InMemoryEntity } from "@mat3ra/code/dist/js/entity";
 export declare const StatefulEntityMixin: (superclass: any) => {
     new (props: any): {
         [x: string]: any;
