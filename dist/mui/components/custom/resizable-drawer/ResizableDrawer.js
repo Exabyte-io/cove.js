@@ -57,7 +57,7 @@ const Puller = styled(Box)(({ theme, isResizing }) => ({
     top: 8,
     left: "calc(50% - 15px)",
 }));
-const TRANSITION_DURATION = 500;
+const TRANSITION_DURATION = 500; // ms
 const DRAWER_MIN_HEGHT = 20;
 export default function ResizableDrawer({ children, open, onClose, refocusChild = false, childIdToRefocus, paperProps, containerRef, }) {
     const { height, setHeight, isResizing, enableResize, disableResize } = useResize({
@@ -65,6 +65,7 @@ export default function ResizableDrawer({ children, open, onClose, refocusChild 
         refocusChild,
         childIdToRefocus,
     });
+    // Styles to make the drawer fit the container
     const drawerStyles = containerRef && containerRef.current
         ? {
             position: "absolute",

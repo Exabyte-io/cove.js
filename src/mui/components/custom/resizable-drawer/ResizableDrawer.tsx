@@ -103,7 +103,7 @@ const Puller = styled(Box)(({ theme, isResizing }: { theme?: Theme; isResizing: 
     left: "calc(50% - 15px)",
 }));
 
-const TRANSITION_DURATION = 500;
+const TRANSITION_DURATION = 500; // ms
 const DRAWER_MIN_HEGHT = 20;
 export default function ResizableDrawer({
     children,
@@ -128,6 +128,7 @@ export default function ResizableDrawer({
         childIdToRefocus,
     });
 
+    // Styles to make the drawer fit the container
     const drawerStyles: CSSProperties =
         containerRef && containerRef.current
             ? {
