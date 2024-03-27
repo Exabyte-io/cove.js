@@ -128,17 +128,23 @@ export default function ResizableDrawer({
         childIdToRefocus,
     });
 
-    const drawerStyles: CSSProperties =
-        containerRef && containerRef.current
-            ? {
-                  position: "absolute",
-                  left: containerRef.current.offsetLeft,
-                  bottom:
-                      window.innerHeight -
-                      (containerRef.current.offsetTop + containerRef.current.offsetHeight),
-                  maxHeight: containerRef.current.offsetHeight,
-              }
-            : {};
+    const [drawerStyles, setDrawerStyles] = useState<CSSProperties>({});
+
+    useEffect(() => {
+        if (containerRef && containerRef.current) {
+            setDrawerStyles({
+                position: "absolute",
+                left: containerRef.current.offsetLeft,
+                bottom:
+                    window.innerHeight -
+                    (containerRef.current.offsetTop + containerRef.current.offsetHeight),
+                maxHeight: containerRef.current.offsetHeight,
+                maxWidth: containerRef.current.offsetWidth,
+            });
+        } else {
+            setDrawerStyles({});
+        }
+    }, [containerRef, containerRef?.current]);
 
     const drawerPaperProps = {
         style: {
