@@ -35,7 +35,7 @@ class IframeToFromHostMessageHandler {
         this.handlers[action].push(...handlers);
     }
 
-    private receiveMessage = (event: MessageEvent<IframeMessageSchema>) => {
+    private receiveMessage = async (event: MessageEvent<IframeMessageSchema>) => {
         if (
             this.iframeOriginURL !== "*" &&
             event.origin !== this.iframeOriginURL &&
@@ -46,14 +46,25 @@ class IframeToFromHostMessageHandler {
 
         if (event.data.type === "from-iframe-to-host") {
             const { action, payload } = event.data;
+
             if (this.handlers[action]) {
-                this.handlers["set-data"].forEach((handler) => {
-                    handler(payload);
-                });
-                this.handlers["get-data"].forEach((handler) => {
-                    const data = handler();
-                    this.sendData(data);
-                });
+                // eslint-disable-next-line no-restricted-syntax
+                for (const handler of this.handlers["set-data"]) {
+                    try {
+                        // eslint-disable-next-line no-await-in-loop
+                        await handler(payload);
+                    } catch (error) {
+                        console.error(`Error executing handler for set-data:`, error);
+                    }
+                }
+                // eslint-disable-next-line no-restricted-syntax
+                for (const handler of this.handlers["get-data"]) {
+                    // eslint-disable-next-line no-await-in-loop
+                    const data = await handler(payload);
+                    if (data) {
+                        this.sendData(data);
+                    }
+                }
             }
         }
     };
