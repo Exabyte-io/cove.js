@@ -35,7 +35,7 @@ class IframeToFromHostMessageHandler {
         this.handlers[action].push(...handlers);
     }
 
-    private receiveMessage = async (event: MessageEvent<IframeMessageSchema>) => {
+    private receiveMessage = (event: MessageEvent<IframeMessageSchema>) => {
         if (
             this.iframeOriginURL !== "*" &&
             event.origin !== this.iframeOriginURL &&
@@ -47,24 +47,18 @@ class IframeToFromHostMessageHandler {
         if (event.data.type === "from-iframe-to-host") {
             const { action, payload } = event.data;
             if (this.handlers[action]) {
-                if (action === "set-data") {
-                    this.handlers["set-data"].forEach((handler) => {
-                        handler(payload);
-                    });
-                }
-
-                if (action === "get-data") {
-                    const handlers = this.handlers["get-data"];
-                    handlers.forEach((handler) => {
-                        handler()
-                            .then((data: any) => {
+                this.handlers[action].forEach((handler) => {
+                    Promise.resolve(handler(payload))
+                        .then((data) => {
+                            // If the handler returns data, send it to the iframe
+                            if (data !== undefined) {
                                 this.sendData(data);
-                            })
-                            .catch((error: any) => {
-                                console.error(`Error in handler for get-data: ${error}`);
-                            });
-                    });
-                }
+                            }
+                        })
+                        .catch((error) => {
+                            console.error(`Error in handler for ${action}:`, error);
+                        });
+                });
             }
         }
     };
