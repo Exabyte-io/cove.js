@@ -6,7 +6,7 @@ class IframeToFromHostMessageHandler {
         this.hostOriginURL = "*";
         // The DOM id of the iframe that is loaded in the host page to send messages from/to
         this.iframeId = "";
-        this.receiveMessage = (event) => {
+        this.receiveMessage = async (event) => {
             if (this.iframeOriginURL !== "*" &&
                 event.origin !== this.iframeOriginURL &&
                 event.origin !== this.hostOriginURL) {
@@ -15,13 +15,23 @@ class IframeToFromHostMessageHandler {
             if (event.data.type === "from-iframe-to-host") {
                 const { action, payload } = event.data;
                 if (this.handlers[action]) {
-                    this.handlers["set-data"].forEach(async (handler) => {
-                        await handler(payload);
-                    });
-                    this.handlers["get-data"].forEach(async (handler) => {
-                        const data = await handler();
-                        this.sendData(data);
-                    });
+                    if (action === "set-data") {
+                        this.handlers["set-data"].forEach((handler) => {
+                            handler(payload);
+                        });
+                    }
+                    if (action === "get-data") {
+                        const handlers = this.handlers["get-data"];
+                        handlers.forEach((handler) => {
+                            handler()
+                                .then((data) => {
+                                this.sendData(data);
+                            })
+                                .catch((error) => {
+                                console.error(`Error in handler for get-data: ${error}`);
+                            });
+                        });
+                    }
                 }
             }
         };
