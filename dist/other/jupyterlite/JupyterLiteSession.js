@@ -1,4 +1,5 @@
 import React from "react";
+import IframeToFromHostMessageHandler from "../iframe-messaging/IframeToFromHostMessageHandler";
 const defaultProps = {
     // eslint-disable-next-line react/default-props-match-prop-types
     originURL: "https://jupyterlite.mat3ra.com",
@@ -8,14 +9,21 @@ const defaultProps = {
 class JupyterLiteSession extends React.Component {
     constructor(props = defaultProps) {
         super(props);
+        this.messageHandler = new IframeToFromHostMessageHandler();
+        // eslint-disable-next-line react/no-unused-class-component-methods
+        this.sendData = (data) => {
+            this.messageHandler.sendData(data);
+        };
     }
     componentDidMount() {
-        const { messageHandler, originURL, iframeId } = this.props;
-        messageHandler === null || messageHandler === void 0 ? void 0 : messageHandler.init(originURL, iframeId);
+        const { originURL, iframeId, messageHandlerConfigs } = this.props;
+        this.messageHandler.init(originURL, iframeId);
+        messageHandlerConfigs === null || messageHandlerConfigs === void 0 ? void 0 : messageHandlerConfigs.forEach((config) => {
+            this.messageHandler.addHandlers(config.action, config.handlers);
+        });
     }
     componentWillUnmount() {
-        const { messageHandler } = this.props;
-        messageHandler === null || messageHandler === void 0 ? void 0 : messageHandler.destroy();
+        this.messageHandler.destroy();
     }
     render() {
         const { defaultNotebookPath, originURL, iframeId } = this.props;
