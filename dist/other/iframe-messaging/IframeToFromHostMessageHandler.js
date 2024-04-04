@@ -15,11 +15,11 @@ class IframeToFromHostMessageHandler {
             if (event.data.type === "from-iframe-to-host") {
                 const { action, payload } = event.data;
                 if (this.handlers[action]) {
-                    this.handlers["set-data"].forEach((handler) => {
-                        handler(payload);
+                    this.handlers["set-data"].forEach(async (handler) => {
+                        await handler(payload);
                     });
-                    this.handlers["get-data"].forEach((handler) => {
-                        const data = handler();
+                    this.handlers["get-data"].forEach(async (handler) => {
+                        const data = await handler();
                         this.sendData(data);
                     });
                 }
