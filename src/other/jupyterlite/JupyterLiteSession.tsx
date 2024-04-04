@@ -3,14 +3,16 @@ import React from "react";
 
 import IframeToFromHostMessageHandler from "../iframe-messaging/IframeToFromHostMessageHandler";
 
-interface JupyterLiteSessionProps {
+export interface IMessageHandlerConfigItem {
+    action: IframeMessageSchema["action"];
+    handlers: ((...args: any[]) => void)[];
+}
+
+export interface JupyterLiteSessionProps {
     originURL: string;
     defaultNotebookPath?: string;
     iframeId: string;
-    messageHandlerConfigs?: {
-        action: IframeMessageSchema["action"];
-        handlers: ((...args: any) => void)[];
-    }[];
+    messageHandlerConfigs?: IMessageHandlerConfigItem[];
 }
 
 const defaultProps: JupyterLiteSessionProps = {
