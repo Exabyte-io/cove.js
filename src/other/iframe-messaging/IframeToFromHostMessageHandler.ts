@@ -5,6 +5,7 @@ type HandlerFunction = (...args: IframeMessageSchema["payload"][]) => void | any
 type HandlersMap = {
     [action in IframeMessageSchema["action"]]: HandlerFunction[];
 };
+
 export enum ActionEnum {
     GetData = "get-data",
     SetData = "set-data",

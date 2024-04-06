@@ -1,5 +1,6 @@
 import React from "react";
 import IframeToFromHostMessageHandler from "../iframe-messaging/IframeToFromHostMessageHandler";
+export { ActionEnum } from "../iframe-messaging/IframeToFromHostMessageHandler";
 const defaultProps = {
     // eslint-disable-next-line react/default-props-match-prop-types
     originURL: "https://jupyterlite.mat3ra.com",
