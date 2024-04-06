@@ -6,16 +6,16 @@ type HandlersMap = {
     [action in IframeMessageSchema["action"]]: HandlerFunction[];
 };
 export enum ActionEnum {
-    GET_DATA = "get-data",
-    SET_DATA = "set-data",
-    INFO = "info",
+    GetData = "get-data",
+    SetData = "set-data",
+    Info = "info",
 }
 
 class IframeToFromHostMessageHandler {
     private handlers: HandlersMap = {
-        [ActionEnum.GET_DATA]: [],
-        [ActionEnum.SET_DATA]: [],
-        [ActionEnum.INFO]: [],
+        [ActionEnum.GetData]: [],
+        [ActionEnum.SetData]: [],
+        [ActionEnum.Info]: [],
     };
 
     // Default values for the origin URLs  to pass the CORS policy, if not provided from the parent component
