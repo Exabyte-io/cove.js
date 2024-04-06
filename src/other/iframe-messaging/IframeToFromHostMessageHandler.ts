@@ -47,12 +47,17 @@ class IframeToFromHostMessageHandler {
         if (event.data.type === "from-iframe-to-host") {
             const { action, payload } = event.data;
             if (this.handlers[action]) {
-                this.handlers["set-data"].forEach((handler) => {
-                    handler(payload);
-                });
-                this.handlers["get-data"].forEach((handler) => {
-                    const data = handler();
-                    this.sendData(data);
+                this.handlers[action].forEach((handler) => {
+                    Promise.resolve(handler(payload))
+                        .then((data) => {
+                            // If the handler returns data, send it to the iframe
+                            if (data !== undefined) {
+                                this.sendData(data);
+                            }
+                        })
+                        .catch((error) => {
+                            console.error(`Error in handler for ${action}:`, error);
+                        });
                 });
             }
         }

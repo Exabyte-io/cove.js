@@ -1,12 +1,18 @@
+import { IframeMessageSchema } from "@mat3ra/esse/dist/js/types";
 import React from "react";
 
 import IframeToFromHostMessageHandler from "../iframe-messaging/IframeToFromHostMessageHandler";
 
-interface JupyterLiteSessionProps {
+export interface IMessageHandlerConfigItem {
+    action: IframeMessageSchema["action"];
+    handlers: ((...args: any[]) => void)[];
+}
+
+export interface JupyterLiteSessionProps {
     originURL: string;
     defaultNotebookPath?: string;
     iframeId: string;
-    messageHandler?: IframeToFromHostMessageHandler;
+    messageHandlerConfigs?: IMessageHandlerConfigItem[];
 }
 
 const defaultProps: JupyterLiteSessionProps = {
@@ -20,19 +26,28 @@ class JupyterLiteSession extends React.Component<JupyterLiteSessionProps> {
     // eslint-disable-next-line react/static-property-placement
     static defaultProps = defaultProps;
 
+    messageHandler = new IframeToFromHostMessageHandler();
+
     constructor(props: JupyterLiteSessionProps = defaultProps) {
         super(props);
     }
 
     componentDidMount() {
-        const { messageHandler, originURL, iframeId } = this.props;
-        messageHandler?.init(originURL, iframeId);
+        const { originURL, iframeId, messageHandlerConfigs } = this.props;
+        this.messageHandler.init(originURL, iframeId);
+        messageHandlerConfigs?.forEach((config: any) => {
+            this.messageHandler.addHandlers(config.action, config.handlers);
+        });
     }
 
     componentWillUnmount() {
-        const { messageHandler } = this.props;
-        messageHandler?.destroy();
+        this.messageHandler.destroy();
     }
+
+    // eslint-disable-next-line react/no-unused-class-component-methods
+    sendData = (data: any) => {
+        this.messageHandler.sendData(data);
+    };
 
     render() {
         const { defaultNotebookPath, originURL, iframeId } = this.props;
