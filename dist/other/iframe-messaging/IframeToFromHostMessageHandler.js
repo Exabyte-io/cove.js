@@ -1,6 +1,16 @@
+export var ActionEnum;
+(function (ActionEnum) {
+    ActionEnum["GET_DATA"] = "get-data";
+    ActionEnum["SET_DATA"] = "set-data";
+    ActionEnum["INFO"] = "info";
+})(ActionEnum || (ActionEnum = {}));
 class IframeToFromHostMessageHandler {
     constructor() {
-        this.handlers = { "get-data": [], "set-data": [], info: [] };
+        this.handlers = {
+            [ActionEnum.GET_DATA]: [],
+            [ActionEnum.SET_DATA]: [],
+            [ActionEnum.INFO]: [],
+        };
         // Default values for the origin URLs  to pass the CORS policy, if not provided from the parent component
         this.iframeOriginURL = "*";
         this.hostOriginURL = "*";
