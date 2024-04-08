@@ -1,10 +1,5 @@
 import { IframeMessageSchema } from "@mat3ra/esse/dist/js/types";
 type HandlerFunction = (...args: IframeMessageSchema["payload"][]) => void | any;
-export declare enum ActionEnum {
-    GetData = "get-data",
-    SetData = "set-data",
-    Info = "info"
-}
 declare class IframeToFromHostMessageHandler {
     private handlers;
     private iframeOriginURL;
