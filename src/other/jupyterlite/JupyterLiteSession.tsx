@@ -3,8 +3,6 @@ import React from "react";
 
 import IframeToFromHostMessageHandler from "../iframe-messaging/IframeToFromHostMessageHandler";
 
-export { ActionEnum } from "../iframe-messaging/IframeToFromHostMessageHandler";
-
 export interface IMessageHandlerConfigItem {
     action: IframeMessageSchema["action"];
     handlers: ((...args: any[]) => void)[];
