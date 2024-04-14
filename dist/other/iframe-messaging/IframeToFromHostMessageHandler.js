@@ -1,6 +1,11 @@
+import { Action as ActionEnum, Type as TypeEnum, } from "@mat3ra/esse/dist/js/types";
 class IframeToFromHostMessageHandler {
     constructor() {
-        this.handlers = { "get-data": [], "set-data": [], info: [] };
+        this.handlers = {
+            [ActionEnum.getData]: [],
+            [ActionEnum.setData]: [],
+            [ActionEnum.info]: [],
+        };
         // Default values for the origin URLs  to pass the CORS policy, if not provided from the parent component
         this.iframeOriginURL = "*";
         this.hostOriginURL = "*";
@@ -12,7 +17,7 @@ class IframeToFromHostMessageHandler {
                 event.origin !== this.hostOriginURL) {
                 return;
             }
-            if (event.data.type === "from-iframe-to-host") {
+            if (event.data.type === TypeEnum.fromIframeToHost) {
                 const { action, payload } = event.data;
                 if (this.handlers[action]) {
                     this.handlers[action].forEach((handler) => {
@@ -48,7 +53,7 @@ class IframeToFromHostMessageHandler {
     }
     sendData(data) {
         const message = {
-            type: "from-host-to-iframe",
+            type: TypeEnum.fromHostToIframe,
             action: "set-data",
             payload: data,
         };

@@ -1,13 +1,21 @@
-import { IframeMessageSchema } from "@mat3ra/esse/dist/js/types";
+import {
+    Action as ActionEnum,
+    IframeMessageSchema,
+    Type as TypeEnum,
+} from "@mat3ra/esse/dist/js/types";
 
 type HandlerFunction = (...args: IframeMessageSchema["payload"][]) => void | any;
 
 type HandlersMap = {
-    [action in IframeMessageSchema["action"]]: HandlerFunction[];
+    [A in ActionEnum]: HandlerFunction[];
 };
 
 class IframeToFromHostMessageHandler {
-    private handlers: HandlersMap = { "get-data": [], "set-data": [], info: [] };
+    private handlers: HandlersMap = {
+        [ActionEnum.getData]: [],
+        [ActionEnum.setData]: [],
+        [ActionEnum.info]: [],
+    };
 
     // Default values for the origin URLs  to pass the CORS policy, if not provided from the parent component
     private iframeOriginURL = "*";
@@ -44,7 +52,7 @@ class IframeToFromHostMessageHandler {
             return;
         }
 
-        if (event.data.type === "from-iframe-to-host") {
+        if (event.data.type === TypeEnum.fromIframeToHost) {
             const { action, payload } = event.data;
             if (this.handlers[action]) {
                 this.handlers[action].forEach((handler) => {
@@ -65,7 +73,7 @@ class IframeToFromHostMessageHandler {
 
     public sendData(data: object): void {
         const message = {
-            type: "from-host-to-iframe",
+            type: TypeEnum.fromHostToIframe,
             action: "set-data",
             payload: data,
         };
