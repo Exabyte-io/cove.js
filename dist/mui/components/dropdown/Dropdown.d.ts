@@ -3,6 +3,13 @@ import { PopperPlacementType, PopperProps } from "@mui/material/Popper";
 import React from "react";
 import { DefaultDropdownButtonProps } from "./DefaultDropdownButton";
 import { DropdownItemProps } from "./DropdownItem";
+/**
+ * Add data-<something> html attributes
+ *  @see https://github.com/microsoft/TypeScript/issues/28960#issuecomment-903519759
+ * */
+interface HTMLAttributes extends React.HTMLAttributes<any> {
+    [dataAttribute: `data-${string}`]: any;
+}
 export interface DropdownAction {
     id: DropdownItemProps["id"];
     onClick: (action: DropdownAction, event: React.MouseEvent<HTMLLIElement>) => void;
@@ -19,7 +26,7 @@ export interface DropdownAction {
     /**
      * Pass any MUI MenuItem props here to customize appearance or html properties
      */
-    menuItemProps?: MenuItemProps;
+    menuItemProps?: MenuItemProps & HTMLAttributes;
 }
 export interface DropdownProps {
     id?: string;
@@ -42,3 +49,4 @@ export interface DropdownProps {
  * to dropdown menu items.
  */
 export default function Dropdown({ id, actions, buttonContent, popperProps, children, disabled, paperPlacement, className, buttonProps, }: DropdownProps): React.JSX.Element;
+export {};

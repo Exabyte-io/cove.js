@@ -16,6 +16,14 @@ import React, { useCallback, useRef, useState } from "react";
 import { DefaultDropdownButton, DefaultDropdownButtonProps } from "./DefaultDropdownButton";
 import { DropdownItem, DropdownItemProps } from "./DropdownItem";
 
+/**
+ * Add data-<something> html attributes
+ *  @see https://github.com/microsoft/TypeScript/issues/28960#issuecomment-903519759
+ * */
+interface HTMLAttributes extends React.HTMLAttributes<any> {
+    [dataAttribute: `data-${string}`]: any;
+}
+
 export interface DropdownAction {
     id: DropdownItemProps["id"];
     onClick: (action: DropdownAction, event: React.MouseEvent<HTMLLIElement>) => void;
@@ -32,7 +40,7 @@ export interface DropdownAction {
     /**
      * Pass any MUI MenuItem props here to customize appearance or html properties
      */
-    menuItemProps?: MenuItemProps;
+    menuItemProps?: MenuItemProps & HTMLAttributes;
 }
 
 export interface DropdownProps {
