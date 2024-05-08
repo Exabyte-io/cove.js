@@ -1,3 +1,4 @@
+import { MenuItemProps } from "@mui/material";
 import { PopperPlacementType, PopperProps } from "@mui/material/Popper";
 import React from "react";
 import { DefaultDropdownButtonProps } from "./DefaultDropdownButton";
@@ -15,6 +16,10 @@ export interface DropdownAction {
     isShown?: boolean;
     isSelected?: boolean;
     isDivider?: boolean;
+    /**
+     * Pass any MUI MenuItem props here to customize appearance or html properties
+     */
+    menuItemProps?: MenuItemProps;
 }
 export interface DropdownProps {
     id?: string;

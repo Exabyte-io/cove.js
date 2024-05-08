@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable react/jsx-props-no-spreading */
+import { MenuItemProps } from "@mui/material";
 import Box from "@mui/material/Box";
 import ClickAwayListener from "@mui/material/ClickAwayListener";
 import Divider from "@mui/material/Divider";
@@ -28,6 +29,10 @@ export interface DropdownAction {
     isShown?: boolean;
     isSelected?: boolean;
     isDivider?: boolean;
+    /**
+     * Pass any MUI MenuItem props here to customize appearance or html properties
+     */
+    menuItemProps?: MenuItemProps;
 }
 
 export interface DropdownProps {
@@ -140,11 +145,12 @@ export default function Dropdown({
                                                     icon={action.icon}
                                                     endIcon={action.endIcon}
                                                     id={action.id}
-                                                    onClick={onMenuItemClick}
+                                                    onMenuItemClick={onMenuItemClick}
                                                     showCheckIcon={action.showCheckIcon}
-                                                    content={action.content}
                                                     key={action.key || action.id}
-                                                />
+                                                    {...action.menuItemProps}>
+                                                    {action.content}
+                                                </DropdownItem>
                                             );
                                         })}
                                 </MenuList>
