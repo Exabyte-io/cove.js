@@ -1,6 +1,3 @@
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable react/jsx-props-no-spreading */
 import Box from "@mui/material/Box";
 import ClickAwayListener from "@mui/material/ClickAwayListener";
 import Divider from "@mui/material/Divider";
@@ -62,6 +59,6 @@ export default function Dropdown({ id, actions, buttonContent, popperProps = {
                         if (action.isDivider) {
                             return React.createElement(Divider, { key: action.key || action.id });
                         }
-                        return (React.createElement(DropdownItem, { disabled: action.disabled, icon: action.icon, endIcon: action.endIcon, id: action.id, onClick: onMenuItemClick, showCheckIcon: action.showCheckIcon, content: action.content, key: action.key || action.id }));
+                        return (React.createElement(DropdownItem, { disabled: action.disabled, icon: action.icon, endIcon: action.endIcon, id: action.id, onMenuItemClick: onMenuItemClick, showCheckIcon: action.showCheckIcon, key: action.key || action.id, ...action.menuItemProps }, action.content));
                     })))))))));
 }

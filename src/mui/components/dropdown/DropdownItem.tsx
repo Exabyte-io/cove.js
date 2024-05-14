@@ -1,18 +1,17 @@
 import { green } from "@mui/material/colors";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import MenuItem from "@mui/material/MenuItem";
+import MenuItem, { MenuItemProps } from "@mui/material/MenuItem";
 import React from "react";
 
 import IconByName from "../icon/IconByName";
 
-export interface DropdownItemProps {
+export interface DropdownItemProps extends MenuItemProps {
     disabled?: boolean;
     icon?: React.ReactElement | boolean;
     id: string;
-    onClick: (id: string, event: React.MouseEvent<HTMLLIElement>) => void;
+    onMenuItemClick: (id: string, event: React.MouseEvent<HTMLLIElement>) => void;
     showCheckIcon?: boolean;
-    content: string | React.ReactElement;
     endIcon?: React.ReactElement;
 }
 
@@ -20,20 +19,26 @@ export function DropdownItem({
     disabled = false,
     icon,
     id,
-    onClick,
+    onMenuItemClick,
     showCheckIcon = false,
     endIcon,
-    content,
+    children,
+    ...otherProps
 }: DropdownItemProps) {
     return (
-        <MenuItem id={id} disabled={disabled} onClick={(event) => onClick(id, event)}>
+        <MenuItem
+            id={id}
+            disabled={disabled}
+            onClick={(event) => onMenuItemClick(id, event)}
+            // eslint-disable-next-line react/jsx-props-no-spreading
+            {...otherProps}>
             {icon !== false ? (
                 <ListItemIcon>{icon || <IconByName name="shapes.blurCircular" />}</ListItemIcon>
             ) : null}
             <ListItemText
                 primaryTypographyProps={{ variant: "caption", color: "text.primary" }}
                 className="DropdownItemText">
-                {content}
+                {children}
             </ListItemText>
             {showCheckIcon ? (
                 <IconByName name="shapes.check" htmlColor={green[500]} fontSize="large" />
