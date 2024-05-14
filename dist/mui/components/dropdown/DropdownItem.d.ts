@@ -8,4 +8,4 @@ export interface DropdownItemProps extends MenuItemProps {
     showCheckIcon?: boolean;
     endIcon?: React.ReactElement;
 }
-export declare function DropdownItem({ disabled, icon, id, onMenuItemClick, showCheckIcon, endIcon, children, ...restProps }: DropdownItemProps): React.JSX.Element;
+export declare function DropdownItem({ disabled, icon, id, onMenuItemClick, showCheckIcon, endIcon, children, ...otherProps }: DropdownItemProps): React.JSX.Element;

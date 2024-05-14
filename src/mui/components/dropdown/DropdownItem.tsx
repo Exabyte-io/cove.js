@@ -23,7 +23,7 @@ export function DropdownItem({
     showCheckIcon = false,
     endIcon,
     children,
-    ...restProps
+    ...otherProps
 }: DropdownItemProps) {
     return (
         <MenuItem
@@ -31,7 +31,7 @@ export function DropdownItem({
             disabled={disabled}
             onClick={(event) => onMenuItemClick(id, event)}
             // eslint-disable-next-line react/jsx-props-no-spreading
-            {...restProps}>
+            {...otherProps}>
             {icon !== false ? (
                 <ListItemIcon>{icon || <IconByName name="shapes.blurCircular" />}</ListItemIcon>
             ) : null}
