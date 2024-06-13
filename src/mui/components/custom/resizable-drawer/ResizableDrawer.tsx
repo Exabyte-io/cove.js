@@ -2,7 +2,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import Box from "@mui/material/Box";
-import Drawer from "@mui/material/Drawer";
+import Drawer, { DrawerProps } from "@mui/material/Drawer";
 import { styled, Theme } from "@mui/material/styles";
 import React, { CSSProperties, useCallback, useEffect, useState } from "react";
 
@@ -105,6 +105,12 @@ const Puller = styled(Box)(({ theme, isResizing }: { theme?: Theme; isResizing: 
 
 const TRANSITION_DURATION = 500; // ms
 const DRAWER_MIN_HEGHT = 20;
+
+export type MUIDrawerProps = Omit<
+    DrawerProps,
+    "variant" | "anchor" | "open" | "onClose" | "SlideProps" | "PaperProps" | "children"
+>;
+
 export default function ResizableDrawer({
     children,
     open,
@@ -113,6 +119,7 @@ export default function ResizableDrawer({
     childIdToRefocus,
     paperProps,
     containerRef,
+    drawerProps = {},
 }: {
     children: React.ReactElement;
     open: boolean;
@@ -121,6 +128,7 @@ export default function ResizableDrawer({
     childIdToRefocus?: string;
     paperProps?: object;
     containerRef?: React.RefObject<HTMLDivElement>;
+    drawerProps?: MUIDrawerProps;
 }) {
     const { height, setHeight, isResizing, enableResize, disableResize } = useResize({
         minHeight: DRAWER_MIN_HEGHT,
@@ -170,6 +178,8 @@ export default function ResizableDrawer({
 
     return (
         <Drawer
+            // eslint-disable-next-line react/jsx-props-no-spreading
+            {...drawerProps}
             variant="persistent"
             anchor="bottom"
             open={open}

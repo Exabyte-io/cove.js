@@ -59,7 +59,7 @@ const Puller = styled(Box)(({ theme, isResizing }) => ({
 }));
 const TRANSITION_DURATION = 500; // ms
 const DRAWER_MIN_HEGHT = 20;
-export default function ResizableDrawer({ children, open, onClose, refocusChild = false, childIdToRefocus, paperProps, containerRef, }) {
+export default function ResizableDrawer({ children, open, onClose, refocusChild = false, childIdToRefocus, paperProps, containerRef, drawerProps = {}, }) {
     const { height, setHeight, isResizing, enableResize, disableResize } = useResize({
         minHeight: DRAWER_MIN_HEGHT,
         refocusChild,
@@ -100,7 +100,9 @@ export default function ResizableDrawer({ children, open, onClose, refocusChild 
             (_a = document.getElementById(childIdToRefocus)) === null || _a === void 0 ? void 0 : _a.focus();
         }
     };
-    return (React.createElement(Drawer, { variant: "persistent", anchor: "bottom", open: open, onClose: onClose, SlideProps: {
+    return (React.createElement(Drawer
+    // eslint-disable-next-line react/jsx-props-no-spreading
+    , { ...drawerProps, variant: "persistent", anchor: "bottom", open: open, onClose: onClose, SlideProps: {
             direction: "up",
             timeout: TRANSITION_DURATION,
             in: true,
