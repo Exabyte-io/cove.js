@@ -108,28 +108,26 @@ const DRAWER_MIN_HEGHT = 20;
 
 export type MUIDrawerProps = Omit<
     DrawerProps,
-    "variant" | "anchor" | "open" | "onClose" | "SlideProps" | "PaperProps" | "children"
+    "variant" | "anchor" | "onClose" | "SlideProps" | "PaperProps"
 >;
 
-export default function ResizableDrawer({
-    children,
-    open,
-    onClose,
-    refocusChild = false,
-    childIdToRefocus,
-    paperProps,
-    containerRef,
-    drawerProps = {},
-}: {
-    children: React.ReactElement;
-    open: boolean;
+export interface ResizableDrawerProps extends MUIDrawerProps {
     onClose: () => void;
     refocusChild?: boolean;
     childIdToRefocus?: string;
     paperProps?: object;
     containerRef?: React.RefObject<HTMLDivElement>;
-    drawerProps?: MUIDrawerProps;
-}) {
+}
+
+export default function ResizableDrawer({
+    children,
+    onClose,
+    refocusChild = false,
+    childIdToRefocus,
+    paperProps,
+    containerRef,
+    ...drawerProps
+}: ResizableDrawerProps) {
     const { height, setHeight, isResizing, enableResize, disableResize } = useResize({
         minHeight: DRAWER_MIN_HEGHT,
         refocusChild,
@@ -182,7 +180,6 @@ export default function ResizableDrawer({
             {...drawerProps}
             variant="persistent"
             anchor="bottom"
-            open={open}
             onClose={onClose}
             SlideProps={{
                 direction: "up",
