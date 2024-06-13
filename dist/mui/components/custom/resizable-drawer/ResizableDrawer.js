@@ -80,7 +80,6 @@ export default function ResizableDrawer({ children, onClose, refocusChild = fals
         style: {
             ...drawerStyles,
             height,
-            // @ts-ignore
             ...((paperProps === null || paperProps === void 0 ? void 0 : paperProps.style) || {}),
         },
     };

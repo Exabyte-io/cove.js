@@ -1,6 +1,7 @@
 import CloseIcon from "@mui/icons-material/Close";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+import { PaperProps } from "@mui/material";
 import Box from "@mui/material/Box";
 import Drawer, { DrawerProps } from "@mui/material/Drawer";
 import { styled, Theme } from "@mui/material/styles";
@@ -115,7 +116,7 @@ export interface ResizableDrawerProps extends MUIDrawerProps {
     onClose: () => void;
     refocusChild?: boolean;
     childIdToRefocus?: string;
-    paperProps?: object;
+    paperProps?: PaperProps;
     containerRef?: React.RefObject<HTMLDivElement>;
 }
 
@@ -151,7 +152,6 @@ export default function ResizableDrawer({
         style: {
             ...drawerStyles,
             height,
-            // @ts-ignore
             ...(paperProps?.style || {}),
         },
     };
