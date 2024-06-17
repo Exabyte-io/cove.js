@@ -1,8 +1,9 @@
 import CloseIcon from "@mui/icons-material/Close";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+import { PaperProps } from "@mui/material";
 import Box from "@mui/material/Box";
-import Drawer from "@mui/material/Drawer";
+import Drawer, { DrawerProps } from "@mui/material/Drawer";
 import { styled, Theme } from "@mui/material/styles";
 import React, { CSSProperties, useCallback, useEffect, useState } from "react";
 
@@ -105,23 +106,29 @@ const Puller = styled(Box)(({ theme, isResizing }: { theme?: Theme; isResizing: 
 
 const TRANSITION_DURATION = 500; // ms
 const DRAWER_MIN_HEGHT = 20;
+
+export type MUIDrawerProps = Omit<
+    DrawerProps,
+    "variant" | "anchor" | "onClose" | "SlideProps" | "PaperProps"
+>;
+
+export interface ResizableDrawerProps extends MUIDrawerProps {
+    onClose: () => void;
+    refocusChild?: boolean;
+    childIdToRefocus?: string;
+    paperProps?: PaperProps;
+    containerRef?: React.RefObject<HTMLDivElement>;
+}
+
 export default function ResizableDrawer({
     children,
-    open,
     onClose,
     refocusChild = false,
     childIdToRefocus,
     paperProps,
     containerRef,
-}: {
-    children: React.ReactElement;
-    open: boolean;
-    onClose: () => void;
-    refocusChild?: boolean;
-    childIdToRefocus?: string;
-    paperProps?: object;
-    containerRef?: React.RefObject<HTMLDivElement>;
-}) {
+    ...drawerProps
+}: ResizableDrawerProps) {
     const { height, setHeight, isResizing, enableResize, disableResize } = useResize({
         minHeight: DRAWER_MIN_HEGHT,
         refocusChild,
@@ -145,7 +152,6 @@ export default function ResizableDrawer({
         style: {
             ...drawerStyles,
             height,
-            // @ts-ignore
             ...(paperProps?.style || {}),
         },
     };
@@ -170,9 +176,10 @@ export default function ResizableDrawer({
 
     return (
         <Drawer
+            // eslint-disable-next-line react/jsx-props-no-spreading
+            {...drawerProps}
             variant="persistent"
             anchor="bottom"
-            open={open}
             onClose={onClose}
             SlideProps={{
                 direction: "up",
