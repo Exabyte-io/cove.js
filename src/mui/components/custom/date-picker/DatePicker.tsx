@@ -33,10 +33,10 @@ interface DatePickerProps {
         dateRange: DateRange | Record<string, never>,
         option?: DateRangeOption | null,
     ) => void;
-    startDate: Moment | null;
-    endDate: Moment | null;
-    defaultOption: DateRangeOption | null;
-    isMaxOption: boolean;
+    startDate?: Moment | null;
+    endDate?: Moment | null;
+    defaultOption?: DateRangeOption | null;
+    isMaxOption?: boolean;
 }
 
 function DatePicker({

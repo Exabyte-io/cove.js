@@ -35,7 +35,11 @@ function DialogModal({ id = "modal-dialog", title, titleComponent, open, scroll 
                     React.createElement(IconByName, { name: "actions.close", fontSize: "small" }))))));
     }, [title, titleComponent]);
     const renderBodyDefault = () => {
-        return React.createElement(DialogContent, { dividers: dividers }, children);
+        return (React.createElement(DialogContent, { sx: {
+                display: "flex",
+                flexDirection: "column",
+                overflow: "hidden",
+            }, dividers: dividers }, children));
     };
     const renderFooterDefault = () => {
         return (React.createElement(DialogActions, null,

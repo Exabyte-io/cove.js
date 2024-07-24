@@ -100,7 +100,17 @@ function DialogModal({
     }, [title, titleComponent]);
 
     const renderBodyDefault = () => {
-        return <DialogContent dividers={dividers}>{children}</DialogContent>;
+        return (
+            <DialogContent
+                sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    overflow: "hidden",
+                }}
+                dividers={dividers}>
+                {children}
+            </DialogContent>
+        );
     };
 
     const renderFooterDefault = () => {
