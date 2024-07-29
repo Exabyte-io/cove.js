@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react/jsx-props-no-spreading */
 import { FormProps } from "@rjsf/core";
 import Form from "@rjsf/mui";
