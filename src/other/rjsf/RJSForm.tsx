@@ -8,6 +8,7 @@ import React from "react";
 import ArrayFieldItemTemplate from "./templates/ArrayFieldItemTemplate";
 import ArrayFieldTemplate from "./templates/ArrayFieldTemplate";
 import BaseInputTemplate from "./templates/BaseInputTemplate";
+import DescriptionFieldTemplate from "./templates/DescriptionFieldTemplate";
 import ObjectFieldTemplate from "./templates/ObjectFieldTemplate";
 import TitleFieldTemplate from "./templates/TitleFieldTemplate";
 import SelectWidget from "./widgets/SelectWidget";
@@ -22,6 +23,7 @@ export default function RJSForm({ widgets, templates, ...props }: FormProps<any,
                 ArrayFieldTemplate,
                 ArrayFieldItemTemplate,
                 TitleFieldTemplate,
+                DescriptionFieldTemplate,
                 ...templates,
             }}
             widgets={{ SelectWidget, ...widgets }}
