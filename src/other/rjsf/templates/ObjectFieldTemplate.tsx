@@ -82,7 +82,7 @@ export default function ObjectFieldTemplate<
                     registry={registry}
                 />
             )}
-            <Grid container spacing={2} style={{ marginTop: "10px" }}>
+            <Grid container spacing={2}>
                 {properties.map((element, index) =>
                     // Remove the <Grid> if the inner element is hidden as the <Grid>
                     // itself would otherwise still take up space.

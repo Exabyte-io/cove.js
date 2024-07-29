@@ -19,7 +19,7 @@ export default function ObjectFieldTemplate(props) {
     return (React.createElement(Box, { className: "ObjectFieldTemplate" },
         title && !isNumeric(title) && (React.createElement(TitleFieldTemplate, { id: titleId(idSchema), title: title, required: required, schema: schema, uiSchema: uiSchema, registry: registry })),
         description && (React.createElement(DescriptionFieldTemplate, { id: descriptionId(idSchema), description: description, schema: schema, uiSchema: uiSchema, registry: registry })),
-        React.createElement(Grid, { container: true, spacing: 2, style: { marginTop: "10px" } },
+        React.createElement(Grid, { container: true, spacing: 2 },
             properties.map((element, index) => 
             // Remove the <Grid> if the inner element is hidden as the <Grid>
             // itself would otherwise still take up space.
