@@ -8,7 +8,7 @@ import React from "react";
 export default function DescriptionFieldTemplate(props) {
     const { id, description } = props;
     if (description) {
-        return (React.createElement(Typography, { id: id, variant: "subtitle2", sx: { mb: 10 } }, description));
+        return (React.createElement(Typography, { id: id, variant: "subtitle2", sx: { mb: 1 } }, description));
     }
     return null;
 }

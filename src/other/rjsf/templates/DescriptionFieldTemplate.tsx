@@ -15,7 +15,7 @@ export default function DescriptionFieldTemplate<
     const { id, description } = props;
     if (description) {
         return (
-            <Typography id={id} variant="subtitle2" sx={{ mb: 10 }}>
+            <Typography id={id} variant="subtitle2" sx={{ mb: 1 }}>
                 {description}
             </Typography>
         );
