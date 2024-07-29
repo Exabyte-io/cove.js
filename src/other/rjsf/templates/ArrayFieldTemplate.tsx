@@ -70,10 +70,15 @@ export default function ArrayFieldTemplate<
                 uiSchema={uiSchema}
                 registry={registry}
             />
-            {items &&
-                items.map(({ key, ...itemProps }: ArrayFieldTemplateItemType<T, S, F>) => (
-                    <ArrayFieldItemTemplate key={key} {...itemProps} />
-                ))}
+
+            {items ? (
+                <Stack spacing={1} className="ArrayFieldTemplateItems">
+                    {items.map(({ key, ...itemProps }: ArrayFieldTemplateItemType<T, S, F>) => (
+                        <ArrayFieldItemTemplate key={key} {...itemProps} />
+                    ))}
+                </Stack>
+            ) : null}
+
             {canAdd && (
                 <Grid container justifyContent="flex-end">
                     <Grid item>
