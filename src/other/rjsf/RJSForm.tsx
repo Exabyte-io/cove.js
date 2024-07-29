@@ -11,7 +11,7 @@ import ObjectFieldTemplate from "./templates/ObjectFieldTemplate";
 import TitleFieldTemplate from "./templates/TitleFieldTemplate";
 import SelectWidget from "./widgets/SelectWidget";
 
-export default function RJSFForm(props: FormProps<any, RJSFSchema, any>) {
+export default function RJSForm({ widgets, templates, ...props }: FormProps<any, RJSFSchema, any>) {
     return (
         <Form
             {...props}
@@ -21,8 +21,9 @@ export default function RJSFForm(props: FormProps<any, RJSFSchema, any>) {
                 ArrayFieldTemplate,
                 ArrayFieldItemTemplate,
                 TitleFieldTemplate,
+                ...templates,
             }}
-            widgets={{ SelectWidget }}
+            widgets={{ SelectWidget, ...widgets }}
         />
     );
 }
