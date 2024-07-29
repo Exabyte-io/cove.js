@@ -15,6 +15,13 @@ import {
 } from "@rjsf/utils";
 import React from "react";
 
+function isNumeric(str: string) {
+    return (
+        !Number.isNaN(str) && // use type coercion to parse the _entirety_ of the string (`parseFloat` alone does not do this)...
+        !Number.isNaN(parseFloat(str)) // ...and ensure strings of whitespace fail
+    );
+}
+
 export default function ObjectFieldTemplate<
     T = any,
     S extends StrictRJSFSchema = RJSFSchema,
@@ -56,7 +63,7 @@ export default function ObjectFieldTemplate<
 
     return (
         <Box className="ObjectFieldTemplate">
-            {title && (
+            {title && !isNumeric(title) && (
                 <TitleFieldTemplate
                     id={titleId<T>(idSchema)}
                     title={title}

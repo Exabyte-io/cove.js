@@ -4,6 +4,11 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import { canExpand, descriptionId, getTemplate, getUiOptions, titleId, } from "@rjsf/utils";
 import React from "react";
+function isNumeric(str) {
+    return (!Number.isNaN(str) && // use type coercion to parse the _entirety_ of the string (`parseFloat` alone does not do this)...
+        !Number.isNaN(parseFloat(str)) // ...and ensure strings of whitespace fail
+    );
+}
 export default function ObjectFieldTemplate(props) {
     const { description, title, properties, required, disabled, readonly, uiSchema, idSchema, schema, formData, onAddClick, registry, } = props;
     const uiOptions = getUiOptions(uiSchema);
@@ -12,7 +17,7 @@ export default function ObjectFieldTemplate(props) {
     // Button templates are not overridden in the uiSchema
     const { ButtonTemplates: { AddButton }, } = registry.templates;
     return (React.createElement(Box, { className: "ObjectFieldTemplate" },
-        title && (React.createElement(TitleFieldTemplate, { id: titleId(idSchema), title: title, required: required, schema: schema, uiSchema: uiSchema, registry: registry })),
+        title && !isNumeric(title) && (React.createElement(TitleFieldTemplate, { id: titleId(idSchema), title: title, required: required, schema: schema, uiSchema: uiSchema, registry: registry })),
         description && (React.createElement(DescriptionFieldTemplate, { id: descriptionId(idSchema), description: description, schema: schema, uiSchema: uiSchema, registry: registry })),
         React.createElement(Grid, { container: true, spacing: 2, style: { marginTop: "10px" } },
             properties.map((element, index) => 
