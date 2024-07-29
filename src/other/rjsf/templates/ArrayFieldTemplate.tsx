@@ -72,7 +72,7 @@ export default function ArrayFieldTemplate<
             />
 
             {items ? (
-                <Stack spacing={1} className="ArrayFieldTemplateItems">
+                <Stack spacing={1} className="ArrayFieldTemplate-items">
                     {items.map(({ key, ...itemProps }: ArrayFieldTemplateItemType<T, S, F>) => (
                         <ArrayFieldItemTemplate key={key} {...itemProps} />
                     ))}

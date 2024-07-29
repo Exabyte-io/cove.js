@@ -16,7 +16,7 @@ export default function ArrayFieldTemplate(props) {
     return (React.createElement(Stack, { spacing: 1, className: "ArrayFieldTemplate" },
         React.createElement(ArrayFieldTitleTemplate, { idSchema: idSchema, title: uiOptions.title || title, schema: schema, uiSchema: uiSchema, required: required, registry: registry }),
         React.createElement(ArrayFieldDescriptionTemplate, { idSchema: idSchema, description: uiOptions.description || schema.description, schema: schema, uiSchema: uiSchema, registry: registry }),
-        items ? (React.createElement(Stack, { spacing: 1, className: "ArrayFieldTemplateItems" }, items.map(({ key, ...itemProps }) => (React.createElement(ArrayFieldItemTemplate, { key: key, ...itemProps }))))) : null,
+        items ? (React.createElement(Stack, { spacing: 1, className: "ArrayFieldTemplate-items" }, items.map(({ key, ...itemProps }) => (React.createElement(ArrayFieldItemTemplate, { key: key, ...itemProps }))))) : null,
         canAdd && (React.createElement(Grid, { container: true, justifyContent: "flex-end" },
             React.createElement(Grid, { item: true },
                 React.createElement(Box, { mt: 2 },
