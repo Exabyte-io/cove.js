@@ -1,8 +1,9 @@
 import React from "react";
-import Fullscreen from "react-full-screen";
-declare class FullscreenHandlerComponent extends Fullscreen {
-    render(): React.JSX.Element;
+import { FullScreenProps } from "react-full-screen";
+interface FullscreenHandlerComponent extends Omit<FullScreenProps, "handle"> {
+    enabled: boolean;
 }
+declare function FullscreenHandlerComponent({ enabled, ...props }: FullscreenHandlerComponent): React.JSX.Element;
 declare const FullscreenComponentMixin: (superclass: React.ComponentClass) => {
     new (props: never): {
         toggleFullscreen(): void;
