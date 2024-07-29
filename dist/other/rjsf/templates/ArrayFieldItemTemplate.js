@@ -17,5 +17,5 @@ export default function ArrayFieldItemTemplate(props) {
             (hasMoveUp || hasMoveDown) && (React.createElement(MoveUpButton, { style: btnStyle, disabled: disabled || readonly || !hasMoveUp, onClick: onReorderClick(index, index - 1), uiSchema: uiSchema, registry: registry })),
             (hasMoveUp || hasMoveDown) && (React.createElement(MoveDownButton, { style: btnStyle, disabled: disabled || readonly || !hasMoveDown, onClick: onReorderClick(index, index + 1), uiSchema: uiSchema, registry: registry })),
             hasCopy && (React.createElement(CopyButton, { style: btnStyle, disabled: disabled || readonly, onClick: onCopyIndexClick(index), uiSchema: uiSchema, registry: registry })),
-            hasRemove && (React.createElement(RemoveButton, { style: btnStyle, disabled: disabled || readonly, onClick: onDropIndexClick(index), uiSchema: uiSchema, registry: registry }))))));
+            hasRemove && (React.createElement(RemoveButton, { style: btnStyle, disabled: disabled || readonly, onClick: onDropIndexClick(index), uiSchema: uiSchema, registry: registry, className: "array-item-remove" }))))));
 }

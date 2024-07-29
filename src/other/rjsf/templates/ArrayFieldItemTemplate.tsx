@@ -80,6 +80,7 @@ export default function ArrayFieldItemTemplate<
                             onClick={onDropIndexClick(index)}
                             uiSchema={uiSchema}
                             registry={registry}
+                            className="array-item-remove"
                         />
                     )}
                 </Grid>
