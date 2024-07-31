@@ -10,7 +10,7 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import React, { useCallback } from "react";
 import IconByName from "../icon/IconByName";
-function DialogModal({ id = "modal-dialog", title, titleComponent, open, scroll = "paper", onSubmit = undefined, onCancel, onClose, children, maxWidth = "sm", dividers = true, fullWidth = true, isSubmitButtonDisabled = false, isSubmitButtonProcessing = false, isSubmitOnEnter = false, renderHeaderCustom, renderBodyCustom, renderFooterCustom, submitButtonText = "Submit", cancelButtonText = "Cancel", submitButtonProps, cancelButtonProps, PaperComponent, draggableId, }) {
+function DialogModal({ id = "modal-dialog", className, title, titleComponent, open, scroll = "paper", onSubmit = undefined, onCancel, onClose, children, maxWidth = "sm", dividers = true, fullWidth = true, isSubmitButtonDisabled = false, isSubmitButtonProcessing = false, isSubmitOnEnter = false, renderHeaderCustom, renderBodyCustom, renderFooterCustom, submitButtonText = "Submit", cancelButtonText = "Cancel", submitButtonProps, cancelButtonProps, PaperComponent, draggableId, }) {
     const handleSubmit = () => {
         if (onSubmit)
             onSubmit();
@@ -46,7 +46,7 @@ function DialogModal({ id = "modal-dialog", title, titleComponent, open, scroll 
             React.createElement(Button, { id: `${id}-cancel-button`, variant: "text", "data-dismiss": "modal", "aria-label": cancelButtonText, onClick: handleCancel, ...cancelButtonProps }, cancelButtonText),
             React.createElement(LoadingButton, { id: `${id}-submit-button`, loading: isSubmitButtonProcessing, variant: "text", "aria-label": submitButtonText, disabled: isSubmitButtonDisabled || isSubmitButtonProcessing, onClick: handleSubmit, ...submitButtonProps }, submitButtonText)));
     };
-    return (React.createElement(Dialog, { id: id, open: open, onClose: onClose, onSubmit: onSubmit, maxWidth: maxWidth, scroll: scroll, fullWidth: fullWidth, onKeyUp: handleSubmitOnEnter, PaperComponent: PaperComponent },
+    return (React.createElement(Dialog, { id: id, className: className, open: open, onClose: onClose, onSubmit: onSubmit, maxWidth: maxWidth, scroll: scroll, fullWidth: fullWidth, onKeyUp: handleSubmitOnEnter, PaperComponent: PaperComponent },
         renderHeaderCustom ? renderHeaderCustom() : renderHeaderDefault(),
         renderBodyCustom ? renderBodyCustom() : renderBodyDefault(),
         renderFooterCustom ? renderFooterCustom() : renderFooterDefault()));
