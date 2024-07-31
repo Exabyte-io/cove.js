@@ -1,11 +1,18 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import setClass from "classnames";
-import React from "react";
-import Fullscreen from "react-full-screen";
-class FullscreenHandlerComponent extends Fullscreen {
-    render() {
-        // @ts-ignore
-        return React.createElement("div", { className: this.props.className }, super.render());
-    }
+import React, { useEffect } from "react";
+import { FullScreen, useFullScreenHandle } from "react-full-screen";
+function FullscreenHandlerComponent({ enabled, ...props }) {
+    const handle = useFullScreenHandle();
+    useEffect(() => {
+        if (enabled) {
+            handle.enter();
+        }
+        else {
+            handle.exit();
+        }
+    }, [enabled]);
+    return React.createElement(FullScreen, { ...props, handle: handle });
 }
 const FullscreenComponentMixin = (superclass) => class extends superclass {
     constructor(props) {

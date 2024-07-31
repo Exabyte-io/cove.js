@@ -19,7 +19,6 @@ export interface DialogModalProps extends DialogProps {
     onSubmit?: (() => void) | undefined;
     onClose?: (() => void) | undefined;
     onCancel?: (() => void) | undefined;
-    scroll?: "body" | "paper";
     children?: React.ReactNode;
     maxWidth?: false | "md" | "xs" | "sm" | "lg" | "xl" | undefined;
     dividers?: boolean;
@@ -61,6 +60,7 @@ function DialogModal({
     cancelButtonProps,
     PaperComponent,
     draggableId,
+    ...originalProps
 }: DialogModalProps) {
     const handleSubmit = () => {
         if (onSubmit) onSubmit();
@@ -100,7 +100,17 @@ function DialogModal({
     }, [title, titleComponent]);
 
     const renderBodyDefault = () => {
-        return <DialogContent dividers={dividers}>{children}</DialogContent>;
+        return (
+            <DialogContent
+                sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    overflow: "hidden",
+                }}
+                dividers={dividers}>
+                {children}
+            </DialogContent>
+        );
     };
 
     const renderFooterDefault = () => {
@@ -139,7 +149,8 @@ function DialogModal({
             scroll={scroll}
             fullWidth={fullWidth}
             onKeyUp={handleSubmitOnEnter}
-            PaperComponent={PaperComponent}>
+            PaperComponent={PaperComponent}
+            {...originalProps}>
             {renderHeaderCustom ? renderHeaderCustom() : renderHeaderDefault()}
             {renderBodyCustom ? renderBodyCustom() : renderBodyDefault()}
             {renderFooterCustom ? renderFooterCustom() : renderFooterDefault()}
