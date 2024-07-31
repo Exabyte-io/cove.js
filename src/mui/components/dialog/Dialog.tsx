@@ -19,7 +19,6 @@ export interface DialogModalProps extends DialogProps {
     onSubmit?: (() => void) | undefined;
     onClose?: (() => void) | undefined;
     onCancel?: (() => void) | undefined;
-    scroll?: "body" | "paper";
     children?: React.ReactNode;
     maxWidth?: false | "md" | "xs" | "sm" | "lg" | "xl" | undefined;
     dividers?: boolean;
