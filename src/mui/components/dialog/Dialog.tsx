@@ -14,7 +14,6 @@ import IconByName from "../icon/IconByName";
 
 export interface DialogModalProps extends DialogProps {
     id?: string;
-    className?: string;
     titleComponent?: string | React.ReactNode;
     open: boolean;
     onSubmit?: (() => void) | undefined;
@@ -39,7 +38,6 @@ export interface DialogModalProps extends DialogProps {
 
 function DialogModal({
     id = "modal-dialog",
-    className,
     title,
     titleComponent,
     open,
@@ -63,6 +61,7 @@ function DialogModal({
     cancelButtonProps,
     PaperComponent,
     draggableId,
+    ...originalProps
 }: DialogModalProps) {
     const handleSubmit = () => {
         if (onSubmit) onSubmit();
@@ -144,7 +143,6 @@ function DialogModal({
     return (
         <Dialog
             id={id}
-            className={className}
             open={open}
             onClose={onClose}
             onSubmit={onSubmit}
@@ -152,7 +150,8 @@ function DialogModal({
             scroll={scroll}
             fullWidth={fullWidth}
             onKeyUp={handleSubmitOnEnter}
-            PaperComponent={PaperComponent}>
+            PaperComponent={PaperComponent}
+            {...originalProps}>
             {renderHeaderCustom ? renderHeaderCustom() : renderHeaderDefault()}
             {renderBodyCustom ? renderBodyCustom() : renderBodyDefault()}
             {renderFooterCustom ? renderFooterCustom() : renderFooterDefault()}

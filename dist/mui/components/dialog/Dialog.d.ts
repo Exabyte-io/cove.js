@@ -3,7 +3,6 @@ import { DialogProps } from "@mui/material/Dialog";
 import React from "react";
 export interface DialogModalProps extends DialogProps {
     id?: string;
-    className?: string;
     titleComponent?: string | React.ReactNode;
     open: boolean;
     onSubmit?: (() => void) | undefined;
@@ -25,5 +24,5 @@ export interface DialogModalProps extends DialogProps {
     cancelButtonProps?: ButtonProps;
     draggableId?: string;
 }
-declare function DialogModal({ id, className, title, titleComponent, open, scroll, onSubmit, onCancel, onClose, children, maxWidth, dividers, fullWidth, isSubmitButtonDisabled, isSubmitButtonProcessing, isSubmitOnEnter, renderHeaderCustom, renderBodyCustom, renderFooterCustom, submitButtonText, cancelButtonText, submitButtonProps, cancelButtonProps, PaperComponent, draggableId, }: DialogModalProps): React.JSX.Element;
+declare function DialogModal({ id, title, titleComponent, open, scroll, onSubmit, onCancel, onClose, children, maxWidth, dividers, fullWidth, isSubmitButtonDisabled, isSubmitButtonProcessing, isSubmitOnEnter, renderHeaderCustom, renderBodyCustom, renderFooterCustom, submitButtonText, cancelButtonText, submitButtonProps, cancelButtonProps, PaperComponent, draggableId, ...originalProps }: DialogModalProps): React.JSX.Element;
 export default DialogModal;
