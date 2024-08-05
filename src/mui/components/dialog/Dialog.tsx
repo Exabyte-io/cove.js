@@ -106,6 +106,7 @@ function DialogModal({
                     display: "flex",
                     flexDirection: "column",
                     overflow: "hidden",
+                    p: 0,
                 }}
                 dividers={dividers}>
                 {children}

@@ -39,6 +39,7 @@ function DialogModal({ id = "modal-dialog", title, titleComponent, open, scroll 
                 display: "flex",
                 flexDirection: "column",
                 overflow: "hidden",
+                p: 0,
             }, dividers: dividers }, children));
     };
     const renderFooterDefault = () => {
