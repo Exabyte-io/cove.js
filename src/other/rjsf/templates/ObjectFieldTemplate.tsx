@@ -14,6 +14,30 @@ import {
 } from "@rjsf/utils";
 import React from "react";
 
+function schemaHasInnerObjects(schema: StrictRJSFSchema): boolean {
+    return Object.values(schema.properties || {}).some((innerSchema) => {
+        if (typeof innerSchema === "object" && typeof innerSchema.items === "boolean") {
+            return false;
+        }
+
+        if (typeof innerSchema === "object" && Array.isArray(innerSchema.items)) {
+            return innerSchema.items.some(
+                (item) => typeof item === "object" && Boolean(item.properties),
+            );
+        }
+
+        if (
+            typeof innerSchema === "object" &&
+            typeof innerSchema.items === "object" &&
+            !Array.isArray(innerSchema.items)
+        ) {
+            return Boolean(innerSchema.items.properties);
+        }
+
+        return typeof innerSchema === "object" && Boolean(innerSchema.properties);
+    });
+}
+
 export default function ObjectFieldTemplate<
     T = any,
     S extends StrictRJSFSchema = RJSFSchema,
@@ -45,9 +69,7 @@ export default function ObjectFieldTemplate<
         ButtonTemplates: { AddButton },
     } = registry.templates;
 
-    const schemaHasInnerObjects = Object.values(schema.properties || {}).some((schema) => {
-        return typeof schema === "object" && Boolean(schema.properties);
-    });
+    const hasInnerObjects = schemaHasInnerObjects(schema);
 
     return (
         <Box className="ObjectFieldTemplate">
@@ -70,7 +92,7 @@ export default function ObjectFieldTemplate<
                         <Grid
                             item
                             xs={12}
-                            sm={schemaHasInnerObjects ? 12 : 4}
+                            sm={hasInnerObjects ? 12 : 4}
                             // md={4}
                             key={index}
                             style={{ marginBottom: "10px" }}>
