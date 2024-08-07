@@ -10,7 +10,7 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import React, { useCallback } from "react";
 import IconByName from "../icon/IconByName";
-function DialogModal({ id = "modal-dialog", title, titleComponent, open, scroll = "paper", onSubmit = undefined, onCancel, onClose, children, maxWidth = "sm", dividers = true, fullWidth = true, isSubmitButtonDisabled = false, isSubmitButtonProcessing = false, isSubmitOnEnter = false, renderHeaderCustom, renderBodyCustom, renderFooterCustom, submitButtonText = "Submit", cancelButtonText = "Cancel", submitButtonProps, cancelButtonProps, PaperComponent, draggableId, ...originalProps }) {
+function DialogModal({ id = "modal-dialog", title, titleComponent, open, scrollable, scroll = "paper", onSubmit = undefined, onCancel, onClose, children, maxWidth = "sm", dividers = true, fullWidth = true, isSubmitButtonDisabled = false, isSubmitButtonProcessing = false, isSubmitOnEnter = false, renderHeaderCustom, renderBodyCustom, renderFooterCustom, submitButtonText = "Submit", cancelButtonText = "Cancel", submitButtonProps, cancelButtonProps, PaperComponent, draggableId, ...originalProps }) {
     const handleSubmit = () => {
         if (onSubmit)
             onSubmit();
@@ -38,7 +38,7 @@ function DialogModal({ id = "modal-dialog", title, titleComponent, open, scroll 
         return (React.createElement(DialogContent, { sx: {
                 display: "flex",
                 flexDirection: "column",
-                overflow: "hidden",
+                overflow: scrollable ? "auto" : "hidden",
             }, dividers: dividers }, children));
     };
     const renderFooterDefault = () => {
