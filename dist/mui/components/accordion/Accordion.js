@@ -9,15 +9,15 @@ import { withStyles } from "@mui/styles";
 import React, { useEffect, useState } from "react";
 import IconByName from "../icon/IconByName";
 // deletes header animation in accordion
-const StyledAccordion = withStyles({
-    root: {
-        margin: "0",
-        "&$expanded": {
-            margin: "0",
-        },
-    },
-    expanded: {},
-})(MuiAccordion);
+// const StyledAccordion = withStyles({
+//     root: {
+//         margin: "0",
+//         "&$expanded": {
+//             margin: "0",
+//         },
+//     },
+//     expanded: {},
+// })(MuiAccordion);
 // deletes header animation in accordion
 const AccordionSummary = withStyles({
     root: {
@@ -50,7 +50,7 @@ export default function Accordion({ hideExpandIcon, children, isExpanded, header
             setIsExpanded((prev) => !prev);
         }
     };
-    return (React.createElement(StyledAccordion, { defaultExpanded: isExpanded, expanded: isExpanded_, ...restProps },
+    return (React.createElement(MuiAccordion, { defaultExpanded: isExpanded, expanded: isExpanded_, ...restProps },
         React.createElement(AccordionSummary, { onClick: handleToggleExpanded, "aria-controls": "panel2a-content", expandIcon: !hideExpandIcon && React.createElement(IconByName, { name: "actions.expand" }) }, renderSummary || React.createElement(Typography, { variant: "overline" }, header)),
         React.createElement(Divider, null),
         React.createElement(AccordionDetails, null, children)));

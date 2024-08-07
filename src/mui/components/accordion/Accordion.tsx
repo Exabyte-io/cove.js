@@ -11,15 +11,15 @@ import React, { SyntheticEvent, useEffect, useState } from "react";
 import IconByName from "../icon/IconByName";
 
 // deletes header animation in accordion
-const StyledAccordion = withStyles({
-    root: {
-        margin: "0",
-        "&$expanded": {
-            margin: "0",
-        },
-    },
-    expanded: {},
-})(MuiAccordion);
+// const StyledAccordion = withStyles({
+//     root: {
+//         margin: "0",
+//         "&$expanded": {
+//             margin: "0",
+//         },
+//     },
+//     expanded: {},
+// })(MuiAccordion);
 
 // deletes header animation in accordion
 const AccordionSummary = withStyles({
@@ -73,7 +73,7 @@ export default function Accordion({
     };
 
     return (
-        <StyledAccordion defaultExpanded={isExpanded} expanded={isExpanded_} {...restProps}>
+        <MuiAccordion defaultExpanded={isExpanded} expanded={isExpanded_} {...restProps}>
             <AccordionSummary
                 onClick={handleToggleExpanded}
                 aria-controls="panel2a-content"
@@ -82,6 +82,6 @@ export default function Accordion({
             </AccordionSummary>
             <Divider />
             <AccordionDetails>{children}</AccordionDetails>
-        </StyledAccordion>
+        </MuiAccordion>
     );
 }
