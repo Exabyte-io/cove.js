@@ -16,6 +16,7 @@ export interface DialogModalProps extends DialogProps {
     id?: string;
     titleComponent?: string | React.ReactNode;
     open: boolean;
+    scrollable?: boolean;
     onSubmit?: (() => void) | undefined;
     onClose?: (() => void) | undefined;
     onCancel?: (() => void) | undefined;
@@ -40,6 +41,7 @@ function DialogModal({
     title,
     titleComponent,
     open,
+    scrollable,
     scroll = "paper",
     onSubmit = undefined,
     onCancel,
@@ -105,7 +107,7 @@ function DialogModal({
                 sx={{
                     display: "flex",
                     flexDirection: "column",
-                    overflow: "hidden",
+                    overflow: scrollable ? "auto" : "hidden",
                 }}
                 dividers={dividers}>
                 {children}

@@ -5,6 +5,7 @@ export interface DialogModalProps extends DialogProps {
     id?: string;
     titleComponent?: string | React.ReactNode;
     open: boolean;
+    scrollable?: boolean;
     onSubmit?: (() => void) | undefined;
     onClose?: (() => void) | undefined;
     onCancel?: (() => void) | undefined;
@@ -23,5 +24,5 @@ export interface DialogModalProps extends DialogProps {
     cancelButtonProps?: ButtonProps;
     draggableId?: string;
 }
-declare function DialogModal({ id, title, titleComponent, open, scroll, onSubmit, onCancel, onClose, children, maxWidth, dividers, fullWidth, isSubmitButtonDisabled, isSubmitButtonProcessing, isSubmitOnEnter, renderHeaderCustom, renderBodyCustom, renderFooterCustom, submitButtonText, cancelButtonText, submitButtonProps, cancelButtonProps, PaperComponent, draggableId, ...originalProps }: DialogModalProps): React.JSX.Element;
+declare function DialogModal({ id, title, titleComponent, open, scrollable, scroll, onSubmit, onCancel, onClose, children, maxWidth, dividers, fullWidth, isSubmitButtonDisabled, isSubmitButtonProcessing, isSubmitOnEnter, renderHeaderCustom, renderBodyCustom, renderFooterCustom, submitButtonText, cancelButtonText, submitButtonProps, cancelButtonProps, PaperComponent, draggableId, ...originalProps }: DialogModalProps): React.JSX.Element;
 export default DialogModal;

@@ -11,15 +11,31 @@ import {
     ObjectFieldTemplateProps,
     RJSFSchema,
     StrictRJSFSchema,
-    titleId,
 } from "@rjsf/utils";
 import React from "react";
 
-function isNumeric(str: string) {
-    return (
-        !Number.isNaN(str) && // use type coercion to parse the _entirety_ of the string (`parseFloat` alone does not do this)...
-        !Number.isNaN(parseFloat(str)) // ...and ensure strings of whitespace fail
-    );
+function schemaHasInnerObjects(schema: StrictRJSFSchema): boolean {
+    return Object.values(schema.properties || {}).some((innerSchema) => {
+        if (typeof innerSchema === "object" && typeof innerSchema.items === "boolean") {
+            return false;
+        }
+
+        if (typeof innerSchema === "object" && Array.isArray(innerSchema.items)) {
+            return innerSchema.items.some(
+                (item) => typeof item === "object" && Boolean(item.properties),
+            );
+        }
+
+        if (
+            typeof innerSchema === "object" &&
+            typeof innerSchema.items === "object" &&
+            !Array.isArray(innerSchema.items)
+        ) {
+            return Boolean(innerSchema.items.properties);
+        }
+
+        return typeof innerSchema === "object" && Boolean(innerSchema.properties);
+    });
 }
 
 export default function ObjectFieldTemplate<
@@ -29,9 +45,7 @@ export default function ObjectFieldTemplate<
 >(props: ObjectFieldTemplateProps<T, S, F>) {
     const {
         description,
-        title,
         properties,
-        required,
         disabled,
         readonly,
         uiSchema,
@@ -44,12 +58,6 @@ export default function ObjectFieldTemplate<
 
     const uiOptions = getUiOptions<T, S, F>(uiSchema);
 
-    const TitleFieldTemplate = getTemplate<"TitleFieldTemplate", T, S, F>(
-        "TitleFieldTemplate",
-        registry,
-        uiOptions,
-    );
-
     const DescriptionFieldTemplate = getTemplate<"DescriptionFieldTemplate", T, S, F>(
         "DescriptionFieldTemplate",
         registry,
@@ -61,18 +69,10 @@ export default function ObjectFieldTemplate<
         ButtonTemplates: { AddButton },
     } = registry.templates;
 
+    const hasInnerObjects = schemaHasInnerObjects(schema);
+
     return (
         <Box className="ObjectFieldTemplate">
-            {title && !isNumeric(title) && (
-                <TitleFieldTemplate
-                    id={titleId<T>(idSchema)}
-                    title={title}
-                    required={required}
-                    schema={schema}
-                    uiSchema={uiSchema}
-                    registry={registry}
-                />
-            )}
             {description && (
                 <DescriptionFieldTemplate
                     id={descriptionId<T>(idSchema)}
@@ -83,23 +83,23 @@ export default function ObjectFieldTemplate<
                 />
             )}
             <Grid container spacing={2}>
-                {properties.map((element, index) =>
+                {properties.map((element, index) => {
                     // Remove the <Grid> if the inner element is hidden as the <Grid>
                     // itself would otherwise still take up space.
-                    element.hidden ? (
+                    return element.hidden ? (
                         element.content
                     ) : (
                         <Grid
                             item
                             xs={12}
-                            sm={4}
+                            sm={hasInnerObjects ? 12 : 4}
                             // md={4}
                             key={index}
                             style={{ marginBottom: "10px" }}>
                             {element.content}
                         </Grid>
-                    ),
-                )}
+                    );
+                })}
                 {canExpand<T, S, F>(schema, uiSchema, formData) && (
                     <Grid container justifyContent="flex-end">
                         <Grid item>
