@@ -11,17 +11,6 @@ import React, { SyntheticEvent, useEffect, useState } from "react";
 import IconByName from "../icon/IconByName";
 
 // deletes header animation in accordion
-// const StyledAccordion = withStyles({
-//     root: {
-//         margin: "0",
-//         "&$expanded": {
-//             margin: "0",
-//         },
-//     },
-//     expanded: {},
-// })(MuiAccordion);
-
-// deletes header animation in accordion
 const AccordionSummary = withStyles({
     root: {
         minHeight: "48px",
