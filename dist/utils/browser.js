@@ -6,8 +6,7 @@ export const isOpera =
 (!!window.opr && !!opr.addons) || !!window.opera || navigator.userAgent.indexOf(" OPR/") >= 0;
 // Firefox 1.0+
 export const isFirefox = typeof InstallTrigger !== "undefined";
-// At least Safari 3+: "[object HTMLElementConstructor]"
-export const isSafari = Object.prototype.toString.call(window.HTMLElement).indexOf("Constructor") > 0;
+export const isSafari = navigator.userAgent.indexOf("Safari/") !== -1;
 // Internet Explorer 6-11
 export const isIE = /* @cc_on!@ */ false || !!document.documentMode;
 // Edge 20+
