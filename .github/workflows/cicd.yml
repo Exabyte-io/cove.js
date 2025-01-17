@@ -16,7 +16,7 @@ jobs:
     if: github.repository != 'Exabyte-io/template-definitions'
     strategy:
       matrix:
-        node-version: [14.19.x]
+        node-version: ["14.19.x", "20"]
 
     steps:
       - name: Checkout this repository
