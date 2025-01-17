@@ -6,12 +6,12 @@ export const isOpera =
 (!!window.opr && !!opr.addons) || !!window.opera || navigator.userAgent.indexOf(" OPR/") >= 0;
 // Firefox 1.0+
 export const isFirefox = typeof InstallTrigger !== "undefined";
-export const isSafari = navigator.userAgent.indexOf("Safari/") !== -1;
+export const isSafari = navigator.userAgent.includes("Safari/");
 // Internet Explorer 6-11
 export const isIE = /* @cc_on!@ */ false || !!document.documentMode;
 // Edge 20+
 export const isEdge = !isIE && !!window.StyleMedia;
 // Chrome 1+
-export const isChrome = navigator.userAgent.indexOf("Chrome/") !== -1;
+export const isChrome = navigator.userAgent.includes("Chrome/");
 // Blink engine detection
 export const isBlink = (isChrome || isOpera) && !!window.CSS;
