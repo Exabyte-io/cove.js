@@ -1,7 +1,6 @@
 import JSZip from "jszip";
 // @ts-ignore
 import * as JSZipUtils from "jszip-utils";
-import s from "underscore.string";
 
 /**
  * Downloads the specified storage file.
@@ -17,7 +16,7 @@ export function downloadURL(url: string) {
 }
 
 /**
- * Creates and downloads zip file.
+ * Creates and downloads a zip file.
  * @param zipName {String} Zip file name (without extension).
  * @param files {Object[]} Job files to add to created zip.
  * @param onFileComplete {Function} Function to track progress.
@@ -58,15 +57,70 @@ export function downloadZip(
     });
 }
 
-/**
- * Exports and downloads the content.
- * @param content {String} Content to be saved in downloaded file
- * @param name {String} File name to be written on disk.
- * @param extension {String} File extension.
- */
 export function exportToDisk(content: string | number | boolean, name = "file", extension = "txt") {
     const pom = document.createElement("a");
     pom.setAttribute("href", "data:text/plain;charset=utf-8," + encodeURIComponent(content));
-    pom.setAttribute("download", s.sprintf(`%s.${extension}`, name));
+    pom.setAttribute("download", `${name}.${extension}`);
     pom.click();
 }
+
+export function saveStringDataToFile(strData: string, filename = "data.txt") {
+    const link = document.createElement("a");
+    document.body.appendChild(link);
+    link.download = filename;
+    link.href = strData;
+    link.click();
+    document.body.removeChild(link);
+}
+
+export function saveImageDataToFile(imgData: string, filename = "screenshot.png") {
+    try {
+        saveStringDataToFile(imgData, `${filename}`);
+    } catch (e) {
+        console.error(e);
+    }
+}
+
+/**
+ * Exports and downloads the content to disk. Browser compatibility with IE.
+ * @param content {String} Content to be saved in downloaded file
+ * @param name {String} File name to be written on disk.
+ * @param extension {String} File extension.
+ * @param mime {String} type of the content.
+ * Source: https://github.com/kennethjiang/js-file-download/blob/master/file-download.js
+ */
+export const exportToDiskLegacy = function exportToDisk(
+    content: string,
+    name = "file",
+    extension = "txt",
+    mime = "application/octet-stream",
+) {
+    const blob = new Blob([content], { type: mime });
+    const filename = `${name}.${extension}`;
+    // @ts-ignore
+    if (typeof window.navigator.msSaveBlob !== "undefined") {
+        // IE workaround for "HTML7007: One or more blob URLs were
+        // revoked by closing the blob for which they were created.
+        // These URLs will no longer resolve as the data backing
+        // the URL has been freed."
+        // @ts-ignore
+        window.navigator.msSaveBlob(blob, filename);
+    } else {
+        const blobURL = window.URL.createObjectURL(blob);
+        const tempLink = document.createElement("a");
+        tempLink.style.display = "none";
+        tempLink.href = blobURL;
+        tempLink.setAttribute("download", filename);
+
+        // Safari thinks _blank anchor are pop ups. We only want to set _blank
+        // target if the browser does not support the HTML5 download attribute.
+        // This allows you to download files in desktop safari if pop up blocking
+        // is enabled.
+        if (typeof tempLink.download === "undefined") tempLink.setAttribute("target", "_blank");
+
+        document.body.appendChild(tempLink);
+        tempLink.click();
+        document.body.removeChild(tempLink);
+        window.URL.revokeObjectURL(blobURL);
+    }
+};
