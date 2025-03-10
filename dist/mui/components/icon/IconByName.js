@@ -150,6 +150,7 @@ import WrapText from "@mui/icons-material/WrapText";
 import YoutubeSearchedFor from "@mui/icons-material/YoutubeSearchedFor";
 import Icon from "@mui/material/Icon";
 import React from "react";
+import SharedExternallyIcon from "./SharedExternallyIcon";
 function rotateIcon(IconComponent, degrees) {
     function RotatedIcon(props) {
         const { sx } = props;
@@ -159,6 +160,7 @@ function rotateIcon(IconComponent, degrees) {
 }
 const iconComponentMap = {
     ViewTimelineIcon,
+    SharedExternallyIcon,
     "entities.account": Person,
     "entities.accounts": PublicOutlined,
     "entities.accounts.bank": AccountBalance,

@@ -22,7 +22,6 @@ export interface DropdownItemProps {
     disabled: boolean;
     id: string;
     onClick?: (id: string) => void;
-    // isActive?: boolean;
     leftIcon?: React.ReactElement;
     content?: string;
     rightIcon?: React.ReactElement;

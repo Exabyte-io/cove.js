@@ -152,6 +152,8 @@ import Icon from "@mui/material/Icon";
 import SvgIcon, { SvgIconProps } from "@mui/material/SvgIcon";
 import React from "react";
 
+import SharedExternallyIcon from "./SharedExternallyIcon";
+
 export type IconByNameProps = SvgIconProps & {
     name: string;
     rotateDegrees?: number;
@@ -169,6 +171,7 @@ function rotateIcon(IconComponent: typeof SvgIcon, degrees: number) {
 
 const iconComponentMap: Record<string, typeof SvgIcon | ReturnType<typeof rotateIcon>> = {
     ViewTimelineIcon,
+    SharedExternallyIcon,
 
     "entities.account": Person,
     "entities.accounts": PublicOutlined,
