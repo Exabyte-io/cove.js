@@ -5,7 +5,7 @@ export default createSvgIcon(
     <>
         <path
             d="M19 3H5C3.9 3 3 3.9 3 5V19C3 20.1 3.9 21 5 21H19C20.1 21 21 20.1 21 19V5C21 3.9 20.1 3 19 3ZM12 17H6V15H12V17ZM15 13H9V11H15V13ZM18 9H12V7H18V9Z"
-            fill="currentColor"
+            fill="#424242"
         />
         <g clipPath="url(#clip0_7535_4910)">
             <path
