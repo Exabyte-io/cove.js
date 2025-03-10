@@ -383,3 +383,5 @@ export default function IconByName({
 
     return <Circle {...iconProps} sx={iconStyle} fontSize={fontSize} />;
 }
+
+export type CoveIcon = keyof typeof iconComponentMap;
