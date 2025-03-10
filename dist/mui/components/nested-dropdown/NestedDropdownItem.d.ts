@@ -4,7 +4,6 @@ export interface DropdownItemProps {
     disabled: boolean;
     id: string;
     onClick?: (id: string) => void;
-    isActive?: boolean;
     leftIcon?: React.ReactElement;
     content?: string;
     rightIcon?: React.ReactElement;
@@ -15,4 +14,4 @@ export interface DropdownItemProps {
  * flexible way to display leftIcon | content | rightIcon
  * where each of them can be optional.
  */
-export declare function NestedDropdownItem({ disabled, id, onClick, isActive, leftIcon, content, rightIcon, typographyProps, }: DropdownItemProps): React.JSX.Element;
+export declare function NestedDropdownItem({ disabled, id, onClick, leftIcon, content, rightIcon, typographyProps, }: DropdownItemProps): React.JSX.Element;

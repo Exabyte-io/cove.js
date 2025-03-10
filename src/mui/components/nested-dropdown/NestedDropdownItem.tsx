@@ -22,7 +22,7 @@ export interface DropdownItemProps {
     disabled: boolean;
     id: string;
     onClick?: (id: string) => void;
-    isActive?: boolean;
+    // isActive?: boolean;
     leftIcon?: React.ReactElement;
     content?: string;
     rightIcon?: React.ReactElement;
@@ -38,7 +38,6 @@ export function NestedDropdownItem({
     disabled = false,
     id,
     onClick,
-    isActive = false,
     leftIcon,
     content,
     rightIcon,

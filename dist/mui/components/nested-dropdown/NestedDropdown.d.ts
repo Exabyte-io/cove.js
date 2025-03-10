@@ -6,7 +6,6 @@ export interface NestedDropdownAction {
     disabled: boolean;
     shouldMenuStayOpened?: boolean;
     key?: string;
-    isActive?: boolean;
     isShown?: boolean;
     isSelected?: boolean;
     isDivider?: boolean;

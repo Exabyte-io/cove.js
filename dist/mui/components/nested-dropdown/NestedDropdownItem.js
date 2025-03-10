@@ -20,7 +20,7 @@ const StyledBox = styled(Box)(({ theme }) => ({
  * flexible way to display leftIcon | content | rightIcon
  * where each of them can be optional.
  */
-export function NestedDropdownItem({ disabled = false, id, onClick, isActive = false, leftIcon, content, rightIcon, typographyProps = { variant: "body1", color: "text.primary" }, }) {
+export function NestedDropdownItem({ disabled = false, id, onClick, leftIcon, content, rightIcon, typographyProps = { variant: "body1", color: "text.primary" }, }) {
     const onItemClick = useCallback(() => {
         if (typeof onClick === "function") {
             onClick(id);

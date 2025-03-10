@@ -22,7 +22,6 @@ export interface NestedDropdownAction {
     disabled: boolean;
     shouldMenuStayOpened?: boolean;
     key?: string;
-    isActive?: boolean;
     isShown?: boolean;
     isSelected?: boolean;
     isDivider?: boolean;
@@ -213,7 +212,6 @@ export default function NestedDropdown({
                                                         disabled={action.disabled}
                                                         id={action.id}
                                                         onClick={onMenuItemClick}
-                                                        isActive={action.isActive}
                                                         leftIcon={action.leftIcon}
                                                         content={action.content}
                                                         rightIcon={action.rightIcon}

@@ -91,7 +91,7 @@ export default function NestedDropdown({ id, actions, contentObject, buttonProps
                                             (paperPlacement.startsWith("left") ? (React.createElement(IconByName, { name: "shapes.arrow.left" })) : undefined), content: action.content, rightIcon: action.rightIcon ||
                                             (paperPlacement.startsWith("right") ? (React.createElement(IconByName, { name: "shapes.arrow.right" })) : undefined) })));
                             }
-                            return (React.createElement(NestedDropdownItem, { disabled: action.disabled, id: action.id, onClick: onMenuItemClick, isActive: action.isActive, leftIcon: action.leftIcon, content: action.content, rightIcon: action.rightIcon, key: action.key || action.id, typographyProps: {
+                            return (React.createElement(NestedDropdownItem, { disabled: action.disabled, id: action.id, onClick: onMenuItemClick, leftIcon: action.leftIcon, content: action.content, rightIcon: action.rightIcon, key: action.key || action.id, typographyProps: {
                                     variant: isMobile ? "body2" : "body1",
                                     color: theme.palette.text.primary,
                                 } }));
