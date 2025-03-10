@@ -141,6 +141,7 @@ import UnfoldMore from "@mui/icons-material/UnfoldMore";
 import Upgrade from "@mui/icons-material/Upgrade";
 import UploadFile from "@mui/icons-material/UploadFile";
 import VerticalAlignCenter from "@mui/icons-material/VerticalAlignCenter";
+import ViewTimelineIcon from "@mui/icons-material/ViewTimeline";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import WifiTethering from "@mui/icons-material/WifiTethering";
@@ -157,6 +158,7 @@ function rotateIcon(IconComponent, degrees) {
     return RotatedIcon;
 }
 const iconComponentMap = {
+    ViewTimelineIcon,
     "entities.account": Person,
     "entities.accounts": PublicOutlined,
     "entities.accounts.bank": AccountBalance,
