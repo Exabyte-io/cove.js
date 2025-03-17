@@ -10,6 +10,10 @@ export const typography = (theme, commonSettings) => {
         caption: {
             color: theme.palette.text.secondary,
         },
+        subtitle1: {
+            color: theme.palette.text.secondary,
+            fontSize: 12,
+        },
     };
 };
 // eslint-disable-next-line @typescript-eslint/no-unused-vars

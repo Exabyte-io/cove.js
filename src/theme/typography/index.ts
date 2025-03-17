@@ -17,6 +17,10 @@ export const typography = (
         caption: {
             color: theme.palette.text.secondary,
         },
+        subtitle1: {
+            color: theme.palette.text.secondary,
+            fontSize: 12,
+        },
     };
 };
 
