@@ -1,9 +1,4 @@
 import { ComponentsVariants } from "@mui/material/styles";
-declare module "@mui/material/SvgIcon" {
-    interface SvgIconPropsSizeOverrides {
-        extraLarge: true;
-    }
-}
 type IconsResult = {
     MuiSvgIcon: {
         variants: ComponentsVariants["MuiSvgIcon"];
