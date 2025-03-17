@@ -164,6 +164,7 @@ const iconComponentMap = {
     Grain,
     AccountBalance,
     Language,
+    UploadFile,
     "entities.account": Person,
     "entities.accounts": PublicOutlined,
     "entities.accounts.bank": AccountBalance,

@@ -175,6 +175,7 @@ const iconComponentMap: Record<string, typeof SvgIcon | ReturnType<typeof rotate
     Grain,
     AccountBalance,
     Language,
+    UploadFile,
 
     "entities.account": Person,
     "entities.accounts": PublicOutlined,
