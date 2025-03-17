@@ -7,8 +7,8 @@ import { MDTypography, typography } from "./typography";
 
 declare module "@mui/material/SvgIcon" {
     interface SvgIconPropsSizeOverrides {
-        largeX: true;
-        largeXX: true;
+        xLarge: true;
+        xxLarge: true;
     }
 }
 

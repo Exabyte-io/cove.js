@@ -1,8 +1,8 @@
 import { Theme } from "@mui/material/styles";
 declare module "@mui/material/SvgIcon" {
     interface SvgIconPropsSizeOverrides {
-        largeX: true;
-        largeXX: true;
+        xLarge: true;
+        xxLarge: true;
     }
 }
 declare const commonSettings: {
