@@ -19,6 +19,12 @@ const icons = () => ({
                     fontSize: "2.1875rem",
                 },
             },
+            {
+                props: { fontSize: "extraLarge" },
+                style: {
+                    fontSize: "3rem", // Define the font size for extraLarge
+                },
+            },
         ],
     },
 });

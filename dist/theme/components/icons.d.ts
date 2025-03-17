@@ -1,13 +1,12 @@
+import { ComponentsVariants } from "@mui/material/styles";
+declare module "@mui/material/SvgIcon" {
+    interface SvgIconPropsSizeOverrides {
+        extraLarge: true;
+    }
+}
 declare const icons: () => {
     MuiSvgIcon: {
-        variants: {
-            props: {
-                fontSize: string;
-            };
-            style: {
-                fontSize: string;
-            };
-        }[];
+        variants: ComponentsVariants["MuiSvgIcon"];
     };
 };
 export default icons;
