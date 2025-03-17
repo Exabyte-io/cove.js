@@ -1,16 +1,12 @@
 import { ComponentsVariants } from "@mui/material/styles";
 
-declare module "@mui/material/SvgIcon" {
-    interface SvgIconPropsSizeOverrides {
-        extraLarge: true;
-    }
-}
-
-const icons = (): {
+type IconsResult = {
     MuiSvgIcon: {
         variants: ComponentsVariants["MuiSvgIcon"];
     };
-} => ({
+};
+
+const icons = (): IconsResult => ({
     MuiSvgIcon: {
         variants: [
             {
@@ -34,7 +30,7 @@ const icons = (): {
             {
                 props: { fontSize: "extraLarge" }, // Adding the new extraLarge variant
                 style: {
-                    fontSize: "3rem", // Define the font size for extraLarge
+                    fontSize: "3.5rem", // Define the font size for extraLarge
                 },
             },
         ],

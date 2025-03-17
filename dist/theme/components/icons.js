@@ -22,7 +22,7 @@ const icons = () => ({
             {
                 props: { fontSize: "extraLarge" },
                 style: {
-                    fontSize: "3rem", // Define the font size for extraLarge
+                    fontSize: "3.5rem", // Define the font size for extraLarge
                 },
             },
         ],
