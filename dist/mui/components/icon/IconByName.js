@@ -163,6 +163,7 @@ const iconComponentMap = {
     SharedExternally,
     Grain,
     AccountBalance,
+    Language,
     "entities.account": Person,
     "entities.accounts": PublicOutlined,
     "entities.accounts.bank": AccountBalance,
