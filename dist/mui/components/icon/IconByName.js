@@ -162,6 +162,7 @@ const iconComponentMap = {
     ViewTimeline,
     SharedExternally,
     Grain,
+    AccountBalance,
     "entities.account": Person,
     "entities.accounts": PublicOutlined,
     "entities.accounts.bank": AccountBalance,

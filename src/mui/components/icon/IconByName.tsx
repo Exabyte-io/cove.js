@@ -173,6 +173,7 @@ const iconComponentMap: Record<string, typeof SvgIcon | ReturnType<typeof rotate
     ViewTimeline,
     SharedExternally,
     Grain,
+    AccountBalance,
 
     "entities.account": Person,
     "entities.accounts": PublicOutlined,
