@@ -28,5 +28,3 @@ export default createSvgIcon(
     </>,
     "SharedExternallyIcon",
 );
-
-// currentColor

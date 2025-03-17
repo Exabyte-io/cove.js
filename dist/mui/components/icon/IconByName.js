@@ -141,7 +141,7 @@ import UnfoldMore from "@mui/icons-material/UnfoldMore";
 import Upgrade from "@mui/icons-material/Upgrade";
 import UploadFile from "@mui/icons-material/UploadFile";
 import VerticalAlignCenter from "@mui/icons-material/VerticalAlignCenter";
-import ViewTimelineIcon from "@mui/icons-material/ViewTimeline";
+import ViewTimeline from "@mui/icons-material/ViewTimeline";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import WifiTethering from "@mui/icons-material/WifiTethering";
@@ -150,7 +150,7 @@ import WrapText from "@mui/icons-material/WrapText";
 import YoutubeSearchedFor from "@mui/icons-material/YoutubeSearchedFor";
 import Icon from "@mui/material/Icon";
 import React from "react";
-import SharedExternallyIcon from "./SharedExternallyIcon";
+import SharedExternally from "./SharedExternallyIcon";
 function rotateIcon(IconComponent, degrees) {
     function RotatedIcon(props) {
         const { sx } = props;
@@ -159,8 +159,9 @@ function rotateIcon(IconComponent, degrees) {
     return RotatedIcon;
 }
 const iconComponentMap = {
-    ViewTimelineIcon,
-    SharedExternallyIcon,
+    ViewTimeline,
+    SharedExternally,
+    Grain,
     "entities.account": Person,
     "entities.accounts": PublicOutlined,
     "entities.accounts.bank": AccountBalance,
