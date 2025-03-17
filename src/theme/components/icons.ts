@@ -27,10 +27,17 @@ const icons = (): IconsResult => ({
                     fontSize: "2.1875rem",
                 },
             },
+            // Adding the new extraLarge variant
             {
-                props: { fontSize: "extraLarge" }, // Adding the new extraLarge variant
+                props: { fontSize: "largeX" },
                 style: {
-                    fontSize: "3.5rem", // Define the font size for extraLarge
+                    fontSize: "3rem",
+                },
+            },
+            {
+                props: { fontSize: "largeXX" },
+                style: {
+                    fontSize: "3.5rem",
                 },
             },
         ],
