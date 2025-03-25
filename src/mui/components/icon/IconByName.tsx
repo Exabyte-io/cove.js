@@ -113,7 +113,6 @@ import Refresh from "@mui/icons-material/Refresh";
 import RemoveCircleOutline from "@mui/icons-material/RemoveCircleOutline";
 import Replay from "@mui/icons-material/Replay";
 import Save from "@mui/icons-material/Save";
-import SavedSearch from "@mui/icons-material/SavedSearch";
 import School from "@mui/icons-material/School";
 import Search from "@mui/icons-material/Search";
 import Send from "@mui/icons-material/Send";
@@ -142,6 +141,7 @@ import UnfoldMore from "@mui/icons-material/UnfoldMore";
 import Upgrade from "@mui/icons-material/Upgrade";
 import UploadFile from "@mui/icons-material/UploadFile";
 import VerticalAlignCenter from "@mui/icons-material/VerticalAlignCenter";
+import ViewTimeline from "@mui/icons-material/ViewTimeline";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import WifiTethering from "@mui/icons-material/WifiTethering";
@@ -151,6 +151,8 @@ import YoutubeSearchedFor from "@mui/icons-material/YoutubeSearchedFor";
 import Icon from "@mui/material/Icon";
 import SvgIcon, { SvgIconProps } from "@mui/material/SvgIcon";
 import React from "react";
+
+import SharedExternally from "./SharedExternallyIcon";
 
 export type IconByNameProps = SvgIconProps & {
     name: string;
@@ -168,6 +170,13 @@ function rotateIcon(IconComponent: typeof SvgIcon, degrees: number) {
 }
 
 const iconComponentMap: Record<string, typeof SvgIcon | ReturnType<typeof rotateIcon>> = {
+    ViewTimeline,
+    SharedExternally,
+    Grain,
+    AccountBalance,
+    Language,
+    UploadFile,
+
     "entities.account": Person,
     "entities.accounts": PublicOutlined,
     "entities.accounts.bank": AccountBalance,
@@ -381,3 +390,5 @@ export default function IconByName({
 
     return <Circle {...iconProps} sx={iconStyle} fontSize={fontSize} />;
 }
+
+export type CoveIcon = keyof typeof iconComponentMap;

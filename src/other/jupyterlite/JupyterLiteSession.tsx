@@ -35,7 +35,7 @@ class JupyterLiteSession extends React.Component<JupyterLiteSessionProps> {
     componentDidMount() {
         const { originURL, iframeId, messageHandlerConfigs } = this.props;
         this.messageHandler.init(originURL, iframeId);
-        messageHandlerConfigs?.forEach((config: any) => {
+        messageHandlerConfigs?.forEach((config) => {
             this.messageHandler.addHandlers(config.action, config.handlers);
         });
     }

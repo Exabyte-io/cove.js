@@ -1,13 +1,8 @@
-declare const icons: () => {
+import { ComponentsVariants } from "@mui/material/styles";
+type IconsResult = {
     MuiSvgIcon: {
-        variants: {
-            props: {
-                fontSize: string;
-            };
-            style: {
-                fontSize: string;
-            };
-        }[];
+        variants: ComponentsVariants["MuiSvgIcon"];
     };
 };
+declare const icons: () => IconsResult;
 export default icons;

@@ -1,4 +1,10 @@
 import { Theme } from "@mui/material/styles";
+declare module "@mui/material/SvgIcon" {
+    interface SvgIconPropsSizeOverrides {
+        xLarge: true;
+        xxLarge: true;
+    }
+}
 declare const commonSettings: {
     dropdownPopperZindex: number;
     iconDefaultFontSize: number;

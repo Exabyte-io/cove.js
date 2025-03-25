@@ -5,6 +5,13 @@ import { paletteDark, paletteLight } from "./palette";
 import shadows from "./shadows";
 import { MDTypography, typography } from "./typography";
 
+declare module "@mui/material/SvgIcon" {
+    interface SvgIconPropsSizeOverrides {
+        xLarge: true;
+        xxLarge: true;
+    }
+}
+
 const commonSettings = {
     dropdownPopperZindex: 2147483647,
     iconDefaultFontSize: 20,

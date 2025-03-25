@@ -55,7 +55,7 @@ const inputs = (commonSettings) => {
     return {
         MuiInputBase: {
             styleOverrides: {
-                root: ({ ownerState }) => ({
+                root: () => ({
                     minWidth: commonSettings.inputMinWidth,
                 }),
             },
@@ -169,7 +169,7 @@ const inputs = (commonSettings) => {
         },
         MuiSelect: {
             styleOverrides: {
-                root: ({ ownerState }) => {
+                root: () => {
                     return {
                         "& .MuiSelect-select": {
                             paddingTop: inputSizes.medium.outlined.paddingTop,
