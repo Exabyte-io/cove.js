@@ -1,4 +1,12 @@
-const icons = () => ({
+import { ComponentsVariants } from "@mui/material/styles";
+
+type IconsResult = {
+    MuiSvgIcon: {
+        variants: ComponentsVariants["MuiSvgIcon"];
+    };
+};
+
+const icons = (): IconsResult => ({
     MuiSvgIcon: {
         variants: [
             {
@@ -17,6 +25,19 @@ const icons = () => ({
                 props: { fontSize: "large" },
                 style: {
                     fontSize: "2.1875rem",
+                },
+            },
+            // Adding the new extraLarge variant
+            {
+                props: { fontSize: "xLarge" },
+                style: {
+                    fontSize: "3rem",
+                },
+            },
+            {
+                props: { fontSize: "xxLarge" },
+                style: {
+                    fontSize: "3.5rem",
                 },
             },
         ],
