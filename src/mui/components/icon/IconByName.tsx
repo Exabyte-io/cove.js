@@ -173,6 +173,7 @@ const iconComponentMap: Record<string, typeof SvgIcon | ReturnType<typeof rotate
     ViewTimeline,
     SharedExternally,
     Grain,
+    Lan,
     AccountBalance,
     Language,
     UploadFile,

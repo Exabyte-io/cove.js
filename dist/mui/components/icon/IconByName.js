@@ -162,6 +162,7 @@ const iconComponentMap = {
     ViewTimeline,
     SharedExternally,
     Grain,
+    Lan,
     AccountBalance,
     Language,
     UploadFile,
