@@ -375,6 +375,16 @@ const iconComponentMap: Record<string, typeof SvgIcon | ReturnType<typeof rotate
     empty: Icon,
 };
 
+/**
+ * Extend the iconComponentMap with additional icons
+ * @param additionalIcons - Object mapping icon names to icon components
+ */
+export function extendIconMap(
+    additionalIcons: Record<string, typeof SvgIcon | ReturnType<typeof rotateIcon>>,
+) {
+    Object.assign(iconComponentMap, additionalIcons);
+}
+
 export default function IconByName({
     name = "shapes.circle",
     rotateDegrees = 0,
