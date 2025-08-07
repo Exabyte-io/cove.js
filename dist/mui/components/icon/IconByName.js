@@ -358,6 +358,13 @@ const iconComponentMap = {
     // @ts-ignore
     empty: Icon,
 };
+/**
+ * Extend the iconComponentMap with additional icons
+ * @param additionalIcons - Object mapping icon names to icon components
+ */
+export function extendIconMap(additionalIcons) {
+    Object.assign(iconComponentMap, additionalIcons);
+}
 export default function IconByName({ name = "shapes.circle", rotateDegrees = 0, fontSize = "medium", sx = {}, ...iconProps }) {
     const IconComponent = iconComponentMap[name];
     const iconStyle = { transform: "", ...sx };
