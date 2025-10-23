@@ -17,7 +17,7 @@ import { DropdownItem } from "./DropdownItem";
  */
 export default function Dropdown({ id, actions, buttonContent, popperProps = {
     id: "popper",
-}, children = null, disabled = false, paperPlacement = "bottom-start", className = "", buttonProps, }) {
+}, children = null, disabled = false, paperPlacement = "bottom-start", className = "", buttonProps, ...otherProps }) {
     var _a;
     const containerRef = useRef(null);
     const [opened, setOpened] = useState(false);
@@ -43,7 +43,7 @@ export default function Dropdown({ id, actions, buttonContent, popperProps = {
             setOpened(false);
         }
     }, []);
-    return (React.createElement(Box, { className: className, id: id, sx: { width: isMobile ? "100%" : undefined } },
+    return (React.createElement(Box, { className: className, id: id, ...otherProps, sx: { width: isMobile ? "100%" : undefined, ...otherProps.sx } },
         React.createElement("div", { ref: containerRef, onClick: onClick }, children || (React.createElement(DefaultDropdownButton, { fullWidth: isMobile, disabled: disabled, ...buttonProps }, buttonContent ||
             ((_a = (actions.find(({ isSelected }) => isSelected) || actions[0])) === null || _a === void 0 ? void 0 : _a.content)))),
         React.createElement(Popper
