@@ -1,4 +1,4 @@
-import { MenuItemProps } from "@mui/material";
+import { BoxProps, MenuItemProps } from "@mui/material";
 import { PopperPlacementType, PopperProps } from "@mui/material/Popper";
 import React from "react";
 import { DefaultDropdownButtonProps } from "./DefaultDropdownButton";
@@ -28,7 +28,7 @@ export interface DropdownAction {
      */
     menuItemProps?: MenuItemProps & HTMLAttributes;
 }
-export interface DropdownProps {
+export type DropdownProps = {
     id?: string;
     popperProps?: {
         id: string;
@@ -42,11 +42,11 @@ export interface DropdownProps {
     className?: string;
     disabled?: boolean;
     buttonProps?: Partial<DefaultDropdownButtonProps>;
-}
+} & BoxProps;
 /**
  *  MUI dropdown component have a default button with dropdown also could be used with
  * custom button which takes from children, actions array -> array which will be converted
  * to dropdown menu items.
  */
-export default function Dropdown({ id, actions, buttonContent, popperProps, children, disabled, paperPlacement, className, buttonProps, }: DropdownProps): React.JSX.Element;
+export default function Dropdown({ id, actions, buttonContent, popperProps, children, disabled, paperPlacement, className, buttonProps, ...otherProps }: DropdownProps): React.JSX.Element;
 export {};

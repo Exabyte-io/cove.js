@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable react/jsx-props-no-spreading */
-import { MenuItemProps } from "@mui/material";
+import { BoxProps, MenuItemProps } from "@mui/material";
 import Box from "@mui/material/Box";
 import ClickAwayListener from "@mui/material/ClickAwayListener";
 import Divider from "@mui/material/Divider";
@@ -43,7 +43,7 @@ export interface DropdownAction {
     menuItemProps?: MenuItemProps & HTMLAttributes;
 }
 
-export interface DropdownProps {
+export type DropdownProps = {
     id?: string;
     popperProps?: {
         id: string;
@@ -57,7 +57,7 @@ export interface DropdownProps {
     className?: string;
     disabled?: boolean;
     buttonProps?: Partial<DefaultDropdownButtonProps>;
-}
+} & BoxProps;
 
 /**
  *  MUI dropdown component have a default button with dropdown also could be used with
@@ -76,6 +76,7 @@ export default function Dropdown({
     paperPlacement = "bottom-start",
     className = "",
     buttonProps,
+    ...otherProps
 }: DropdownProps) {
     const containerRef = useRef<HTMLDivElement>(null);
     const [opened, setOpened] = useState(false);
@@ -112,7 +113,11 @@ export default function Dropdown({
     }, []);
 
     return (
-        <Box className={className} id={id} sx={{ width: isMobile ? "100%" : undefined }}>
+        <Box
+            className={className}
+            id={id}
+            {...otherProps}
+            sx={{ width: isMobile ? "100%" : undefined, ...otherProps.sx }}>
             <div ref={containerRef} onClick={onClick}>
                 {children || (
                     <DefaultDropdownButton
