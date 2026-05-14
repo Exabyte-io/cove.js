@@ -42,15 +42,15 @@
     },
     "dependencies": {
         "@babel/eslint-parser": "^7.26.5",
-        "@codemirror/autocomplete": "6.18.4",
-        "@codemirror/lang-javascript": "6.2.2",
-        "@codemirror/lang-json": "6.0.1",
+        "@codemirror/autocomplete": "^6.18.4",
+        "@codemirror/lang-javascript": "^6.2.2",
+        "@codemirror/lang-json": "^6.0.1",
         "@codemirror/lang-python": "6.1.6",
-        "@codemirror/language": "6.10.8",
-        "@codemirror/legacy-modes": "6.4.2",
-        "@codemirror/lint": "6.8.4",
-        "@codemirror/state": "6.5.1",
-        "@codemirror/view": "~6.36.0",
+        "@codemirror/language": "^6.10.8",
+        "@codemirror/legacy-modes": "^6.4.2",
+        "@codemirror/lint": "^6.8.4",
+        "@codemirror/state": "^6.5.1",
+        "@codemirror/view": "^6.36.2",
         "@mui/x-date-pickers": "6.11.1",
         "@rjsf/core": "^5.24.13",
         "@rjsf/mui": "^5.24.13",
@@ -64,7 +64,7 @@
         "@types/prismjs": "^1.26.5",
         "@types/react-beautiful-dnd": "^13.1.8",
         "@types/underscore.string": "0.0.41",
-        "@uiw/react-codemirror": "4.23.7",
+        "@uiw/react-codemirror": "^4.23.7",
         "jszip": "^3.10.1",
         "jszip-utils": "0.1.0",
         "katex": "^0.16.21",
@@ -118,9 +118,6 @@
         "react-dom": "^17.0.2",
         "react-json-view": "^1.21.3",
         "underscore": "^1.13.7"
-    },
-    "overrides": {
-        "@codemirror/view": "~6.36.0"
     },
     "engines": {
         "node": ">=14.0.0"
